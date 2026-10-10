@@ -100,7 +100,7 @@ const SUPABASE_URL="https://qfkjrlpkykkizrmzlixp.supabase.co";
 const SUPABASE_KEY="sb_publishable_tBGclmheOxP-q6MVKz1SJQ_Mc3PDRnG";
 const IDENTITY_KEY="quenquen_corp_identity_v2";
 const $r=id=>document.getElementById(id);
-const headers={apikey:SUPABASE_KEY,Authorization:"Bearer "+SUPABASE_KEY};
+const headers={apikey:SUPABASE_KEY}; // La clé publishable n’est pas un JWT Bearer
 const safe=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function identity(){try{return JSON.parse(localStorage.getItem(IDENTITY_KEY)||"null")}catch(e){return null}}
 function universeNumber(v){const n=parseInt(String(v||"").replace(/\D/g,""),10);return Number.isInteger(n)&&n>=1&&n<=150?n:null}
