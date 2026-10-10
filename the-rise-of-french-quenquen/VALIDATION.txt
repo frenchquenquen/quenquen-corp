@@ -1,0 +1,10 @@
+source_bytes: 65952293
+index_bytes: 267016
+data_uri_occurrences: 56
+unique_assets: 46
+remaining_data_uris: 0
+missing_asset_refs: []
+assets_total_bytes: 43569956
+largest_asset: ca297055574fb0a2.mp3
+largest_asset_bytes: 9045981
+homepage_title_changed: True

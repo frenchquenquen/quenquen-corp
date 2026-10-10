@@ -1,0 +1,45 @@
+{
+  "project": "FrenchQuenQuen Card Collector",
+  "manifest_version": 1,
+  "status": "online",
+  "archives": [
+    {
+      "id": 11,
+      "title": "ARCHIVE #11",
+      "enabled": true,
+      "trigger": {
+        "type": "favorites",
+        "cards": [
+          21
+        ]
+      },
+      "video": ""
+    },
+    {
+      "id": 6,
+      "title": "ARCHIVE #6",
+      "enabled": true,
+      "trigger": {
+        "type": "favorites",
+        "cards": [
+          21,
+          31
+        ]
+      },
+      "video": ""
+    },
+    {
+      "id": 0,
+      "title": "ARCHIVE #0",
+      "enabled": true,
+      "trigger": {
+        "type": "favorites",
+        "cards": [
+          10,
+          22
+        ]
+      },
+      "video": ""
+    }
+  ]
+}

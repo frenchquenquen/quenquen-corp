@@ -1,0 +1,8 @@
+QUENQUEN CORP V0.3 — PREPARATION LOCALE
+
+Accueil, Card Collector et The Rise inclus localement, avec leurs medias.
+Identite membre partagee entre les pages du meme domaine.
+Wiki: contenu affiche dans une iframe vers le site historique; cela exige une connexion et depend de l'autorisation d'affichage du site source. Ce n'est PAS encore une migration complete du Wiki.
+Les 3 anciens depots restent intacts.
+GitHub Pages du nouveau depot n'est pas encore publie.
+Ouvrir index.html via un petit serveur HTTP local pour un test fiable.
