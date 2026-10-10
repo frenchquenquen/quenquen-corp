@@ -493,11 +493,30 @@ music.play().then(updateMusic).catch(()=>{updateMusic();const starter=()=>{music
 
 const ownerName=document.getElementById("ownerName");
 const ownerKey="quenquen_album_owner_v1";
+const corpIdentityKey="quenquen_corp_identity_v2";
+function corpPseudo(){
+  try{
+    const member=JSON.parse(localStorage.getItem(corpIdentityKey)||"null");
+    return member&&member.pseudo?String(member.pseudo).trim().slice(0,28):"";
+  }catch(e){return ""}
+}
 function loadOwner(){
+  const corp=corpPseudo();
+  if(corp){
+    localStorage.setItem(ownerKey,corp);
+    ownerName.textContent=corp;
+    ownerName.title="Nom synchronisé avec votre carte de membre QUENQUEN CORP";
+    return;
+  }
   const saved=localStorage.getItem(ownerKey);
   ownerName.textContent=saved?saved:"ÉCRIRE MON PSEUDO";
 }
 function editOwner(){
+  const corp=corpPseudo();
+  if(corp){
+    alert("Le propriétaire de cet album est lié à votre carte de membre QUENQUEN CORP. Modifiez votre pseudo depuis le portail QUENQUEN CORP.");
+    return;
+  }
   const current=localStorage.getItem(ownerKey)||"";
   const value=prompt("Quel pseudo veux-tu écrire sur ton album ?",current);
   if(value===null)return;
@@ -512,6 +531,7 @@ function editOwner(){
 }
 ownerName.addEventListener("click",editOwner);
 loadOwner();
+window.addEventListener("storage",e=>{if(e.key===corpIdentityKey)loadOwner()});
 
 
 // --- Collectionneur depuis ---
