@@ -4258,3 +4258,69 @@ window.qcAndromedaBoss=(function(){
   object-fit:contain!important;
 }
 </style>
+
+<style id="qcImmersiveV18ControlsScale">
+/* Interface basse plus présente, sans le statut CORP // ONLINE. */
+.corpConnection{display:none!important}
+
+#qcImmersiveHub{
+  left:18px!important;
+  bottom:15px!important;
+  padding:13px 20px!important;
+  min-height:42px!important;
+  display:flex!important;
+  align-items:center!important;
+  border:1px solid #8f7900!important;
+  border-radius:999px!important;
+  background:#080704f2!important;
+  color:#ffd400!important;
+  font:800 12px Arial,sans-serif!important;
+  letter-spacing:1.5px!important;
+  opacity:.96!important;
+  box-shadow:0 8px 28px #000b!important;
+}
+
+.tabs{
+  bottom:12px!important;
+  padding:8px 10px!important;
+  gap:5px!important;
+  min-height:44px!important;
+  border-color:#8f790088!important;
+  box-shadow:0 10px 34px #000c!important;
+}
+.tab,.musicbtn{
+  padding:9px 12px!important;
+  font-size:11px!important;
+  letter-spacing:.25px!important;
+  opacity:.78!important;
+}
+.credit{
+  font-size:10px!important;
+  padding:0 11px!important;
+  opacity:.82!important;
+}
+
+.qcImmersiveArrow{
+  width:54px!important;
+  height:88px!important;
+  font-size:31px!important;
+  opacity:.62!important;
+  border-color:#8f790088!important;
+}
+#qcImmersivePrev{left:10px!important}
+#qcImmersiveNext{right:10px!important}
+
+#qcImmersiveCount{
+  right:20px!important;
+  bottom:24px!important;
+  font-size:12px!important;
+  letter-spacing:2.4px!important;
+  opacity:.82!important;
+}
+@media(max-width:900px){
+  #qcImmersiveHub{padding:10px 13px!important;font-size:10px!important}
+  .tabs{max-width:calc(100vw - 16px)!important}
+  .tab,.musicbtn{padding:8px 9px!important;font-size:10px!important}
+  .qcImmersiveArrow{width:44px!important;height:72px!important;font-size:27px!important}
+}
+</style>
