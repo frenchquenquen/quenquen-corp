@@ -544,7 +544,7 @@ body{overflow:auto!important}
 <div class="ownerCard">
   <div class="ownerLabel">Cet album appartient à...</div>
   <button id="ownerName" class="ownerName" type="button">ÉCRIRE MON PSEUDO</button>
-  <div class="ownerHint">clique sur le nom pour le modifier</div><div id="collectorSince" class="collectorSince"></div><button id="andromedaSecret" class="andromedaSecret" title="Andromeda" aria-label="Activer Andromeda">
+  <div class="ownerHint">identité liée à votre carte QUENQUEN CORP</div><div id="collectorSince" class="collectorSince"></div><button id="andromedaSecret" class="andromedaSecret" title="Andromeda" aria-label="Activer Andromeda">
   <span class="androWatch" aria-hidden="true">
     <span class="androBrand">ANDROMEDA</span>
     <span class="androScreen">00:00</span>
@@ -787,20 +787,7 @@ function loadOwner(){
   const saved=localStorage.getItem(ownerKey);
   ownerName.textContent=saved?saved:"ÉCRIRE MON PSEUDO";
 }
-function editOwner(){
-  const current=localStorage.getItem(ownerKey)||"";
-  const value=prompt("Quel pseudo veux-tu écrire sur ton album ?",current);
-  if(value===null)return;
-  const clean=value.trim().slice(0,28);
-  if(clean){
-    localStorage.setItem(ownerKey,clean);
-    ownerName.textContent=clean;
-  }else{
-    localStorage.removeItem(ownerKey);
-    ownerName.textContent="ÉCRIRE MON PSEUDO";
-  }
-}
-ownerName.addEventListener("click",editOwner);
+function editOwner(){ return; }
 loadOwner();
 
 
@@ -4342,4 +4329,9 @@ window.qcAndromedaBoss=(function(){
   .home{height:auto!important}
   .page.active>img{max-height:none!important}
 }
+</style>
+
+<style id="qcOwnerLockedV20">
+#ownerName{cursor:default!important;pointer-events:none!important}
+#ownerName:hover{background:transparent!important}
 </style>
