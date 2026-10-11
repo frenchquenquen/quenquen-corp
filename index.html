@@ -35,10 +35,547 @@ main{width:min(1180px,92%);margin:auto;padding:45px 0 70px}.hero{text-align:cent
 
 /* V0.5 — REGISTRE CENTRAL QUENQUEN CORP */
 .registry{margin:38px auto 8px;max-width:1180px;border:1px solid #f2c52d55;background:#090b0fcc;box-shadow:0 18px 60px #0008;padding:22px;position:relative;overflow:hidden}.registry-head{display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap}.registry-kicker{font-size:10px;letter-spacing:2px;color:#8f96a3}.registry-count{font-size:clamp(28px,5vw,54px);font-weight:900;color:#f2c52d;line-height:1}.registry-count small{font-size:12px;color:#c8ccd4;letter-spacing:2px}.registry-actions{display:flex;gap:10px;flex-wrap:wrap}.registry button{border:1px solid #f2c52d88;background:#f2c52d;color:#08090c;font-weight:900;padding:11px 14px;cursor:pointer}.registry button.secondary{background:transparent;color:#f2c52d}.registry-note{margin-top:12px;color:#858b96;font-size:11px;line-height:1.5}.registry-status{margin-top:10px;font-size:11px;color:#c8ccd4}.registry-list{display:none;margin-top:18px;border-top:1px solid #ffffff14;padding-top:12px;max-height:360px;overflow:auto}.registry-list.open{display:block}.agent-row{display:grid;grid-template-columns:1.1fr .9fr 1.4fr .65fr;gap:12px;padding:11px 6px;border-bottom:1px solid #ffffff10;align-items:center}.agent-name{font-weight:900;color:#fff}.agent-id{font-family:monospace;color:#f2c52d;font-size:11px}.agent-meta{color:#aeb4bf;font-size:11px}.agent-rank{text-align:right;font-size:10px;letter-spacing:1px}@media(max-width:720px){.agent-row{grid-template-columns:1fr 1fr}.agent-meta{grid-column:1/-1}.agent-rank{text-align:left}}
+
+/* V1.1 — identité réellement recentrée + carte plus vive */
+.member.active{
+  max-width:900px;margin:28px auto 42px;padding:16px 18px;
+  grid-template-columns:255px minmax(260px,1fr) 220px;
+  gap:20px;align-items:center;
+  border-color:#f2c52d66;
+  box-shadow:0 18px 55px #0008,0 0 26px #f2c52d0a;
+}
+.member.active .membercard{
+  width:250px;height:156px;padding:15px;
+  filter:saturate(1.32) contrast(1.14) brightness(1.08)
+         drop-shadow(0 12px 18px #000c)
+         drop-shadow(0 0 10px color-mix(in srgb,var(--accent) 50%,transparent));
+  transform:translateY(-1px);
+}
+.member.active .membercard:before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:3;
+  background:linear-gradient(115deg,transparent 18%,rgba(255,255,255,.13) 39%,transparent 54%);
+  mix-blend-mode:screen;
+}
+.member.active .who{text-align:center;min-width:0}
+.member.active .who b{
+  display:block;text-align:center;font-size:20px;line-height:1.1;
+  letter-spacing:2.8px;color:#fff;text-shadow:0 0 16px #ffffff1f;
+}
+.member.active .who-title{
+  margin-top:7px;text-align:center;
+  color:var(--gold);font:800 10px/1.25 Arial,sans-serif;
+  letter-spacing:1.7px;
+}
+.member.active .who small{
+  display:block;margin-top:8px;text-align:center;
+  color:#666e79;font:7px/1.5 monospace;letter-spacing:.45px;
+}
+.member.active #identityBtn{
+  width:220px;padding:13px 12px;border-radius:9px;
+  background:#252a32;color:#eee;
+}
+.member.active #identityBtn:hover{background:var(--gold);color:#090909}
+@media(max-width:850px){
+ .member.active{grid-template-columns:1fr;max-width:620px}
+ .member.active .membercard{justify-self:center}
+ .member.active #identityBtn{justify-self:center}
+}
+
+
+/* V1.3.2 — portrait CORP, carte V11 conservée */
+.membercard .mc-portrait,.creator-card .mc-portrait{
+ position:absolute;right:12px;top:30px;width:48px;height:48px;overflow:hidden;z-index:5;
+ background:#080a0d;border:1px solid var(--accent,#f2c52d);
+ box-shadow:0 0 10px color-mix(in srgb,var(--accent,#f2c52d) 30%,transparent);
+}
+.membercard .mc-portrait svg,.creator-card .mc-portrait svg{display:block;width:100%;height:100%}
+.membercard .mc-emblem,.creator-card .mc-emblem{opacity:.16}
+.membercard .mc-name,.membercard .mc-role,.creator-card .mc-name,.creator-card .mc-role{max-width:70%}
+
+
+/* V1.4 — CARTE PREMIUM + STUDIO PORTRAIT */
+.membercard{cursor:zoom-in}
+.member.active .membercard{
+ border:1px solid color-mix(in srgb,var(--accent,#f2c52d) 75%,#fff 10%);
+ background-color:#090b0f;
+ filter:saturate(1.18) contrast(1.08);
+}
+.membercard:after,.creator-card:after{
+ content:"";position:absolute;inset:0;pointer-events:none;z-index:2;
+ background:
+   linear-gradient(115deg,transparent 0 33%,rgba(255,255,255,.10) 42%,transparent 51%),
+   radial-gradient(circle at 80% 18%,color-mix(in srgb,var(--accent,#f2c52d) 14%,transparent),transparent 30%);
+ mix-blend-mode:screen;
+}
+.membercard .mc-top,.creator-card .mc-top{letter-spacing:2.4px}
+.membercard .mc-portrait,.creator-card .mc-portrait{
+ width:54px;height:58px;right:11px;top:29px;border:1px solid color-mix(in srgb,var(--accent,#f2c52d) 75%,#fff 12%);
+ box-shadow:0 0 0 2px #050608,0 0 16px color-mix(in srgb,var(--accent,#f2c52d) 32%,transparent);
+ clip-path:polygon(7% 0,100% 0,100% 93%,93% 100%,0 100%,0 7%);
+}
+.membercard .mc-portrait:after,.creator-card .mc-portrait:after{
+ content:"";position:absolute;inset:0;border-top:1px solid #ffffff26;pointer-events:none
+}
+.membercard .mc-name,.creator-card .mc-name{text-shadow:0 2px 7px #000}
+.membercard .mc-role,.creator-card .mc-role{font-weight:700}
+.card-zoom{display:none;position:fixed;inset:0;z-index:1000;background:#000d;backdrop-filter:blur(8px);place-items:center;padding:30px;cursor:zoom-out}
+.card-zoom.show{display:grid}
+.card-zoom-stage{text-align:center;perspective:1200px}
+.card-zoom-copy{display:inline-block;transform:scale(2.15);transform-origin:center;filter:drop-shadow(0 28px 40px #000)}
+.card-zoom-copy .membercard{cursor:default}
+.card-zoom-close{position:fixed;right:24px;top:18px;width:42px;height:42px;border:1px solid #f2c52d77;background:#0c0f14;color:#f2c52d;font-size:28px;border-radius:50%;cursor:pointer;z-index:2}
+.card-zoom-hint{margin-top:125px;font:8px monospace;letter-spacing:2px;color:#777f8a}
+@media(max-width:700px){.card-zoom-copy{transform:scale(1.35)}.card-zoom-hint{margin-top:65px}}
+
+
+/* V14.1 — nom complet + titre réellement centré */
+.membercard .mc-name,.creator-card .mc-name{
+ left:14px!important;
+ right:78px!important;          /* réserve la zone portrait */
+ width:auto!important;
+ max-width:none!important;
+ white-space:nowrap!important;
+ overflow:hidden!important;
+ text-overflow:ellipsis!important;
+ font-size:clamp(14px,1.55vw,18px)!important;
+ letter-spacing:1.15px!important;
+}
+.membercard .mc-role,.creator-card .mc-role{
+ left:14px!important;
+ right:14px!important;
+ width:auto!important;
+ max-width:none!important;
+ text-align:center!important;
+ white-space:nowrap!important;
+ overflow:hidden!important;
+ text-overflow:ellipsis!important;
+}
+
+/* Dans le zoom, on profite de toute la largeur disponible sous le portrait. */
+.card-zoom-copy .membercard .mc-name{
+ font-size:17px!important;
+ letter-spacing:1px!important;
+}
+.card-zoom-copy .membercard .mc-role{
+ text-align:center!important;
+}
+
+
+/* V14.2 — nom plus élégant, moins massif */
+.membercard .mc-name,.creator-card .mc-name{
+ font-size:13px!important;
+ letter-spacing:1.65px!important;
+ line-height:1.15!important;
+ font-weight:800!important;
+}
+.card-zoom-copy .membercard .mc-name{
+ font-size:13px!important;
+ letter-spacing:1.65px!important;
+}
+
+
+/* V14.3 — NOM CENTRÉ COMPLET + PHOTO EN HAUT À DROITE */
+.membercard .mc-portrait,
+.creator-card .mc-portrait{
+  top:28px!important;
+  right:12px!important;
+  left:auto!important;
+}
+
+/* Nom centré sur TOUTE la carte, sans ellipsis. */
+.membercard .mc-name,
+.creator-card .mc-name{
+  left:10px!important;
+  right:10px!important;
+  width:auto!important;
+  max-width:none!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  font-size:10px!important;
+  line-height:1.1!important;
+  letter-spacing:1px!important;
+  font-weight:800!important;
+}
+
+/* Le titre reste centré sous le nom. */
+.membercard .mc-role,
+.creator-card .mc-role{
+  left:10px!important;
+  right:10px!important;
+  width:auto!important;
+  max-width:none!important;
+  text-align:center!important;
+}
+
+/* Le zoom ne grossit pas artificiellement la typo du nom. */
+.card-zoom-copy .membercard .mc-name{
+  left:10px!important;
+  right:10px!important;
+  width:auto!important;
+  max-width:none!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  font-size:10px!important;
+  letter-spacing:1px!important;
+}
+
+
+/* V14.4 — éditeur de carte beaucoup plus lisible */
+.creator{
+  width:min(1180px,96vw)!important;
+  max-width:1180px!important;
+}
+.creator-body{
+  gap:26px!important;
+}
+
+/* Aperçu principal nettement agrandi pendant la personnalisation */
+.creator-card{
+  width:390px!important;
+  height:244px!important;
+  transform:none!important;
+  flex:0 0 390px!important;
+}
+.creator-card .mc-top{
+  font-size:12px!important;
+  left:20px!important;
+  right:20px!important;
+  top:18px!important;
+}
+.creator-card .mc-portrait{
+  width:82px!important;
+  height:88px!important;
+  top:43px!important;
+  right:18px!important;
+}
+.creator-card .mc-name{
+  left:16px!important;
+  right:16px!important;
+  bottom:64px!important;
+  font-size:15px!important;
+  letter-spacing:1.4px!important;
+}
+.creator-card .mc-role{
+  left:16px!important;
+  right:16px!important;
+  bottom:42px!important;
+  font-size:10px!important;
+}
+.creator-card .mc-bottom{
+  left:18px!important;
+  bottom:18px!important;
+  font-size:9px!important;
+}
+.creator-card .mc-id{
+  right:18px!important;
+  bottom:18px!important;
+  font-size:9px!important;
+}
+
+/* Plus de place pour les réglages eux-mêmes */
+.creator-form{
+  min-width:0!important;
+  flex:1 1 560px!important;
+}
+.creator-form label{
+  min-width:150px!important;
+}
+.creator-form select,
+.creator-form input{
+  min-height:38px!important;
+  font-size:11px!important;
+}
+
+@media(max-width:900px){
+  .creator-card{
+    width:340px!important;
+    height:213px!important;
+    flex-basis:340px!important;
+  }
+}
+
+
+/* V14.5 — éditeur XL */
+.creator{
+  width:min(1380px,98vw)!important;
+  max-width:1380px!important;
+}
+.creator-body{
+  gap:34px!important;
+  padding:28px!important;
+}
+.creator-card{
+  width:500px!important;
+  height:313px!important;
+  flex:0 0 500px!important;
+}
+.creator-card .mc-top{
+  top:23px!important;left:25px!important;right:25px!important;
+  font-size:15px!important;
+}
+.creator-card .mc-portrait{
+  width:104px!important;height:112px!important;
+  top:54px!important;right:23px!important;
+}
+.creator-card .mc-name{
+  left:20px!important;right:20px!important;
+  bottom:82px!important;
+  font-size:19px!important;
+  letter-spacing:1.6px!important;
+}
+.creator-card .mc-role{
+  left:20px!important;right:20px!important;
+  bottom:54px!important;
+  font-size:12px!important;
+}
+.creator-card .mc-bottom{
+  left:23px!important;bottom:22px!important;
+  font-size:11px!important;
+}
+.creator-card .mc-id{
+  right:23px!important;bottom:22px!important;
+  font-size:11px!important;
+}
+.creator-form select,.creator-form input{
+  min-height:42px!important;
+  font-size:12px!important;
+}
+@media(max-width:1050px){
+ .creator-card{width:420px!important;height:263px!important;flex-basis:420px!important}
+}
+
+
+/* V15.3 — relief premium SANS toucher au placement de la carte */
+.membercard,.creator-card{
+  border-color:color-mix(in srgb,var(--accent,#f2c52d) 78%,#ffffff 12%)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.22),
+    inset 0 -2px 0 rgba(0,0,0,.32),
+    0 12px 24px rgba(0,0,0,.42)!important;
+}
+
+/* Liseré intérieur : suit visuellement la carte sans créer de halo externe */
+.membercard:before,.creator-card:before{
+  content:""!important;
+  position:absolute!important;
+  inset:2px!important;
+  z-index:1!important;
+  pointer-events:none!important;
+  border:1px solid color-mix(in srgb,var(--accent,#f2c52d) 48%,transparent)!important;
+  border-radius:inherit!important;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.12),transparent 23%,transparent 72%,rgba(0,0,0,.18))!important;
+  opacity:.8!important;
+}
+
+/* Reflet léger uniquement à l'intérieur */
+.membercard:after,.creator-card:after{
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:2!important;
+  pointer-events:none!important;
+  border-radius:inherit!important;
+  background:
+    linear-gradient(112deg,transparent 17%,rgba(255,255,255,.10) 37%,transparent 53%),
+    radial-gradient(circle at 80% 15%,rgba(255,255,255,.08),transparent 28%)!important;
+  opacity:.55!important;
+  mix-blend-mode:screen!important;
+}
+
+/* Garantit que les infos restent au-dessus des effets */
+.membercard > *,.creator-card > *{z-index:4}
+
+
+/* V15.4 — finitions fonctionnelles, géométrie V14.7 intacte */
+.membercard[data-finish-material="gold"],.creator-card[data-finish-material="gold"]{
+ border-color:#e6bd42!important;
+ box-shadow:inset 0 1px 0 #fff3a680,inset 0 -2px 0 #6d470070,0 12px 24px #0007!important;
+}
+.membercard[data-finish-material="gold"]:after,.creator-card[data-finish-material="gold"]:after{
+ background:linear-gradient(115deg,transparent 15%,#fff2aa35 35%,#eabf4926 43%,transparent 56%)!important;opacity:.8!important;
+}
+.membercard[data-finish-material="metal"],.creator-card[data-finish-material="metal"]{
+ border-color:#aebbc8!important;
+ box-shadow:inset 0 1px 0 #ffffff8a,inset 0 -2px 0 #24303b80,0 12px 24px #0007!important;
+}
+.membercard[data-finish-material="metal"]:after,.creator-card[data-finish-material="metal"]:after{
+ background:repeating-linear-gradient(100deg,transparent 0 5px,#e7f1fa12 6px,transparent 8px),linear-gradient(120deg,transparent 18%,#fff3 40%,transparent 55%)!important;opacity:.72!important;
+}
+.membercard[data-finish-material="diamond"],.creator-card[data-finish-material="diamond"]{
+ border-color:#d8f8ff!important;
+ box-shadow:inset 0 0 0 1px #bff7ff30,inset 0 1px 0 #fff,0 0 12px #9beeff25,0 12px 24px #0007!important;
+}
+.membercard[data-finish-material="diamond"]:after,.creator-card[data-finish-material="diamond"]:after{
+ background:linear-gradient(35deg,transparent 35%,#c8f8ff25 36% 38%,transparent 39%),linear-gradient(145deg,transparent 57%,#fff4 58% 60%,transparent 61%),linear-gradient(112deg,transparent 20%,#fff7 40%,#a6ecff35 45%,transparent 53%)!important;background-size:70px 70px,92px 92px,100% 100%!important;opacity:.78!important;
+}
+.membercard[data-finish-material="carbon"],.creator-card[data-finish-material="carbon"]{
+ border-color:#59626d!important;
+ box-shadow:inset 0 1px 0 #ffffff24,inset 0 -2px 0 #0009,0 12px 24px #0008!important;
+}
+.membercard[data-finish-material="carbon"]:after,.creator-card[data-finish-material="carbon"]:after{
+ background:linear-gradient(45deg,#fff1 25%,transparent 25% 75%,#fff1 75%),linear-gradient(-45deg,#fff08 25%,transparent 25% 75%,#fff08 75%)!important;background-size:10px 10px!important;opacity:.55!important;
+}
+.membercard[data-finish-material="holo"],.creator-card[data-finish-material="holo"]{
+ border-color:#ddd8ff!important;
+ box-shadow:inset 0 1px 0 #fff8,0 0 12px #b8c9ff22,0 12px 24px #0007!important;
+}
+.membercard[data-finish-material="holo"]:after,.creator-card[data-finish-material="holo"]:after{
+ background:linear-gradient(115deg,transparent 5%,#ff6fa825 23%,#ffe66b28 35%,#67f5cf28 48%,#69a8ff2b 62%,#b875ff25 76%,transparent 92%)!important;opacity:.88!important;
+}
+
+/* Les 5 niveaux augmentent seulement l'intensité, jamais la géométrie. */
+.membercard[data-finish-level="1"]:after,.creator-card[data-finish-level="1"]:after{opacity:.34!important}
+.membercard[data-finish-level="2"]:after,.creator-card[data-finish-level="2"]:after{opacity:.48!important}
+.membercard[data-finish-level="3"]:after,.creator-card[data-finish-level="3"]:after{opacity:.62!important}
+.membercard[data-finish-level="4"]:after,.creator-card[data-finish-level="4"]:after{opacity:.76!important}
+.membercard[data-finish-level="5"]:after,.creator-card[data-finish-level="5"]:after{opacity:.9!important}
+
+
+/* V16 — 5 modèles premium conçus comme de vraies cartes */
+.membercard[data-card-model],.creator-card[data-card-model]{
+  overflow:hidden!important;
+}
+
+/* 1 — Classique premium : sobre, bancaire / badge officiel */
+.membercard[data-card-model="1"],.creator-card[data-card-model="1"]{
+  clip-path:inset(0 round 16px)!important;
+  border-radius:16px!important;
+}
+.membercard[data-card-model="1"]:before,.creator-card[data-card-model="1"]:before{
+  inset:4px!important;border-radius:12px!important;
+  border:1px solid color-mix(in srgb,var(--accent) 38%,transparent)!important;
+}
+
+/* 2 — Badge tactique : coins coupés francs */
+.membercard[data-card-model="2"],.creator-card[data-card-model="2"]{
+  clip-path:polygon(7% 0,93% 0,100% 14%,100% 86%,93% 100%,7% 100%,0 86%,0 14%)!important;
+  border-radius:0!important;
+}
+.membercard[data-card-model="2"]:before,.creator-card[data-card-model="2"]:before{
+  inset:5px!important;
+  clip-path:polygon(7% 0,93% 0,100% 14%,100% 86%,93% 100%,7% 100%,0 86%,0 14%)!important;
+  border-radius:0!important;
+}
+
+/* 3 — CORP asymétrique : identité visuelle plus SF mais propre */
+.membercard[data-card-model="3"],.creator-card[data-card-model="3"]{
+  clip-path:polygon(10% 0,100% 0,100% 78%,91% 100%,0 100%,0 16%)!important;
+  border-radius:0!important;
+}
+.membercard[data-card-model="3"]:before,.creator-card[data-card-model="3"]:before{
+  inset:5px!important;
+  clip-path:polygon(9% 0,100% 0,100% 77%,91% 100%,0 100%,0 15%)!important;
+  border-radius:0!important;
+}
+
+/* 4 — Luxe : silhouette simple, double cadre intérieur */
+.membercard[data-card-model="4"],.creator-card[data-card-model="4"]{
+  clip-path:inset(0 round 8px)!important;
+  border-radius:8px!important;
+  border-width:2px!important;
+}
+.membercard[data-card-model="4"]:before,.creator-card[data-card-model="4"]:before{
+  inset:6px!important;border-radius:4px!important;
+  border:1px solid color-mix(in srgb,var(--accent) 68%,#fff 8%)!important;
+  box-shadow:inset 0 0 0 3px #00000020!important;
+}
+
+/* 5 — Angulaire QUENQUEN : coins opposés signature */
+.membercard[data-card-model="5"],.creator-card[data-card-model="5"]{
+  clip-path:polygon(8% 0,100% 0,100% 90%,92% 100%,0 100%,0 10%)!important;
+  border-radius:0!important;
+}
+.membercard[data-card-model="5"]:before,.creator-card[data-card-model="5"]:before{
+  inset:5px!important;
+  clip-path:polygon(8% 0,100% 0,100% 89%,92% 100%,0 100%,0 10%)!important;
+  border-radius:0!important;
+}
+
+/* Trait décoratif CORP commun, sans modifier le placement du contenu */
+.membercard[data-card-model]:after,.creator-card[data-card-model]:after{
+  border-radius:inherit!important;
+}
+
+
+/* V16.1 — vrai cadre photo fermé, indépendant de la silhouette */
+.membercard .mc-portrait,.creator-card .mc-portrait{
+  clip-path:none!important;
+  border-radius:5px!important;
+  border:2px solid var(--photo-frame,#d8b63e)!important;
+  outline:2px solid rgba(0,0,0,.72)!important;
+  outline-offset:2px!important;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.20),
+    0 4px 10px rgba(0,0,0,.42)!important;
+  background:#080a0d!important;
+}
+.membercard .mc-portrait:before,.creator-card .mc-portrait:before{
+  content:"";position:absolute;inset:4px;z-index:8;pointer-events:none;
+  border:1px solid color-mix(in srgb,var(--photo-frame,#d8b63e) 72%,#fff 8%);
+  border-radius:2px;
+}
+.membercard .mc-portrait:after,.creator-card .mc-portrait:after{
+  content:"";position:absolute;inset:0;z-index:9;pointer-events:none;
+  border-radius:3px;
+  background:linear-gradient(135deg,rgba(255,255,255,.11),transparent 30%,transparent 72%,rgba(0,0,0,.12));
+}
+
+
+/* V16.2 — couleur des accents/motifs choisie par l'agent */
+.membercard.custom-agent-accent,.creator-card.custom-agent-accent{
+  --accent:var(--agent-accent)!important;
+}
+/* Le cadre photo reste totalement indépendant grâce à --photo-frame. */
+
+
+/* V16.3 — suppression du petit losange décoratif */
+.membercard .mc-top > span,
+.creator-card .mc-top > span{
+  display:none!important;
+}
+
+
+/* V16.5 — séparation claire PHOTO / CARTE */
+.editor-section-title{
+  grid-column:1/-1;
+  margin:7px 0 1px;
+  padding:9px 12px 8px;
+  border-left:3px solid var(--gold);
+  background:linear-gradient(90deg,#f2c52d12,transparent);
+  border-top:1px solid #ffffff0c;
+  border-bottom:1px solid #ffffff0c;
+}
+.editor-section-title b{
+  display:block;
+  font:800 10px/1.2 Arial,sans-serif;
+  letter-spacing:1.7px;
+  color:#f2c52d;
+}
+.editor-section-title span{
+  display:block;
+  margin-top:3px;
+  font:7px/1.3 monospace;
+  letter-spacing:.8px;
+  color:#69717c;
+}
+.photo-section-title{
+  border-left-color:#72d6ff;
+  background:linear-gradient(90deg,#72d6ff10,transparent);
+}
+.photo-section-title b{color:#8ddfff}
+.card-section-title{
+  border-left-color:#f2c52d;
+}
+
 </style></head><body><div class="bg"></div><div class="stars"></div><div class="gridbg"></div>
 <header><div class="connection" id="connection"><span class="dot"></span><span id="connectionText">VISITEUR NON IDENTIFIÉ</span></div></header>
 <main><section class="hero"><div class="micro">MULTIVERSE COMMUNITY ACCESS</div><h1>QUENQUEN-CORP</h1>
-<div class="member" id="member"><div class="seal" id="seal">?</div><div class="membercard" id="membercard" hidden><div class="mc-top">QUENQUEN <b>CORP</b><span>◈</span></div><div class="mc-emblem">✦</div><div class="mc-name" id="mcname"></div><div class="mc-role" id="mcrole"></div><div class="mc-bottom" id="mcbottom"></div><div class="mc-id" id="mcid"></div></div><div class="who"><b id="who">VISITEUR NON IDENTIFIÉ</b><small id="meta">CRÉEZ VOTRE IDENTITÉ QUENQUEN CORP POUR ÊTRE RECONNU À TRAVERS L'ÉCOSYSTÈME.</small></div><button id="identityBtn">CRÉER MA CARTE CORP</button></div></section>
+<div class="member" id="member"><div class="seal" id="seal">?</div><div class="membercard" id="membercard" hidden><div class="mc-top">QUENQUEN <b>CORP</b><span>◈</span></div><div class="mc-portrait" id="mcportrait"></div><div class="mc-emblem">✦</div><div class="mc-name" id="mcname"></div><div class="mc-role" id="mcrole"></div><div class="mc-bottom" id="mcbottom"></div><div class="mc-id" id="mcid"></div></div><div class="who"><b id="who">VISITEUR NON IDENTIFIÉ</b><div class="who-title" id="whoTitle"></div><small id="meta">CRÉEZ VOTRE IDENTITÉ QUENQUEN CORP POUR ÊTRE RECONNU À TRAVERS L'ÉCOSYSTÈME.</small></div><button id="identityBtn">CRÉER MA CARTE CORP</button></div></section>
 <div class="sectiontitle">CHOISISSEZ VOTRE DESTINATION</div>
 <section class="portals">
 <article class="portal collector" data-dest="collector" tabindex="0" role="link"><div class="panel-visual"><img class="collector-cover" src="assets/card_collector_panel.png" alt="Card Collector QuenQuen"><div class="collector-vignette"></div></div><div class="info"><h2>CARD COLLECTOR QUENQUEN — VOLUME 1</h2><p>Un banal album de cartes à collectionner… en apparence.</p><div class="enter">ENTRER DANS LA COLLECTION →</div></div></article>
@@ -47,7 +584,17 @@ main{width:min(1180px,92%);margin:auto;padding:45px 0 70px}.hero{text-align:cent
 </section>
 <section class="registry" id="corpRegistry"><div class="registry-head"><div><div class="registry-count"><span id="agentCount">—</span> <small>AGENTS ENREGISTRÉS</small></div></div><div class="registry-actions"><button id="registerAgent">M'INSCRIRE AU REGISTRE PUBLIC</button><button class="secondary" id="toggleRegistry">CONSULTER LE REGISTRE</button></div></div><div class="registry-note">L'inscription est publique et volontaire. Le registre affiche uniquement votre pseudo, matricule CORP, univers, titre et rang.</div><div class="registry-status" id="registryStatus">Connexion au Registre Central…</div><div class="registry-list" id="registryList"></div></section>
 </main>
-<div class="modal" id="linkmodal"><div class="box"><h2>LIENS DES PROJETS</h2><p class="intro">Tu peux saisir ici les adresses exactes. Elles sont conservées dans ce navigateur.</p><div class="form"><label>CARD COLLECTOR<input id="linkcollector" placeholder="https://..."></label><label>WIKI QUENQUEN<input id="linkwiki" placeholder="https://..."></label><label>MINI-JEU<input id="linkgame" placeholder="https://..."></label></div><div class="actions"><button class="btn secondary" id="closeLinks">FERMER</button><button class="btn" id="saveLinks">ENREGISTRER</button></div></div></div><div class="modal" id="modal"><div class="box mega-box"><div id="formView"><div class="first-visit-badge" id="firstBadge">NOUVEAU MEMBRE</div><h2>CRÉEZ VOTRE CARTE DE MEMBRE</h2><div class="intro">Bienvenue à la QUENQUEN CORP. Personnalisez votre carte : elle deviendra votre identité officielle sur ce portail.</div><div class="creator-layout"><div class="creator-preview-wrap"><div class="creator-preview-title">APERÇU EN DIRECT</div><div class="creator-card" id="creatorCard" data-shape="1" data-motif="1"><div class="mc-top">QUENQUEN <b>CORP</b><span>◈</span></div><div class="mc-emblem">✦</div><div class="mc-name" id="previewName">NOUVEAU MEMBRE</div><div class="mc-role" id="previewRole">AGENT DU MULTIVERS</div><div class="mc-bottom" id="previewBottom">U-20 // DIAMANT</div><div class="mc-id" id="previewId">QC-U20-?????</div></div><div class="creator-note">La carte est enregistrée localement dans votre navigateur. Votre matricule CORP reste le même lors des modifications.</div></div><div class="form"><label>PSEUDO / LIBELLULE<input id="pseudo" value="" placeholder="Votre nom de membre"></label><label>UNIVERS D'ORIGINE<select id="universe"><option value="U-1">Univers 1</option><option value="U-2">Univers 2</option><option value="U-3">Univers 3</option><option value="U-4">Univers 4</option><option value="U-5">Univers 5</option><option value="U-6">Univers 6</option><option value="U-7">Univers 7</option><option value="U-8">Univers 8</option><option value="U-9">Univers 9</option><option value="U-10">Univers 10</option><option value="U-11">Univers 11</option><option value="U-12">Univers 12</option><option value="U-13">Univers 13</option><option value="U-14">Univers 14</option><option value="U-15">Univers 15</option><option value="U-16">Univers 16</option><option value="U-17">Univers 17</option><option value="U-18">Univers 18</option><option value="U-19">Univers 19</option><option value="U-20" selected>Univers 20</option><option value="U-21">Univers 21</option><option value="U-22">Univers 22</option><option value="U-23">Univers 23</option><option value="U-24">Univers 24</option><option value="U-25">Univers 25</option><option value="U-26">Univers 26</option><option value="U-27">Univers 27</option><option value="U-28">Univers 28</option><option value="U-29">Univers 29</option><option value="U-30">Univers 30</option><option value="U-31">Univers 31</option><option value="U-32">Univers 32</option><option value="U-33">Univers 33</option><option value="U-34">Univers 34</option><option value="U-35">Univers 35</option><option value="U-36">Univers 36</option><option value="U-37">Univers 37</option><option value="U-38">Univers 38</option><option value="U-39">Univers 39</option><option value="U-40">Univers 40</option><option value="U-41">Univers 41</option><option value="U-42">Univers 42</option><option value="U-43">Univers 43</option><option value="U-44">Univers 44</option><option value="U-45">Univers 45</option><option value="U-46">Univers 46</option><option value="U-47">Univers 47</option><option value="U-48">Univers 48</option><option value="U-49">Univers 49</option><option value="U-50">Univers 50</option><option value="U-51">Univers 51</option><option value="U-52">Univers 52</option><option value="U-53">Univers 53</option><option value="U-54">Univers 54</option><option value="U-55">Univers 55</option><option value="U-56">Univers 56</option><option value="U-57">Univers 57</option><option value="U-58">Univers 58</option><option value="U-59">Univers 59</option><option value="U-60">Univers 60</option><option value="U-61">Univers 61</option><option value="U-62">Univers 62</option><option value="U-63">Univers 63</option><option value="U-64">Univers 64</option><option value="U-65">Univers 65</option><option value="U-66">Univers 66</option><option value="U-67">Univers 67</option><option value="U-68">Univers 68</option><option value="U-69">Univers 69</option><option value="U-70">Univers 70</option><option value="U-71">Univers 71</option><option value="U-72">Univers 72</option><option value="U-73">Univers 73</option><option value="U-74">Univers 74</option><option value="U-75">Univers 75</option><option value="U-76">Univers 76</option><option value="U-77">Univers 77</option><option value="U-78">Univers 78</option><option value="U-79">Univers 79</option><option value="U-80">Univers 80</option><option value="U-81">Univers 81</option><option value="U-82">Univers 82</option><option value="U-83">Univers 83</option><option value="U-84">Univers 84</option><option value="U-85">Univers 85</option><option value="U-86">Univers 86</option><option value="U-87">Univers 87</option><option value="U-88">Univers 88</option><option value="U-89">Univers 89</option><option value="U-90">Univers 90</option><option value="U-91">Univers 91</option><option value="U-92">Univers 92</option><option value="U-93">Univers 93</option><option value="U-94">Univers 94</option><option value="U-95">Univers 95</option><option value="U-96">Univers 96</option><option value="U-97">Univers 97</option><option value="U-98">Univers 98</option><option value="U-99">Univers 99</option><option value="U-100">Univers 100</option><option value="U-101">Univers 101</option><option value="U-102">Univers 102</option><option value="U-103">Univers 103</option><option value="U-104">Univers 104</option><option value="U-105">Univers 105</option><option value="U-106">Univers 106</option><option value="U-107">Univers 107</option><option value="U-108">Univers 108</option><option value="U-109">Univers 109</option><option value="U-110">Univers 110</option><option value="U-111">Univers 111</option><option value="U-112">Univers 112</option><option value="U-113">Univers 113</option><option value="U-114">Univers 114</option><option value="U-115">Univers 115</option><option value="U-116">Univers 116</option><option value="U-117">Univers 117</option><option value="U-118">Univers 118</option><option value="U-119">Univers 119</option><option value="U-120">Univers 120</option><option value="U-121">Univers 121</option><option value="U-122">Univers 122</option><option value="U-123">Univers 123</option><option value="U-124">Univers 124</option><option value="U-125">Univers 125</option><option value="U-126">Univers 126</option><option value="U-127">Univers 127</option><option value="U-128">Univers 128</option><option value="U-129">Univers 129</option><option value="U-130">Univers 130</option><option value="U-131">Univers 131</option><option value="U-132">Univers 132</option><option value="U-133">Univers 133</option><option value="U-134">Univers 134</option><option value="U-135">Univers 135</option><option value="U-136">Univers 136</option><option value="U-137">Univers 137</option><option value="U-138">Univers 138</option><option value="U-139">Univers 139</option><option value="U-140">Univers 140</option><option value="U-141">Univers 141</option><option value="U-142">Univers 142</option><option value="U-143">Univers 143</option><option value="U-144">Univers 144</option><option value="U-145">Univers 145</option><option value="U-146">Univers 146</option><option value="U-147">Univers 147</option><option value="U-148">Univers 148</option><option value="U-149">Univers 149</option><option value="U-150">Univers 150</option></select></label><label class="custom-title-row">TITRE<select id="title"><optgroup label="QUENQUEN CORP"><option>Agent du Multivers</option><option>Archiviste de la QUENQUEN CORP</option><option>Anomalie non répertoriée</option><option>Gardien des Archives Interdites</option><option>Inspecteur des Réalités Défectueuses</option><option>Agent Zéro de la CORP</option><option>Directeur des Incidents Impossibles</option><option>Technicien des Univers Cassés</option><option>Responsable des Souhaits Non Autorisés</option><option>Sujet d’Observation Prioritaire</option><option>Employé du Mois de l’Apocalypse</option><option>Administrateur du Continuum</option><option>Chasseur d’Anomalies Temporelles</option></optgroup><optgroup label="ANDROMEDA"><option>Élu d’Andromeda</option><option>Celui qu’Andromeda écoute</option><option>Porteur du Souhait Impossible</option><option>Gardien de la Montre Consciente</option><option>Confident d’Andromeda</option><option>Maître des Souhaits Infinis</option><option>Porteur de l’Éclat Positif</option><option>Interlocuteur de la Météorite</option><option>Celui qui a entendu la Montre parler</option><option>Souhait Ambulant</option><option>Héritier du Premier Porteur</option><option>Protecteur du Cadran Doré</option><option>Anomalie Compatible avec Andromeda</option></optgroup><optgroup label="UNIVERS 0 & BIG BANG"><option>Survivant de l’Univers 0</option><option>Enfant du Big Bang QuenQuen</option><option>Rescapé du Clash Originel</option><option>Voyageur de l’Univers Effacé</option><option>Citoyen d’un Monde qui n’existe plus</option><option>Témoin de la Collision Positive/Négative</option><option>Naufragé du Multivers</option><option>Fragment Vivant de l’Univers 0</option><option>Celui qui était là avant la carte</option><option>Réfugié d’une Réalité Non Répertoriée</option><option>Vestige du Premier Cataclysme</option><option>Passager du Big Bang</option><option>Erreur de Continuité Vivante</option></optgroup><optgroup label="DARK / FUTUR / OG"><option>Cauchemar de Dark QuenQuen</option><option>Celui qui refuse de rendre la Montre</option><option>Traqueur du Manteau Noir</option><option>Médecin du Chaos Dimensionnel</option><option>Élève du Professeur QuenQuen</option><option>Assistant Métaphysique d’OG</option><option>Témoin du Premier Souhait</option><option>Gardien des Recherches d’OG</option><option>Erreur de Calcul du Professeur</option><option>Celui que Futur n’avait pas prévu</option><option>Variable Incontrôlable de Futur</option><option>Paradoxe Personnel de Futur</option><option>Saboteur de Destinées</option></optgroup><optgroup label="DEMSKA & DESTIN"><option>Gardien de la Cabane dans les Arbres</option><option>Celui qui se souvient de Demska</option><option>Porteur de la Promesse Oubliée</option><option>Écho de Demska</option><option>Musicien du Multivers Perdu</option><option>Gardien d’un Souvenir Impossible</option><option>Lié par le Destin</option><option>Celui qui n’oublie jamais la Cabane</option><option>Messager des Frères Séparés</option><option>Témoin d’une Promesse Éternelle</option><option>Frère d’Armes de Demska</option><option>Porteur de l’Écho Musical</option></optgroup><optgroup label="QUICK & VARIANTES"><option>Employé du Quick Interdimensionnel</option><option>Manager de l’Univers 0</option><option>Fermeture du Multivers à 23H</option><option>Expert du Drive Temporel</option><option>Gardien de la Frite Cosmique</option><option>Maître du Rush Interdimensionnel</option><option>Quick QuenQuen Honoraire</option><option>Grand Maître de la Gaufrette</option><option>Disciple de Gaufrette QuenQuen</option><option>Gaufrette Suprême</option><option>Sonic QuenQuen Certifié</option><option>Plus Rapide que son Propre Univers</option><option>Disciple de Chantal</option></optgroup><optgroup label="CRINGE & CHAOS"><option>Cringe de Niveau Oméga</option><option>Seigneur du Malaise Cosmique</option><option>Expert du Cringe Certifié CORP</option><option>Catastrophe Sociale Multiverselle</option><option>Maître du Silence Gênant</option><option>Destructeur d’Ambiance Professionnel</option><option>Anomalie Humoristique de Classe S</option><option>Porteur du Cringe Originel</option><option>Celui qui a osé faire cette Blague</option><option>Menace pour Toute Conversation</option><option>Grand Prêtre du « Pas Ouf Comme Mec »</option><option>Champion du Malaise Dimensionnel</option><option>Cringe QuenQuen Approuvé</option></optgroup><optgroup label="PRESTIGE / SECRET"><option>Légende Vivante de la QUENQUEN CORP</option><option>Entité de Classe ANDROMEDA</option><option>QuenQuen Prime</option><option>Maître Absolu du Multivers</option><option>Celui qui connaît trop de choses</option><option>Détenteur du Dossier 00</option><option>Accès Refusé Même aux Administrateurs</option><option>Erreur 404 : Univers Introuvable</option><option>Personnage Principal Non Autorisé</option><option>Boss Secret de la Réalité</option></optgroup></select></label><label>RANG<select id="rank"><option>DIAMANT</option><option>OR</option><option>GRANITE</option><option>FER</option><option>LAITON</option><option>CARTON</option></select></label><label>SILHOUETTE<select id="shape"></select></label><label>MOTIF<select id="motif"></select></label><label>PALETTE<select id="palette"></select></label><label>REFLET / FINITION<select id="shine"></select></label></div></div><div class="actions"><button class="btn secondary" id="cancel">ANNULER</button><button class="btn" id="approve">CRÉER MA CARTE DE MEMBRE</button></div></div><div class="approval" id="approval"><div class="big">✓</div><h3>BIENVENUE À LA QUENQUEN CORP</h3><p>VOTRE CARTE DE MEMBRE EST DÉSORMAIS ACTIVE</p><button class="btn" id="finish">ACCÉDER AU PORTAIL</button></div></div></div>
+<div class="card-zoom" id="cardZoom" aria-hidden="true">
+  <button class="card-zoom-close" id="cardZoomClose" aria-label="Fermer">×</button>
+  <div class="card-zoom-stage"><div class="card-zoom-copy" id="cardZoomCopy"></div><div class="card-zoom-hint">CLIQUEZ EN DEHORS POUR FERMER</div></div>
+</div>
+<div class="modal" id="linkmodal"><div class="box"><h2>LIENS DES PROJETS</h2><p class="intro">Tu peux saisir ici les adresses exactes. Elles sont conservées dans ce navigateur.</p><div class="form"><label>CARD COLLECTOR<input id="linkcollector" placeholder="https://..."></label><label>WIKI QUENQUEN<input id="linkwiki" placeholder="https://..."></label><label>MINI-JEU<input id="linkgame" placeholder="https://..."></label></div><div class="actions"><button class="btn secondary" id="closeLinks">FERMER</button><button class="btn" id="saveLinks">ENREGISTRER</button></div></div></div><div class="modal" id="modal"><div class="box mega-box"><div id="formView"><div class="first-visit-badge" id="firstBadge">NOUVEAU MEMBRE</div><h2>CRÉEZ VOTRE CARTE DE MEMBRE</h2><div class="intro">Bienvenue à la QUENQUEN CORP. Personnalisez votre carte : elle deviendra votre identité officielle sur ce portail.</div><div class="creator-layout"><div class="creator-preview-wrap"><div class="creator-preview-title">APERÇU EN DIRECT</div><div class="creator-card" id="creatorCard" data-shape="1" data-motif="1"><div class="mc-top">QUENQUEN <b>CORP</b><span>◈</span></div><div class="mc-portrait" id="previewPortrait"></div><div class="mc-emblem">✦</div><div class="mc-name" id="previewName">NOUVEAU MEMBRE</div><div class="mc-role" id="previewRole">AGENT DU MULTIVERS</div><div class="mc-bottom" id="previewBottom">U-20 // DIAMANT</div><div class="mc-id" id="previewId">QC-U20-?????</div></div><div class="creator-note">La carte est enregistrée localement dans votre navigateur. Votre matricule CORP reste le même lors des modifications.</div></div><div class="form"><label>PSEUDO<input id="pseudo" value="" placeholder="Votre nom de membre"></label><label>UNIVERS D'ORIGINE<select id="universe"><option value="U-1">Univers 1</option><option value="U-2">Univers 2</option><option value="U-3">Univers 3</option><option value="U-4">Univers 4</option><option value="U-5">Univers 5</option><option value="U-6">Univers 6</option><option value="U-7">Univers 7</option><option value="U-8">Univers 8</option><option value="U-9">Univers 9</option><option value="U-10">Univers 10</option><option value="U-11">Univers 11</option><option value="U-12">Univers 12</option><option value="U-13">Univers 13</option><option value="U-14">Univers 14</option><option value="U-15">Univers 15</option><option value="U-16">Univers 16</option><option value="U-17">Univers 17</option><option value="U-18">Univers 18</option><option value="U-19">Univers 19</option><option value="U-20" selected>Univers 20</option><option value="U-21">Univers 21</option><option value="U-22">Univers 22</option><option value="U-23">Univers 23</option><option value="U-24">Univers 24</option><option value="U-25">Univers 25</option><option value="U-26">Univers 26</option><option value="U-27">Univers 27</option><option value="U-28">Univers 28</option><option value="U-29">Univers 29</option><option value="U-30">Univers 30</option><option value="U-31">Univers 31</option><option value="U-32">Univers 32</option><option value="U-33">Univers 33</option><option value="U-34">Univers 34</option><option value="U-35">Univers 35</option><option value="U-36">Univers 36</option><option value="U-37">Univers 37</option><option value="U-38">Univers 38</option><option value="U-39">Univers 39</option><option value="U-40">Univers 40</option><option value="U-41">Univers 41</option><option value="U-42">Univers 42</option><option value="U-43">Univers 43</option><option value="U-44">Univers 44</option><option value="U-45">Univers 45</option><option value="U-46">Univers 46</option><option value="U-47">Univers 47</option><option value="U-48">Univers 48</option><option value="U-49">Univers 49</option><option value="U-50">Univers 50</option><option value="U-51">Univers 51</option><option value="U-52">Univers 52</option><option value="U-53">Univers 53</option><option value="U-54">Univers 54</option><option value="U-55">Univers 55</option><option value="U-56">Univers 56</option><option value="U-57">Univers 57</option><option value="U-58">Univers 58</option><option value="U-59">Univers 59</option><option value="U-60">Univers 60</option><option value="U-61">Univers 61</option><option value="U-62">Univers 62</option><option value="U-63">Univers 63</option><option value="U-64">Univers 64</option><option value="U-65">Univers 65</option><option value="U-66">Univers 66</option><option value="U-67">Univers 67</option><option value="U-68">Univers 68</option><option value="U-69">Univers 69</option><option value="U-70">Univers 70</option><option value="U-71">Univers 71</option><option value="U-72">Univers 72</option><option value="U-73">Univers 73</option><option value="U-74">Univers 74</option><option value="U-75">Univers 75</option><option value="U-76">Univers 76</option><option value="U-77">Univers 77</option><option value="U-78">Univers 78</option><option value="U-79">Univers 79</option><option value="U-80">Univers 80</option><option value="U-81">Univers 81</option><option value="U-82">Univers 82</option><option value="U-83">Univers 83</option><option value="U-84">Univers 84</option><option value="U-85">Univers 85</option><option value="U-86">Univers 86</option><option value="U-87">Univers 87</option><option value="U-88">Univers 88</option><option value="U-89">Univers 89</option><option value="U-90">Univers 90</option><option value="U-91">Univers 91</option><option value="U-92">Univers 92</option><option value="U-93">Univers 93</option><option value="U-94">Univers 94</option><option value="U-95">Univers 95</option><option value="U-96">Univers 96</option><option value="U-97">Univers 97</option><option value="U-98">Univers 98</option><option value="U-99">Univers 99</option><option value="U-100">Univers 100</option><option value="U-101">Univers 101</option><option value="U-102">Univers 102</option><option value="U-103">Univers 103</option><option value="U-104">Univers 104</option><option value="U-105">Univers 105</option><option value="U-106">Univers 106</option><option value="U-107">Univers 107</option><option value="U-108">Univers 108</option><option value="U-109">Univers 109</option><option value="U-110">Univers 110</option><option value="U-111">Univers 111</option><option value="U-112">Univers 112</option><option value="U-113">Univers 113</option><option value="U-114">Univers 114</option><option value="U-115">Univers 115</option><option value="U-116">Univers 116</option><option value="U-117">Univers 117</option><option value="U-118">Univers 118</option><option value="U-119">Univers 119</option><option value="U-120">Univers 120</option><option value="U-121">Univers 121</option><option value="U-122">Univers 122</option><option value="U-123">Univers 123</option><option value="U-124">Univers 124</option><option value="U-125">Univers 125</option><option value="U-126">Univers 126</option><option value="U-127">Univers 127</option><option value="U-128">Univers 128</option><option value="U-129">Univers 129</option><option value="U-130">Univers 130</option><option value="U-131">Univers 131</option><option value="U-132">Univers 132</option><option value="U-133">Univers 133</option><option value="U-134">Univers 134</option><option value="U-135">Univers 135</option><option value="U-136">Univers 136</option><option value="U-137">Univers 137</option><option value="U-138">Univers 138</option><option value="U-139">Univers 139</option><option value="U-140">Univers 140</option><option value="U-141">Univers 141</option><option value="U-142">Univers 142</option><option value="U-143">Univers 143</option><option value="U-144">Univers 144</option><option value="U-145">Univers 145</option><option value="U-146">Univers 146</option><option value="U-147">Univers 147</option><option value="U-148">Univers 148</option><option value="U-149">Univers 149</option><option value="U-150">Univers 150</option></select></label><label class="custom-title-row">TITRE<select id="title"><optgroup label="QUENQUEN CORP"><option>Agent du Multivers</option><option>Archiviste de la QUENQUEN CORP</option><option>Anomalie non répertoriée</option><option>Gardien des Archives Interdites</option><option>Inspecteur des Réalités Défectueuses</option><option>Agent Zéro de la CORP</option><option>Directeur des Incidents Impossibles</option><option>Technicien des Univers Cassés</option><option>Responsable des Souhaits Non Autorisés</option><option>Sujet d’Observation Prioritaire</option><option>Employé du Mois de l’Apocalypse</option><option>Administrateur du Continuum</option><option>Chasseur d’Anomalies Temporelles</option></optgroup><optgroup label="ANDROMEDA"><option>Élu d’Andromeda</option><option>Celui qu’Andromeda écoute</option><option>Porteur du Souhait Impossible</option><option>Gardien de la Montre Consciente</option><option>Confident d’Andromeda</option><option>Maître des Souhaits Infinis</option><option>Porteur de l’Éclat Positif</option><option>Interlocuteur de la Météorite</option><option>Celui qui a entendu la Montre parler</option><option>Souhait Ambulant</option><option>Héritier du Premier Porteur</option><option>Protecteur du Cadran Doré</option><option>Anomalie Compatible avec Andromeda</option></optgroup><optgroup label="UNIVERS 0 & BIG BANG"><option>Survivant de l’Univers 0</option><option>Enfant du Big Bang QuenQuen</option><option>Rescapé du Clash Originel</option><option>Voyageur de l’Univers Effacé</option><option>Citoyen d’un Monde qui n’existe plus</option><option>Témoin de la Collision Positive/Négative</option><option>Naufragé du Multivers</option><option>Fragment Vivant de l’Univers 0</option><option>Celui qui était là avant la carte</option><option>Réfugié d’une Réalité Non Répertoriée</option><option>Vestige du Premier Cataclysme</option><option>Passager du Big Bang</option><option>Erreur de Continuité Vivante</option></optgroup><optgroup label="DARK / FUTUR / OG"><option>Cauchemar de Dark QuenQuen</option><option>Celui qui refuse de rendre la Montre</option><option>Traqueur du Manteau Noir</option><option>Médecin du Chaos Dimensionnel</option><option>Élève du Professeur QuenQuen</option><option>Assistant Métaphysique d’OG</option><option>Témoin du Premier Souhait</option><option>Gardien des Recherches d’OG</option><option>Erreur de Calcul du Professeur</option><option>Celui que Futur n’avait pas prévu</option><option>Variable Incontrôlable de Futur</option><option>Paradoxe Personnel de Futur</option><option>Saboteur de Destinées</option></optgroup><optgroup label="DEMSKA & DESTIN"><option>Gardien de la Cabane dans les Arbres</option><option>Celui qui se souvient de Demska</option><option>Porteur de la Promesse Oubliée</option><option>Écho de Demska</option><option>Musicien du Multivers Perdu</option><option>Gardien d’un Souvenir Impossible</option><option>Lié par le Destin</option><option>Celui qui n’oublie jamais la Cabane</option><option>Messager des Frères Séparés</option><option>Témoin d’une Promesse Éternelle</option><option>Frère d’Armes de Demska</option><option>Porteur de l’Écho Musical</option></optgroup><optgroup label="QUICK & VARIANTES"><option>Employé du Quick Interdimensionnel</option><option>Manager de l’Univers 0</option><option>Fermeture du Multivers à 23H</option><option>Expert du Drive Temporel</option><option>Gardien de la Frite Cosmique</option><option>Maître du Rush Interdimensionnel</option><option>Quick QuenQuen Honoraire</option><option>Grand Maître de la Gaufrette</option><option>Disciple de Gaufrette QuenQuen</option><option>Gaufrette Suprême</option><option>Sonic QuenQuen Certifié</option><option>Plus Rapide que son Propre Univers</option><option>Disciple de Chantal</option></optgroup><optgroup label="CRINGE & CHAOS"><option>Cringe de Niveau Oméga</option><option>Seigneur du Malaise Cosmique</option><option>Expert du Cringe Certifié CORP</option><option>Catastrophe Sociale Multiverselle</option><option>Maître du Silence Gênant</option><option>Destructeur d’Ambiance Professionnel</option><option>Anomalie Humoristique de Classe S</option><option>Porteur du Cringe Originel</option><option>Celui qui a osé faire cette Blague</option><option>Menace pour Toute Conversation</option><option>Grand Prêtre du « Pas Ouf Comme Mec »</option><option>Champion du Malaise Dimensionnel</option><option>Cringe QuenQuen Approuvé</option></optgroup><optgroup label="PRESTIGE / SECRET"><option>Légende Vivante de la QUENQUEN CORP</option><option>Entité de Classe ANDROMEDA</option><option>QuenQuen Prime</option><option>Maître Absolu du Multivers</option><option>Celui qui connaît trop de choses</option><option>Détenteur du Dossier 00</option><option>Accès Refusé Même aux Administrateurs</option><option>Erreur 404 : Univers Introuvable</option><option>Personnage Principal Non Autorisé</option><option>Boss Secret de la Réalité</option></optgroup></select></label><label>RANG<select id="rank"><option>DIAMANT</option><option>OR</option><option>GRANITE</option><option>FER</option><option>LAITON</option><option>CARTON</option></select></label><div class="editor-section-title photo-section-title"><b>PHOTO D’AGENT</b><span>VISAGE • CHEVEUX • YEUX • BOUCHE • PILOSITÉ • CADRE</span></div>
+<label>VISAGE<select id="portrait"></select></label>
+<label>COIFFURE<select id="hair"></select></label>
+<label>BOUCHE<select id="mouth"></select></label>
+<label>YEUX / LUNETTES<select id="eyes"></select></label>
+<label>PILOSITÉ<select id="facial"></select></label><label>CADRE PHOTO<select id="photoFrame"></select></label><label>ACCENTS / LIGNES<select id="cardAccent"></select></label><div class="editor-section-title card-section-title"><b>DESIGN DE LA CARTE</b><span>MODÈLE • MOTIF • PALETTE • MATIÈRE • ACCENTS</span></div>
+<label>SILHOUETTE<select id="shape"></select></label><label>MOTIF<select id="motif"></select></label><label>PALETTE<select id="palette"></select></label><label>REFLET / FINITION<select id="shine"></select></label></div></div><div class="actions"><button class="btn secondary" id="cancel">ANNULER</button><button class="btn" id="approve">CRÉER MA CARTE DE MEMBRE</button></div></div><div class="approval" id="approval"><div class="big">✓</div><h3>BIENVENUE À LA QUENQUEN CORP</h3><p>VOTRE CARTE DE MEMBRE EST DÉSORMAIS ACTIVE</p><button class="btn" id="finish">ACCÉDER AU PORTAIL</button></div></div></div>
 <script>
 const $=x=>document.getElementById(x),KEY="quenquen_corp_identity_v2";let current=null;
 function makeCorpId(universe){let u=(universe||"U-?").toUpperCase().replace(/[^A-Z0-9]/g,"")||"UX";let n=Math.floor(10000+Math.random()*90000);return "QC-"+u+"-"+n}
@@ -57,7 +604,28 @@ const palettes=[
 ["#17231c","#050906","#b5ffd0"],["#27210f","#090703","#f6d45f"],["#141e2b","#04070a","#9dcaff"],["#281b12","#090604","#e5b079"],["#181818","#050505","#f2c52d"],["#20252a","#07090b","#b8c7d8"],["#2b1313","#090404","#ff7777"],["#13272b","#04090a","#77f1ff"],["#26142b","#080409","#ef80ff"],["#122814","#040904","#7dff83"],
 ["#29220f","#090703","#fff08a"],["#111b29","#04070a","#80b7ff"],["#29171f","#090507","#ff8cbd"],["#19251f","#050906","#89e0b1"],["#2a1b0f","#090603","#ffc06b"],["#1e1729","#070509","#b795ff"],["#252525","#080808","#d0d0d0"],["#241616","#080505","#d98f8f"],["#132126","#04080a","#8fcbd8"],["#242313","#080804","#d8d48f"],
 ["#19132a","#050409","#9b7cff"],["#10291f","#040906","#65e5ae"],["#291a12","#090604","#ffad72"],["#121f2c","#04070a","#72b9ff"],["#2a121f","#090407","#ff72ad"],["#1e2a12","#070904","#b5e86b"],["#2b2612","#090803","#f5dd72"],["#151515","#030303","#ffdf4d"],["#21152b","#070409","#d879ff"],["#0f2929","#030909","#6ff5ed"]];
-function fillOptions(){let shape=$('shape'),motif=$('motif'),palette=$('palette'),shine=$('shine');for(let i=1;i<=20;i++)shape.add(new Option('SILHOUETTE '+String(i).padStart(2,'0'),i));for(let i=1;i<=20;i++)motif.add(new Option('MOTIF '+String(i).padStart(2,'0'),i));for(let i=1;i<=50;i++)palette.add(new Option('PALETTE '+String(i).padStart(2,'0'),i));for(let i=1;i<=25;i++)shine.add(new Option('FINITION '+String(i).padStart(2,'0'),i))}
+function fillOptions(){let shape=$('shape'),motif=$('motif'),palette=$('palette'),shine=$('shine'),portrait=$('portrait'),hair=$('hair'),mouth=$('mouth'),eyes=$('eyes'),facial=$('facial'),photoFrame=$('photoFrame'),cardAccent=$('cardAccent');[
+      ['CLASSIQUE PREMIUM',1],
+      ['BADGE TACTIQUE',2],
+      ['CORP ASYMÉTRIQUE',3],
+      ['LUXE DOUBLE CADRE',4],
+      ['ANGULAIRE QUENQUEN',5]
+    ].forEach(x=>shape.add(new Option(x[0],x[1])));for(let i=1;i<=20;i++)motif.add(new Option('MOTIF '+String(i).padStart(2,'0'),i));for(let i=1;i<=50;i++)palette.add(new Option('PALETTE '+String(i).padStart(2,'0'),i));for(let i=1;i<=25;i++){let mats=['OR','MÉTAL','DIAMANT','CARBONE','HOLOGRAPHIQUE'];let matIndex=Math.floor((i-1)/5),lvl=((i-1)%5)+1;shine.add(new Option(mats[matIndex]+' — RELIEF '+lvl,i));}for(let i=1;i<=50;i++)portrait.add(new Option('BASE VISAGE '+String(i).padStart(2,'0'),i));[
+['COURT CLASSIQUE',1],['DÉGRADÉ',2],['ÉBOURIFFÉ',3],['RAIE DE CÔTÉ',4],
+['PIQUES',5],['MI-LONG',6],['BANANE RÉTRO',7],['MÈCHE LONGUE',8],
+['COUPE BOL',9],['UNDERCUT',10],['CRÊTE',11],['BOUCLÉ',12],
+['PLAQUÉ ARRIÈRE',13],['FRANGE',14],['DÉCOIFFÉ',15],['RASÉ / TRÈS COURT',16]
+].forEach(x=>hair.add(new Option(x[0],x[1])));[['NEUTRE',1],['SOURIRE LÉGER',2],['MÉCONTENT',3],['TRAIT DROIT',4],['BOUCHE OUVERTE',5],['SOURIRE EN COIN',6],['DOUBLE TRAIT',7],['SOURIRE DENTS',8],['LÈVRES MARQUÉES',9],['PETIT SOURIRE',10],['BOUCHE FINE',11],['GRAND SOURIRE',12],['NEUTRE BAS',13],['SOURIRE DOUX',14],['GRIMACE',15],['SÉRIEUX',16],['SURPRIS',17],['RIRE',18],['RÉSERVÉ',19],['MOUSTACHE SOURIRE',20],['PETITE MOUE',21],['DÉTERMINÉ',22],['SOURIRE LARGE',23],['BOUCHE CYBER',24]].forEach(x=>mouth.add(new Option(x[0],x[1])));[
+['CLASSIQUE',1],['GRANDS YEUX',2],['YEUX FINS',3],['LUNETTES CARRÉES',4],['YEUX FERMÉS',5],
+['REGARD SÉRIEUX',6],['REGARD FATIGUÉ',7],['LUNETTES RONDES',8],['REGARD SURPRIS',9],['REGARD MÉFIANT',10],
+['SOURCILS ÉPAIS',11],['SOURCIL LEVÉ',12],['REGARD JOYEUX',13],['VISIÈRE CORP',14],['REGARD EN COLÈRE',15],
+['REGARD TRISTE',16],['ŒIL GAUCHE FERMÉ',17],['ŒIL DROIT FERMÉ',18],['MONOCLE',19],['REGARD CYBER',20]
+].forEach(x=>eyes.add(new Option(x[0],x[1])));[
+['RASÉ',1],['MOUSTACHE FINE',2],['BARBE COMPLÈTE',3],['MOUSTACHE + BARBE',4],
+['BOUC',5],['MOUSTACHE ÉPAISSE',6],['BARBE COURTE',7],['BARBE + MOUSTACHE',8],
+['BOUC LONG',9],['BARBE DE 3 JOURS',10],['FAVORIS',11],['COLLIER DE BARBE',12],
+['MOUSTACHE GUIDON',13],['BARBE POINTUE',14],['BOUC + MOUSTACHE',15]
+].forEach(x=>facial.add(new Option(x[0],x[1])));[['OR','#d8b63e'],['ARGENT','#b9c3ce'],['BLANC','#f2f2f2'],['NOIR','#171a20'],['ROUGE','#c64d4d'],['BLEU','#4d7fc6'],['VIOLET','#8b61c8'],['CYAN','#45bfc5'],['ORANGE','#d98735'],['VERT','#62b36d']].forEach(x=>photoFrame.add(new Option(x[0],x[1])));[['AUTO / PALETTE','auto'],['OR','#d8b63e'],['ARGENT','#b9c3ce'],['BLANC','#f2f2f2'],['NOIR','#242830'],['ROUGE','#d65353'],['BLEU','#4d82d0'],['VIOLET','#9567d8'],['CYAN','#45c7d0'],['ORANGE','#df8b35'],['VERT','#65b86f'],['ROSE','#d86a9d']].forEach(x=>cardAccent.add(new Option(x[0],x[1])))}
 function applyCardDesign(el,d){
  let sh=Math.max(1,+d.shape||1),mo=Math.max(1,+d.motif||1),pa=Math.max(1,+d.palette||1),si=Math.max(1,+d.shine||1);
  // 50 palettes réellement distinctes : teinte + luminosité + saturation varient avec le numéro.
@@ -81,11 +649,124 @@ function applyCardDesign(el,d){
  el.style.setProperty('--shine-x',(-110+((si-1)%13)*18)+'%');el.style.setProperty('--shine-o',(0.10+((si-1)%5)*0.11));
  el.style.boxShadow=`inset 0 0 ${18+((si-1)%5)*6}px #0008,0 12px 35px #000a,0 0 ${18+((si-1)%7)*5}px color-mix(in srgb,var(--accent) ${14+((si-1)%5)*7}%,transparent)`;
 }
-function preview(){let d={pseudo:$('pseudo').value.trim()||'NOUVEAU MEMBRE',universe:$('universe').value.trim()||'U-?',title:$('title').value.trim()||'MEMBRE QUENQUEN CORP',rank:$('rank').value,shape:$('shape').value,motif:$('motif').value,palette:$('palette').value,shine:$('shine').value};$('previewName').textContent=d.pseudo.toUpperCase();$('previewRole').textContent=d.title.toUpperCase();$('previewBottom').textContent=d.universe.toUpperCase()+' // '+d.rank;$('previewId').textContent=current&&current.corpId?current.corpId:'QC-'+d.universe.toUpperCase().replace(/[^A-Z0-9]/g,'')+'-?????';applyCardDesign($('creatorCard'),d)}
-function openCreator(first=false){$('formView').style.display='block';$('approval').classList.remove('show');$('modal').classList.add('show');$('modal').classList.toggle('first-visit',first);$('firstBadge').textContent=first?'PREMIÈRE CONNEXION — CRÉATION OBLIGATOIRE':'MODIFICATION DE VOTRE CARTE';if(current){$('pseudo').value=current.pseudo;$('universe').value=current.universe;$('title').value=current.title;$('rank').value=current.rank;$('shape').value=current.shape||1;$('motif').value=current.motif||1;$('palette').value=current.palette||1;$('shine').value=current.shine||1}else{$('pseudo').value='';$('universe').value='U-20';$('title').value='Agent du Multivers';$('rank').value='DIAMANT';$('shape').value=1;$('motif').value=1;$('palette').value=1;$('shine').value=1}preview()}
-function refresh(){try{current=JSON.parse(localStorage.getItem(KEY))}catch(e){current=null}if(current&&current.pseudo){if(!current.corpId){current.corpId=makeCorpId(current.universe);localStorage.setItem(KEY,JSON.stringify(current))}current.shape=current.shape||1;current.motif=current.motif||1;current.palette=current.palette||1;current.shine=current.shine||1;$('member').classList.add('active');$('membercard').hidden=false;applyCardDesign($('membercard'),current);$('mcname').textContent=current.pseudo.toUpperCase();$('mcrole').textContent=current.title.toUpperCase();$('mcbottom').textContent=current.universe.toUpperCase()+" // "+current.rank;$('mcid').textContent=current.corpId;$('connection').classList.add('connected');$('seal').textContent=(current.pseudo[0]||'Q').toUpperCase();$('who').textContent=current.pseudo.toUpperCase();$('meta').textContent=current.title.toUpperCase()+" // "+current.universe.toUpperCase()+" // RANG "+current.rank+" // "+current.corpId;$('connectionText').textContent="AGENT "+current.pseudo.toUpperCase()+" — IDENTIFIÉ";$('identityBtn').textContent="PERSONNALISER MA CARTE"}else{$('member').classList.remove('active');$('membercard').hidden=true;$('connection').classList.remove('connected');$('seal').textContent='?';$('who').textContent='VISITEUR NON IDENTIFIÉ';$('meta').textContent="CRÉEZ VOTRE IDENTITÉ QUENQUEN CORP POUR ÊTRE RECONNU À TRAVERS L'ÉCOSYSTÈME.";$('connectionText').textContent='VISITEUR NON IDENTIFIÉ';$('identityBtn').textContent='CRÉER MA CARTE CORP'}}
-fillOptions();$('identityBtn').onclick=()=>openCreator(false);$('cancel').onclick=()=>{if(current)$('modal').classList.remove('show')};for(let id of ['pseudo','universe','title','rank','shape','motif','palette','shine']){$(id).addEventListener('input',preview);$(id).addEventListener('change',preview);}
-$('approve').onclick=()=>{let pseudo=$('pseudo').value.trim();if(!pseudo){$('pseudo').focus();$('pseudo').style.outline='2px solid #f2c52d';return}$('pseudo').style.outline='';let oldId=current&&current.corpId;current={pseudo,universe:$('universe').value.trim()||'U-?',title:$('title').value.trim()||'Membre QUENQUEN CORP',rank:$('rank').value,shape:+$('shape').value,motif:+$('motif').value,palette:+$('palette').value,shine:+$('shine').value,corpId:oldId||makeCorpId($('universe').value)};localStorage.setItem(KEY,JSON.stringify(current));localStorage.setItem("quenquen_album_owner_v1",current.pseudo);$('formView').style.display='none';$('approval').classList.add('show');$('modal').classList.remove('first-visit');refresh()};$('finish').onclick=()=>$('modal').classList.remove('show');refresh();if(!current)setTimeout(()=>openCreator(true),180);
+
+
+
+
+function applyCardAccent(el,value){
+  if(!el)return;
+  if(!value || value==='auto'){
+    el.style.removeProperty('--agent-accent');
+    el.classList.remove('custom-agent-accent');
+  }else{
+    el.style.setProperty('--agent-accent',value);
+    el.classList.add('custom-agent-accent');
+  }
+}
+
+function premiumModelClass(el,shape){
+  if(!el)return;
+  let n=parseInt(shape)||1;
+  if(n<1||n>5)n=1;
+  el.dataset.cardModel=n;
+}
+
+function applyPremiumFinish(el,shine){
+  if(!el)return;
+  const v=Math.max(1,Math.min(25,parseInt(shine)||1));
+  const mats=['gold','metal','diamond','carbon','holo'];
+  el.dataset.finishMaterial=mats[Math.floor((v-1)/5)];
+  el.dataset.finishLevel=((v-1)%5)+1;
+}
+
+function formatUniverseCard(v){
+  let x=String(v||'').trim().toUpperCase();
+  let m=x.match(/(?:U\s*-?\s*)?(\d+)/);
+  return 'UNIVERS ' + (m ? m[1] : x.replace(/^U\s*-?\s*/,''));
+}
+function portraitSVG(n,h,m,e,f){
+ n=Math.max(1,Math.min(50,parseInt(n)||1));h=Math.max(1,Math.min(16,parseInt(h)||1));m=Math.max(1,Math.min(24,parseInt(m)||1));e=Math.max(1,Math.min(20,parseInt(e)||1));f=Math.max(1,Math.min(15,parseInt(f)||1));
+ const skins=['#f3d5bb','#efc7a6','#dda47d','#c48760','#a96f50','#89563f','#704533','#f0bb91'];
+ const hairs=['#171310','#352219','#5b3521','#8a542e','#bd8747','#d7b267','#5a3540','#272c36','#763c25','#a86735'];
+ const shirts=['#d7b12f','#476f9d','#7e4d74','#4d8061','#934f45','#6260a5','#9a783d'];
+ let skin=skins[(n-1)%skins.length], hair=hairs[(h-1)%hairs.length], shirt=shirts[(n+h)%shirts.length];
+ const hairPaths=[
+'M13 27Q14 8 31 8Q49 7 51 27Q43 18 34 19Q24 16 13 27',
+'M13 27Q14 12 23 9Q35 3 50 13L52 27Q42 17 32 19Q21 18 13 27',
+'M13 27L17 13L22 17L26 7L31 14L36 5L40 15L47 9L51 27Q39 18 31 19Q22 17 13 27',
+'M13 27Q14 10 29 9L31 9Q42 7 50 16L51 27Q43 20 35 19L31 13Q25 20 16 23Z',
+'M14 27Q15 15 20 12L22 7L27 12L31 5L35 12L40 7L43 14L48 11L50 27Q39 19 31 19Q22 18 14 27',
+'M12 30Q13 7 31 7Q51 7 52 30L48 38L44 23Q32 14 18 23L16 38Z',
+'M13 27Q15 12 23 9Q29 0 39 7Q48 7 52 23L50 28Q43 17 32 18Q21 17 13 27',
+'M12 28Q14 8 28 8Q38 4 52 14L51 30Q43 18 35 19L27 31L23 18Q17 20 12 28',
+'M13 27Q15 10 31 10Q48 10 51 27L47 23Q32 19 17 23Z',
+'M15 27Q16 20 20 17L20 12Q30 5 45 10Q49 12 51 17Q40 12 29 15L25 18Q21 21 20 28Z',
+'M17 28Q18 20 23 18L26 9L30 14L33 3L37 14L41 8L44 19Q48 21 49 28Q40 20 32 20Q24 20 17 28',
+'M12 29Q12 15 20 11Q23 5 29 9Q34 3 39 9Q47 7 52 17L52 29Q44 18 32 19Q20 18 12 29',
+'M13 27Q14 8 31 8Q49 7 51 27Q45 17 36 16Q28 15 20 20L15 27Z',
+'M13 27Q15 8 31 8Q48 7 51 27Q43 17 36 20L32 13L28 20Q20 17 13 27',
+'M13 28Q14 12 20 10L23 14L27 7L31 12L36 8L39 14L46 10L50 20L51 28Q42 19 34 20Q24 17 13 28',
+'M15 25Q18 14 31 13Q45 13 49 25Q41 20 32 20Q23 20 15 25'
+]
+ const mouths=[
+ '<path d="M27 41Q32 43 37 41" fill="none" stroke="#7d4c42" stroke-width="1.3"/>',
+ '<path d="M27 41Q32 46 37 41" fill="none" stroke="#7d4c42" stroke-width="1.4"/>',
+ '<path d="M27 43Q32 39 37 43" fill="none" stroke="#7d4c42" stroke-width="1.3"/>',
+ '<path d="M28 41h8" stroke="#70463d" stroke-width="1.5"/>',
+ '<ellipse cx="32" cy="42" rx="4" ry="2" fill="#6e3c3c"/>',
+ '<path d="M26 41Q32 44 38 40" fill="none" stroke="#7d4c42" stroke-width="1.4"/>',
+ '<path d="M27 40Q32 42 37 40M29 43h6" fill="none" stroke="#7d4c42" stroke-width="1"/>',
+ '<path d="M28 42Q32 45 36 42" fill="#fff" stroke="#70463d" stroke-width="1"/>',
+ '<path d="M27 42Q30 40 32 42Q34 40 37 42Q32 46 27 42" fill="#8d4c53"/>',
+ '<path d="M27 42Q32 40 37 42" fill="none" stroke="#70463d" stroke-width="1.4"/>',
+ '<path d="M29 42h6" stroke="#70463d" stroke-width="2" stroke-linecap="round"/>',
+ '<path d="M27 41Q32 47 37 41" fill="#512d31" stroke="#70463d" stroke-width="1"/><path d="M29 42h6" stroke="#fff" stroke-width="1"/>'];
+ let eyeStyles={
+1:`<g fill="#20252b"><circle cx="25" cy="32" r="1.7"/><circle cx="40" cy="32" r="1.7"/></g>`,
+2:`<g fill="#fff"><ellipse cx="25" cy="32" rx="3" ry="3.4"/><ellipse cx="40" cy="32" rx="3" ry="3.4"/></g><g fill="#20252b"><circle cx="25" cy="32" r="1.5"/><circle cx="40" cy="32" r="1.5"/></g>`,
+3:`<path d="M21 32q4 2 8 0M36 32q4 2 8 0" fill="none" stroke="#20252b" stroke-width="1.6"/>`,
+4:`<g fill="none" stroke="#d9dde3" stroke-width="1.5"><rect x="18" y="28" width="12" height="8" rx="1"/><rect x="35" y="28" width="12" height="8" rx="1"/><path d="M30 32h5"/></g>`,
+5:`<path d="M21 32q4 3 8 0M36 32q4 3 8 0" fill="none" stroke="#20252b" stroke-width="1.8"/>`,
+6:`<path d="M20 28l9 2M36 30l9-2" stroke="${hair}" stroke-width="2"/><g fill="#20252b"><circle cx="25" cy="33" r="1.6"/><circle cx="40" cy="33" r="1.6"/></g>`,
+7:`<path d="M20 30q5-2 10 0M35 30q5-2 10 0" fill="none" stroke="${hair}" stroke-width="1.2"/><path d="M21 33h8M36 33h8" stroke="#20252b" stroke-width="1.5"/>`,
+8:`<g fill="none" stroke="#d9dde3" stroke-width="1.4"><circle cx="25" cy="32" r="5"/><circle cx="40" cy="32" r="5"/><path d="M30 32h5"/></g><g fill="#20252b"><circle cx="25" cy="32" r="1.4"/><circle cx="40" cy="32" r="1.4"/></g>`,
+9:`<g fill="#fff" stroke="#20252b" stroke-width=".7"><circle cx="25" cy="32" r="3.4"/><circle cx="40" cy="32" r="3.4"/></g><g fill="#20252b"><circle cx="25" cy="32" r="1.4"/><circle cx="40" cy="32" r="1.4"/></g>`,
+10:`<path d="M20 29l9 2M36 31l9-2" stroke="${hair}" stroke-width="1.8"/><path d="M21 33h8M36 33h8" stroke="#20252b" stroke-width="1.5"/>`,
+11:`<path d="M19 27q6-3 12 0M34 27q6-3 12 0" fill="none" stroke="${hair}" stroke-width="3"/><g fill="#20252b"><circle cx="25" cy="32" r="1.6"/><circle cx="40" cy="32" r="1.6"/></g>`,
+12:`<path d="M20 28q5-2 10 0M35 25q5-3 10 0" fill="none" stroke="${hair}" stroke-width="1.8"/><g fill="#20252b"><circle cx="25" cy="32" r="1.6"/><circle cx="40" cy="32" r="1.6"/></g>`,
+13:`<path d="M21 32q4-4 8 0M36 32q4-4 8 0" fill="none" stroke="#20252b" stroke-width="1.7"/>`,
+14:`<path d="M18 28h29l-3 9H21z" fill="#16212a" stroke="var(--accent,#f2c52d)" stroke-width="1.2"/><path d="M21 32h22" stroke="#72e9ff" stroke-width="1" opacity=".8"/>`,
+15:`<path d="M19 27l11 4M35 31l11-4" stroke="${hair}" stroke-width="2.2"/><g fill="#20252b"><circle cx="25" cy="33" r="1.7"/><circle cx="40" cy="33" r="1.7"/></g>`,
+16:`<path d="M20 29q5 2 10 0M35 29q5 2 10 0" fill="none" stroke="${hair}" stroke-width="1.4"/><g fill="#20252b"><circle cx="25" cy="33" r="1.5"/><circle cx="40" cy="33" r="1.5"/></g>`,
+17:`<path d="M21 32q4 3 8 0" fill="none" stroke="#20252b" stroke-width="1.7"/><circle cx="40" cy="32" r="1.8" fill="#20252b"/>`,
+18:`<circle cx="25" cy="32" r="1.8" fill="#20252b"/><path d="M36 32q4 3 8 0" fill="none" stroke="#20252b" stroke-width="1.7"/>`,
+19:`<circle cx="25" cy="32" r="1.6" fill="#20252b"/><g fill="none" stroke="#d7b65a" stroke-width="1.3"><circle cx="40" cy="32" r="5"/><path d="M45 35l3 8"/></g>`,
+20:`<g fill="#7ef6ff"><circle cx="25" cy="32" r="2.3"/><circle cx="40" cy="32" r="2.3"/></g><g fill="none" stroke="#7ef6ff" stroke-width=".8" opacity=".8"><path d="M19 32h12M34 32h12"/><path d="M25 26v12M40 26v12"/></g>`
+};let eyeSVG=eyeStyles[e]||eyeStyles[1];
+let facial='';
+ if(f===2) facial=`<path d="M25 39Q32 36 39 39Q35 42 32 40Q29 42 25 39" fill="${hair}"/>`;
+ if(f===3) facial=`<path d="M20 39Q22 55 32 58Q42 55 44 39Q39 47 32 49Q25 47 20 39" fill="${hair}" opacity=".92"/>`;
+ if(f===4) facial=`<path d="M25 39Q32 35 39 39Q35 42 32 40Q29 42 25 39" fill="${hair}"/><path d="M21 42Q23 55 32 58Q41 55 43 42Q38 49 32 50Q26 49 21 42" fill="${hair}" opacity=".92"/>`;
+ if(f===5) facial=`<path d="M28 43Q32 48 36 43L36 53Q32 57 28 53Z" fill="${hair}"/>`;
+ if(f===6) facial=`<path d="M23 38Q28 34 32 39Q36 34 41 38Q36 43 32 40Q28 43 23 38" fill="${hair}"/>`;
+ if(f===7) facial=`<path d="M22 43Q25 52 32 54Q39 52 42 43Q37 48 32 49Q27 48 22 43" fill="${hair}" opacity=".86"/>`;
+ if(f===8) facial=`<path d="M24 39Q32 35 40 39Q36 42 32 40Q28 42 24 39" fill="${hair}"/><path d="M22 43Q25 54 32 56Q39 54 42 43Q37 49 32 50Q27 49 22 43" fill="${hair}" opacity=".9"/>`;
+ if(f===9) facial=`<path d="M28 42Q32 46 36 42L37 57L32 61L27 57Z" fill="${hair}"/>`;
+ if(f===10) facial=`<g fill="${hair}" opacity=".38"><circle cx="25" cy="44" r=".8"/><circle cx="29" cy="46" r=".7"/><circle cx="33" cy="47" r=".8"/><circle cx="37" cy="46" r=".7"/><circle cx="40" cy="43" r=".8"/></g><path d="M23 43Q32 50 41 43" fill="none" stroke="${hair}" stroke-width="1.3" opacity=".48"/>`;
+ if(f===11) facial=`<path d="M17 34Q19 43 22 48L24 44Q21 37 21 32ZM47 34Q45 43 42 48L40 44Q43 37 43 32Z" fill="${hair}"/>`;
+ if(f===12) facial=`<path d="M20 39Q21 52 32 56Q43 52 44 39L41 42Q38 50 32 51Q26 50 23 42Z" fill="${hair}" opacity=".88"/><path d="M26 39Q32 42 38 39" fill="${skin}"/>`;
+ if(f===13) facial=`<path d="M20 38Q27 33 32 39Q37 33 44 38Q38 42 32 40Q26 42 20 38" fill="${hair}"/><path d="M20 38Q17 36 16 33M44 38Q47 36 48 33" fill="none" stroke="${hair}" stroke-width="1.6"/>`;
+ if(f===14) facial=`<path d="M22 42Q25 52 32 60Q39 52 42 42Q37 49 32 49Q27 49 22 42" fill="${hair}"/>`;
+ if(f===15) facial=`<path d="M24 39Q32 35 40 39Q36 42 32 40Q28 42 24 39" fill="${hair}"/><path d="M28 43Q32 47 36 43L36 54Q32 58 28 54Z" fill="${hair}"/>`;
+ return `<svg viewBox="0 0 64 64"><defs><linearGradient id="bg${n}${h}" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#141923"/><stop offset="1" stop-color="#050608"/></linearGradient></defs><rect width="64" height="64" fill="url(#bg${n}${h})"/><path d="M6 64Q10 49 24 46L32 51L40 46Q54 49 58 64" fill="${shirt}"/><ellipse cx="32" cy="31" rx="${15+(n%3)}" ry="${20+(n%2)}" fill="${skin}"/><path d="${hairPaths[h-1]}" fill="${hair}"/>${eyeSVG}<path d="M32 33l-2 5h4" fill="none" stroke="#9c6857" stroke-width=".8"/>${mouths[(m-1)%mouths.length]}${facial}<path d="M2 2h11M2 2v11M62 2H51M62 2v11M2 62h11M2 62V51M62 62H51M62 62V51" stroke="var(--accent,#f2c52d)" opacity=".75"/></svg>`;
+}
+function renderPortrait(el,n,h,m,e,f){if(el)el.innerHTML=portraitSVG(n,h,m,e,f)}
+
+function preview(){let d={pseudo:$('pseudo').value.trim()||'NOUVEAU MEMBRE',universe:$('universe').value.trim()||'U-?',title:$('title').value.trim()||'MEMBRE QUENQUEN CORP',rank:$('rank').value,shape:$('shape').value,motif:$('motif').value,palette:$('palette').value,shine:$('shine').value,portrait:$('portrait').value,hair:$('hair').value,mouth:$('mouth').value,eyes:$('eyes').value,facial:$('facial').value,photoFrame:$('photoFrame').value,cardAccent:$('cardAccent').value};$('previewName').textContent=d.pseudo.toUpperCase();$('previewRole').textContent=d.title.toUpperCase();$('previewBottom').textContent=formatUniverseCard(d.universe)+' • '+d.rank;$('previewId').textContent=current&&current.corpId?current.corpId:'QC-'+d.universe.toUpperCase().replace(/[^A-Z0-9]/g,'')+'-?????';applyCardDesign($('creatorCard'),d);applyCardAccent($('creatorCard'),d.cardAccent);premiumModelClass($('creatorCard'),d.shape);applyPremiumFinish($('creatorCard'),d.shine);$('creatorCard').style.setProperty('--photo-frame',d.photoFrame||'#d8b63e');renderPortrait($('previewPortrait'),d.portrait,d.hair,d.mouth,d.eyes,d.facial)}
+function openCreator(first=false){$('formView').style.display='block';$('approval').classList.remove('show');$('modal').classList.add('show');$('modal').classList.toggle('first-visit',first);$('firstBadge').textContent=first?'PREMIÈRE CONNEXION — CRÉATION OBLIGATOIRE':'MODIFICATION DE VOTRE CARTE';if(current){$('pseudo').value=current.pseudo;$('universe').value=current.universe;$('title').value=current.title;$('rank').value=current.rank;$('shape').value=(+current.shape>=1&&+current.shape<=5)?current.shape:1;$('motif').value=current.motif||1;$('palette').value=current.palette||1;$('shine').value=current.shine||1;$('portrait').value=current.portrait||1;$('hair').value=current.hair||1;$('mouth').value=current.mouth||1;$('eyes').value=current.eyes||1;$('facial').value=current.facial||1;$('photoFrame').value=current.photoFrame||'#d8b63e';$('cardAccent').value=current.cardAccent||'auto'}else{$('pseudo').value='';$('universe').value='U-20';$('title').value='Agent du Multivers';$('rank').value='DIAMANT';$('shape').value=1;$('motif').value=1;$('palette').value=1;$('shine').value=1;$('portrait').value=1;$('hair').value=1;$('mouth').value=1;$('eyes').value=1;$('facial').value=1;$('photoFrame').value='#d8b63e';$('cardAccent').value='auto'}preview()}
+function refresh(){try{current=JSON.parse(localStorage.getItem(KEY))}catch(e){current=null}if(current&&current.pseudo){if(!current.corpId){current.corpId=makeCorpId(current.universe);localStorage.setItem(KEY,JSON.stringify(current))}current.shape=current.shape||1;current.motif=current.motif||1;current.palette=current.palette||1;current.shine=current.shine||1;current.portrait=current.portrait||1;current.hair=current.hair||1;current.mouth=current.mouth||1;current.eyes=current.eyes||1;current.facial=current.facial||1;current.photoFrame=current.photoFrame||'#d8b63e';current.cardAccent=current.cardAccent||'auto';$('member').classList.add('active');$('membercard').hidden=false;applyCardDesign($('membercard'),current);applyCardAccent($('membercard'),current.cardAccent);premiumModelClass($('membercard'),current.shape);applyPremiumFinish($('membercard'),current.shine);$('membercard').style.setProperty('--photo-frame',current.photoFrame||'#d8b63e');renderPortrait($('mcportrait'),current.portrait||1,current.hair||1,current.mouth||1,current.eyes||1,current.facial||1);$('mcname').textContent=current.pseudo.toUpperCase();$('mcrole').textContent=current.title.toUpperCase();$('mcbottom').textContent=formatUniverseCard(current.universe)+" • "+current.rank;$('mcid').textContent=current.corpId;$('connection').classList.add('connected');$('seal').textContent=(current.pseudo[0]||'Q').toUpperCase();$('who').textContent=current.pseudo.toUpperCase();$('whoTitle').textContent=current.title.toUpperCase();$('meta').textContent=current.universe.toUpperCase()+"  •  RANG "+current.rank+"  •  "+current.corpId;$('connectionText').textContent="AGENT "+current.pseudo.toUpperCase()+" — IDENTIFIÉ";$('identityBtn').textContent="PERSONNALISER MA CARTE"}else{$('member').classList.remove('active');$('membercard').hidden=true;$('connection').classList.remove('connected');$('seal').textContent='?';$('who').textContent='VISITEUR NON IDENTIFIÉ';$('whoTitle').textContent='';$('meta').textContent="CRÉEZ VOTRE IDENTITÉ QUENQUEN CORP POUR ÊTRE RECONNU À TRAVERS L'ÉCOSYSTÈME.";$('connectionText').textContent='VISITEUR NON IDENTIFIÉ';$('identityBtn').textContent='CRÉER MA CARTE CORP'}}
+fillOptions();$('identityBtn').onclick=()=>openCreator(false);$('cancel').onclick=()=>{if(current)$('modal').classList.remove('show')};for(let id of ['pseudo','universe','title','rank','portrait','hair','mouth','eyes','facial','photoFrame','cardAccent','shape','motif','palette','shine']){$(id).addEventListener('input',preview);$(id).addEventListener('change',preview);}
+$('approve').onclick=()=>{let pseudo=$('pseudo').value.trim();if(!pseudo){$('pseudo').focus();$('pseudo').style.outline='2px solid #f2c52d';return}$('pseudo').style.outline='';let oldId=current&&current.corpId;current={pseudo,universe:$('universe').value.trim()||'U-?',title:$('title').value.trim()||'Membre QUENQUEN CORP',rank:$('rank').value,portrait:+$('portrait').value,hair:+$('hair').value,mouth:+$('mouth').value,eyes:+$('eyes').value,facial:+$('facial').value,photoFrame:$('photoFrame').value,cardAccent:$('cardAccent').value,shape:+$('shape').value,motif:+$('motif').value,palette:+$('palette').value,shine:+$('shine').value,corpId:oldId||makeCorpId($('universe').value)};localStorage.setItem(KEY,JSON.stringify(current));localStorage.setItem("quenquen_album_owner_v1",current.pseudo);$('formView').style.display='none';$('approval').classList.add('show');$('modal').classList.remove('first-visit');refresh()};$('finish').onclick=()=>$('modal').classList.remove('show');refresh();if(!current)setTimeout(()=>openCreator(true),180);
 const LINKKEY="quenquen_portal_destinations_unified_v1";
 const defaults={collector:"./card-collector/",wiki:"./wiki/",game:"./the-rise-of-french-quenquen/"};
 function links(){let d={};try{d=JSON.parse(localStorage.getItem(LINKKEY))||{}}catch(e){}return {...defaults,...d}}
@@ -93,6 +774,21 @@ function updateLinks(){let l=links();for(let el of document.querySelectorAll("[d
 function openDest(el){let key=el.dataset.dest,url=links()[key];if(!url){alert("Le lien du mini-jeu n'est pas encore configuré. Clique sur CONFIGURER LES LIENS.");return}window.location.assign(url)}
 for(let el of document.querySelectorAll("[data-dest]")){el.addEventListener("click",()=>openDest(el));el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openDest(el)}})}
 updateLinks();
+
+function openCardZoom(){
+ const source=$('membercard'); if(!source || source.hidden)return;
+ const clone=source.cloneNode(true);clone.removeAttribute('id');clone.hidden=false;
+ clone.querySelectorAll('[id]').forEach(x=>x.removeAttribute('id'));
+ $('cardZoomCopy').innerHTML='';$('cardZoomCopy').appendChild(clone);
+ $('cardZoom').classList.add('show');$('cardZoom').setAttribute('aria-hidden','false');
+}
+function closeCardZoom(){$('cardZoom').classList.remove('show');$('cardZoom').setAttribute('aria-hidden','true')}
+$('membercard').addEventListener('click',openCardZoom);
+$('membercard').setAttribute('title','Cliquer pour agrandir la carte');
+$('cardZoomClose').addEventListener('click',closeCardZoom);
+$('cardZoom').addEventListener('click',e=>{if(e.target===$('cardZoom'))closeCardZoom()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCardZoom()});
+
 </script>
 <script id="qcRegistryV05">
 (()=>{
