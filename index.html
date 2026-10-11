@@ -798,17 +798,17 @@ $('cardZoom').addEventListener('click',e=>{if(e.target===$('cardZoom'))closeCard
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCardZoom()});
 
 </script>
-<script id="qcRegistryV198">
+<script id="qcRegistryV199">
 (()=>{
 const SUPABASE_URL="https://qfkjrlpkykkizrmzlixp.supabase.co";
 const SUPABASE_KEY="sb_publishable_tBGclmheOxP-q6MVKz1SJQ_Mc3PDRnG";
-const IDENTITY_KEY="quenquen_corp_identity_v2";
+const IDENTITY_KEY="quenquen_corp_identity_v2";\nconst TOKEN_KEY="quenquen_corp_edit_tokens_v1";
 const $r=id=>document.getElementById(id);
 let registeredAgent=false;
 const headers={apikey:SUPABASE_KEY};
 const safe=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function identity(){try{return JSON.parse(localStorage.getItem(IDENTITY_KEY)||"null")}catch(e){return null}}
-function universeNumber(v){const n=parseInt(String(v||"").replace(/\D/g,""),10);return Number.isInteger(n)&&n>=1&&n<=150?n:null}
+function tokens(){try{return JSON.parse(localStorage.getItem(TOKEN_KEY)||"{}")}catch(e){return {}}}\nfunction tokenFor(id){return tokens()[id]||""}\nfunction saveToken(id,token){const t=tokens();t[id]=token;localStorage.setItem(TOKEN_KEY,JSON.stringify(t))}\nfunction newToken(){const a=new Uint8Array(32);crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,"0")).join("")}\nfunction universeNumber(v){const n=parseInt(String(v||"").replace(/\D/g,""),10);return Number.isInteger(n)&&n>=1&&n<=150?n:null}
 function visual(a){
  return {pseudo:a.pseudo||"AGENT",universe:"U-"+(a.universe||"?"),title:a.title||"Membre QUENQUEN CORP",rank:a.rank||"CARTON",
  portrait:a.portrait||1,hair:a.hair||1,mouth:a.mouth||1,eyes:a.eyes||1,facial:a.facial||1,shape:a.shape||1,motif:a.motif||1,palette:a.palette||1,shine:a.shine||1,
@@ -843,7 +843,7 @@ $r("toggleRegistry").addEventListener("click",()=>{const l=$r("registryList");l.
 $r("registerAgent").addEventListener("click",async()=>{
  const me=identity();if(!me||!me.pseudo||!me.corpId){alert("Créez d'abord votre carte de membre QUENQUEN CORP.");return}
  const u=universeNumber(me.universe);if(!u){alert("Votre univers d'origine doit être compris entre 1 et 150.");return}
- const updating=registeredAgent;
+ const updating=registeredAgent;\n if(updating&&!tokenFor(me.corpId)){alert("Cette ancienne inscription ne possède pas encore de clé privée de modification. Supprimez-la une dernière fois du registre puis réinscrivez cette carte.");return}
  const question=updating?"Mettre à jour votre carte publique dans le Registre Central QUENQUEN CORP ?":"Inscrire publiquement "+me.pseudo+" au Registre Central QUENQUEN CORP ?\n\nVotre carte personnalisée, pseudo, matricule, univers, titre et rang seront visibles.";
  if(!confirm(question))return;
  const btn=$r("registerAgent");btn.disabled=true;btn.textContent=updating?"MISE À JOUR EN COURS…":"INSCRIPTION EN COURS…";
