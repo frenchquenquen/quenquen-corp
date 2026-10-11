@@ -4324,3 +4324,22 @@ window.qcAndromedaBoss=(function(){
   .qcImmersiveArrow{width:44px!important;height:72px!important;font-size:27px!important}
 }
 </style>
+
+
+<style id="qcImmersiveV19AlbumScale">
+/* Album plus imposant : exploite l'espace noir sans empiéter sur le dock inférieur. */
+.album{
+  width:min(1880px,94vw)!important;
+}
+.home{
+  height:min(86vh,850px)!important;
+}
+.page.active>img{
+  max-height:calc(100vh - 125px)!important;
+}
+@media(max-width:900px){
+  .album{width:97vw!important}
+  .home{height:auto!important}
+  .page.active>img{max-height:none!important}
+}
+</style>
