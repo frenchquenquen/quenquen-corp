@@ -572,6 +572,14 @@ main{width:min(1180px,92%);margin:auto;padding:45px 0 70px}.hero{text-align:cent
   border-left-color:#f2c52d;
 }
 
+/* V19.8 — REGISTRE VISUEL DES AGENTS */
+.registry-list.open{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;max-height:none;overflow:visible}
+.agent-card-entry{border:1px solid #ffffff16;background:#05070bcc;padding:14px;cursor:pointer;transition:.18s transform,.18s border-color,.18s box-shadow}
+.agent-card-entry:hover{transform:translateY(-3px);border-color:#f2c52d88;box-shadow:0 12px 35px #0009}
+.agent-card-entry .membercard{display:block!important;margin:0 auto;width:min(100%,210px);transform:none!important;cursor:pointer}
+.agent-card-caption{padding-top:10px;text-align:center}
+.agent-card-caption b{display:block;color:#fff;font-size:12px}.agent-card-caption span{display:block;color:#f2c52d;font-family:monospace;font-size:10px;margin-top:4px}
+@media(max-width:600px){.registry-list.open{grid-template-columns:1fr}.agent-card-entry .membercard{width:min(100%,240px)}}
 </style></head><body><div class="bg"></div><div class="stars"></div><div class="gridbg"></div>
 <header><div class="connection" id="connection"><span class="dot"></span><span id="connectionText">VISITEUR NON IDENTIFIÉ</span></div></header>
 <main><section class="hero"><div class="micro">MULTIVERSE COMMUNITY ACCESS</div><h1>QUENQUEN-CORP</h1>
@@ -790,24 +798,43 @@ $('cardZoom').addEventListener('click',e=>{if(e.target===$('cardZoom'))closeCard
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCardZoom()});
 
 </script>
-<script id="qcRegistryV05">
+<script id="qcRegistryV198">
 (()=>{
 const SUPABASE_URL="https://qfkjrlpkykkizrmzlixp.supabase.co";
 const SUPABASE_KEY="sb_publishable_tBGclmheOxP-q6MVKz1SJQ_Mc3PDRnG";
 const IDENTITY_KEY="quenquen_corp_identity_v2";
 const $r=id=>document.getElementById(id);
-const headers={apikey:SUPABASE_KEY}; // La clé publishable n’est pas un JWT Bearer
+const headers={apikey:SUPABASE_KEY};
 const safe=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function identity(){try{return JSON.parse(localStorage.getItem(IDENTITY_KEY)||"null")}catch(e){return null}}
 function universeNumber(v){const n=parseInt(String(v||"").replace(/\D/g,""),10);return Number.isInteger(n)&&n>=1&&n<=150?n:null}
+function visual(a){
+ return {pseudo:a.pseudo||"AGENT",universe:"U-"+(a.universe||"?"),title:a.title||"Membre QUENQUEN CORP",rank:a.rank||"CARTON",
+ portrait:a.portrait||1,hair:a.hair||1,mouth:a.mouth||1,eyes:a.eyes||1,facial:a.facial||1,shape:a.shape||1,motif:a.motif||1,palette:a.palette||1,shine:a.shine||1,
+ photoFrame:a.photo_frame||"#d8b63e",cardAccent:a.card_accent||"auto",corpId:a.corp_id||""};
+}
+function buildCard(a,i){
+ const d=visual(a),wrap=document.createElement("div");wrap.className="agent-card-entry";wrap.title="Voir la carte de "+d.pseudo;
+ const card=document.createElement("div");card.className="membercard";
+ card.innerHTML='<div class="mc-top">QUENQUEN <b>CORP</b><span>◈</span></div><div class="mc-portrait"></div><div class="mc-emblem">✦</div><div class="mc-name"></div><div class="mc-role"></div><div class="mc-bottom"></div><div class="mc-id"></div>';
+ applyCardDesign(card,d);applyCardAccent(card,d.cardAccent);premiumModelClass(card,d.shape);applyPremiumFinish(card,d.shine);card.style.setProperty("--photo-frame",d.photoFrame);
+ renderPortrait(card.querySelector(".mc-portrait"),d.portrait,d.hair,d.mouth,d.eyes,d.facial);
+ card.querySelector(".mc-name").textContent=d.pseudo.toUpperCase();card.querySelector(".mc-role").textContent=d.title.toUpperCase();
+ card.querySelector(".mc-bottom").textContent=formatUniverseCard(d.universe)+" • "+d.rank;card.querySelector(".mc-id").textContent=d.corpId;
+ const cap=document.createElement("div");cap.className="agent-card-caption";cap.innerHTML="<b>#"+String(i+1).padStart(3,"0")+" // "+safe(d.pseudo)+"</b><span>"+safe(d.corpId)+"</span>";
+ wrap.append(card,cap);wrap.addEventListener("click",()=>openRegistryCard(card));return wrap;
+}
+function openRegistryCard(source){
+ const clone=source.cloneNode(true);clone.querySelectorAll("[id]").forEach(x=>x.removeAttribute("id"));
+ $r("cardZoomCopy").innerHTML="";$r("cardZoomCopy").appendChild(clone);$r("cardZoom").classList.add("show");$r("cardZoom").setAttribute("aria-hidden","false");
+}
 async function loadRegistry(){
  const status=$r("registryStatus"),list=$r("registryList"),count=$r("agentCount");
  try{
-  const res=await fetch(SUPABASE_URL+"/rest/v1/agents?select=corp_id,pseudo,universe,title,rank,created_at&order=created_at.asc",{headers});
-  if(!res.ok)throw new Error("HTTP "+res.status);
-  const agents=await res.json();count.textContent=agents.length;
-  status.textContent=agents.length?"REGISTRE CENTRAL EN LIGNE":"REGISTRE CENTRAL EN LIGNE // AUCUN AGENT POUR LE MOMENT";
-  list.innerHTML=agents.length?agents.map((a,i)=>'<div class="agent-row"><div><div class="agent-name">#'+String(i+1).padStart(3,"0")+' // '+safe(a.pseudo)+'</div><div class="agent-id">'+safe(a.corp_id)+'</div></div><div class="agent-meta">UNIVERS '+safe(a.universe)+'</div><div class="agent-meta">'+safe(a.title)+'</div><div class="agent-rank">'+safe(a.rank)+'</div></div>').join(""):'<div class="agent-meta">Aucun dossier agent enregistré.</div>';
+  const fields="corp_id,pseudo,universe,title,rank,created_at,portrait,hair,mouth,eyes,facial,shape,motif,palette,shine,photo_frame,card_accent";
+  const res=await fetch(SUPABASE_URL+"/rest/v1/agents?select="+fields+"&order=created_at.asc",{headers});if(!res.ok)throw new Error("HTTP "+res.status);
+  const agents=await res.json();count.textContent=agents.length;status.textContent=agents.length?"REGISTRE CENTRAL EN LIGNE // CLIQUEZ SUR UNE CARTE POUR L'AGRANDIR":"REGISTRE CENTRAL EN LIGNE // AUCUN AGENT POUR LE MOMENT";
+  list.innerHTML="";if(agents.length)agents.forEach((a,i)=>list.appendChild(buildCard(a,i)));else list.innerHTML='<div class="agent-meta">Aucun dossier agent enregistré.</div>';
   const me=identity();if(me&&agents.some(a=>a.corp_id===me.corpId)){$r("registerAgent").textContent="AGENT DÉJÀ ENREGISTRÉ";$r("registerAgent").disabled=true}
  }catch(e){count.textContent="?";status.textContent="REGISTRE CENTRAL INJOIGNABLE // RÉESSAYEZ PLUS TARD";console.warn("QUENQUEN CORP registry",e)}
 }
@@ -815,10 +842,13 @@ $r("toggleRegistry").addEventListener("click",()=>{const l=$r("registryList");l.
 $r("registerAgent").addEventListener("click",async()=>{
  const me=identity();if(!me||!me.pseudo||!me.corpId){alert("Créez d'abord votre carte de membre QUENQUEN CORP.");return}
  const u=universeNumber(me.universe);if(!u){alert("Votre univers d'origine doit être compris entre 1 et 150.");return}
- if(!confirm("Inscrire publiquement "+me.pseudo+" au Registre Central QUENQUEN CORP ?\n\nSeront visibles : pseudo, matricule, univers, titre et rang."))return;
+ if(!confirm("Inscrire publiquement "+me.pseudo+" au Registre Central QUENQUEN CORP ?\n\nVotre carte personnalisée, pseudo, matricule, univers, titre et rang seront visibles."))return;
  const btn=$r("registerAgent");btn.disabled=true;btn.textContent="INSCRIPTION EN COURS…";
+ const payload={corp_id:me.corpId,pseudo:String(me.pseudo).slice(0,28),universe:u,title:String(me.title||"Membre QUENQUEN CORP").slice(0,100),rank:me.rank||"CARTON",
+ portrait:+me.portrait||1,hair:+me.hair||1,mouth:+me.mouth||1,eyes:+me.eyes||1,facial:+me.facial||1,shape:+me.shape||1,motif:+me.motif||1,palette:+me.palette||1,shine:+me.shine||1,
+ photo_frame:String(me.photoFrame||"#d8b63e").slice(0,32),card_accent:String(me.cardAccent||"auto").slice(0,32)};
  try{
-  const res=await fetch(SUPABASE_URL+"/rest/v1/agents",{method:"POST",headers:{...headers,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify({corp_id:me.corpId,pseudo:String(me.pseudo).slice(0,28),universe:u,title:String(me.title||"Membre QUENQUEN CORP").slice(0,100),rank:me.rank||"CARTON"})});
+  const res=await fetch(SUPABASE_URL+"/rest/v1/agents",{method:"POST",headers:{...headers,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify(payload)});
   if(res.status===409){$r("registryStatus").textContent="CE MATRICULE EST DÉJÀ PRÉSENT DANS LE REGISTRE";await loadRegistry();return}
   if(!res.ok)throw new Error("HTTP "+res.status+" "+await res.text());
   $r("registryStatus").textContent="INSCRIPTION VALIDÉE // BIENVENUE DANS LE REGISTRE, AGENT "+me.pseudo.toUpperCase();await loadRegistry();$r("registryList").classList.add("open");
