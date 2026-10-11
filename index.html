@@ -851,8 +851,17 @@ $r("registerAgent").addEventListener("click",async()=>{
  portrait:+me.portrait||1,hair:+me.hair||1,mouth:+me.mouth||1,eyes:+me.eyes||1,facial:+me.facial||1,shape:+me.shape||1,motif:+me.motif||1,palette:+me.palette||1,shine:+me.shine||1,
  photo_frame:String(me.photoFrame||"#d8b63e").slice(0,32),card_accent:String(me.cardAccent||"auto").slice(0,32)};
  try{
-  const url=updating?SUPABASE_URL+"/rest/v1/agents?corp_id=eq."+encodeURIComponent(me.corpId):SUPABASE_URL+"/rest/v1/agents";
-  const res=await fetch(url,{method:updating?"PATCH":"POST",headers:{...headers,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify(payload)});
+  let res;
+  if(updating){
+   const body={p_corp_id:me.corpId,p_edit_token:tokenFor(me.corpId),p_pseudo:payload.pseudo,p_universe:payload.universe,p_title:payload.title,p_rank:payload.rank,p_portrait:payload.portrait,p_hair:payload.hair,p_mouth:payload.mouth,p_eyes:payload.eyes,p_facial:payload.facial,p_shape:payload.shape,p_motif:payload.motif,p_palette:payload.palette,p_shine:payload.shine,p_photo_frame:payload.photo_frame,p_card_accent:payload.card_accent};
+   res=await fetch(SUPABASE_URL+"/rest/v1/rpc/update_agent_card",{method:"POST",headers:{...headers,"Content-Type":"application/json"},body:JSON.stringify(body)});
+   if(!res.ok)throw new Error("HTTP "+res.status+" "+await res.text());
+   const changed=await res.json();if(changed!==true)throw new Error("TOKEN_REJECTED");
+  }else{
+   const secret=newToken();payload.edit_token=secret;
+   res=await fetch(SUPABASE_URL+"/rest/v1/agents",{method:"POST",headers:{...headers,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify(payload)});
+   if(res.ok)saveToken(me.corpId,secret);
+  }
   if(res.status===409){$r("registryStatus").textContent="CE MATRICULE EST DÉJÀ PRÉSENT DANS LE REGISTRE";await loadRegistry();return}
   if(!res.ok)throw new Error("HTTP "+res.status+" "+await res.text());
   $r("registryStatus").textContent=updating?"CARTE D’AGENT MISE À JOUR // SYNCHRONISATION TERMINÉE":"INSCRIPTION VALIDÉE // BIENVENUE DANS LE REGISTRE, AGENT "+me.pseudo.toUpperCase();await loadRegistry();$r("registryList").classList.add("open");
