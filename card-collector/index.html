@@ -1,5 +1,7 @@
 <!doctype html>
-<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="fr"><head>
+
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CARD COLLECTOR QUENQUEN — VOLUME 1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
@@ -7,7 +9,7 @@
 *{box-sizing:border-box}:root{--yellow:#ffd400;--cream:#eee3c5}
 html,body{margin:0;min-height:100%;background:#000;color:var(--yellow)}
 body,button{font-family:"Luckiest Guy",Impact,Arial,sans-serif;letter-spacing:.5px}
-.top{position:relative;top:auto;z-index:10;background:#050505;border-bottom:1px solid #3b3300;padding:10px 15px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.top{position:sticky;top:0;z-index:10;background:#050505;border-bottom:1px solid #3b3300;padding:10px 15px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .title{font-size:clamp(18px,3vw,30px);color:var(--yellow)}#sub{font-family:Arial,sans-serif;color:var(--yellow);opacity:.7;font-size:12px;letter-spacing:0}
 .nav{display:flex;align-items:center;gap:8px}button{cursor:pointer}
 .nav button,.tab,.musicbtn{background:#111;color:var(--yellow);border:1px solid #6e5d00;padding:9px 12px;border-radius:3px}
@@ -304,12 +306,235 @@ body,button{font-family:"Luckiest Guy",Impact,Arial,sans-serif;letter-spacing:.5
 .wishAndroWatch.officialAndromedaLogo{width:clamp(145px,22vw,230px)!important;height:clamp(145px,22vw,230px)!important;border:0!important;border-radius:0!important;background-color:transparent!important;box-shadow:none!important;filter:drop-shadow(0 0 18px #ffd40055)!important}
 .wishAndroWatch.officialAndromedaLogo:before,.wishAndroWatch.officialAndromedaLogo:after{display:none!important}
 .wishAndroWatch .wishAndroScreen{left:34%!important;right:34%!important;bottom:39%!important;height:12%!important;line-height:1.2!important;font-size:clamp(10px,2vw,16px)!important;background:transparent!important;border:0!important;box-shadow:none!important;color:#182018!important}
-</style><style id="qc-corp-return-style">
-#qcCorpReturn{position:fixed;z-index:2147483640;top:82px;left:12px;display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid rgba(242,197,45,.48);border-radius:999px;background:rgba(5,7,9,.62);color:#f2c52d;text-decoration:none;font:800 10px/1 Arial,sans-serif;letter-spacing:1.4px;backdrop-filter:blur(8px);box-shadow:0 4px 18px rgba(0,0,0,.22);opacity:.58;transition:opacity .18s,background .18s,border-color .18s,transform .18s}
-#qcCorpReturn:hover,#qcCorpReturn:focus-visible{opacity:1;background:rgba(5,7,9,.92);border-color:#f2c52d;transform:translateY(-1px);outline:none}
-#qcCorpReturn .qcDot{width:6px;height:6px;border-radius:50%;background:#f2c52d;box-shadow:0 0 8px rgba(242,197,45,.7)}
-@media(max-width:650px){#qcCorpReturn{top:76px;left:7px;padding:6px 8px;font-size:9px;letter-spacing:1px}}
-</style></head><body><a id="qcCorpReturn" href="../" aria-label="Retour à QUENQUEN-CORP"><span class="qcDot"></span>REVENIR AU HUB DE LA QUENQUEN CORP</a>
+</style>
+<style id="qcImmersivePrototypeV3">
+html,body{height:100%;background:#050403!important}
+body{overflow:hidden}
+.top{display:none!important}
+.stage{
+ height:100vh!important;padding:clamp(10px,1.5vw,22px)!important;align-items:center!important;
+ background:radial-gradient(ellipse at 50% 45%,#282116 0,#0d0b08 48%,#030303 82%)!important
+}
+.album{
+ position:relative;z-index:1;width:min(1840px,96vw)!important;max-height:94vh!important;
+ border:0!important;border-radius:10px!important;
+ box-shadow:0 30px 90px #000,0 0 0 1px #5b4b25!important;overflow:hidden!important
+}
+.home{min-height:0!important;height:min(82vh,760px)!important}
+.page.active{height:min(90vh,900px);display:flex!important;align-items:center;justify-content:center;flex-wrap:wrap}
+.page.active>img{width:100%!important;height:calc(100% - 48px)!important;object-fit:contain!important}
+.favbar{width:100%}
+.tabs{
+ position:fixed!important;left:50%!important;bottom:14px!important;z-index:120!important;
+ transform:translateX(-50%);width:auto!important;max-width:calc(100vw - 170px);
+ padding:5px!important;gap:3px!important;border:1px solid #6e5d0066!important;border-radius:999px!important;
+ background:#080704e8!important;backdrop-filter:blur(12px);box-shadow:0 8px 28px #000b!important
+}
+.tab,.musicbtn{padding:7px 10px!important;border:0!important;border-radius:999px!important;background:transparent!important;font-size:10px!important;opacity:.58}
+.tab:hover,.musicbtn:hover{opacity:1;background:#ffd40010!important}
+.tab.active{background:#ffd400!important;color:#080808!important;opacity:1}
+.credit{display:none!important}
+.qcImmersiveArrow{
+ position:fixed;top:50%;z-index:125;transform:translateY(-50%);width:46px;height:76px;
+ border:1px solid #6e5d0066;background:#080704c8;color:#ffd400;font:900 24px Arial;
+ border-radius:9px;cursor:pointer;opacity:.42;transition:.2s;backdrop-filter:blur(8px)
+}
+.qcImmersiveArrow:hover{opacity:1;transform:translateY(-50%) scale(1.04);border-color:#ffd400}
+#qcImmersivePrev{left:14px}#qcImmersiveNext{right:14px}.qcImmersiveArrow:disabled{opacity:.08}
+#qcImmersiveCount{position:fixed;right:22px;bottom:20px;z-index:124;color:#a68d25;font:800 10px Arial;letter-spacing:2px;opacity:.6}
+#qcImmersiveHub{position:fixed;left:22px;bottom:20px;z-index:124;color:#a68d25;text-decoration:none;font:800 9px Arial;letter-spacing:2px;opacity:.48}
+#qcImmersiveHub:hover{opacity:1;color:#ffd400}
+.corpConnection{bottom:58px!important}
+@media(max-width:900px){body{overflow:auto}.stage{height:auto!important;min-height:100vh}.album{width:100%!important;max-height:none!important}.home{height:auto!important}.tabs{max-width:calc(100vw - 20px)}}
+</style>
+
+
+<style id="qcImmersivePrototypeV4Fixes">
+/* Restaure l'espace vertical nécessaire aux éléments situés sous les planches :
+   numéros/infos et surtout la barre "choisir favoris". */
+body{overflow:auto!important}
+.stage{min-height:100vh!important;height:auto!important;padding-bottom:92px!important}
+.album{max-height:none!important;overflow:visible!important}
+.page.active{
+ height:auto!important;min-height:0!important;
+ display:block!important;
+}
+.page.active>img{
+ width:100%!important;height:auto!important;max-height:calc(100vh - 155px)!important;
+ object-fit:contain!important;margin:0 auto!important;
+}
+/* La favbar ne doit plus être écrasée/masquée par le dock fixe. */
+.favbar{
+ position:relative!important;z-index:35!important;
+ min-height:48px!important;padding-bottom:4px!important;
+}
+/* Bouton de retour au hub beaucoup plus lisible et cliquable. */
+#qcImmersiveHub{
+ left:18px!important;bottom:16px!important;z-index:140!important;
+ padding:10px 15px!important;
+ border:1px solid #6e5d00!important;border-radius:999px!important;
+ background:#080704ee!important;color:#ffd400!important;
+ font:800 11px Arial!important;letter-spacing:1.4px!important;
+ opacity:.88!important;box-shadow:0 8px 28px #000b!important;
+ backdrop-filter:blur(10px)
+}
+#qcImmersiveHub:hover{opacity:1!important;border-color:#ffd400!important;transform:translateY(-1px)}
+/* Le dock central reste discret mais ne doit pas recouvrir les commandes de page. */
+.tabs{bottom:14px!important;z-index:130!important}
+#qcImmersiveCount{z-index:140!important}
+@media(max-width:900px){
+ .page.active>img{max-height:none!important}
+ #qcImmersiveHub{position:fixed!important;font-size:9px!important;padding:8px 10px!important}
+}
+</style>
+
+
+<style id="qcImmersivePrototypeV5CreditFix">
+/* Le crédit fait partie de l'album : on le conserve dans l'interface immersive. */
+.credit{
+ display:block!important;
+ color:#ffd400!important;
+ opacity:.72!important;
+ font-family:Arial,sans-serif!important;
+ font-size:9px!important;
+ font-weight:700!important;
+ letter-spacing:.7px!important;
+ white-space:nowrap!important;
+ margin-left:auto!important;
+ padding:0 9px!important;
+}
+</style>
+
+
+<style id="qcImmersivePrototypeV7NoSelectionOutlines">
+/* Sélection de cartes : aucun contour jaune autour des cartes sélectionnées. */
+.favChoice,
+.favChoice:hover,
+.favChoice.selected,
+.favChoice:focus,
+.favChoice:focus-visible,
+.favChoice:active{
+  border-color:transparent!important;
+  outline:none!important;
+  box-shadow:none!important;
+}
+/* Même principe pour les cartes/miniatures interactives qui reçoivent un état
+   de sélection dans les différentes interfaces de l'album. */
+.card.selected,
+.card:focus,
+.card:focus-visible,
+.hotspot.selected,
+.hotspot:focus,
+.hotspot:focus-visible{
+  outline:none!important;
+  box-shadow:none!important;
+}
+</style>
+
+
+<style id="qcImmersivePrototypeV8ActualCardFrameFix">
+/* Le grand rectangle jaune vient du cadre de la visionneuse de carte,
+   pas de l'état .selected des favoris. On retire uniquement ce cadre UI. */
+.individualCardFrame,
+.individualCardFrame:hover,
+.individualCardFrame:focus,
+.individualCardFrame:focus-visible,
+.individualCardFrame.flipped{
+  border:none!important;
+  outline:none!important;
+  box-shadow:none!important;
+  background:transparent!important;
+}
+.individualCardInner,
+.individualCardFront,
+.individualCardBack,
+.individualCardCrop{
+  outline:none!important;
+  box-shadow:none!important;
+}
+</style>
+
+
+<style id="qcImmersivePrototypeV9HotspotFix">
+/* VRAI rectangle jaune : zone cliquable invisible superposée à la planche.
+   Elle reste fonctionnelle mais ne s'affiche plus au survol/clic. */
+.cardHotspot,
+.cardHotspot:hover,
+.cardHotspot:focus,
+.cardHotspot:focus-visible,
+.cardHotspot:active{
+  outline:none!important;
+  outline-offset:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  border-color:transparent!important;
+}
+</style>
+
+
+<style id="qcLivingAlbumV10">
+/* --- V10 : ALBUM VIVANT --- */
+.album{
+  transform-style:preserve-3d;
+  will-change:transform;
+  transition:transform .16s ease-out, box-shadow .2s ease-out;
+}
+.album::after{
+  content:"";
+  position:absolute;inset:0;z-index:90;pointer-events:none;
+  background:radial-gradient(circle 330px at var(--qc-light-x,50%) var(--qc-light-y,45%),
+    rgba(255,230,145,.105),rgba(255,212,0,.025) 38%,transparent 72%);
+  mix-blend-mode:screen;
+  opacity:.72;
+  transition:opacity .25s ease;
+}
+.album:hover{box-shadow:0 38px 105px #000,0 0 0 1px #6b5928!important}
+
+/* Les zones cliquables restent invisibles, mais donnent un très léger relief
+   à l'endroit de la carte via un reflet interne sans contour. */
+.cardHotspot{
+  transition:transform .16s ease,filter .16s ease!important;
+  transform-origin:center!important;
+}
+.cardHotspot:hover{
+  transform:translateY(-2px) scale(1.012)!important;
+  filter:brightness(1.035)!important;
+  outline:none!important;border-color:transparent!important;box-shadow:none!important;
+}
+
+/* Petit feedback tactile des commandes, sans effet "bouton de site". */
+.tab,.musicbtn,.chooseFav,.qcImmersiveArrow{
+  transition:transform .13s ease,opacity .18s ease,background .18s ease!important;
+}
+.tab:active,.musicbtn:active,.chooseFav:active,.qcImmersiveArrow:active{
+  transform:scale(.96)!important;
+}
+
+/* apparition douce au changement de planche */
+.page.active{
+  animation:qcPageBreathe .28s ease both;
+}
+@keyframes qcPageBreathe{
+  from{opacity:.72;transform:translateY(3px) scale(.997)}
+  to{opacity:1;transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+ .album,.cardHotspot,.page.active{transition:none!important;animation:none!important;transform:none!important}
+}
+</style>
+
+
+<style id="qcElegantSlideV17">
+/* Reliure légèrement renforcée pendant les transitions : effet album, sans faux page-flip. */
+.album:before{
+ content:"";position:absolute;z-index:88;pointer-events:none;
+ left:50%;top:3%;bottom:3%;width:10px;transform:translateX(-50%);
+ background:radial-gradient(ellipse at center,rgba(0,0,0,.28),rgba(0,0,0,.08) 38%,transparent 72%);
+ filter:blur(3px);opacity:.58;
+}
+</style>
+
+</head><body>
 <audio id="music" autoplay loop preload="auto"><source src="assets/embedded/asset_002_7da7c0160d59.mp3" type="audio/mpeg"></audio>
 <header class="top"><div><div class="title">CARD COLLECTOR QUENQUEN — VOLUME 1</div><div id="sub">Couverture & collections</div></div>
 <div class="nav"><button id="prev">◀</button><span id="count">1 / 7</span><button id="next">▶</button></div></header>
@@ -484,7 +709,67 @@ function render(){
  document.getElementById("sub").textContent=current===0?"Couverture & collections":"Collection "+meta[current-1][0]+" • "+meta[current-1][1];
  document.getElementById("prev").disabled=current===0;document.getElementById("next").disabled=current===6;
 }
-function go(i){current=Math.max(0,Math.min(6,i));render();scrollTo(0,0)}
+function go(i){
+ const target=Math.max(0,Math.min(6,i));
+ if(target===current || window.__qcTransitioning)return;
+ const dir=target>current?1:-1;
+ const oldPage=screens.find(s=>Number(s.dataset.page)===current);
+ const oldImg=oldPage&&oldPage.querySelector(":scope > img");
+
+ // Son papier : directement lié à la vraie navigation.
+ try{
+   window.__qcSlideAC ||= new (window.AudioContext||window.webkitAudioContext)();
+   const ac=window.__qcSlideAC; ac.resume&&ac.resume();
+   const dur=.30,len=Math.floor(ac.sampleRate*dur);
+   const b=ac.createBuffer(1,len,ac.sampleRate),d=b.getChannelData(0);
+   for(let n=0;n<len;n++){
+     const t=n/len;
+     d[n]=(Math.random()*2-1)*Math.sin(Math.PI*t)*(.42-.14*t);
+   }
+   const s=ac.createBufferSource(),f=ac.createBiquadFilter(),g=ac.createGain();
+   f.type="bandpass";f.frequency.value=1100;f.Q.value=.5;g.gain.value=.085;
+   s.buffer=b;s.connect(f);f.connect(g);g.connect(ac.destination);s.start();
+ }catch(e){}
+
+ // Couverture : garde la transition V10, sans fabriquer de fausse page.
+ if(!oldImg){
+   current=target;render();scrollTo(0,0);return;
+ }
+
+ window.__qcTransitioning=true;
+ const r=oldImg.getBoundingClientRect();
+ const ghost=oldImg.cloneNode(true);
+ ghost.removeAttribute("id");
+ Object.assign(ghost.style,{
+   position:"fixed",left:r.left+"px",top:r.top+"px",width:r.width+"px",height:r.height+"px",
+   maxWidth:"none",objectFit:"fill",margin:"0",zIndex:"2147483000",pointerEvents:"none",
+   transformOrigin:"50% 50%",filter:"brightness(1)",boxShadow:"0 20px 50px rgba(0,0,0,.35)"
+ });
+ document.body.appendChild(ghost);
+
+ // Affiche immédiatement la vraie nouvelle planche en dessous.
+ current=target;render();scrollTo(0,0);
+
+ const dist=Math.min(72,Math.max(42,r.width*.045))*dir;
+ const anim=ghost.animate([
+   {transform:"translateX(0) scale(1)",opacity:1,filter:"brightness(1)",offset:0},
+   {transform:`translateX(${-dist*.45}px) scale(.997)`,opacity:.88,filter:"brightness(.90)",offset:.38},
+   {transform:`translateX(${-dist}px) scale(.992)`,opacity:0,filter:"brightness(.72)",offset:1}
+ ],{duration:430,easing:"cubic-bezier(.22,.7,.2,1)",fill:"forwards"});
+
+ // Petit souffle lumineux de la nouvelle planche depuis la reliure.
+ const fresh=screens.find(s=>Number(s.dataset.page)===current);
+ const freshImg=fresh&&fresh.querySelector(":scope > img");
+ if(freshImg){
+   freshImg.animate([
+     {transform:`translateX(${dist*.20}px) scale(.998)`,filter:"brightness(.86)",opacity:.72},
+     {transform:"translateX(0) scale(1)",filter:"brightness(1)",opacity:1}
+   ],{duration:430,easing:"cubic-bezier(.22,.7,.2,1)"});
+ }
+
+ anim.onfinish=()=>{ghost.remove();window.__qcTransitioning=false};
+ anim.oncancel=()=>{ghost.remove();window.__qcTransitioning=false};
+}
 document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>go(Number(b.dataset.go))));
 document.getElementById("prev").onclick=()=>go(current-1);document.getElementById("next").onclick=()=>go(current+1);
 const modal=document.getElementById("modal"),zoom=document.getElementById("zoom");
@@ -498,30 +783,11 @@ music.play().then(updateMusic).catch(()=>{updateMusic();const starter=()=>{music
 
 const ownerName=document.getElementById("ownerName");
 const ownerKey="quenquen_album_owner_v1";
-const corpIdentityKey="quenquen_corp_identity_v2";
-function corpPseudo(){
-  try{
-    const member=JSON.parse(localStorage.getItem(corpIdentityKey)||"null");
-    return member&&member.pseudo?String(member.pseudo).trim().slice(0,28):"";
-  }catch(e){return ""}
-}
 function loadOwner(){
-  const corp=corpPseudo();
-  if(corp){
-    localStorage.setItem(ownerKey,corp);
-    ownerName.textContent=corp;
-    ownerName.title="Nom synchronisé avec votre carte de membre QUENQUEN CORP";
-    return;
-  }
   const saved=localStorage.getItem(ownerKey);
   ownerName.textContent=saved?saved:"ÉCRIRE MON PSEUDO";
 }
 function editOwner(){
-  const corp=corpPseudo();
-  if(corp){
-    alert("Le propriétaire de cet album est lié à votre carte de membre QUENQUEN CORP. Modifiez votre pseudo depuis le portail QUENQUEN CORP.");
-    return;
-  }
   const current=localStorage.getItem(ownerKey)||"";
   const value=prompt("Quel pseudo veux-tu écrire sur ton album ?",current);
   if(value===null)return;
@@ -536,7 +802,6 @@ function editOwner(){
 }
 ownerName.addEventListener("click",editOwner);
 loadOwner();
-window.addEventListener("storage",e=>{if(e.key===corpIdentityKey)loadOwner()});
 
 
 // --- Collectionneur depuis ---
@@ -732,8 +997,7 @@ function favoritesCompleteV9(){
   let f={};try{f=JSON.parse(localStorage.getItem("quenquen_album_favorites_v1")||"{}")||{}}catch(e){}
   return Object.keys(f).filter(k=>f[k]!==undefined).length>=6;
 }
-function refreshWatchV9(){
-  /* 5 favoris = Andromeda débloquée/activable. */
+function refreshWatchV9(){  /* 5 favoris = Andromeda débloquée/activable. */
   if(favoritesAndromedaReadyV9() && !localStorage.getItem(wishUnlockKey)){
     localStorage.setItem(wishUnlockKey,new Date().toISOString());
   }
@@ -1732,8 +1996,7 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
    }).forEach(x=>list.appendChild(x));
    document.getElementById("archiveAccess")?.classList.add("visible");
    const c=document.getElementById("archiveCount");
-   if(c){const ids=new Set([...list.querySelectorAll(".archiveItem")].map(x=>(x.textContent.match(/ARCHIVE #(\d+)/)||[])[1]).filter(Boolean));c.textContent=String(ids.size).padStart(2,"0")}
- }
+   if(c){const ids=new Set([...list.querySelectorAll(".archiveItem")].map(x=>(x.textContent.match(/ARCHIVE #(\d+)/)||[])[1]).filter(Boolean));c.textContent=String(ids.size).padStart(2,"0")} }
  function pauseMusic(){
    if(typeof music!=="undefined"){wasPlaying=!music.paused;savedTime=music.currentTime;music.pause();if(typeof updateMusic==="function")updateMusic()}
  }
@@ -1902,7 +2165,7 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
  font-size:20px;cursor:pointer;
 }
 #qcWelcomeHelp{
- position:fixed;top:15px;left:590px;z-index:95;
+ position:fixed;top:22px;left:22px;z-index:95;
  width:34px;height:34px;border-radius:50%;display:none;
  align-items:center;justify-content:center;background:#080808;
  color:#ffd400;border:1px solid rgba(255,212,0,.55);
@@ -2732,8 +2995,7 @@ window.qcAndromedaBoss=(function(){
  window.qcA14Complete=function(){
    if(localStorage.getItem(DISC))return;
    const reward=document.getElementById("qcA14Reward");
-   if(!reward){localStorage.setItem(DISC,new Date().toISOString());return}
-   reward.classList.add("on");
+   if(!reward){localStorage.setItem(DISC,new Date().toISOString());return}   reward.classList.add("on");
    ["qcA14r1","qcA14r2","qcA14r3","qcA14r4"].forEach(id=>document.getElementById(id)?.classList.remove("on"));
    setTimeout(()=>document.getElementById("qcA14r1")?.classList.add("on"),250);
    setTimeout(()=>document.getElementById("qcA14r2")?.classList.add("on"),1250);
@@ -3732,8 +3994,7 @@ window.qcAndromedaBoss=(function(){
 .qcSuspect{border:1px solid #514600;background:#100f0c;padding:12px;cursor:pointer;text-align:center}
 .qcSuspect img{width:100%;height:250px;object-fit:contain;background:#050505}
 .qcSuspect b{display:block;font-size:19px;margin-top:8px}
-#qcStatement{margin-top:16px;border-left:4px solid #ffd500;background:#14120d;padding:20px;min-height:100px;font:700 17px/1.55 Arial;color:#eee}
-.qcEvidence{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+#qcStatement{margin-top:16px;border-left:4px solid #ffd500;background:#14120d;padding:20px;min-height:100px;font:700 17px/1.55 Arial;color:#eee}.qcEvidence{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
 .qcEvidence button{text-align:left;border:1px solid #5e5000;background:#11100d;color:#d8ba1d;padding:17px;font-family:'Luckiest Guy',cursive;font-size:17px;cursor:pointer}
 .qcEvidence button.opened{border-color:#ffd500;background:#19160b}
 .qcEvidence button span{display:none;margin-top:10px;color:#ddd;font:700 15px/1.45 Arial}
@@ -3926,6 +4187,62 @@ window.qcAndromedaBoss=(function(){
 })();
 </script>
 
+
+
+<script id="qcImmersivePrototypeV3Engine">
+(()=>{
+ const op=document.getElementById("prev"),on=document.getElementById("next"),oc=document.getElementById("count");
+ const p=document.createElement("button"),n=document.createElement("button"),c=document.createElement("div"),h=document.createElement("a");
+ p.id="qcImmersivePrev";n.id="qcImmersiveNext";p.className=n.className="qcImmersiveArrow";p.textContent="‹";n.textContent="›";
+ c.id="qcImmersiveCount";h.id="qcImmersiveHub";h.href="https://frenchquenquen.github.io/quenquen-corp/";h.textContent="← QUENQUEN CORP";
+ document.body.append(p,n,c,h);p.onclick=()=>op.click();n.onclick=()=>on.click();
+ const sync=()=>{c.textContent=oc.textContent;p.disabled=op.disabled;n.disabled=on.disabled};sync();setInterval(sync,100);
+})();
+</script>
+
+
+<script id="qcLivingAlbumV10Engine">
+(()=>{
+ const album=document.querySelector(".album");
+ if(!album) return;
+
+ let tx=0,ty=0,cx=0,cy=0,raf=0;
+ function render(){
+   cx+=(tx-cx)*.12; cy+=(ty-cy)*.12;
+   album.style.transform=`perspective(1500px) rotateX(${cy}deg) rotateY(${cx}deg)`;
+   raf=requestAnimationFrame(render);
+ }
+ function move(e){
+   const r=album.getBoundingClientRect();
+   const x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+   tx=(x-.5)*2.2; ty=(.5-y)*1.5;
+   album.style.setProperty("--qc-light-x",(x*100)+"%");
+   album.style.setProperty("--qc-light-y",(y*100)+"%");
+ }
+ function leave(){tx=0;ty=0;album.style.setProperty("--qc-light-x","50%");album.style.setProperty("--qc-light-y","45%")}
+ album.addEventListener("pointermove",move,{passive:true});
+ album.addEventListener("pointerleave",leave,{passive:true});
+ if(!matchMedia("(prefers-reduced-motion: reduce)").matches) render();
+
+ // Micro-son synthétique très discret au changement de page :
+ // aucun asset supplémentaire, aucun impact sur la musique.
+ let ac;
+ function paperTick(){
+   try{
+     ac ||= new (window.AudioContext||window.webkitAudioContext)();
+     const o=ac.createOscillator(),g=ac.createGain();
+     o.type="triangle";o.frequency.setValueAtTime(105,ac.currentTime);
+     o.frequency.exponentialRampToValueAtTime(62,ac.currentTime+.055);
+     g.gain.setValueAtTime(.012,ac.currentTime);
+     g.gain.exponentialRampToValueAtTime(.0001,ac.currentTime+.065);
+     o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+.07);
+   }catch(e){}
+ }
+ ["prev","next","qcImmersivePrev","qcImmersiveNext"].forEach(id=>{
+   document.getElementById(id)?.addEventListener("click",paperTick);
+ });
+})();
+</script>
 
 </body></html>
 <style id="qcGift16ChristmasLogoFix">
