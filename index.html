@@ -804,6 +804,7 @@ const SUPABASE_URL="https://qfkjrlpkykkizrmzlixp.supabase.co";
 const SUPABASE_KEY="sb_publishable_tBGclmheOxP-q6MVKz1SJQ_Mc3PDRnG";
 const IDENTITY_KEY="quenquen_corp_identity_v2";
 const $r=id=>document.getElementById(id);
+let registeredAgent=false;
 const headers={apikey:SUPABASE_KEY};
 const safe=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function identity(){try{return JSON.parse(localStorage.getItem(IDENTITY_KEY)||"null")}catch(e){return null}}
@@ -835,24 +836,27 @@ async function loadRegistry(){
   const res=await fetch(SUPABASE_URL+"/rest/v1/agents?select="+fields+"&order=created_at.asc",{headers});if(!res.ok)throw new Error("HTTP "+res.status);
   const agents=await res.json();count.textContent=agents.length;status.textContent=agents.length?"REGISTRE CENTRAL EN LIGNE // CLIQUEZ SUR UNE CARTE POUR L'AGRANDIR":"REGISTRE CENTRAL EN LIGNE // AUCUN AGENT POUR LE MOMENT";
   list.innerHTML="";if(agents.length)agents.forEach((a,i)=>list.appendChild(buildCard(a,i)));else list.innerHTML='<div class="agent-meta">Aucun dossier agent enregistré.</div>';
-  const me=identity();if(me&&agents.some(a=>a.corp_id===me.corpId)){$r("registerAgent").textContent="AGENT DÉJÀ ENREGISTRÉ";$r("registerAgent").disabled=true}
+  const me=identity();registeredAgent=!!(me&&agents.some(a=>a.corp_id===me.corpId));if(registeredAgent){$r("registerAgent").textContent="METTRE À JOUR MA CARTE D’AGENT";$r("registerAgent").disabled=false}else{$r("registerAgent").textContent="M’INSCRIRE AU REGISTRE PUBLIC";$r("registerAgent").disabled=false}
  }catch(e){count.textContent="?";status.textContent="REGISTRE CENTRAL INJOIGNABLE // RÉESSAYEZ PLUS TARD";console.warn("QUENQUEN CORP registry",e)}
 }
 $r("toggleRegistry").addEventListener("click",()=>{const l=$r("registryList");l.classList.toggle("open");$r("toggleRegistry").textContent=l.classList.contains("open")?"FERMER LE REGISTRE":"CONSULTER LE REGISTRE"});
 $r("registerAgent").addEventListener("click",async()=>{
  const me=identity();if(!me||!me.pseudo||!me.corpId){alert("Créez d'abord votre carte de membre QUENQUEN CORP.");return}
  const u=universeNumber(me.universe);if(!u){alert("Votre univers d'origine doit être compris entre 1 et 150.");return}
- if(!confirm("Inscrire publiquement "+me.pseudo+" au Registre Central QUENQUEN CORP ?\n\nVotre carte personnalisée, pseudo, matricule, univers, titre et rang seront visibles."))return;
- const btn=$r("registerAgent");btn.disabled=true;btn.textContent="INSCRIPTION EN COURS…";
+ const updating=registeredAgent;
+ const question=updating?"Mettre à jour votre carte publique dans le Registre Central QUENQUEN CORP ?":"Inscrire publiquement "+me.pseudo+" au Registre Central QUENQUEN CORP ?\n\nVotre carte personnalisée, pseudo, matricule, univers, titre et rang seront visibles.";
+ if(!confirm(question))return;
+ const btn=$r("registerAgent");btn.disabled=true;btn.textContent=updating?"MISE À JOUR EN COURS…":"INSCRIPTION EN COURS…";
  const payload={corp_id:me.corpId,pseudo:String(me.pseudo).slice(0,28),universe:u,title:String(me.title||"Membre QUENQUEN CORP").slice(0,100),rank:me.rank||"CARTON",
  portrait:+me.portrait||1,hair:+me.hair||1,mouth:+me.mouth||1,eyes:+me.eyes||1,facial:+me.facial||1,shape:+me.shape||1,motif:+me.motif||1,palette:+me.palette||1,shine:+me.shine||1,
  photo_frame:String(me.photoFrame||"#d8b63e").slice(0,32),card_accent:String(me.cardAccent||"auto").slice(0,32)};
  try{
-  const res=await fetch(SUPABASE_URL+"/rest/v1/agents",{method:"POST",headers:{...headers,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify(payload)});
+  const url=updating?SUPABASE_URL+"/rest/v1/agents?corp_id=eq."+encodeURIComponent(me.corpId):SUPABASE_URL+"/rest/v1/agents";
+  const res=await fetch(url,{method:updating?"PATCH":"POST",headers:{...headers,"Content-Type":"application/json","Prefer":"return=minimal"},body:JSON.stringify(payload)});
   if(res.status===409){$r("registryStatus").textContent="CE MATRICULE EST DÉJÀ PRÉSENT DANS LE REGISTRE";await loadRegistry();return}
   if(!res.ok)throw new Error("HTTP "+res.status+" "+await res.text());
-  $r("registryStatus").textContent="INSCRIPTION VALIDÉE // BIENVENUE DANS LE REGISTRE, AGENT "+me.pseudo.toUpperCase();await loadRegistry();$r("registryList").classList.add("open");
- }catch(e){btn.disabled=false;btn.textContent="M'INSCRIRE AU REGISTRE PUBLIC";$r("registryStatus").textContent="ÉCHEC DE L'INSCRIPTION // RÉESSAYEZ";console.warn("QUENQUEN CORP registry insert",e)}
+  $r("registryStatus").textContent=updating?"CARTE D’AGENT MISE À JOUR // SYNCHRONISATION TERMINÉE":"INSCRIPTION VALIDÉE // BIENVENUE DANS LE REGISTRE, AGENT "+me.pseudo.toUpperCase();await loadRegistry();$r("registryList").classList.add("open");
+ }catch(e){btn.disabled=false;btn.textContent=updating?"METTRE À JOUR MA CARTE D’AGENT":"M’INSCRIRE AU REGISTRE PUBLIC";$r("registryStatus").textContent=updating?"ÉCHEC DE LA MISE À JOUR // VÉRIFIEZ LES AUTORISATIONS DU REGISTRE":"ÉCHEC DE L’INSCRIPTION // RÉESSAYEZ";console.warn("QUENQUEN CORP registry insert",e)}
 });
 loadRegistry();
 })();
