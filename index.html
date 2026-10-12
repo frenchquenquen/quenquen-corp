@@ -583,7 +583,7 @@ main{width:min(1180px,92%);margin:auto;padding:45px 0 70px}.hero{text-align:cent
 
 /* V0.8 — HUB VIVANT (cosmétique uniquement) */
 body:before{content:"";position:fixed;inset:0;z-index:40;pointer-events:none;opacity:.11;background:repeating-linear-gradient(180deg,transparent 0 3px,#fff 4px,transparent 5px);mix-blend-mode:soft-light;animation:qcScan 9s linear infinite}
-body:after{content:"";position:fixed;left:0;right:0;height:18vh;top:-22vh;z-index:39;pointer-events:none;background:linear-gradient(180deg,transparent,#f2c52d0b,transparent);animation:qcSweep 12s linear infinite}
+body:after{content:"";position:fixed;left:0;right:0;height:18vh;top:-22vh;z-index:-1;pointer-events:none;background:linear-gradient(180deg,transparent,#f2c52d0b,transparent);animation:qcSweep 12s linear infinite}
 @keyframes qcSweep{0%,18%{transform:translateY(0)}55%,100%{transform:translateY(145vh)}}@keyframes qcScan{0%,100%{opacity:.08}50%{opacity:.13}}
 .portal:before{content:"";position:absolute;inset:-40%;z-index:3;pointer-events:none;background:linear-gradient(110deg,transparent 43%,#ffffff10 49%,transparent 55%);transform:translateX(-65%) rotate(5deg);transition:transform .7s ease}.portal:hover:before{transform:translateX(65%) rotate(5deg)}
 .portal:hover .panel-visual{transform:scale(1.018)}.portal .panel-visual{transition:transform .65s ease}.portal:hover .enter{text-shadow:0 0 12px #f2c52d88}
