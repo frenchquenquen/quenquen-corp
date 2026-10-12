@@ -660,7 +660,7 @@ function fillOptions(){let shape=$('shape'),motif=$('motif'),palette=$('palette'
 ['COURT CLASSIQUE',1],['DÉGRADÉ',2],['ÉBOURIFFÉ',3],['RAIE DE CÔTÉ',4],
 ['PIQUES',5],['MI-LONG',6],['BANANE RÉTRO',7],['MÈCHE LONGUE',8],
 ['COUPE BOL',9],['UNDERCUT',10],['CRÊTE',11],['BOUCLÉ',12],
-['PLAQUÉ ARRIÈRE',13],['FRANGE',14],['DÉCOIFFÉ',15],['RASÉ / TRÈS COURT',16]
+['PLAQUÉ ARRIÈRE',13],['FRANGE',14],['DÉCOIFFÉ',15],['RASÉ / TRÈS COURT',16],['CHEVEUX LONGS',17]
 ].forEach(x=>hair.add(new Option(x[0],x[1])));[['NEUTRE',1],['SOURIRE LÉGER',2],['MÉCONTENT',3],['TRAIT DROIT',4],['BOUCHE OUVERTE',5],['SOURIRE EN COIN',6],['DOUBLE TRAIT',7],['SOURIRE DENTS',8],['LÈVRES MARQUÉES',9],['PETIT SOURIRE',10],['BOUCHE FINE',11],['GRAND SOURIRE',12],['NEUTRE BAS',13],['SOURIRE DOUX',14],['GRIMACE',15],['SÉRIEUX',16],['SURPRIS',17],['RIRE',18],['RÉSERVÉ',19],['MOUSTACHE SOURIRE',20],['PETITE MOUE',21],['DÉTERMINÉ',22],['SOURIRE LARGE',23],['BOUCHE CYBER',24]].forEach(x=>mouth.add(new Option(x[0],x[1])));[
 ['CLASSIQUE',1],['GRANDS YEUX',2],['YEUX FINS',3],['LUNETTES CARRÉES',4],['YEUX FERMÉS',5],
 ['REGARD SÉRIEUX',6],['REGARD FATIGUÉ',7],['LUNETTES RONDES',8],['REGARD SURPRIS',9],['REGARD MÉFIANT',10],
@@ -752,7 +752,8 @@ function portraitSVG(n,h,m,e,f){
 'M13 27Q14 8 31 8Q49 7 51 27Q45 17 36 16Q28 15 20 20L15 27Z',
 'M13 27Q15 8 31 8Q48 7 51 27Q43 17 36 20L32 13L28 20Q20 17 13 27',
 'M13 28Q14 12 20 10L23 14L27 7L31 12L36 8L39 14L46 10L50 20L51 28Q42 19 34 20Q24 17 13 28',
-'M15 25Q18 14 31 13Q45 13 49 25Q41 20 32 20Q23 20 15 25'
+'M15 25Q18 14 31 13Q45 13 49 25Q41 20 32 20Q23 20 15 25',
+'M12 27Q12 6 32 6Q52 6 52 27L49 51Q45 49 44 40L45 24Q32 16 19 24L20 40Q19 49 15 51Z'
 ]
  const mouths=[
  '<path d="M27 41Q32 43 37 41" fill="none" stroke="#7d4c42" stroke-width="1.3"/>',
@@ -804,7 +805,7 @@ let facial='';
  if(f===13) facial=`<path d="M20 38Q27 33 32 39Q37 33 44 38Q38 42 32 40Q26 42 20 38" fill="${hair}"/><path d="M20 38Q17 36 16 33M44 38Q47 36 48 33" fill="none" stroke="${hair}" stroke-width="1.6"/>`;
  if(f===14) facial=`<path d="M22 42Q25 52 32 60Q39 52 42 42Q37 49 32 49Q27 49 22 42" fill="${hair}"/>`;
  if(f===15) facial=`<path d="M24 39Q32 35 40 39Q36 42 32 40Q28 42 24 39" fill="${hair}"/><path d="M28 43Q32 47 36 43L36 54Q32 58 28 54Z" fill="${hair}"/>`;
- return `<svg viewBox="0 0 64 64"><defs><linearGradient id="bg${n}${h}" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#141923"/><stop offset="1" stop-color="#050608"/></linearGradient></defs><rect width="64" height="64" fill="url(#bg${n}${h})"/><path d="M6 64Q10 49 24 46L32 51L40 46Q54 49 58 64" fill="${shirt}"/><ellipse cx="32" cy="31" rx="${15+(n%3)}" ry="${20+(n%2)}" fill="${skin}"/><path d="${hairPaths[h-1]}" fill="${hair}"/>${eyeSVG}<path d="M32 33l-2 5h4" fill="none" stroke="#9c6857" stroke-width=".8"/>${mouths[(m-1)%mouths.length]}${facial}<path d="M2 2h11M2 2v11M62 2H51M62 2v11M2 62h11M2 62V51M62 62H51M62 62V51" stroke="var(--accent,#f2c52d)" opacity=".75"/></svg>`;
+ return `<svg viewBox="0 0 64 64"><defs><linearGradient id="bg${n}${h}" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#141923"/><stop offset="1" stop-color="#050608"/></linearGradient></defs><rect width="64" height="64" fill="url(#bg${n}${h})"/><path d="M6 64Q10 49 24 46L32 51L40 46Q54 49 58 64" fill="${shirt}"/>${h===17?`<path d="M12 23Q10 7 31 6Q54 6 53 25L56 55Q49 59 43 54L42 33L22 33L21 54Q15 59 8 55Z" fill="${hair}"/>`:``}<ellipse cx="32" cy="31" rx="${15+(n%3)}" ry="${20+(n%2)}" fill="${skin}"/><path d="${hairPaths[h-1]}" fill="${hair}"/>${eyeSVG}<path d="M32 33l-2 5h4" fill="none" stroke="#9c6857" stroke-width=".8"/>${mouths[(m-1)%mouths.length]}${facial}<path d="M2 2h11M2 2v11M62 2H51M62 2v11M2 62h11M2 62V51M62 62H51M62 62V51" stroke="var(--accent,#f2c52d)" opacity=".75"/></svg>`;
 }
 function renderPortrait(el,n,h,m,e,f){if(el)el.innerHTML=portraitSVG(n,h,m,e,f)}
 
