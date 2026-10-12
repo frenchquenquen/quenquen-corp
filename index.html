@@ -849,7 +849,7 @@ async function loadRegistry(){
  try{
   const fields="corp_id,pseudo,universe,title,rank,created_at,portrait,hair,mouth,eyes,facial,shape,motif,palette,shine,photo_frame,card_accent";
   const res=await fetch(SUPABASE_URL+"/rest/v1/agents_public?select="+fields+"&order=created_at.asc",{headers});if(!res.ok)throw new Error("HTTP "+res.status);
-  const agents=await res.json();count.textContent=agents.length;status.textContent=agents.length?"REGISTRE CENTRAL EN LIGNE // CLIQUEZ SUR UNE CARTE POUR L'AGRANDIR":"REGISTRE CENTRAL EN LIGNE // AUCUN AGENT POUR LE MOMENT";
+  const agents=await res.json();count.textContent=agents.length;status.textContent=agents.length?"REGISTRE CENTRAL EN LIGNE - CLIQUEZ SUR UNE CARTE POUR L'AGRANDIR":"REGISTRE CENTRAL EN LIGNE // AUCUN AGENT POUR LE MOMENT";
   list.innerHTML="";if(agents.length)agents.forEach((a,i)=>list.appendChild(buildCard(a,i)));else list.innerHTML='<div class="agent-meta">Aucun dossier agent enregistré.</div>';
   const me=identity();registeredAgent=!!(me&&agents.some(a=>a.corp_id===me.corpId));if(registeredAgent){$r("registerAgent").textContent="METTRE À JOUR MA CARTE D’AGENT";$r("registerAgent").disabled=false}else{$r("registerAgent").textContent="M’INSCRIRE AU REGISTRE PUBLIC";$r("registerAgent").disabled=false}
  }catch(e){count.textContent="?";status.textContent="REGISTRE CENTRAL INJOIGNABLE // RÉESSAYEZ PLUS TARD";console.warn("QUENQUEN CORP registry",e)}
