@@ -812,7 +812,8 @@ function identity(){try{return JSON.parse(localStorage.getItem(IDENTITY_KEY)||"n
 function tokens(){try{return JSON.parse(localStorage.getItem(TOKEN_KEY)||"{}")}catch(e){return {}}}
 function tokenFor(id){return tokens()[id]||""}
 function saveToken(id,token){const t=tokens();t[id]=token;localStorage.setItem(TOKEN_KEY,JSON.stringify(t))}
-function newToken(){const a=new Uint8Array(32);crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,"0")).join("")}\nfunction universeNumber(v){const n=parseInt(String(v||"").replace(/\D/g,""),10);return Number.isInteger(n)&&n>=1&&n<=150?n:null}
+function newToken(){const a=new Uint8Array(32);crypto.getRandomValues(a);return Array.from(a,b=>b.toString(16).padStart(2,"0")).join("")}
+function universeNumber(v){const n=parseInt(String(v||"").replace(/\D/g,""),10);return Number.isInteger(n)&&n>=1&&n<=150?n:null}
 function visual(a){
  return {pseudo:a.pseudo||"AGENT",universe:"U-"+(a.universe||"?"),title:a.title||"Membre QUENQUEN CORP",rank:a.rank||"CARTON",
  portrait:a.portrait||1,hair:a.hair||1,mouth:a.mouth||1,eyes:a.eyes||1,facial:a.facial||1,shape:a.shape||1,motif:a.motif||1,palette:a.palette||1,shine:a.shine||1,
@@ -847,7 +848,8 @@ $r("toggleRegistry").addEventListener("click",()=>{const l=$r("registryList");l.
 $r("registerAgent").addEventListener("click",async()=>{
  const me=identity();if(!me||!me.pseudo||!me.corpId){alert("Créez d'abord votre carte de membre QUENQUEN CORP.");return}
  const u=universeNumber(me.universe);if(!u){alert("Votre univers d'origine doit être compris entre 1 et 150.");return}
- const updating=registeredAgent;\n if(updating&&!tokenFor(me.corpId)){alert("Cette ancienne inscription ne possède pas encore de clé privée de modification. Supprimez-la une dernière fois du registre puis réinscrivez cette carte.");return}
+ const updating=registeredAgent;
+ if(updating&&!tokenFor(me.corpId)){alert("Cette ancienne inscription ne possède pas encore de clé privée de modification. Supprimez-la une dernière fois du registre puis réinscrivez cette carte.");return}
  const question=updating?"Mettre à jour votre carte publique dans le Registre Central QUENQUEN CORP ?":"Inscrire publiquement "+me.pseudo+" au Registre Central QUENQUEN CORP ?\n\nVotre carte personnalisée, pseudo, matricule, univers, titre et rang seront visibles.";
  if(!confirm(question))return;
  const btn=$r("registerAgent");btn.disabled=true;btn.textContent=updating?"MISE À JOUR EN COURS…":"INSCRIPTION EN COURS…";
