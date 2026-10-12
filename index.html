@@ -913,6 +913,12 @@ $r("registerAgent").addEventListener("click",async()=>{
 </script>
 <div class="qc-activity" id="qcActivity" aria-hidden="true"><b>SYSTÈME</b> - INITIALISATION DES PORTAILS...</div><div class="qc-anomaly" id="qcAnomaly" aria-hidden="true">ANOMALIE TEMPORELLE DÉTECTÉE</div>
 <script>
-(()=>{const a=document.getElementById("qcActivity"),n=document.getElementById("qcAnomaly");if(!a||!n)return;const msgs=["RÉSEAU STABLE","PORTAILS SYNCHRONISÉS","BALAYAGE MULTIVERS EN COURS","ARCHIVES QUENQUEN CORP - OK","SIGNATURE ANDROMEDA - SURVEILLANCE"];let i=0;setInterval(()=>{i=(i+1)%msgs.length;a.innerHTML="<b>SYSTÈME</b> - "+msgs[i]},5200);const anomaly=()=>{n.classList.add("show");setTimeout(()=>n.classList.remove("show"),1350);setTimeout(anomaly,30000+Math.random()*30000)};setTimeout(anomaly,22000+Math.random()*18000)})();
+(()=>{const a=document.getElementById("qcActivity"),n=document.getElementById("qcAnomaly");if(!a||!n)return;const msgs=["RÉSEAU STABLE","PORTAILS SYNCHRONISÉS","BALAYAGE MULTIVERS EN COURS","ARCHIVES QUENQUEN CORP - OK","SIGNATURE ANDROMEDA - SURVEILLANCE"];let i=0,ctx=null,hum=null,humGain=null,started=false;
+function tone(freq,dur=.07,vol=.025,type="sine",delay=0){if(!ctx)return;const t=ctx.currentTime+delay,o=ctx.createOscillator(),g=ctx.createGain();o.type=type;o.frequency.setValueAtTime(freq,t);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g).connect(ctx.destination);o.start(t);o.stop(t+dur+.02)}
+function startAudio(){if(started)return;started=true;ctx=new(window.AudioContext||window.webkitAudioContext)();hum=ctx.createOscillator();humGain=ctx.createGain();hum.type="sine";hum.frequency.value=48;humGain.gain.value=.012;hum.connect(humGain).connect(ctx.destination);hum.start();tone(520,.06,.018,"sine");tone(780,.08,.014,"sine",.07)}
+document.addEventListener("pointerdown",startAudio,{once:true});document.addEventListener("keydown",startAudio,{once:true});
+document.querySelectorAll(".portal").forEach(p=>{p.addEventListener("mouseenter",()=>tone(680,.045,.012,"square"));p.addEventListener("click",()=>{tone(420,.055,.025,"square");tone(840,.09,.018,"sine",.055)})});
+setInterval(()=>{i=(i+1)%msgs.length;a.innerHTML="<b>SYSTÈME</b> - "+msgs[i];tone(1040,.035,.007,"sine")},5200);
+const anomaly=()=>{n.classList.add("show");tone(155,.24,.035,"sawtooth");tone(116,.32,.025,"sawtooth",.12);setTimeout(()=>n.classList.remove("show"),1350);setTimeout(anomaly,30000+Math.random()*30000)};setTimeout(anomaly,22000+Math.random()*18000)})();
 </script>
 </body></html>
