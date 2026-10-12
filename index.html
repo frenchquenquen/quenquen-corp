@@ -886,8 +886,8 @@ $r("registerAgent").addEventListener("click",async()=>{
 });
 })();
 </script>
-<div class="qc-activity" id="qcActivity" aria-hidden="true"><b>SYSTÈME</b> // INITIALISATION DES PORTAILS...</div><div class="qc-anomaly" id="qcAnomaly" aria-hidden="true">ANOMALIE TEMPORELLE DÉTECTÉE</div>
+<div class="qc-activity" id="qcActivity" aria-hidden="true"><b>SYSTÈME</b> - INITIALISATION DES PORTAILS...</div><div class="qc-anomaly" id="qcAnomaly" aria-hidden="true">ANOMALIE TEMPORELLE DÉTECTÉE</div>
 <script>
-(()=>{const a=document.getElementById("qcActivity"),n=document.getElementById("qcAnomaly");if(!a||!n)return;const msgs=["RÉSEAU STABLE","PORTAILS SYNCHRONISÉS","BALAYAGE MULTIVERS EN COURS","ARCHIVES QUENQUEN CORP // OK","SIGNATURE ANDROMEDA // SURVEILLANCE"];let i=0;setInterval(()=>{i=(i+1)%msgs.length;a.innerHTML="<b>SYSTÈME</b> // "+msgs[i]},5200);const anomaly=()=>{n.classList.add("show");setTimeout(()=>n.classList.remove("show"),1350);setTimeout(anomaly,30000+Math.random()*30000)};setTimeout(anomaly,22000+Math.random()*18000)})();
+(()=>{const a=document.getElementById("qcActivity"),n=document.getElementById("qcAnomaly");if(!a||!n)return;const msgs=["RÉSEAU STABLE","PORTAILS SYNCHRONISÉS","BALAYAGE MULTIVERS EN COURS","ARCHIVES QUENQUEN CORP - OK","SIGNATURE ANDROMEDA // SURVEILLANCE"];let i=0;setInterval(()=>{i=(i+1)%msgs.length;a.innerHTML="<b>SYSTÈME</b> - "+msgs[i]},5200);const anomaly=()=>{n.classList.add("show");setTimeout(()=>n.classList.remove("show"),1350);setTimeout(anomaly,30000+Math.random()*30000)};setTimeout(anomaly,22000+Math.random()*18000)})();
 </script>
 </body></html>
