@@ -19,8 +19,8 @@
   background:linear-gradient(180deg,rgba(3,6,14,.02) 38%,rgba(3,6,14,.12) 56%,rgba(3,6,14,.78) 100%),url('assets/quenquen-rise-accueil.jpg') center/cover no-repeat;
 }
 /* Effets d'accueil Andromeda : décor uniquement, sans impact sur le gameplay. */
-#overlay{isolation:isolate}
-#overlay::before,#overlay::after{content:"";position:absolute;inset:-5%;pointer-events:none;z-index:0}
+#overlay{isolation:isolate;overflow:hidden;overscroll-behavior:contain}
+#overlay::before,#overlay::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0}
 #overlay::before{
  background:radial-gradient(ellipse 29% 38% at 52% 39%,rgba(255,216,70,.18),transparent 74%),
  radial-gradient(ellipse 47% 36% at 53% 48%,rgba(255,190,25,.13),transparent 75%),
@@ -30,7 +30,7 @@
  mix-blend-mode:screen;animation:andromedaBreathe 5.4s ease-in-out infinite alternate
 }
 #overlay::after{
- inset:-30%;border-radius:50%;
+ inset:0;border-radius:50%;
  background:conic-gradient(from 20deg at 50% 49%,transparent 0deg,rgba(255,217,75,.08) 38deg,transparent 83deg,rgba(255,199,46,.09) 152deg,transparent 211deg,rgba(255,233,122,.08) 285deg,transparent 335deg);
  filter:blur(26px);mix-blend-mode:screen;opacity:.62;
  animation:andromedaOrbit 32s linear infinite
