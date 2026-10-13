@@ -643,6 +643,35 @@ body:after{content:"";position:fixed;left:0;right:0;height:18vh;top:-22vh;z-inde
  .mobile-hub-nav a:active{background:#f2c52d22}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* V2 mobile : cartes horizontales compactes, textes réellement lisibles. */
+@media(max-width:700px){
+ .portals{gap:10px}
+ .portal,.portal.social{height:154px;min-height:154px;display:block;overflow:hidden}
+ .portal .panel-visual,.portal .social-visual,.portal .art{inset:0 auto 0 0;width:36%;height:100%;overflow:hidden}
+ .portal .panel-visual img{width:100%;height:100%;object-fit:cover}
+ .portal .info,.portal.social .info{position:absolute;top:0;bottom:0;left:34%;right:0;display:flex;flex-direction:column;justify-content:center;padding:10px 12px 10px 16px;background:linear-gradient(90deg,#090b10e8,#08090bf8 18%,#08090b)}
+ .portal .info h2,.portal.social .info h2{font-size:clamp(16px,4.4vw,19px);line-height:1.17;letter-spacing:.2px;margin:3px 0 5px}
+ .portal .info p,.portal.social .info p{font-size:12px;line-height:1.3;min-height:0;margin:0 0 6px;color:#c3c9d2}
+ .portal .info .social-identity{font-size:11px;margin:0 0 3px}
+ .portal .enter{font-size:11px;line-height:1.25;font-weight:800;letter-spacing:.2px}
+ .portal .index{font-size:9px}
+ .portal .symbol,.portal .watch{left:18%;top:50%;transform:translate(-50%,-50%)!important;width:65px;height:65px;font-size:30px}
+ .portal .social-mark{left:50%;top:50%;transform:translate(-50%,-50%);width:65px;height:65px;font-size:24px}
+ .portal .social-signal{font-size:8px;letter-spacing:.4px;top:9px;left:8px}
+ .portal .collector-cover{object-position:center}
+ .portal .wiki-sheet{width:100px;height:95px;top:24px}
+ .portal .wiki-sheet:before{font-size:47px}
+ .sectiontitle{font-size:14px;letter-spacing:1px;line-height:1.35}
+ .mobile-hub-nav a{font-size:12px;font-weight:800}
+ .registry-note,.registry-status{font-size:12px;line-height:1.5}
+}
+@media(max-width:360px){
+ .portal,.portal.social{height:170px;min-height:170px}
+ .portal .info,.portal.social .info{left:30%;padding-left:13px}
+ .portal .panel-visual,.portal .social-visual,.portal .art{width:32%}
+ .portal .info h2,.portal.social .info h2{font-size:15px}
+}
 </style></head><body><div class="bg"></div><div class="stars"></div><div class="gridbg"></div>
 <header><div class="connection" id="connection"><span class="dot"></span><span id="connectionText">VISITEUR NON IDENTIFIÉ</span></div></header>
 <main><section class="hero" id="hubAccueil"><div class="micro">MULTIVERSE COMMUNITY ACCESS</div><h1>QUENQUEN-CORP</h1>
