@@ -2815,6 +2815,7 @@ window.addEventListener('blur',()=>{keys.delete('f');if(energyBeam.charging){ene
  if(story)story.addEventListener('click',stopMenuMusic,{capture:true});
  if(survival)survival.addEventListener('click',stopMenuMusic,{capture:true});
  if(returnButton)returnButton.addEventListener('click',playMenuMusic);
+ if(returnButton)returnButton.addEventListener('click',()=>document.getElementById('story-dialogue')?.classList.add('off'));
  track.addEventListener('error',showFallback);
  document.getElementById('qcCorpReturn')?.setAttribute('draggable','false');
  menu.querySelectorAll('*').forEach(el=>el.setAttribute('draggable','false'));
