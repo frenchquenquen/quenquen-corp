@@ -55,8 +55,64 @@
 #qcCorpReturn:hover,#qcCorpReturn:focus-visible{opacity:1;background:rgba(5,7,9,.92);border-color:#f2c52d;transform:translateY(-1px);outline:none}
 #qcCorpReturn .qcDot{width:6px;height:6px;border-radius:50%;background:#f2c52d;box-shadow:0 0 8px rgba(242,197,45,.7)}
 @media(max-width:650px){#qcCorpReturn{top:7px;left:7px;padding:6px 8px;font-size:9px;letter-spacing:1px}}
+</style><style id="menu-cinematic-stability">
+/* Écran d’accueil : reflets et étoiles légers, sans toucher au canvas de jeu. */
+#frame{-webkit-user-select:none;user-select:none}
+#qcCorpReturn{-webkit-user-drag:none;user-select:none}
+#overlay{overflow:hidden;overscroll-behavior:none;touch-action:manipulation}
+#overlay .andromeda-reflection,#overlay .andromeda-particles{position:absolute;inset:0;z-index:0;pointer-events:none}
+#overlay .andromeda-reflection{
+ background:radial-gradient(ellipse 13% 12% at 41% 34%,rgba(255,244,181,.2),transparent 75%),
+ radial-gradient(ellipse 22% 18% at 59% 47%,rgba(255,202,62,.13),transparent 76%),
+ radial-gradient(ellipse 39% 32% at 50% 43%,rgba(255,215,82,.07),transparent 78%);
+ mix-blend-mode:screen;animation:andromedaReflection 6.8s ease-in-out infinite alternate
+}
+#overlay .andromeda-particles{
+ opacity:.28;mix-blend-mode:screen;
+ background:
+ radial-gradient(circle at 13% 24%,rgba(255,233,145,.8) 0 1px,transparent 2px),
+ radial-gradient(circle at 24% 72%,rgba(255,213,95,.7) 0 1px,transparent 2px),
+ radial-gradient(circle at 37% 18%,rgba(255,241,177,.72) 0 1px,transparent 2px),
+ radial-gradient(circle at 71% 26%,rgba(255,220,110,.75) 0 1px,transparent 2px),
+ radial-gradient(circle at 83% 64%,rgba(255,236,151,.72) 0 1px,transparent 2px),
+ radial-gradient(circle at 62% 82%,rgba(255,207,78,.68) 0 1px,transparent 2px),
+ radial-gradient(circle at 91% 43%,rgba(255,241,175,.72) 0 1px,transparent 2px);
+ animation:andromedaParticles 18s ease-in-out infinite alternate;will-change:transform,opacity
+}
+#overlay>.card{position:relative;z-index:1}
+.menu-music-enable{
+ position:absolute;top:10px;right:12px;z-index:4;padding:7px 10px;
+ border:1px solid rgba(255,216,77,.55);border-radius:999px;
+ background:rgba(5,8,14,.72);color:#ffe487;
+ font:700 10px/1.1 Inter,system-ui,sans-serif;letter-spacing:.04em;
+ box-shadow:0 0 14px rgba(255,210,73,.12);cursor:pointer;
+ -webkit-user-select:none;user-select:none;-webkit-user-drag:none
+}
+.menu-music-enable:hover,.menu-music-enable:focus-visible{background:rgba(5,8,14,.94);border-color:#ffe487;outline:2px solid rgba(255,216,77,.3);outline-offset:2px}
+.menu-music-enable[hidden]{display:none!important}
+@keyframes andromedaReflection{from{opacity:.48;transform:scale(.99)}to{opacity:.92;transform:scale(1.015)}}
+@keyframes andromedaParticles{from{opacity:.16;transform:translate3d(0,4px,0)}to{opacity:.34;transform:translate3d(0,-6px,0)}}
+@media(max-width:760px){
+ #overlay .mode-list{gap:6px;margin-bottom:6px}
+ #overlay .mode-card{min-height:54px;padding:5px 12px}
+ #overlay .mode-desc{display:none}
+ #overlay .audio-open{min-height:36px;margin:0 auto;font-size:15px}
+ #overlay .controls{display:none}
+ #overlay>.card{padding:4px 10px}
+ .menu-music-enable{top:7px;right:7px;padding:6px 8px;font-size:9px}
+}
+@media(max-height:420px){
+ #overlay .mode-list{gap:5px;margin-bottom:5px}
+ #overlay .mode-card{min-height:46px;padding:4px 10px}
+ #overlay .audio-open{min-height:32px}
+ #overlay>.card{padding:2px 10px}
+ #overlay .controls{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+ #overlay .andromeda-reflection,#overlay .andromeda-particles{animation:none}
+}
 </style></head>
-<body><a id="qcCorpReturn" href="../" aria-label="Retour à QUENQUEN-CORP"><span class="qcDot"></span>REVENIR AU HUB DE LA QUENQUEN CORP</a><main id="frame"><img id="dark-earth-image" src="assets/embedded/d95eafcd415b86fd.png" alt="" hidden><video id="survival-video" src="assets/embedded/47b43e47ee14e7b3.mp4" preload="auto" playsinline loop muted></video><audio id="dark-boss-music" src="assets/embedded/1577c5eac0c7855e.mp3" preload="auto" loop></audio><audio id="survival-music" src="assets/embedded/ca297055574fb0a2.mp3" preload="auto" loop></audio><audio id="survival-boss-music" src="assets/embedded/e5aa9e9999da1e2a.mp3" preload="metadata"></audio><canvas id="game" aria-label="Jeu de tir vertical"></canvas><section id="overlay" class="overlay"><div class="card"><div class="eyebrow">LE SHOOT’EM UP DE FRENCH QUENQUEN</div><h1>THE RISE OF<span>FRENCH QUENQUEN</span></h1><p id="message" class="desc">Choisis ton mode de jeu et prends ton envol.</p><div class="mode-list"><button class="mode-card" id="start-story"><span class="mode-name">STORY</span><span class="mode-desc">Revivez l’ascension de French QuenQuen jusqu’au combat contre Dark QuenQuen.</span></button><button class="mode-card" id="start-survival"><span class="mode-name">SURVIE</span><span class="mode-desc">Survivez aux vagues ennemies !</span><span class="mode-record" id="survival-record">MEILLEUR TEMPS : 00:00</span></button></div><button class="mode-card audio-open" id="open-audio-settings">PARAMÈTRES AUDIO</button><div class="controls"><span><b>FLÈCHES / ZQSD</b> déplacer</span><span>•</span><span><b>ESPACE + DIRECTION</b> boost</span><span>•</span><span><b>CLIC GAUCHE</b> tirer</span><span>•</span><span><b>R</b> bombe</span><span>•</span><span><b>F</b> Ultime</span></div><div class="hint">Dans STORY, les événements suivent la vidéo; en SURVIE, ton temps et ton record continuent sans limite.</div></div></section><section id="story-dialogue" class="dialogue-overlay off" aria-label="Dialogue du mode Story"><div class="dialogue-shade"></div><div class="dialogue-panel" id="dialogue-panel"><div class="dialogue-avatar-frame" id="dialogue-avatar-frame"><img id="dialogue-avatar" alt=""></div><div class="dialogue-content"><div class="dialogue-speaker" id="dialogue-speaker"></div><div class="dialogue-text" id="dialogue-text"></div></div></div></section><section id="pause-overlay" class="overlay off" aria-label="Pause"><div class="card pause-card"><div class="pause-actions"><button class="mode-card pause-choice" id="pause-retry">RÉESSAYEZ</button><button class="mode-card pause-choice" id="pause-audio-settings">PARAMÈTRES AUDIO</button><button class="mode-card pause-choice" id="pause-menu">REVENIR AU MENU PRINCIPAL</button></div></div></section><section id="audio-settings" class="overlay off" aria-label="Paramètres audio"><div class="card settings-card"><div class="eyebrow">RÉGLAGES DU MIXAGE</div><h2>PARAMÈTRES AUDIO</h2><p class="settings-intro">Ajuste la musique et les effets séparément. Les niveaux sont conservés sur cet appareil.</p><label class="audio-slider-row" for="music-level"><span>MUSIQUE</span><output id="music-level-value">100 %</output><input id="music-level" type="range" min="0" max="150" step="5" value="100"></label><label class="audio-slider-row" for="sfx-level"><span>EFFETS SONORES</span><output id="sfx-level-value">100 %</output><input id="sfx-level" type="range" min="0" max="150" step="5" value="100"></label><div class="audio-tests"><span>ÉCOUTER UN APERÇU</span><div><button class="mode-card test-sound" id="test-shot">TIR</button><button class="mode-card test-sound" id="test-laser">LASER</button><button class="mode-card test-sound" id="test-power">ANDROMEDA UNLEASHED</button></div></div><button class="mode-card pause-choice settings-close" id="close-audio-settings">TERMINÉ</button></div></section></main>
+<body><a id="qcCorpReturn" href="../" aria-label="Retour à QUENQUEN-CORP"><span class="qcDot"></span>REVENIR AU HUB DE LA QUENQUEN CORP</a><main id="frame"><img id="dark-earth-image" src="assets/embedded/d95eafcd415b86fd.png" alt="" hidden><video id="survival-video" src="assets/embedded/47b43e47ee14e7b3.mp4" preload="auto" playsinline loop muted></video><audio id="menu-music" src="assets/embedded/F2Q_Intrance1_menu.mp3" preload="auto" loop></audio><audio id="dark-boss-music" src="assets/embedded/1577c5eac0c7855e.mp3" preload="auto" loop></audio><audio id="survival-music" src="assets/embedded/ca297055574fb0a2.mp3" preload="auto" loop></audio><audio id="survival-boss-music" src="assets/embedded/e5aa9e9999da1e2a.mp3" preload="metadata"></audio><canvas id="game" aria-label="Jeu de tir vertical"></canvas><section id="overlay" class="overlay"><div class="andromeda-reflection" aria-hidden="true"></div><div class="andromeda-particles" aria-hidden="true"></div><div class="card"><div class="eyebrow">LE SHOOT’EM UP DE FRENCH QUENQUEN</div><h1>THE RISE OF<span>FRENCH QUENQUEN</span></h1><p id="message" class="desc">Choisis ton mode de jeu et prends ton envol.</p><div class="mode-list"><button class="mode-card" id="start-story"><span class="mode-name">STORY</span><span class="mode-desc">Revivez l’ascension de French QuenQuen jusqu’au combat contre Dark QuenQuen.</span></button><button class="mode-card" id="start-survival"><span class="mode-name">SURVIE</span><span class="mode-desc">Survivez aux vagues ennemies !</span><span class="mode-record" id="survival-record">MEILLEUR TEMPS : 00:00</span></button></div><button class="mode-card audio-open" id="open-audio-settings">PARAMÈTRES AUDIO</button><div class="controls"><span><b>FLÈCHES / ZQSD</b> déplacer</span><span>•</span><span><b>ESPACE + DIRECTION</b> boost</span><span>•</span><span><b>CLIC GAUCHE</b> tirer</span><span>•</span><span><b>R</b> bombe</span><span>•</span><span><b>F</b> Ultime</span></div><div class="hint">Dans STORY, les événements suivent la vidéo; en SURVIE, ton temps et ton record continuent sans limite.</div></div><button class="menu-music-enable" id="menu-music-enable" type="button" hidden>ACTIVER LA MUSIQUE</button></section><section id="story-dialogue" class="dialogue-overlay off" aria-label="Dialogue du mode Story"><div class="dialogue-shade"></div><div class="dialogue-panel" id="dialogue-panel"><div class="dialogue-avatar-frame" id="dialogue-avatar-frame"><img id="dialogue-avatar" alt=""></div><div class="dialogue-content"><div class="dialogue-speaker" id="dialogue-speaker"></div><div class="dialogue-text" id="dialogue-text"></div></div></div></section><section id="pause-overlay" class="overlay off" aria-label="Pause"><div class="card pause-card"><div class="pause-actions"><button class="mode-card pause-choice" id="pause-retry">RÉESSAYEZ</button><button class="mode-card pause-choice" id="pause-audio-settings">PARAMÈTRES AUDIO</button><button class="mode-card pause-choice" id="pause-menu">REVENIR AU MENU PRINCIPAL</button></div></div></section><section id="audio-settings" class="overlay off" aria-label="Paramètres audio"><div class="card settings-card"><div class="eyebrow">RÉGLAGES DU MIXAGE</div><h2>PARAMÈTRES AUDIO</h2><p class="settings-intro">Ajuste la musique et les effets séparément. Les niveaux sont conservés sur cet appareil.</p><label class="audio-slider-row" for="music-level"><span>MUSIQUE</span><output id="music-level-value">100 %</output><input id="music-level" type="range" min="0" max="150" step="5" value="100"></label><label class="audio-slider-row" for="sfx-level"><span>EFFETS SONORES</span><output id="sfx-level-value">100 %</output><input id="sfx-level" type="range" min="0" max="150" step="5" value="100"></label><div class="audio-tests"><span>ÉCOUTER UN APERÇU</span><div><button class="mode-card test-sound" id="test-shot">TIR</button><button class="mode-card test-sound" id="test-laser">LASER</button><button class="mode-card test-sound" id="test-power">ANDROMEDA UNLEASHED</button></div></div><button class="mode-card pause-choice settings-close" id="close-audio-settings">TERMINÉ</button></div></section></main>
 <script>
 (()=>{'use strict';
 const W=960,H=600,GAME_DURATION=203,EARTH_RETURN_START=GAME_DURATION-10,LASER_START=77,BOSS_START=127,PORTAL_TRANSITION_DURATION=3.2,PORTAL_TRANSITION_START=BOSS_START-PORTAL_TRANSITION_DURATION,canvas=document.getElementById('game'),ctx=canvas.getContext('2d'),overlay=document.getElementById('overlay'),message=document.getElementById('message'),storyBtn=document.getElementById('start-story'),survivalBtn=document.getElementById('start-survival'),survivalRecord=document.getElementById('survival-record'),pauseOverlay=document.getElementById('pause-overlay'),retryBtn=document.getElementById('pause-retry'),menuBtn=document.getElementById('pause-menu'),audioSettings=document.getElementById('audio-settings'),musicSlider=document.getElementById('music-level'),sfxSlider=document.getElementById('sfx-level'),musicValue=document.getElementById('music-level-value'),sfxValue=document.getElementById('sfx-level-value'),survivalVideo=document.getElementById('survival-video'),video=survivalVideo,darkEarthImage=document.getElementById('dark-earth-image'),darkBossMusic=document.getElementById('dark-boss-music'),survivalMusic=document.getElementById('survival-music'),survivalBossMusic=document.getElementById('survival-boss-music');
@@ -2721,4 +2777,48 @@ function idle(){draw();if(!playing&&!victoryPending)requestAnimationFrame(idle)}
 
 
 window.addEventListener('blur',()=>{keys.delete('f');if(energyBeam.charging){energyBeam.charging=false;energyBeam.charge=0}if(energyBeam.active){energyBeam.active=false;energyBeam.burst=0;stopEnergyBeamSfx()}});
+</script><script id="menuMusicController">
+(()=> {
+ const track=document.getElementById('menu-music');
+ const enable=document.getElementById('menu-music-enable');
+ const menu=document.getElementById('overlay');
+ const musicSlider=document.getElementById('music-level');
+ const story=document.getElementById('start-story');
+ const survival=document.getElementById('start-survival');
+ const returnButton=document.getElementById('pause-menu');
+ if(!track||!enable||!menu)return;
+ track.loop=true;
+ function applyVolume(){
+   const raw=musicSlider?Number(musicSlider.value):100;
+   const level=Number.isFinite(raw)?Math.max(0,Math.min(150,raw)):100;
+   track.volume=Math.max(0,Math.min(1,.28*level/100));
+ }
+ function showFallback(){
+   if(!menu.classList.contains('off'))enable.hidden=false;
+ }
+ function playMenuMusic(){
+   if(menu.classList.contains('off'))return;
+   applyVolume();
+   let result;
+   try{result=track.play()}catch(e){showFallback();return}
+   if(result&&typeof result.then==='function'){
+     result.then(()=>{enable.hidden=true}).catch(showFallback);
+   }else enable.hidden=true;
+ }
+ function stopMenuMusic(){
+   track.pause();
+   try{track.currentTime=0}catch(e){}
+   enable.hidden=true;
+ }
+ if(musicSlider)musicSlider.addEventListener('input',applyVolume);
+ if(enable)enable.addEventListener('click',playMenuMusic);
+ if(story)story.addEventListener('click',stopMenuMusic,{capture:true});
+ if(survival)survival.addEventListener('click',stopMenuMusic,{capture:true});
+ if(returnButton)returnButton.addEventListener('click',playMenuMusic);
+ track.addEventListener('error',showFallback);
+ document.getElementById('qcCorpReturn')?.setAttribute('draggable','false');
+ menu.querySelectorAll('*').forEach(el=>el.setAttribute('draggable','false'));
+ menu.addEventListener('dragstart',event=>event.preventDefault());
+ playMenuMusic();
+})();
 </script></body></html>
