@@ -609,18 +609,52 @@ body:after{content:"";position:fixed;left:0;right:0;height:18vh;top:-22vh;z-inde
 .social .info .social-identity{font-weight:800;letter-spacing:.055em;color:#f4f4f4;min-height:0;margin-bottom:5px}
 @media(max-width:850px){.portal.social{height:245px}}
 
+
+/* Navigation tactile du hub : visible uniquement sur mobile. */
+.mobile-hub-nav{display:none}
+@media(max-width:700px){
+ html{scroll-behavior:smooth;scroll-padding-top:18px}
+ main{width:min(100% - 24px,520px);padding:32px 0 calc(110px + env(safe-area-inset-bottom,0px))}
+ .hero h1{font-size:clamp(29px,8.4vw,46px);letter-spacing:clamp(1px,1vw,5px);overflow-wrap:anywhere}
+ .micro{font-size:9px;letter-spacing:2px}
+ .member,.member.active{margin:20px auto 25px;padding:14px;gap:12px;min-width:0}
+ .member .who{min-width:0}.member .who b,.member.active .who b{font-size:clamp(17px,5.2vw,23px);letter-spacing:1px;overflow-wrap:anywhere}
+ .member button,.registry-actions button,.actions button{min-height:44px}
+ .membercard{max-width:100%}
+ .sectiontitle{font-size:11px;letter-spacing:2px}
+ .portals{grid-template-columns:1fr;gap:12px}
+ .portal{height:215px;border-radius:16px}
+ .portal.social{height:205px}
+ .portal .info{padding:16px 18px}
+ .portal .info h2,.social .info h2{font-size:clamp(15px,4.4vw,18px);letter-spacing:1px;margin:5px 0}
+ .portal .info p{font-size:11px;line-height:1.4;margin-bottom:7px}
+ .portal .enter{font-size:10px;letter-spacing:1px}
+ .portal .symbol{top:22px;width:85px;height:85px;font-size:38px}
+ .social-mark{top:23px;width:72px;height:72px;font-size:25px}
+ .social-signal{top:10px;left:12px}
+ .portal:hover{transform:none}
+ .portal:active{border-color:var(--gold);transform:scale(.99)}
+ .registry{scroll-margin-top:20px}
+ .registry-actions{gap:8px}
+ .qc-activity{bottom:calc(77px + env(safe-area-inset-bottom,0px));font-size:7px;max-width:calc(100vw - 28px)}
+ .mobile-hub-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));position:fixed;bottom:0;left:0;right:0;z-index:35;padding:7px 8px calc(7px + env(safe-area-inset-bottom,0px));gap:5px;background:#090c12f5;border-top:1px solid #f2c52d55;box-shadow:0 -10px 30px #000b;backdrop-filter:blur(12px)}
+ .mobile-hub-nav a{display:flex;align-items:center;justify-content:center;min-height:46px;padding:6px 2px;border:1px solid #ffffff19;border-radius:10px;color:#e9e9e9;text-decoration:none;font:700 10px/1.25 Arial,sans-serif;text-align:center}
+ .mobile-hub-nav a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+ .mobile-hub-nav a:active{background:#f2c52d22}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style></head><body><div class="bg"></div><div class="stars"></div><div class="gridbg"></div>
 <header><div class="connection" id="connection"><span class="dot"></span><span id="connectionText">VISITEUR NON IDENTIFIÉ</span></div></header>
-<main><section class="hero"><div class="micro">MULTIVERSE COMMUNITY ACCESS</div><h1>QUENQUEN-CORP</h1>
+<main><section class="hero" id="hubAccueil"><div class="micro">MULTIVERSE COMMUNITY ACCESS</div><h1>QUENQUEN-CORP</h1>
 <div class="member" id="member"><div class="seal" id="seal">?</div><div class="membercard" id="membercard" hidden><div class="mc-top">QUENQUEN <b>CORP</b><span>◈</span></div><div class="mc-portrait" id="mcportrait"></div><div class="mc-emblem">✦</div><div class="mc-name" id="mcname"></div><div class="mc-role" id="mcrole"></div><div class="mc-bottom" id="mcbottom"></div><div class="mc-id" id="mcid"></div></div><div class="who"><b id="who">VISITEUR NON IDENTIFIÉ</b><div class="who-title" id="whoTitle"></div><small id="meta">CRÉEZ VOTRE IDENTITÉ QUENQUEN CORP POUR ÊTRE RECONNU À TRAVERS L'ÉCOSYSTÈME.</small></div><button id="identityBtn">CRÉER MA CARTE CORP</button></div></section>
 <div class="sectiontitle">CHOISISSEZ VOTRE DESTINATION</div>
-<section class="portals">
+<section class="portals" id="hubPortails">
 <article class="portal collector" data-dest="collector" tabindex="0" role="link"><div class="panel-visual"><img class="collector-cover" src="assets/card_collector_panel.png" alt="Card Collector QuenQuen"><div class="collector-vignette"></div></div><div class="info"><h2>CARD COLLECTOR QUENQUEN — VOLUME 1</h2><p>Un banal album de cartes à collectionner… en apparence.</p><div class="enter">ENTRER DANS LA COLLECTION →</div></div></article>
 <article class="portal wiki" data-dest="wiki" tabindex="0" role="link"><div class="panel-visual"><div class="wiki-sheet"></div></div><div class="info"><h2>WIKI QUENQUEN</h2><p>Encyclopédie officielle de l'univers des QuenQuen</p><div class="enter">CONSULTER LES ARCHIVES →</div></div></article>
 <article class="portal game" data-dest="game" tabindex="0" role="link"><div class="panel-visual"><img class="space-img" src="assets/multiverse.webp" alt=""><div class="space-vignette"></div><img class="french-img" src="assets/french_flying.png" alt="French QuenQuen"></div><div class="info"><h2>THE RISE OF FRENCH QUENQUEN</h2><p>Une aventure à travers le Multivers</p><div class="enter">LANCER LE JEU →</div></div></article>
 </section>
 <div class="sectiontitle social-title">TRANSMISSIONS QUENQUEN</div>
-<section class="portals social-portals">
+<section class="portals social-portals" id="hubReseaux">
 <a class="portal social twitch" href="./twitch-intro.html" rel="noopener noreferrer"><div class="social-visual"><div class="social-signal">LIVE</div><div class="social-mark">TW</div></div><div class="info"><h2>TWITCH</h2><p class="social-identity">FRENCH QUENQUEN</p><p>Lives, jeux vidéo, radio libre et moments avec la communauté.</p><div class="enter">REJOINDRE FRENCH EN LIVE →</div></div></a>
 <a class="portal social youtube" href="./intro-v6.html?autoplay=1" rel="noopener noreferrer"><div class="social-visual"><div class="social-signal">VIDÉOS</div><div class="social-mark">▶</div></div><div class="info"><h2>YOUTUBE</h2><p class="social-identity">QUENQUEN-LE MULTIVERS</p><p>Sketchs, personnages et histoires d’un Multivers pas comme les autres.</p><div class="enter">DÉCOUVRIR LE MULTIVERS →</div></div></a>
 <a class="portal social instagram" href="https://www.instagram.com/french_quenquen/" rel="noopener noreferrer"><div class="social-visual"><div class="social-signal">SIGNAL</div><div class="social-mark">IG</div></div><div class="info"><h2>INSTAGRAM</h2><p class="social-identity">QUENQUEN</p><p>Les coulisses.</p><div class="enter">EXPLORER LE MULTIVERS →</div></div></a>
@@ -629,7 +663,7 @@ body:after{content:"";position:fixed;left:0;right:0;height:18vh;top:-22vh;z-inde
 <a class="portal social discord" href="https://discord.com/app/invite-with-guild-onboarding/kVrPDCNkNF" rel="noopener noreferrer"><div class="social-visual"><div class="social-signal">COMMUNAUTÉ</div><div class="social-mark">DC</div></div><div class="info"><h2>DISCORD</h2><p class="social-identity">QUENQUEN-CORP</p><p>Rejoignez la communauté sur Discord.</p><div class="enter">REJOINDRE LE SERVEUR →</div></div></a>
 </section>
 <section class="registry" id="corpRegistry"><div class="registry-head"><div><div class="registry-count"><span id="agentCount">—</span> <small>AGENTS ENREGISTRÉS</small></div></div><div class="registry-actions"><button id="registerAgent">M'INSCRIRE AU REGISTRE PUBLIC</button><button class="secondary" id="toggleRegistry">CONSULTER LE REGISTRE</button></div></div><div class="registry-note">L'inscription est publique et volontaire. Le registre affiche uniquement votre pseudo, matricule CORP, univers, titre et rang.</div><div class="registry-status" id="registryStatus">Connexion au Registre Central…</div><div class="registry-list" id="registryList"></div></section>
-</main>
+</main><nav class="mobile-hub-nav" aria-label="Navigation rapide du hub"><a href="#hubAccueil">ACCUEIL</a><a href="#hubPortails">PORTAILS</a><a href="#hubReseaux">RÉSEAUX</a><a href="#corpRegistry">AGENTS</a></nav>
 <div class="card-zoom" id="cardZoom" aria-hidden="true">
   <button class="card-zoom-close" id="cardZoomClose" aria-label="Fermer">×</button>
   <div class="card-zoom-stage"><div class="card-zoom-copy" id="cardZoomCopy"></div><div class="card-zoom-hint">CLIQUEZ EN DEHORS POUR FERMER</div></div>
