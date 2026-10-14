@@ -4394,6 +4394,16 @@ window.qcAndromedaBoss=(function(){
  document.getElementById('qcMonteur20Close').addEventListener('click',closeVideo);
  document.addEventListener('click',e=>{if(localStorage.getItem(KEY))return;const card=e.target.closest?.('.qcAlbumCard[data-card]');if(card&&Number(card.dataset.card)===CARD)setTimeout(ask,180)});
  refresh();
+ // Hook fiable : le moteur principal appelle directement le secret quand la carte #20 s'ouvre.
+ const previousOpen=window.qcOpenIndividualCard;
+ if(typeof previousOpen==='function'){
+   window.qcOpenIndividualCard=function(c,i){
+     const num=Number(c)*10+Number(i)+1;
+     const result=previousOpen.apply(this,arguments);
+     if(num===CARD&&!localStorage.getItem(KEY))setTimeout(ask,180);
+     return result;
+   };
+ }
  const oldRefresh=window.qcSecretTrophyRailRefresh;
  window.qcSecretTrophyRailRefresh=function(){try{oldRefresh?.()}catch(e){};const rail=document.getElementById('qcSecretTrophyRailItems'),b=document.getElementById('qcMonteur20Badge');if(rail&&b&&localStorage.getItem(KEY)&&b.parentElement!==rail)rail.appendChild(b);};
  setTimeout(()=>window.qcSecretTrophyRailRefresh(),400);
