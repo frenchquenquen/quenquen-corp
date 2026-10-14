@@ -4412,6 +4412,24 @@ window.qcAndromedaBoss=(function(){
  setTimeout(()=>window.qcSecretTrophyRailRefresh(),400);
 })();
 </script>
+
+<script id="qcVideoDownloadGuard">
+(function(){
+ function protect(v){
+   if(!v||v.tagName!=='VIDEO')return;
+   v.setAttribute('controlsList','nodownload');
+   v.setAttribute('disablePictureInPicture','');
+   v.addEventListener('contextmenu',e=>e.preventDefault());
+ }
+ document.querySelectorAll('video').forEach(protect);
+ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
+   if(n.nodeType!==1)return;
+   if(n.matches?.('video'))protect(n);
+   n.querySelectorAll?.('video').forEach(protect);
+ }))).observe(document.documentElement,{childList:true,subtree:true});
+ document.addEventListener('contextmenu',e=>{if(e.target.closest?.('video'))e.preventDefault()},true);
+})();
+</script>
 </body></html>
 <style id="qcGift16ChristmasLogoFix">
 #qcGift16{
