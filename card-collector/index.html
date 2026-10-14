@@ -538,7 +538,7 @@ body{overflow:auto!important}
 <style id="qcMusicVolumeStyle">
 .qcMusicVolume{display:flex;align-items:center;gap:7px;font-family:Arial,sans-serif;font-size:9px;font-weight:800;color:var(--yellow);opacity:.82;white-space:nowrap;padding:0 7px}
 .qcMusicVolume:hover{opacity:1}
-.qcVolumeIcon{font-size:10px;letter-spacing:-2px;color:var(--yellow);opacity:.9}
+.qcVolumeIcon{font-size:13px;line-height:1;color:var(--yellow);opacity:.95;filter:grayscale(1) sepia(1) saturate(8)}
 .qcMusicVolume input[type="range"]{-webkit-appearance:none;appearance:none;width:88px;height:3px;border:0;border-radius:999px;outline:none;cursor:pointer;background:linear-gradient(to right,var(--yellow) 0%,var(--yellow) var(--qc-vol,55%),#332b08 var(--qc-vol,55%),#332b08 100%)}
 .qcMusicVolume input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:10px;height:10px;border-radius:50%;border:1px solid #080808;background:var(--yellow);box-shadow:0 0 0 1px #6e5d00;cursor:pointer}
 .qcMusicVolume input[type="range"]::-moz-range-track{height:3px;border:0;border-radius:999px;background:#332b08}
@@ -587,7 +587,7 @@ body{overflow:auto!important}
 <button class="tab" data-go="3">LAITON</button>
 <button class="tab" data-go="4">FER</button>
 <button class="tab" data-go="5">GRANITE</button>
-<button class="tab" data-go="6">CARTON</button><button class="musicbtn" id="musicBtn">♫ MUSIQUE</button><label class="qcMusicVolume" title="Volume de la musique"><span class="qcVolumeIcon" aria-hidden="true">◖))</span><input id="musicVolume" type="range" min="0" max="100" step="1" value="55" aria-label="Volume de la musique"><span id="musicVolumeValue">55%</span></label><span class="credit">Musique: <span id="qcAndromedaCredit">ANDROMEDA</span> by Demska.</span></nav>
+<button class="tab" data-go="6">CARTON</button><button class="musicbtn" id="musicBtn" hidden aria-hidden="true" tabindex="-1">♫ MUSIQUE</button><label class="qcMusicVolume" title="Volume de la musique"><span class="qcVolumeIcon" aria-hidden="true">🔊</span><input id="musicVolume" type="range" min="0" max="100" step="1" value="55" aria-label="Volume de la musique"><span id="musicVolumeValue">55%</span></label><span class="credit">Musique: <span id="qcAndromedaCredit">ANDROMEDA</span> by Demska.</span></nav>
 
 <div class="secretModal" id="secretModal">
   <div class="secretNote">
@@ -797,11 +797,12 @@ if(!Number.isFinite(savedMusicVolume))savedMusicVolume=55;
 savedMusicVolume=Math.max(0,Math.min(100,savedMusicVolume));
 music.volume=savedMusicVolume/100;
 musicVolume.value=String(savedMusicVolume);
-function updateMusicVolumeLabel(){musicVolumeValue.textContent=musicVolume.value+"%";musicVolume.style.setProperty("--qc-vol",musicVolume.value+"%")}
+function updateMusicVolumeLabel(){musicVolumeValue.textContent=musicVolume.value+"%";musicVolume.style.setProperty("--qc-vol",musicVolume.value+"%");document.querySelector(".qcVolumeIcon").textContent=(Number(musicVolume.value)===0?"🔇":Number(musicVolume.value)<45?"🔉":"🔊")}
 updateMusicVolumeLabel();
 musicVolume.addEventListener("input",()=>{
  const v=Math.max(0,Math.min(100,parseInt(musicVolume.value,10)||0));
  music.volume=v/100;
+ if(v===0){music.pause()}else if(music.paused){music.play().catch(()=>{})}
  localStorage.setItem(musicVolumeKey,String(v));
  updateMusicVolumeLabel();
 });
