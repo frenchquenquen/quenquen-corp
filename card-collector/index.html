@@ -4305,6 +4305,45 @@ window.qcAndromedaBoss=(function(){
 })();
 </script>
 
+
+
+<!-- QUICK QUENQUEN #43 — FAST-FOOD QUIZ + OBJET TROUVÉ BURGER -->
+<style id="qcQuick43Style">
+#qcQuick43Quiz{position:fixed;left:22px;top:50%;transform:translateY(-50%);z-index:240000;display:none;width:min(360px,calc(100vw - 44px));padding:22px;background:#080806f5;border:2px solid #ffd400;box-shadow:0 16px 50px #000c,0 0 22px #ffd40022;color:#ffd400;text-align:center}#qcQuick43Quiz.open{display:block}.qcQuick43Title{font-size:clamp(19px,2.2vw,27px);line-height:1.15;margin-bottom:18px}.qcQuick43Choices{display:grid;gap:9px}.qcQuick43Choice{border:1px solid #806c00!important;background:#111!important;color:#ffd400!important;padding:12px!important;font:inherit;cursor:pointer}.qcQuick43Choice:hover{border-color:#ffd400!important;background:#1b1808!important}.qcQuick43Choice.wrong{animation:qcQuickWrong .38s ease;background:#360606!important;border-color:#f33!important;color:#fff!important}@keyframes qcQuickWrong{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+#qcQuick43Stage{position:fixed;inset:0;z-index:240100;display:none;background:#000d;align-items:center;justify-content:center}#qcQuick43Stage.open{display:flex}#qcQuick43Video{max-width:96vw;max-height:94vh;width:auto;height:auto;object-fit:contain;background:#000}#qcQuick43Close{position:fixed;right:22px;top:20px;z-index:240102;border:1px solid #ffd400;background:#000;color:#ffd400;font:900 18px Arial;padding:7px 11px;cursor:pointer}
+#qcQuickBurgerBadge{display:none;border:0;background:transparent;padding:0;cursor:pointer}#qcQuickBurgerBadge .qcBurgerIcon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;font-size:38px;line-height:1;filter:drop-shadow(0 0 7px rgba(255,213,0,.24))}
+#qcQuick43Unlock{position:fixed;inset:0;z-index:240200;display:none;align-items:center;justify-content:center;pointer-events:none;background:#0009}#qcQuick43Unlock.on{display:flex}.qcQuick43UnlockBox{padding:28px 34px;border:2px solid #ffd400;background:#080806;color:#ffd400;text-align:center;box-shadow:0 0 35px #ffd40022}.qcQuick43UnlockBurger{font-size:64px}.qcQuick43UnlockText{margin-top:10px;font-size:20px;letter-spacing:1px}
+</style>
+<div id="qcQuick43Quiz" aria-hidden="true"><div class="qcQuick43Title">QUEL EST TON FAST-FOOD PRÉFÉRÉ ?</div><div class="qcQuick43Choices"><button class="qcQuick43Choice" data-answer="mcdo" type="button">McDo</button><button class="qcQuick43Choice" data-answer="bk" type="button">Burger King</button><button class="qcQuick43Choice" data-answer="quick" type="button">Quick</button></div></div>
+<div id="qcQuick43Stage" aria-hidden="true"><button id="qcQuick43Close" type="button">✕</button><video id="qcQuick43Video" playsinline preload="metadata"></video></div>
+<button id="qcQuickBurgerBadge" aria-label="Burger Quick — revoir l'animation" title="Burger Quick — revoir l'animation"><span class="qcBurgerIcon" aria-hidden="true">🍔</span></button>
+<div id="qcQuick43Unlock" aria-hidden="true"><div class="qcQuick43UnlockBox"><div class="qcQuick43UnlockBurger">🍔</div><div class="qcQuick43UnlockText">OBJET TROUVÉ // BURGER</div></div></div>
+<script id="qcQuick43Engine">
+(function(){
+ const CARD=43,KEY='quenquen_quick43_burger_unlocked_v1',VIDEO='assets/qc/x7f2k9/dsdqsdf.mp4';
+ const quiz=document.getElementById('qcQuick43Quiz'),stage=document.getElementById('qcQuick43Stage'),video=document.getElementById('qcQuick43Video'),badge=document.getElementById('qcQuickBurgerBadge'),unlock=document.getElementById('qcQuick43Unlock');
+ let audioState=[];
+ function pauseAudio(){audioState=[];document.querySelectorAll('audio').forEach(a=>{if(!a.paused){audioState.push({el:a,time:a.currentTime});try{a.pause()}catch(e){}}});if(typeof updateMusic==='function')try{updateMusic()}catch(e){}}
+ async function resumeAudio(){const a=audioState.splice(0);for(const x of a){try{x.el.currentTime=x.time;await x.el.play()}catch(e){}}if(typeof updateMusic==='function')try{updateMusic()}catch(e){}}
+ function ask(){if(localStorage.getItem(KEY))return;quiz.classList.add('open');quiz.setAttribute('aria-hidden','false')}
+ function hideAsk(){quiz.classList.remove('open');quiz.setAttribute('aria-hidden','true')}
+ function error(btn){try{const C=window.AudioContext||window.webkitAudioContext;if(C){const ac=new C(),o=ac.createOscillator(),g=ac.createGain();o.type='square';o.frequency.value=155;g.gain.setValueAtTime(.07,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+.22);o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+.22)}}catch(e){}btn.classList.remove('wrong');void btn.offsetWidth;btn.classList.add('wrong');setTimeout(()=>btn.classList.remove('wrong'),450)}
+ async function play(replay=false){hideAsk();pauseAudio();video.src=VIDEO;stage.classList.add('open');stage.setAttribute('aria-hidden','false');try{video.currentTime=0;await video.play()}catch(e){}if(!replay&&!localStorage.getItem(KEY)){localStorage.setItem(KEY,new Date().toISOString());setTimeout(()=>{unlock.classList.add('on');unlock.setAttribute('aria-hidden','false');setTimeout(()=>{unlock.classList.remove('on');unlock.setAttribute('aria-hidden','true');window.qcSecretTrophyRailRefresh?.()},1800)},500)}}
+ async function close(){try{video.pause();video.currentTime=0;video.removeAttribute('src');video.load()}catch(e){}stage.classList.remove('open');stage.setAttribute('aria-hidden','true');await resumeAudio();window.qcSecretTrophyRailRefresh?.()}
+ quiz.querySelectorAll('.qcQuick43Choice').forEach(b=>b.onclick=()=>{if(b.dataset.answer==='quick')play(false);else error(b)});
+ document.getElementById('qcQuick43Close').onclick=close;stage.addEventListener('click',e=>{if(e.target===stage)close()});video.addEventListener('ended',close);badge.onclick=()=>play(true);document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(stage.classList.contains('open'))close();else hideAsk()}});
+ const prev=window.qcOpenIndividualCard;if(typeof prev==='function')window.qcOpenIndividualCard=function(c,i){const n=Number(c)*10+Number(i)+1,r=prev.apply(this,arguments);if(n===CARD&&!localStorage.getItem(KEY))setTimeout(()=>{if(document.getElementById('individualCardModal')?.classList.contains('open'))ask()},180);return r};
+ window.qcQuick43Unlocked=()=>!!localStorage.getItem(KEY);window.qcQuick43Refresh=()=>window.qcSecretTrophyRailRefresh?.();
+})();
+</script>
+<script id="qcQuick43TrophyHook">
+(function(){
+ function hook(){const s=document.getElementById('qcSecretTrophyRailEngine');if(!s)return;}
+ const old=window.qcSecretTrophyRailRefresh;
+ function refreshBurger(){const b=document.getElementById('qcQuickBurgerBadge'),items=document.getElementById('qcSecretTrophyRailItems'),rail=document.getElementById('qcSecretTrophyRail'),home=document.querySelector("section.home[data-page='0']");if(!b||!items||!rail)return;const owned=!!localStorage.getItem('quenquen_quick43_burger_unlocked_v1'),active=!!home&&(home.classList.contains('active')||getComputedStyle(home).display!=='none');if(owned){if(b.parentElement!==items)items.appendChild(b);b.classList.add('qcTrophySlot');b.style.setProperty('display',active?'flex':'none','important');if(active)rail.classList.add('visible')}else b.style.setProperty('display','none','important')}
+ window.qcSecretTrophyRailRefresh=function(){if(typeof old==='function')old();refreshBurger()};setInterval(refreshBurger,250);setTimeout(refreshBurger,350);
+})();
+</script>
 </body></html>
 <style id="qcGift16ChristmasLogoFix">
 #qcGift16{
