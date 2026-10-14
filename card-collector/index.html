@@ -4261,6 +4261,50 @@ window.qcAndromedaBoss=(function(){
 </script>
 
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a284ad663baf4ed8bf03891fd7804656"}'></script><!-- End Cloudflare Web Analytics -->
+
+<style id="qcArchiveHomogeneousStyle">
+/* QUENQUEN CORP — unified archive presentation */
+#qcUnifiedArchive{position:fixed;inset:0;z-index:2147483000;background:rgba(0,0,0,.96);display:none;align-items:center;justify-content:center;padding:32px}
+#qcUnifiedArchive.open{display:flex}
+#qcUnifiedArchivePanel{position:relative;width:min(94vw,1280px);max-height:92vh;display:flex;align-items:center;justify-content:center}
+#qcUnifiedArchiveVideo{display:block;max-width:100%;max-height:88vh;width:auto;height:auto;background:#000;box-shadow:0 0 34px rgba(255,212,0,.10)}
+#qcUnifiedArchiveClose{position:absolute;right:-4px;top:-34px;z-index:5;width:30px;height:30px;border:0;background:transparent;color:#ffd400;font:900 25px/30px Arial,sans-serif;cursor:pointer;text-shadow:0 0 10px rgba(255,212,0,.45)}
+#qcUnifiedArchiveClose:hover{transform:scale(1.08)}
+#qcUnifiedArchiveTitle{position:absolute;left:0;top:-28px;color:#ffd400;font:800 11px/1.2 monospace;letter-spacing:1.5px;opacity:.72}
+@media(max-width:700px){#qcUnifiedArchive{padding:18px}#qcUnifiedArchivePanel{width:96vw}#qcUnifiedArchiveVideo{max-height:82vh}#qcUnifiedArchiveClose{right:0}}
+</style>
+<script id="qcArchiveHomogeneousLayer">
+(function(){
+ const ov=document.getElementById("qcUnifiedArchive"),vid=document.getElementById("qcUnifiedArchiveVideo"),title=document.getElementById("qcUnifiedArchiveTitle"),close=document.getElementById("qcUnifiedArchiveClose");
+ if(!ov||!vid||!close)return;
+ const selectors=[
+  "#qcVideo","#qc6Video","#qc0Video","#qc16Video","#qcA1Video","#qcD8Video","#qcA12Video","#qcA14FirstVideo","#qcA23Video"
+ ];
+ const archiveNo={qcVideo:11,qc6Video:6,qc0Video:0,qc16Video:16,qcA1Video:1,qcD8Video:8,qcA12Video:12,qcA14FirstVideo:14,qcA23Video:23};
+ let source=null,restore=null,watching=false;
+ function numberOf(el){return archiveNo[el?.id]??Number((el?.closest?.("[id]")?.textContent||"").match(/ARCHIVE\s*#(\d+)/i)?.[1])||""}
+ async function adopt(el){
+   if(!el||el===vid||watching)return; const src=el.currentSrc||el.src;if(!src)return;
+   source=el; const n=numberOf(el); title.textContent="QUENQUEN CORP // ARCHIVE"+(n!==""?" #"+n:"");
+   try{el.pause()}catch(e){}
+   restore={parent:el.parentNode,display:el.style.display};
+   el.style.display="none"; vid.src=src; ov.classList.add("open");ov.setAttribute("aria-hidden","false");
+   try{vid.currentTime=el.currentTime||0;await vid.play()}catch(e){}
+ }
+ async function shut(){
+   try{vid.pause()}catch(e){} ov.classList.remove("open");ov.setAttribute("aria-hidden","true");
+   if(source){try{source.currentTime=vid.currentTime||0}catch(e){} source.style.display=restore?.display||""}
+   vid.removeAttribute("src");try{vid.load()}catch(e){} source=null;restore=null;
+   document.querySelectorAll("#qcA14First,#qcA23Overlay,#qcA1Overlay,#qcDestiny8,#qcA12Overlay,#qcOverlay,#qc6Overlay,#qc0Overlay,#qc16Overlay").forEach(x=>{x.classList.remove("open","show");x.setAttribute("aria-hidden","true")});
+   if(typeof window.qcArchiveAudioRestore==="function")try{await window.qcArchiveAudioRestore()}catch(e){}
+ }
+ close.onclick=shut; ov.addEventListener("click",e=>{if(e.target===ov)shut()});document.addEventListener("keydown",e=>{if(e.key==="Escape"&&ov.classList.contains("open"))shut()});
+ selectors.forEach(s=>{const el=document.querySelector(s);if(!el)return;el.addEventListener("play",()=>{if(!ov.classList.contains("open"))adopt(el)},true)});
+ const lib=document.getElementById("archiveLibraryList");
+ if(lib)lib.addEventListener("click",()=>{setTimeout(()=>selectors.forEach(s=>{const el=document.querySelector(s);if(el&&!el.paused)adopt(el)}),80)},true);
+})();
+</script>
+
 </body></html>
 <style id="qcGift16ChristmasLogoFix">
 #qcGift16{
