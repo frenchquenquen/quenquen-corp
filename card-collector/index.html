@@ -1397,7 +1397,17 @@ function qcCheckRemoteTriggers(){
 
   // Important : si la combinaison la plus précise est déjà découverte,
   // on ne retombe pas ensuite sur une archive "prérequise" plus petite.
-  const archive=maximal.find(a=>!localStorage.getItem(qcRemoteDiscoveryKey(Number(a.id))));
+  const archive=maximal.find(a=>{
+    const id=Number(a.id);
+    if(localStorage.getItem(qcRemoteDiscoveryKey(id))) return false;
+    // Sécurité anti-relecture automatique : les anciennes clés de découverte
+    // font également foi. Une archive déjà acquise ne peut plus être relancée
+    // par le scanner distant ; seule une action manuelle dans ARCHIVES la rejoue.
+    if(id===11 && localStorage.getItem(qcDiscoveredKey)) return false;
+    if(id===6 && localStorage.getItem(qc6DiscoveredKey)) return false;
+    if(id===0 && localStorage.getItem(qc0DiscoveredKey)) return false;
+    return true;
+  });
   if(!archive) return;
 
   const id=Number(archive.id);
