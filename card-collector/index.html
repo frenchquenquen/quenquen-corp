@@ -4364,13 +4364,13 @@ window.qcAndromedaBoss=(function(){
 #qcMonteur20Picker,#qcMonteur20Stage{position:fixed;inset:0;z-index:100090;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center}#qcMonteur20Picker.open,#qcMonteur20Stage.open{display:flex}
 #qcMonteur20PickerBox{padding:24px;background:#090909;border:2px solid #ffd21c;border-radius:12px;text-align:center;color:#fff}#qcMonteur20PickerBox button{margin:12px 6px 0;padding:11px 16px;border:0;border-radius:8px;background:#ffd21c;font-weight:900;cursor:pointer}
 #qcMonteur20Video{max-width:90vw;max-height:84vh;background:#000}#qcMonteur20Close{position:absolute;z-index:7;right:20px;top:18px;border:1px solid #ffd400!important;background:#000b!important;color:#ffd400!important;font-size:20px;padding:7px 12px!important;border-radius:0!important;font-weight:400;cursor:pointer;opacity:.55}#qcMonteur20Close:hover{opacity:1}
-#qcMonteur20Badge{display:none;background:transparent;border:0;cursor:pointer;padding:0}.qcMonteurAvatar{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:#fff;border:3px solid #111;color:#111;font-weight:1000;font-size:17px;box-shadow:0 0 0 2px #ffd21c}#qcMonteur20Badge.visible{display:inline-flex}
+#qcMonteur20Badge{display:none;background:transparent;border:0;cursor:pointer;padding:0}.qcMonteurAvatar{display:block;width:64px;height:64px;object-fit:contain;border-radius:0;background:#000;border:2px solid #ffd21c;box-sizing:border-box}#qcMonteur20Badge.visible{display:inline-flex}
 </style>
 <div id="qcMonteur20Root">
  <div id="qcMonteur20Quiz" aria-hidden="true"><div style="font-weight:900">MONTEUR QUENQUEN</div><button id="qcMonteur20Start" type="button">FAIRE UN MONTAGE PROFESSIONNEL</button><div id="qcMonteur20Progress"><div id="qcMonteur20Bar"></div></div><div id="qcMonteur20Status"></div></div>
  <div id="qcMonteur20Picker" aria-hidden="true"><div id="qcMonteur20PickerBox"><div style="font-weight:900">MONTEUR QUENQUEN</div><button data-mq-video="1" type="button">VIDÉO 1</button><button data-mq-video="2" type="button">VIDÉO 2</button><br><button id="qcMonteur20PickerClose" type="button">FERMER</button></div></div>
  <div id="qcMonteur20Stage" aria-hidden="true"><button id="qcMonteur20Close" type="button">✕</button><video id="qcMonteur20Video" controls playsinline preload="none"></video></div>
- <button id="qcMonteur20Badge" aria-label="Monteur QuenQuen — ouvrir les montages" title="Monteur QuenQuen — ouvrir les montages"><span class="qcMonteurAvatar" aria-hidden="true">MQ</span></button>
+ <button id="qcMonteur20Badge" aria-label="Monteur QuenQuen — ouvrir les montages" title="Monteur QuenQuen — ouvrir les montages"><img class="qcMonteurAvatar" src="assets/qc/x7f2k9/LOGO.png" alt="" aria-hidden="true"></button>
 </div>
 <script id="qcMonteur20Engine">
 (function(){
