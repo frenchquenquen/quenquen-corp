@@ -700,13 +700,13 @@ body{overflow:auto!important}
   </div>
   <div id="qc0PlayerWrap" class="qcPlayerWrap"><video id="qc0Video" class="qcPlayer" playsinline preload="metadata" src="assets/embedded/asset_011_2b36d4ae6a8c.mp4"></video></div>
 </div>
-<div id="corpConnection" class="corpConnection" title="QUENQUEN CORP"><span class="corpDot"></span><span id="corpStatus">CORP - …</span></div>
+<div id="corpConnection" class="corpConnection" title="QUENQUEN CORP"><span class="corpDot"></span><span id="corpStatus">CORP // …</span></div>
 
 <button id="qcCorpTerminalBtn" type="button">QC:// PROFIL</button>
 <div id="qcCorpTerminal" class="qcTerminal" aria-hidden="true">
  <div class="qcTerminalBox">
   <button id="qcCorpTerminalClose" class="qcTerminalClose" type="button">×</button>
-  <div class="qcTerminalTitle">QUENQUEN CORP - TERMINAL D'ARCHIVES</div>
+  <div class="qcTerminalTitle">QUENQUEN CORP // TERMINAL D'ARCHIVES</div>
   <div id="qcCorpTerminalBody"></div>
  </div>
 </div>
@@ -729,7 +729,7 @@ function go(i){
  const oldPage=screens.find(s=>Number(s.dataset.page)===current);
  const oldImg=oldPage&&oldPage.querySelector(":scope > img");
 
- - Son papier : directement lié à la vraie navigation.
+ // Son papier : directement lié à la vraie navigation.
  try{
    window.__qcSlideAC ||= new (window.AudioContext||window.webkitAudioContext)();
    const ac=window.__qcSlideAC; ac.resume&&ac.resume();
@@ -744,7 +744,7 @@ function go(i){
    s.buffer=b;s.connect(f);f.connect(g);g.connect(ac.destination);s.start();
  }catch(e){}
 
- - Couverture : garde la transition V10, sans fabriquer de fausse page.
+ // Couverture : garde la transition V10, sans fabriquer de fausse page.
  if(!oldImg){
    current=target;render();scrollTo(0,0);return;
  }
@@ -760,7 +760,7 @@ function go(i){
  });
  document.body.appendChild(ghost);
 
- - Affiche immédiatement la vraie nouvelle planche en dessous.
+ // Affiche immédiatement la vraie nouvelle planche en dessous.
  current=target;render();scrollTo(0,0);
 
  const dist=Math.min(72,Math.max(42,r.width*.045))*dir;
@@ -770,7 +770,7 @@ function go(i){
    {transform:`translateX(${-dist}px) scale(.992)`,opacity:0,filter:"brightness(.72)",offset:1}
  ],{duration:430,easing:"cubic-bezier(.22,.7,.2,1)",fill:"forwards"});
 
- - Petit souffle lumineux de la nouvelle planche depuis la reliure.
+ // Petit souffle lumineux de la nouvelle planche depuis la reliure.
  const fresh=screens.find(s=>Number(s.dataset.page)===current);
  const freshImg=fresh&&fresh.querySelector(":scope > img");
  if(freshImg){
@@ -846,11 +846,11 @@ let activeCollection=0;
 // 5 cards across the top and 5 across the bottom.
 function cropStyle(cardIndex){
   const col=cardIndex%5, row=cardIndex<5?0:1;
-  - full sheet proportions: card blocks approx x 1.5%-20%, ... ; y 2.7%-37% / 63%-97.5%
+  // full sheet proportions: card blocks approx x 1.5%-20%, ... ; y 2.7%-37% / 63%-97.5%
   const x=[1.5,21.0,40.5,60.0,79.5][col];
   const y=row===0?2.7:63.0;
-  - A card occupies ~18.5% width and ~34.5% height.
-  - Convert to background-size/position so only that rectangle is visible.
+  // A card occupies ~18.5% width and ~34.5% height.
+  // Convert to background-size/position so only that rectangle is visible.
   const sizeX=100/18.5*100, sizeY=100/34.5*100;
   const posX=x/(100-18.5)*100;
   const posY=y/(100-34.5)*100;
@@ -966,7 +966,7 @@ function checkA(){
 }
 document.addEventListener("click",()=>setTimeout(checkA,140));checkA();
 if(A.days.length>=3){const s=document.getElementById("collectorSince");if(s)s.insertAdjacentHTML("beforeend",' <span style="opacity:.38">✦</span>')}
-let ht=null;const sb8=document.getElementById("andromedaSecret");if(sb8){const begin=()=>{ht=setTimeout(()=>{if(localStorage.getItem("quenquen_album_andromeda_secret_v1")&&!A.trace2){A.trace2=today();asave();const x=document.createElement("div");x.className="secretStamp";x.style.cssText="position:fixed;left:18px;bottom:54px;z-index:70;background:#e7dbb9;padding:7px 10px";x.textContent="F.Q. - A-01";document.body.appendChild(x);setTimeout(()=>x.remove(),3500)}},1600)};const end=()=>clearTimeout(ht);sb8.addEventListener("pointerdown",begin);sb8.addEventListener("pointerup",end);sb8.addEventListener("pointerleave",end)}
+let ht=null;const sb8=document.getElementById("andromedaSecret");if(sb8){const begin=()=>{ht=setTimeout(()=>{if(localStorage.getItem("quenquen_album_andromeda_secret_v1")&&!A.trace2){A.trace2=today();asave();const x=document.createElement("div");x.className="secretStamp";x.style.cssText="position:fixed;left:18px;bottom:54px;z-index:70;background:#e7dbb9;padding:7px 10px";x.textContent="F.Q. // A-01";document.body.appendChild(x);setTimeout(()=>x.remove(),3500)}},1600)};const end=()=>clearTimeout(ht);sb8.addEventListener("pointerdown",begin);sb8.addEventListener("pointerup",end);sb8.addEventListener("pointerleave",end)}
 
 
 function andromedaSixFix(){ return; /* replaced by V9 */
@@ -1146,14 +1146,14 @@ function refreshArchiveLibrary(){
  if(localStorage.getItem(qc0DiscoveredKey))items.push({n:0,label:"QUENQUEN / FUTUR QUENQUEN",open:()=>qc0Open(false)});
  if(localStorage.getItem(qcDiscoveredKey))items.push({n:11,label:"OG QUENQUEN",open:()=>qcOpen(false)});
  if(localStorage.getItem(qc6DiscoveredKey))items.push({n:6,label:"OG QUENQUEN / ANDROMEDA",open:()=>qc6Open(false)});
- - Archives ajoutées dans les versions récentes : elles doivent aussi être
- - reconstruites quand le catalogue principal fait son refresh.
+ // Archives ajoutées dans les versions récentes : elles doivent aussi être
+ // reconstruites quand le catalogue principal fait son refresh.
  if(localStorage.getItem("quenquen_corp_archive_1_discovered_v1"))items.push({n:1,label:"LIGNE QUENQUEN CORP",open:()=>window.qcReplayArchive1?.()});
  if(localStorage.getItem("quenquen_corp_archive_8_discovered_v1"))items.push({n:8,label:"LIÉS PAR LE DESTIN",open:()=>window.qcReplayArchive8?.()});
  if(localStorage.getItem("quenquen_corp_archive_16_discovered_v1"))items.push({n:16,label:"QUENQUEN NOËL",open:()=>window.qcReplayArchive16?.()});
  if(localStorage.getItem("quenquen_corp_archive_12_discovered_v1"))items.push({n:12,label:"ANDROMEDA / UNIVERS 0",open:()=>window.qcReplayArchive12?.()});
  archiveLibraryList.innerHTML="";
- items.sort((a,b)=>a.n-b.n).forEach(a=>{const b=document.createElement("button");b.className="archiveItem";b.textContent=`ARCHIVE #${a.n}  -  ${a.label}`;b.onclick=a.open;archiveLibraryList.appendChild(b)});
+ items.sort((a,b)=>a.n-b.n).forEach(a=>{const b=document.createElement("button");b.className="archiveItem";b.textContent=`ARCHIVE #${a.n}  //  ${a.label}`;b.onclick=a.open;archiveLibraryList.appendChild(b)});
  if(items.length){archiveAccess.classList.add("visible");archiveCount.textContent=String(items.length).padStart(2,"0")}
 }
 function qc6DiscoverCheck(){
@@ -1200,15 +1200,15 @@ async function connectQuenQuenCorp(){
   const d=await r.json();window.QUENQUEN_CORP_MANIFEST=d;
   localStorage.setItem("quenquen_corp_manifest_cache_v1",JSON.stringify(d));
   box.classList.remove("offline");box.classList.add("online");
-  status.textContent="CORP - "+String(d.status||"ONLINE").toUpperCase();
+  status.textContent="CORP // "+String(d.status||"ONLINE").toUpperCase();
   if(typeof qcCheckRemoteTriggers==="function") setTimeout(qcCheckRemoteTriggers,250);
  }catch(err){
   box.classList.remove("online");box.classList.add("offline");
   let c=null;try{c=JSON.parse(localStorage.getItem("quenquen_corp_manifest_cache_v1")||"null")}catch(e){}
   if(c){
-    window.QUENQUEN_CORP_MANIFEST=c;status.textContent="CORP - CACHE";
+    window.QUENQUEN_CORP_MANIFEST=c;status.textContent="CORP // CACHE";
     if(typeof qcCheckRemoteTriggers==="function") setTimeout(qcCheckRemoteTriggers,250);
-  }else status.textContent="CORP - OFFLINE";
+  }else status.textContent="CORP // OFFLINE";
  }
 }
 setTimeout(connectQuenQuenCorp,700);
@@ -1380,12 +1380,12 @@ function qcCheckRemoteTriggers(){
   const manifest=window.QUENQUEN_CORP_MANIFEST;
   if(!manifest || !Array.isArray(manifest.archives)) return;
 
-  - Toutes les archives dont la combinaison est actuellement satisfaite.
+  // Toutes les archives dont la combinaison est actuellement satisfaite.
   const matches=manifest.archives.filter(qcRemoteTriggerMatches);
   if(!matches.length) return;
 
-  - Une combinaison précise doit avoir priorité sur une combinaison incluse.
-  - Ex.: 21+31 déclenche #6 directement, même si #11 (21 seul) n'a jamais été vue.
+  // Une combinaison précise doit avoir priorité sur une combinaison incluse.
+  // Ex.: 21+31 déclenche #6 directement, même si #11 (21 seul) n'a jamais été vue.
   const maximal=matches.filter(a=>{
     const ac=(a.trigger&&Array.isArray(a.trigger.cards)?a.trigger.cards:[]).map(Number);
     return !matches.some(b=>{
@@ -1395,14 +1395,14 @@ function qcCheckRemoteTriggers(){
     });
   }).sort((a,b)=>(b.trigger.cards.length-a.trigger.cards.length));
 
-  - Important : si la combinaison la plus précise est déjà découverte,
-  - on ne retombe pas ensuite sur une archive "prérequise" plus petite.
+  // Important : si la combinaison la plus précise est déjà découverte,
+  // on ne retombe pas ensuite sur une archive "prérequise" plus petite.
   const archive=maximal.find(a=>{
     const id=Number(a.id);
     if(localStorage.getItem(qcRemoteDiscoveryKey(id))) return false;
-    - Sécurité anti-relecture automatique : les anciennes clés de découverte
-    - font également foi. Une archive déjà acquise ne peut plus être relancée
-    - par le scanner distant ; seule une action manuelle dans ARCHIVES la rejoue.
+    // Sécurité anti-relecture automatique : les anciennes clés de découverte
+    // font également foi. Une archive déjà acquise ne peut plus être relancée
+    // par le scanner distant ; seule une action manuelle dans ARCHIVES la rejoue.
     if(id===11 && localStorage.getItem(qcDiscoveredKey)) return false;
     if(id===6 && localStorage.getItem(qc6DiscoveredKey)) return false;
     if(id===0 && localStorage.getItem(qc0DiscoveredKey)) return false;
@@ -1414,7 +1414,7 @@ function qcCheckRemoteTriggers(){
   const key=qcRemoteDiscoveryKey(id);
   localStorage.setItem(key,new Date().toISOString());
 
-  - Synchronise aussi les anciennes clés pour notre bibliothèque actuelle.
+  // Synchronise aussi les anciennes clés pour notre bibliothèque actuelle.
   if(id===11) localStorage.setItem(qcDiscoveredKey,new Date().toISOString());
   if(id===6) localStorage.setItem(qc6DiscoveredKey,new Date().toISOString());
   if(id===0) localStorage.setItem(qc0DiscoveredKey,new Date().toISOString());
@@ -1428,9 +1428,9 @@ function qcCheckRemoteTriggers(){
     const box=document.getElementById("corpConnection");
     const status=document.getElementById("corpStatus");
     if(box&&status){
-      status.textContent="CORP - ARCHIVE "+String(id).padStart(2,"0")+" DÉTECTÉE";
+      status.textContent="CORP // ARCHIVE "+String(id).padStart(2,"0")+" DÉTECTÉE";
       box.classList.add("online");
-      setTimeout(()=>{status.textContent="CORP - "+String((window.QUENQUEN_CORP_MANIFEST||{}).status||"ONLINE").toUpperCase()},5000);
+      setTimeout(()=>{status.textContent="CORP // "+String((window.QUENQUEN_CORP_MANIFEST||{}).status||"ONLINE").toUpperCase()},5000);
     }
   }
 }
@@ -1560,10 +1560,10 @@ qcOpenIndividualCard=function(c,i){
  qcMem.opens=(qcMem.opens||0)+1;qcMem.views[num]=(qcMem.views[num]||0)+1;qcMem.lastCard=num;qcMem.lastAt=new Date().toISOString();qcMemOpenCard=num;qcMemOpenAt=Date.now();qcMemSave();
  qcAffinitySessionViews[num]=(qcAffinitySessionViews[num]||0)+1;
  qcV14Open(c,i);setTimeout(qcMemAura,80);
- - Événement Monteur QuenQuen : branché ici, au point central où le numéro réel de carte est connu.
+ // Événement Monteur QuenQuen : branché ici, au point central où le numéro réel de carte est connu.
  if(num===20) setTimeout(()=>{try{window.qcMonteur20Ask?.()}catch(e){}},180);
- - Aura jaune après 3 consultations DANS CETTE SESSION; elle peut ensuite changer de carte.
- if(qcAffinitySessionViews[num]===3)qcMemToast('AFFINITÉ DÉTECTÉE - CARTE #'+String(num).padStart(2,'0'));
+ // Aura jaune après 3 consultations DANS CETTE SESSION; elle peut ensuite changer de carte.
+ if(qcAffinitySessionViews[num]===3)qcMemToast('AFFINITÉ DÉTECTÉE // CARTE #'+String(num).padStart(2,'0'));
 };
 const qcV14Close=qcCloseIndividualCard;
 qcCloseIndividualCard=function(){if(qcMemOpenAt){qcMem.totalMs=(qcMem.totalMs||0)+(Date.now()-qcMemOpenAt);qcMemOpenAt=0;qcMemOpenCard=null;qcMemSave()}qcV14Close()};
@@ -1728,7 +1728,7 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
  document.getElementById('qcCringeReplayClose').onclick=stopCringe;
  v.addEventListener('ended',stopCringe);
 
- - Intercepte uniquement Cringe QuenQuen #54. Le reste de l'album reste inchangé.
+ // Intercepte uniquement Cringe QuenQuen #54. Le reste de l'album reste inchangé.
  const previousOpen=qcOpenIndividualCard;
  qcOpenIndividualCard=function(c,i){
    const num=c*10+i+1;
@@ -1746,7 +1746,7 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
        const b=document.createElement('button');
        b.type='button';
        b.className='qcCringeItem';
-       b.textContent='CRINGE #'+String(id).padStart(2,'0')+'  -  REVOIR';
+       b.textContent='CRINGE #'+String(id).padStart(2,'0')+'  //  REVOIR';
        b.onclick=()=>{
          cringeLibrary.classList.remove('open');
          cringeLibrary.setAttribute('aria-hidden','true');
@@ -1814,7 +1814,7 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
     };
   }
 
-  - On enveloppe la fonction déjà existante : aucune autre logique de carte n'est remplacée.
+  // On enveloppe la fonction déjà existante : aucune autre logique de carte n'est remplacée.
   const previousOpenDark=qcOpenIndividualCard;
   qcOpenIndividualCard=function(c,i){
     const num=c*10+i+1;
@@ -1839,7 +1839,7 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
  const later=(fn,ms)=>timers.push(setTimeout(fn,ms)); const clearTimers=()=>{timers.forEach(clearTimeout);timers=[]}; const hideGift=()=>gift.classList.remove('visible');
  const prevOpen=qcOpenIndividualCard; qcOpenIndividualCard=function(c,i){const num=c*10+i+1,r=prevOpen(c,i);setTimeout(()=>gift.classList.toggle('visible',num===39&&document.getElementById('individualCardModal')?.classList.contains('open')),40);return r};
  const prevClose=qcCloseIndividualCard; qcCloseIndividualCard=function(){hideGift();return prevClose()}; document.addEventListener('keydown',e=>{if(e.key==='Escape')hideGift()});
- function add16(){if(!localStorage.getItem(DISC))return;const list=document.getElementById('archiveLibraryList');if(!list||[...list.querySelectorAll('.archiveItem')].some(x=>Number((x.dataset.qcArchive||(x.textContent.match(/ARCHIVE #(\d+)/)||[])[1]))===16))return;const b=document.createElement('button');b.className='archiveItem';b.dataset.qcArchive='16';b.textContent='ARCHIVE #16  -  QUENQUEN NOËL';b.onclick=()=>open16(false);list.appendChild(b);[...list.querySelectorAll('.archiveItem')].sort((a,b)=>Number((a.textContent.match(/ARCHIVE #(\d+)/)||[,999])[1])-Number((b.textContent.match(/ARCHIVE #(\d+)/)||[,999])[1])).forEach(x=>list.appendChild(x));archiveAccess?.classList.add('visible');const count=document.getElementById('archiveCount');if(count)count.textContent=String(list.querySelectorAll('.archiveItem').length).padStart(2,'0')}
+ function add16(){if(!localStorage.getItem(DISC))return;const list=document.getElementById('archiveLibraryList');if(!list||[...list.querySelectorAll('.archiveItem')].some(x=>Number((x.dataset.qcArchive||(x.textContent.match(/ARCHIVE #(\d+)/)||[])[1]))===16))return;const b=document.createElement('button');b.className='archiveItem';b.dataset.qcArchive='16';b.textContent='ARCHIVE #16  //  QUENQUEN NOËL';b.onclick=()=>open16(false);list.appendChild(b);[...list.querySelectorAll('.archiveItem')].sort((a,b)=>Number((a.textContent.match(/ARCHIVE #(\d+)/)||[,999])[1])-Number((b.textContent.match(/ARCHIVE #(\d+)/)||[,999])[1])).forEach(x=>list.appendChild(x));archiveAccess?.classList.add('visible');const count=document.getElementById('archiveCount');if(count)count.textContent=String(list.querySelectorAll('.archiveItem').length).padStart(2,'0')}
  if(typeof refreshArchiveLibrary==='function'){const old=refreshArchiveLibrary;refreshArchiveLibrary=function(){old();add16()}}
  function resetIntro(){['qc16Line1','qc16Line2','qc16Line3'].forEach(id=>document.getElementById(id).classList.remove('on'));document.getElementById('qc16Title').classList.remove('on');intro.style.display='block';wrap.classList.remove('on')}
  async function open16(withIntro=true){if(running)return;running=true;hideGift();clearTimers();resetIntro();document.getElementById('archiveLibrary')?.classList.remove('open');overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');if(typeof music!=='undefined'){wasPlaying=!music.paused;savedTime=music.currentTime;music.pause();if(typeof updateMusic==='function')updateMusic()}if(!withIntro){intro.style.display='none';wrap.classList.add('on');try{video.currentTime=0;await video.play()}catch(e){}return}document.querySelector('.album')?.classList.add('qcGlitch');later(()=>document.querySelector('.album')?.classList.remove('qcGlitch'),900);later(()=>document.getElementById('qc16Line1').classList.add('on'),600);later(()=>document.getElementById('qc16Line2').classList.add('on'),1500);later(()=>document.getElementById('qc16Line3').classList.add('on'),2500);later(()=>document.getElementById('qc16Title').classList.add('on'),3300);later(async()=>{intro.style.display='none';wrap.classList.add('on');try{video.currentTime=0;await video.play()}catch(e){}},4300)}
@@ -1876,7 +1876,7 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
 <div id="qcA1Overlay" aria-hidden="true">
  <button id="qcA1Close" type="button">✕</button>
  <div id="qcA1Intro">
-  <div id="qcA1L1" class="qca1line">QUENQUEN CORP - LIGNE INTERNE</div>
+  <div id="qcA1L1" class="qca1line">QUENQUEN CORP // LIGNE INTERNE</div>
   <div id="qcA1L2" class="qca1line">SIGNAL DISSIMULÉ DÉTECTÉ</div>
   <div id="qcA1L3" class="qca1line">ARCHIVE RÉCUPÉRÉE</div>
   <div id="qcA1Title">ARCHIVE #1</div>
@@ -1908,7 +1908,7 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
    const list=document.getElementById("archiveLibraryList");
    if(!list || list.querySelector('[data-qc-archive="1"]'))return;
    const b=document.createElement("button");
-   b.className="archiveItem";b.dataset.qcArchive="1";b.textContent="ARCHIVE #1 - LIGNE QUENQUEN CORP";
+   b.className="archiveItem";b.dataset.qcArchive="1";b.textContent="ARCHIVE #1 // LIGNE QUENQUEN CORP";
    b.onclick=()=>play(false);list.appendChild(b);
    [...list.querySelectorAll(".archiveItem")].sort((a,b)=>{
      const A=Number((a.textContent.match(/ARCHIVE #(\d+)/)||[,999])[1]);
@@ -1989,7 +1989,7 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
  <div id="qcDestinyFlash"></div>
  <div id="qcDestinyText">
   <div>
-   <div id="qcD8L1" class="ln">QUENQUEN CORP - CORRÉLATION DÉTECTÉE</div>
+   <div id="qcD8L1" class="ln">QUENQUEN CORP // CORRÉLATION DÉTECTÉE</div>
    <div id="qcD8L2" class="ln">3 SUJETS IDENTIFIÉS</div>
    <div id="qcD8L3" class="ln">ANALYSE DES TRAJECTOIRES...</div>
    <div id="qcD8L4" class="ln">CORRÉLATION : CONFIRMÉE</div>
@@ -2011,14 +2011,14 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
  function later(fn,ms){timers.push(setTimeout(fn,ms))}
  function combo(){
    let f={};try{f=JSON.parse(localStorage.getItem("quenquen_album_favorites_v1")||"{}")||{}}catch(e){}
-   return Number(f[0])===1 && Number(f[2])===0 && Number(f[4])===2; - #2 + #21 + #43
+   return Number(f[0])===1 && Number(f[2])===0 && Number(f[4])===2; // #2 + #21 + #43
  }
  function syncLibrary(){
    if(!localStorage.getItem(DISC))return;
    const list=document.getElementById("archiveLibraryList");
    if(!list||list.querySelector('[data-qc-archive="8"]'))return;
    const b=document.createElement("button");b.className="archiveItem";b.dataset.qcArchive="8";
-   b.textContent="ARCHIVE #8 - LIÉS PAR LE DESTIN";b.onclick=()=>playArchiveOnly();list.appendChild(b);
+   b.textContent="ARCHIVE #8 // LIÉS PAR LE DESTIN";b.onclick=()=>playArchiveOnly();list.appendChild(b);
    [...list.querySelectorAll(".archiveItem")].sort((a,b)=>{
     const A=Number((a.textContent.match(/ARCHIVE #(\d+)/)||[,999])[1]),B=Number((b.textContent.match(/ARCHIVE #(\d+)/)||[,999])[1]);return A-B
    }).forEach(x=>list.appendChild(x));
@@ -2095,7 +2095,7 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
 <div id="qcA12Overlay" aria-hidden="true">
  <button id="qcA12Close" type="button">✕</button>
  <div id="qcA12Intro">
-  <div id="qcA12L1" class="ln">ANDROMEDA - CONNEXION ÉTABLIE</div>
+  <div id="qcA12L1" class="ln">ANDROMEDA // CONNEXION ÉTABLIE</div>
   <div id="qcA12L2" class="ln">ORIGINE DU SIGNAL : UNIVERS 0</div>
   <div id="qcA12L3" class="ln">DONNÉES RÉCUPÉRÉES</div>
   <div id="qcA12Title" class="ln">ARCHIVE #12</div>
@@ -2114,7 +2114,7 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
 
  function onFer(){
    const m=document.body.innerText.match(/(\d+)\s*\/\s*7/);
-   if(m)return Number(m[1])===5; - accueil + diamant + or + laiton + FER
+   if(m)return Number(m[1])===5; // accueil + diamant + or + laiton + FER
    const b=[...document.querySelectorAll("button,a")].find(x=>x.textContent.trim().toUpperCase()==="FER");
    return !!(b&&(b.classList.contains("active")||b.getAttribute("aria-current")==="page"));
  }
@@ -2137,7 +2137,7 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
  function syncLibrary(){
    if(!localStorage.getItem(DISC))return;
    const list=document.getElementById("archiveLibraryList");if(!list||list.querySelector('[data-qc-archive="12"]'))return;
-   const b=document.createElement("button");b.className="archiveItem";b.dataset.qcArchive="12";b.textContent="ARCHIVE #12 - ANDROMEDA / UNIVERS 0";
+   const b=document.createElement("button");b.className="archiveItem";b.dataset.qcArchive="12";b.textContent="ARCHIVE #12 // ANDROMEDA / UNIVERS 0";
    b.onclick=()=>play(false);list.appendChild(b);
    [...list.querySelectorAll(".archiveItem")].sort((a,b)=>Number((a.textContent.match(/ARCHIVE #(\d+)/)||[,999])[1])-Number((b.textContent.match(/ARCHIVE #(\d+)/)||[,999])[1])).forEach(x=>list.appendChild(x));
  }
@@ -2269,7 +2269,7 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
    const list=document.getElementById("archiveLibraryList");
    if(!list) return;
 
-   - Detect by archive number too, not only by data attribute.
+   // Detect by archive number too, not only by data attribute.
    let existing=[...list.querySelectorAll(".archiveItem")].find(el =>
      /ARCHIVE\s*#12(?:\D|$)/i.test(el.textContent||"")
    );
@@ -2277,7 +2277,7 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
    if(!existing){
      existing=document.createElement("button");
      existing.className="archiveItem";
-     existing.textContent="ARCHIVE #12  -  ANDROMEDA / UNIVERS 0";
+     existing.textContent="ARCHIVE #12  //  ANDROMEDA / UNIVERS 0";
      list.appendChild(existing);
    }
    existing.dataset.qcArchive="12";
@@ -2299,7 +2299,7 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
    }
  }
 
- - Re-apply after every catalogue rebuild, regardless of which legacy module triggered it.
+ // Re-apply after every catalogue rebuild, regardless of which legacy module triggered it.
  if(typeof window.refreshArchiveLibrary==="function"){
    const base=window.refreshArchiveLibrary;
    window.refreshArchiveLibrary=function(){
@@ -2308,10 +2308,10 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
    };
  }
 
- - Opening the Archives collection always performs a final integrity check.
+ // Opening the Archives collection always performs a final integrity check.
  document.getElementById("archiveAccess")?.addEventListener("click",()=>setTimeout(ensure12,0));
 
- - Also catches an Archive #12 discovered in the same session.
+ // Also catches an Archive #12 discovered in the same session.
  window.addEventListener("storage",e=>{if(e.key===KEY)ensure12()});
  setInterval(ensure12,700);
  setTimeout(ensure12,300);
@@ -2332,14 +2332,14 @@ qcFlipIndividualCard=function(){
 <script id="qcDarkResetCleanTerminal">
 qcV13UpdateTerminal=function(){
   const ids=qcV13Archives(),btn=document.getElementById("qcCorpTerminalBtn");
-  if(btn){btn.style.display="block";btn.title="PROFIL COLLECTIONNEUR - QUENQUEN CORP";}
+  if(btn){btn.style.display="block";btn.title="PROFIL COLLECTIONNEUR // QUENQUEN CORP";}
   const owner=(localStorage.getItem("quenquen_album_owner_v1")||"INCONNU").replace(/[<>]/g,"");
   const top=qcMemTop(),viewed=qcMemViewedCount();
   const realLast='#'+String(qcMem.lastCard||'--').padStart(2,'0');
   const body=document.getElementById("qcCorpTerminalBody");
   if(!body)return;
   body.innerHTML=
-   '<div>COLLECTEUR : '+owner+'</div><div class="qcTermSep"></div><div class="qcTermYellow">PROFIL COLLECTIONNEUR - MÉMOIRE LOCALE</div><br>'+
+   '<div>COLLECTEUR : '+owner+'</div><div class="qcTermSep"></div><div class="qcTermYellow">PROFIL COLLECTIONNEUR // MÉMOIRE LOCALE</div><br>'+
    '<div class="qcTermStat"><span>CARTES CONSULTÉES</span><b>'+viewed+' / 55</b></div>'+
    '<div class="qcTermStat"><span>CONSULTATIONS</span><b>'+qcMem.opens+'</b></div>'+
    '<div class="qcTermStat"><span>RETOURNEMENTS</span><b>'+qcMem.flips+'</b></div>'+
@@ -2348,7 +2348,7 @@ qcV13UpdateTerminal=function(){
    '<div class="qcTermStat"><span>COLLECTION LA + CONSULTÉE</span><b>'+qcMemCollection()+'</b></div>'+
    '<div class="qcTermStat"><span>DERNIÈRE CARTE</span><b>'+realLast+'</b></div>'+
    '<div class="qcTermSep"></div><div>ARCHIVES RÉCUPÉRÉES : '+(ids.length?ids.map(x=>'#'+x).join('  '):'AUCUNE')+'</div>'+
-   '<br><div class="qcTermDim">QUENQUEN CORP - ACCÈS LOCAL</div>';
+   '<br><div class="qcTermDim">QUENQUEN CORP // ACCÈS LOCAL</div>';
 };
 setInterval(qcMemAura,1800);setTimeout(qcMemAura,1800);
 window.addEventListener('beforeunload',()=>{if(qcMemOpenAt){qcMem.totalMs=(qcMem.totalMs||0)+(Date.now()-qcMemOpenAt);qcMemOpenAt=0}qcMemSave()});
@@ -2425,7 +2425,7 @@ body.qcDPCard .individualCardHint{color:#ff2020!important}
    const pool=[...document.querySelectorAll(".tab,.sub,.collectionTitle,.ownerLabel,#corpStatus")].filter(x=>x&&x.offsetParent!==null);
    if(!pool.length)return;
    const el=pool[Math.floor(Math.random()*pool.length)],old=el.textContent;
-   el.textContent=["IL EST LÀ","NE TE RETOURNE PAS","#02","#02","#02","TU L'AS OUVERT","DARK - CONNECTÉ"][Math.floor(Math.random()*7)];
+   el.textContent=["IL EST LÀ","NE TE RETOURNE PAS","#02","#02","#02","TU L'AS OUVERT","DARK // CONNECTÉ"][Math.floor(Math.random()*7)];
    el.style.color="#ff2424";later(()=>{el.textContent=old;el.style.color=""},550+Math.random()*850);
  }
  function displacement(){
@@ -2433,8 +2433,8 @@ body.qcDPCard .individualCardHint{color:#ff2020!important}
  }
  function falseFailure(){
    const corp=$("corpStatus");if(!corp)return;const old=corp.textContent;
-   corp.textContent="CORP - ACCÈS NON AUTORISÉ";corp.style.color="#ff2020";
-   later(()=>{corp.textContent="CORP - D_Q CONNECTÉ"},700);
+   corp.textContent="CORP // ACCÈS NON AUTORISÉ";corp.style.color="#ff2020";
+   later(()=>{corp.textContent="CORP // D_Q CONNECTÉ"},700);
    later(()=>{corp.textContent=old;corp.style.color=""},1500);
  }
  function cardAttack(){
@@ -2448,7 +2448,7 @@ body.qcDPCard .individualCardHint{color:#ff2020!important}
  function takeover(){
    show(noise,2100);show(flash,750);scanline();watcher();
    document.body.classList.add("qcDPDistort","qcDPInvert");
-   say("DARK QUENQUEN - PROTOCOLE ACTIF",1300);
+   say("DARK QUENQUEN // PROTOCOLE ACTIF",1300);
    later(()=>say("CE N'EST PLUS TON UNIVERS",1050),1450);
    later(()=>{document.body.classList.remove("qcDPDistort","qcDPInvert")},2250);
  }
@@ -2462,7 +2462,7 @@ body.qcDPCard .individualCardHint{color:#ff2020!important}
    if(st===4){r<.25?falseFailure():r<.5?corruptText():r<.75?displacement():(cardAttack()||watcher());return}
    if(r<.18)takeover();else if(r<.38)falseFailure();else if(r<.58)(cardAttack()||watcher());else if(r<.78)displacement();else {show(noise,900);say("#02 VOUS REGARDE",750)}
  }
- - Natural progression: interaction feeds the protocol, but not every action produces an anomaly.
+ // Natural progression: interaction feeds the protocol, but not every action produces an anomaly.
  document.addEventListener("click",e=>{
    if(e.target.closest("#devPanel"))return;
    bump(e.target.closest(".cardHotspot,.individualCardFrame")?2.4:.55);
@@ -2471,7 +2471,7 @@ body.qcDPCard .individualCardHint{color:#ff2020!important}
  },true);
  const oldGo=window.go;
  if(typeof oldGo==="function")window.go=function(i){bump(1.2);const r=oldGo.apply(this,arguments);if(Math.random()<.08+stage()*.015)later(()=>fire(),350);return r};
- - Card #2 is a deliberate accelerator, without replacing its normal card/OST logic.
+ // Card #2 is a deliberate accelerator, without replacing its normal card/OST logic.
  const oldOpen=window.qcOpenIndividualCard;
  if(typeof oldOpen==="function")window.qcOpenIndividualCard=function(c,i){
    const n=c*10+i+1,r=oldOpen.apply(this,arguments);
@@ -2480,15 +2480,15 @@ body.qcDPCard .individualCardHint{color:#ff2020!important}
    else if(Math.random()<.055+stage()*.02)later(()=>fire(),500);
    return r;
  };
- - Idle events make the album feel alive.
+ // Idle events make the album feel alive.
  setInterval(()=>{bump(.35);if(Math.random()<.10+stage()*.015)fire()},11000);
- - Rare first-session seed: no immediate loud jumpscare.
+ // Rare first-session seed: no immediate loud jumpscare.
  later(()=>{if(S.heat>5&&Math.random()<.45)micro()},4500);
- - Developer reset for this new engine only: Ctrl+Shift+X while dev panel is open.
+ // Developer reset for this new engine only: Ctrl+Shift+X while dev panel is open.
  document.addEventListener("keydown",e=>{
    const dev=$("devPanel");
    if(e.ctrlKey&&e.shiftKey&&e.key.toLowerCase()==="x"&&dev?.classList.contains("open")){
-     localStorage.removeItem(KEY);say("DARK PROTOCOL - RESET",900);later(()=>location.reload(),950);
+     localStorage.removeItem(KEY);say("DARK PROTOCOL // RESET",900);later(()=>location.reload(),950);
    }
  });
  window.qcDarkProtocol={fire:()=>fire(true),reset:()=>{localStorage.removeItem(KEY);location.reload()},state:()=>({...S})};
@@ -2588,7 +2588,7 @@ body.qcBossShake #qcDuelImage{animation:qcDPCard .11s steps(2) infinite}
 </style>
 <div id="qcWishFlash"></div>
 <div id="qcWishText"><div class="dark" id="qcWishDark"></div><div class="french" id="qcWishFrench"></div></div>
-<div id="qcUniverseStable">QUENQUEN CORP - UNIVERS STABILISÉ</div>
+<div id="qcUniverseStable">QUENQUEN CORP // UNIVERS STABILISÉ</div>
 <script id="qcAndromedaRupture">
 window.qcAndromedaBoss=(function(){
  let active=false,french=0,dark=0,timer=null,spawnMs=680,elapsed=0,speechTimer=null,albumAudioState=[];
@@ -2604,7 +2604,7 @@ window.qcAndromedaBoss=(function(){
  function ensure(){
   if($("qcBossHUD"))return;
   const box=document.getElementById("qcDuelImageBox");
-  box.insertAdjacentHTML("beforeend",`<div id="qcBossHUD"><div id="qcBattleAlarm">⚠ RUPTURE DIMENSIONNELLE - ANDROMEDA INSTABLE ⚠</div><div id="qcBossTop"><div class="qcBossSide"><div class="qcBossName f">FRENCH - STABILITÉ</div><div class="qcBossBar"><div id="qcFrenchFill" class="qcBossFill"></div></div></div><div class="qcBossSide"><div class="qcBossName d">CORRUPTION - DARK</div><div class="qcBossBar"><div id="qcDarkFill" class="qcBossFill"></div></div></div></div><div id="qcBossArena"></div><div id="qcWatchCore">ANDROMEDA<br>STABILISER</div><div id="qcBossSpeech"></div><div id="qcBossInstruction">DÉTRUISEZ LES CORRUPTIONS ROUGES — ÉVITEZ LES FRAGMENTS JAUNES</div><div id="qcBossResult"><h2 id="qcBossResultTitle"></h2><div id="qcBossResultText"></div><button id="qcBossRetry">↻ RÉESSAYER</button></div></div>`);
+  box.insertAdjacentHTML("beforeend",`<div id="qcBossHUD"><div id="qcBattleAlarm">⚠ RUPTURE DIMENSIONNELLE // ANDROMEDA INSTABLE ⚠</div><div id="qcBossTop"><div class="qcBossSide"><div class="qcBossName f">FRENCH // STABILITÉ</div><div class="qcBossBar"><div id="qcFrenchFill" class="qcBossFill"></div></div></div><div class="qcBossSide"><div class="qcBossName d">CORRUPTION // DARK</div><div class="qcBossBar"><div id="qcDarkFill" class="qcBossFill"></div></div></div></div><div id="qcBossArena"></div><div id="qcWatchCore">ANDROMEDA<br>STABILISER</div><div id="qcBossSpeech"></div><div id="qcBossInstruction">DÉTRUISEZ LES CORRUPTIONS ROUGES — ÉVITEZ LES FRAGMENTS JAUNES</div><div id="qcBossResult"><h2 id="qcBossResultTitle"></h2><div id="qcBossResultText"></div><button id="qcBossRetry">↻ RÉESSAYER</button></div></div>`);
   $("qcBossRetry").onclick=()=>start();
  }
  function bars(){$("qcFrenchFill").style.width=french+"%";$("qcDarkFill").style.width=dark+"%";$("qcDuelScene")?.classList.toggle("qcBattleDanger",active&&dark>=65)}
@@ -2695,11 +2695,11 @@ window.qcAndromedaBoss=(function(){
  function micro(){const t=document.querySelector(".title");if(!t)return;const o=t.textContent;t.textContent=Math.random()<.5?"CARD COLLECTOR QUENQUEN — VOLUME ?":"CARD COLLECTOR QUENQUEN — VOLUME 0";later(()=>t.textContent=o,100+Math.random()*130)}
  function scanline(){scan.style.display="block";scan.style.animation="none";void scan.offsetWidth;scan.style.animation="qcDPScan 1.1s linear forwards";later(()=>scan.style.display="none",1150)}
  function watcher(){const im=darkImage();if(!im)return;$("qcDPWatcherImg").src=im;show(watch,650+Math.random()*700)}
- function corruptText(){const p=[...document.querySelectorAll(".tab,.sub,.collectionTitle,.ownerLabel,#corpStatus")].filter(x=>x&&x.offsetParent!==null);if(!p.length)return;const el=p[Math.floor(Math.random()*p.length)],o=el.textContent;el.textContent=["IL EST LÀ","NE TE RETOURNE PAS","#02","#02","TU L'AS OUVERT","DARK - CONNECTÉ"][Math.floor(Math.random()*6)];el.style.color="#ff2424";later(()=>{el.textContent=o;el.style.color=""},600+Math.random()*700)}
+ function corruptText(){const p=[...document.querySelectorAll(".tab,.sub,.collectionTitle,.ownerLabel,#corpStatus")].filter(x=>x&&x.offsetParent!==null);if(!p.length)return;const el=p[Math.floor(Math.random()*p.length)],o=el.textContent;el.textContent=["IL EST LÀ","NE TE RETOURNE PAS","#02","#02","TU L'AS OUVERT","DARK // CONNECTÉ"][Math.floor(Math.random()*6)];el.style.color="#ff2424";later(()=>{el.textContent=o;el.style.color=""},600+Math.random()*700)}
  function displacement(){document.body.classList.add("qcDPDistort");show(noise,700);later(()=>document.body.classList.remove("qcDPDistort"),650)}
- function falseFailure(){const c=$("corpStatus");if(!c)return;const o=c.textContent;c.textContent="CORP - ACCÈS NON AUTORISÉ";c.style.color="#ff2020";later(()=>c.textContent="CORP - D_Q CONNECTÉ",700);later(()=>{c.textContent=o;c.style.color=""},1500)}
+ function falseFailure(){const c=$("corpStatus");if(!c)return;const o=c.textContent;c.textContent="CORP // ACCÈS NON AUTORISÉ";c.style.color="#ff2020";later(()=>c.textContent="CORP // D_Q CONNECTÉ",700);later(()=>{c.textContent=o;c.style.color=""},1500)}
  function cardAttack(){if(!$("individualCardModal")?.classList.contains("open"))return false;document.body.classList.add("qcDPCard");show(noise,950);show(flash,430);const h=document.querySelector(".individualCardHint"),o=h?.textContent;if(h)h.textContent="NE RETOURNE PAS CETTE CARTE";later(()=>{document.body.classList.remove("qcDPCard");if(h)h.textContent=o},1000);return true}
- function takeover(){show(noise,2100);show(flash,750);scanline();watcher();document.body.classList.add("qcDPDistort","qcDPInvert");say("DARK QUENQUEN - PROTOCOLE ACTIF",1300);later(()=>say("CE N'EST PLUS TON UNIVERS",1050),1450);later(()=>document.body.classList.remove("qcDPDistort","qcDPInvert"),2250)}
+ function takeover(){show(noise,2100);show(flash,750);scanline();watcher();document.body.classList.add("qcDPDistort","qcDPInvert");say("DARK QUENQUEN // PROTOCOLE ACTIF",1300);later(()=>say("CE N'EST PLUS TON UNIVERS",1050),1450);later(()=>document.body.classList.remove("qcDPDistort","qcDPInvert"),2250)}
  function fire(force=false){
    if(!S.invoked)return;
    const now=Date.now();if(!force&&now-(S.last||0)<4500)return;S.last=now;S.events++;save();
@@ -2725,7 +2725,7 @@ window.qcAndromedaBoss=(function(){
    ["french","FRENCH QUENQUEN","Quitter ton univers."],
    ["dark","DARK QUENQUEN","..."],
    ["french","FRENCH QUENQUEN","Parce que maintenant, je peux t'atteindre."],
-   ["system","QUENQUEN CORP","CONFRONTATION DÉTECTÉE - PROTOCOLE EN ATTENTE"]
+   ["system","QUENQUEN CORP","CONFRONTATION DÉTECTÉE // PROTOCOLE EN ATTENTE"]
  ];
  let di=0,duel=false;
  function renderDialogue(){const d=dialogue[di],box=$("qcDuelDialogue");box.className=d[0];$("qcDuelSpeaker").textContent=d[1];$("qcDuelText").textContent=d[2];$("qcDuelNext").textContent=di===dialogue.length-1?"FIN DE LA TRANSMISSION":"CLIQUER POUR CONTINUER ▶"}
@@ -2752,7 +2752,7 @@ window.qcAndromedaBoss=(function(){
    if(S.invoked&&S.ticker&&!S.duelSeen&&n===1)later(startDuel,700);
    return r;
  };
- - Fallback: clicking French while its modal is already open also starts the confrontation.
+ // Fallback: clicking French while its modal is already open also starts the confrontation.
  document.addEventListener("click",e=>{
    if(!S.invoked||!S.ticker||S.duelSeen||duel)return;
    const modal=$("individualCardModal");if(!modal?.classList.contains("open"))return;
@@ -2762,7 +2762,7 @@ window.qcAndromedaBoss=(function(){
  setInterval(()=>{if(!S.invoked||duel)return;bump(.35);if(Math.random()<.10+stage()*.015)fire()},11000);
  document.addEventListener("keydown",e=>{
    const dev=$("devPanel");if(e.ctrlKey&&e.shiftKey&&e.key.toLowerCase()==="x"&&dev?.classList.contains("open")){
-     localStorage.removeItem(KEY);say("DARK PROTOCOL - RESET",800);later(()=>location.reload(),850)
+     localStorage.removeItem(KEY);say("DARK PROTOCOL // RESET",800);later(()=>location.reload(),850)
    }
  });
  window.qcDarkProtocol={
@@ -2801,7 +2801,7 @@ window.qcAndromedaBoss=(function(){
 </div>
 <div id="qcA23Overlay" aria-hidden="true">
  <div id="qcA23Panel">
-  <div id="qcA23Title">QUENQUEN CORP - ARCHIVE #23</div>
+  <div id="qcA23Title">QUENQUEN CORP // ARCHIVE #23</div>
   <video id="qcA23Video" controls playsinline preload="metadata" src="https://raw.githubusercontent.com/frenchquenquen/quenquen-corp/refs/heads/main/card-collector/assets/qc/x7f2k9/qcx_c23e91a.mp4"></video>
   <button id="qcA23Close">FERMER L'ARCHIVE</button>
  </div>
@@ -2824,7 +2824,7 @@ window.qcAndromedaBoss=(function(){
    const list=document.getElementById("archiveLibraryList");if(!list)return;
    let b=[...list.querySelectorAll(".archiveItem")].find(x=>/ARCHIVE\s*#23(?:\D|$)/i.test(x.textContent||""));
    if(!b){b=document.createElement("button");b.className="archiveItem";list.appendChild(b)}
-   b.dataset.qcArchive="23";b.textContent="ARCHIVE #23  -  DONNÉE RÉSIDUELLE";b.onclick=()=>open23();
+   b.dataset.qcArchive="23";b.textContent="ARCHIVE #23  //  DONNÉE RÉSIDUELLE";b.onclick=()=>open23();
    [...list.querySelectorAll(".archiveItem")].sort((a,b)=>{
      const A=Number(((a.textContent||"").match(/ARCHIVE\s*#(\d+)/i)||[,999])[1]);
      const B=Number(((b.textContent||"").match(/ARCHIVE\s*#(\d+)/i)||[,999])[1]);return A-B
@@ -2881,7 +2881,7 @@ window.qcAndromedaBoss=(function(){
 </style>
 <div id="qcUnifiedArchive" aria-hidden="true">
  <div id="qcUnifiedArchivePanel">
-  <div id="qcUnifiedArchiveTitle">QUENQUEN CORP - ARCHIVE</div>
+  <div id="qcUnifiedArchiveTitle">QUENQUEN CORP // ARCHIVE</div>
   <video id="qcUnifiedArchiveVideo" controls playsinline preload="metadata"></video>
   <button id="qcUnifiedArchiveClose" type="button">FERMER L'ARCHIVE</button>
  </div>
@@ -2908,7 +2908,7 @@ window.qcAndromedaBoss=(function(){
  async function openUnified(n,btn){
    const src=mediaFor(n); if(!src)return false;
    document.getElementById("archiveLibrary")?.classList.remove("open");
-   title.textContent="QUENQUEN CORP - ARCHIVE #"+n+(labelFor(btn,n)?" - "+labelFor(btn,n):"");
+   title.textContent="QUENQUEN CORP // ARCHIVE #"+n+(labelFor(btn,n)?" // "+labelFor(btn,n):"");
    audioState=[];
    document.querySelectorAll("audio").forEach(a=>{
      if(!a.paused){audioState.push({el:a,time:a.currentTime});try{a.pause()}catch(e){}}
@@ -2956,8 +2956,8 @@ window.qcAndromedaBoss=(function(){
 #qcA14FirstVideo{display:block;width:100%;max-height:78vh;background:#000;border:1px solid #665900;box-shadow:0 0 35px rgba(255,212,0,.16)} #qcA14FirstClose{margin-top:12px;padding:9px 18px;background:#090909;border:1px solid #665900;color:#ffd400;font:900 13px monospace;letter-spacing:2px;cursor:pointer}
 </style>
 <div id="qcFragToast"></div>
-<div id="qcA14Reward"><div id="qcA14r1" class="l">FRAGMENT DE DONNÉES - 6/6</div><div id="qcA14r2" class="l">CORRÉLATION DÉTECTÉE...</div><div id="qcA14r3" class="l">DONNÉES RECONSTITUÉES.</div><div id="qcA14r4" class="l gold">ARCHIVE #14 IDENTIFIÉE</div></div>
-<div id="qcA14First"><div id="qcA14FirstPanel"><div id="qcA14FirstTitle">QUENQUEN CORP - ARCHIVE #14</div><video id="qcA14FirstVideo" controls playsinline preload="metadata" src="https://raw.githubusercontent.com/frenchquenquen/quenquen-corp/refs/heads/main/card-collector/assets/qc/x7f2k9/qcx_b14f82d.mp4"></video><button id="qcA14FirstClose" type="button">FERMER L'ARCHIVE</button></div></div>
+<div id="qcA14Reward"><div id="qcA14r1" class="l">FRAGMENT DE DONNÉES // 6/6</div><div id="qcA14r2" class="l">CORRÉLATION DÉTECTÉE...</div><div id="qcA14r3" class="l">DONNÉES RECONSTITUÉES.</div><div id="qcA14r4" class="l gold">ARCHIVE #14 IDENTIFIÉE</div></div>
+<div id="qcA14First"><div id="qcA14FirstPanel"><div id="qcA14FirstTitle">QUENQUEN CORP // ARCHIVE #14</div><video id="qcA14FirstVideo" controls playsinline preload="metadata" src="https://raw.githubusercontent.com/frenchquenquen/quenquen-corp/refs/heads/main/card-collector/assets/qc/x7f2k9/qcx_b14f82d.mp4"></video><button id="qcA14FirstClose" type="button">FERMER L'ARCHIVE</button></div></div>
 
 
 <style id="qcDiamondModalHookTestStyle">
@@ -2992,7 +2992,7 @@ window.qcAndromedaBoss=(function(){
    stage.style.overflow="visible";
    const sr=stage.getBoundingClientRect(),fr=frame.getBoundingClientRect();
    const layer=document.createElement("div");layer.id="qcDiamondAuraLayer";
-   - layer fills the entire modal stage; convert card-perimeter percentages into stage pixels.
+   // layer fills the entire modal stage; convert card-perimeter percentages into stage pixels.
    pts.forEach((p,i)=>{
       const e=document.createElement("i");e.className="qcTestSpark";
       const x=(fr.left-sr.left)+(p[0]/100)*fr.width, y=(fr.top-sr.top)+(p[1]/100)*fr.height;
@@ -3002,12 +3002,12 @@ window.qcAndromedaBoss=(function(){
    if(SECRET.includes(n)&&!got.includes(n)&&!localStorage.getItem(DISC)){
       const p=yellowPos[n],e=document.createElement("i");e.className="qcTestSpark yellow";
       e.style.left=((fr.left-sr.left)+(p[0]/100)*fr.width)+"px";e.style.top=((fr.top-sr.top)+(p[1]/100)*fr.height)+"px";
-      e.addEventListener("click",ev=>{ev.preventDefault();ev.stopPropagation();let f=fragments();if(f.includes(n))return;f.push(n);save(f);e.remove();toast("FRAGMENT DE DONNÉES - "+f.length+"/6");if(f.length>=6)setTimeout(()=>window.qcA14Complete?.(),2400)});
+      e.addEventListener("click",ev=>{ev.preventDefault();ev.stopPropagation();let f=fragments();if(f.includes(n))return;f.push(n);save(f);e.remove();toast("FRAGMENT DE DONNÉES // "+f.length+"/6");if(f.length>=6)setTimeout(()=>window.qcA14Complete?.(),2400)});
       layer.appendChild(e);
    }
    stage.appendChild(layer);
  }
- - Exact hook: this is the real function used by .cardHotspot in the album.
+ // Exact hook: this is the real function used by .cardHotspot in the album.
  const original=window.qcOpenIndividualCard;
  if(typeof original==="function"){
    window.qcOpenIndividualCard=function(collection,index){
@@ -3017,9 +3017,9 @@ window.qcAndromedaBoss=(function(){
       return out;
    };
  }
- - Existing close button: remove effects with modal.
+ // Existing close button: remove effects with modal.
  document.getElementById("individualCardClose")?.addEventListener("click",clear);
- - Complete Archive #14 using the already-established reward/fullscreen flow from V14.7.8 logic, recreated here because old engine is disabled.
+ // Complete Archive #14 using the already-established reward/fullscreen flow from V14.7.8 logic, recreated here because old engine is disabled.
  window.qcA14Complete=function(){
    if(localStorage.getItem(DISC))return;
    const reward=document.getElementById("qcA14Reward");
@@ -3128,7 +3128,7 @@ window.qcAndromedaBoss=(function(){
    let b=[...list.querySelectorAll(".archiveItem")].find(x=>/ARCHIVE\s*#14(?:\D|$)/i.test(x.textContent||""));
    if(!b){b=document.createElement("button");b.className="archiveItem";list.appendChild(b)}
    b.dataset.qcArchive="14";
-   b.textContent="ARCHIVE #14  -  DONNÉES RECONSTITUÉES";
+   b.textContent="ARCHIVE #14  //  DONNÉES RECONSTITUÉES";
    [...list.querySelectorAll(".archiveItem")].sort((a,b)=>{
      const A=Number(((a.textContent||"").match(/ARCHIVE\s*#(\d+)/i)||[,999])[1]);
      const B=Number(((b.textContent||"").match(/ARCHIVE\s*#(\d+)/i)||[,999])[1]);
@@ -3172,7 +3172,7 @@ window.qcAndromedaBoss=(function(){
  if(fo)fo.addEventListener("click",e=>{if(e.target===fo)close14(true)});
  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&fo?.classList.contains("open"))close14(true)});
 
- - One dedicated #14 route, before the generic unified listener.
+ // One dedicated #14 route, before the generic unified listener.
  document.getElementById("archiveLibraryList")?.addEventListener("click",async function(e){
    const b=e.target.closest(".archiveItem");
    if(!b||!/ARCHIVE\s*#14(?:\D|$)/i.test(b.textContent||""))return;
@@ -3180,12 +3180,12 @@ window.qcAndromedaBoss=(function(){
    const ov=document.getElementById("qcUnifiedArchive"),v=document.getElementById("qcUnifiedArchiveVideo"),t=document.getElementById("qcUnifiedArchiveTitle");
    if(!ov||!v)return;
    document.getElementById("archiveLibrary")?.classList.remove("open");
-   if(t)t.textContent="QUENQUEN CORP - ARCHIVE #14 - DONNÉES RECONSTITUÉES";
+   if(t)t.textContent="QUENQUEN CORP // ARCHIVE #14 // DONNÉES RECONSTITUÉES";
    pauseAlbumAudio();v.src=A14URL;ov.classList.add("open");ov.setAttribute("aria-hidden","false");
    try{v.currentTime=0;await v.play()}catch(e){}
  },true);
 
- - Generic unified player: centralize pause/resume without re-pausing and losing state.
+ // Generic unified player: centralize pause/resume without re-pausing and losing state.
  const u=document.getElementById("qcUnifiedArchive"),uv=document.getElementById("qcUnifiedArchiveVideo"),uc=document.getElementById("qcUnifiedArchiveClose");
  if(u){
    new MutationObserver(()=>{if(u.classList.contains("open"))pauseAlbumAudio()}).observe(u,{attributes:true,attributeFilter:["class"]});
@@ -3262,16 +3262,16 @@ window.qcAndromedaBoss=(function(){
       crack.classList.add("break");rock.classList.add("fall");crackSound();
       if(idx>=0&&!already){
         frag.classList.add("show");let a=got();if(!a.includes(n))a.push(n);save(a);
-        setTimeout(()=>toast("FRAGMENT D'ARTEFACT - "+a.length+"/5"),650);
+        setTimeout(()=>toast("FRAGMENT D'ARTEFACT // "+a.length+"/5"),650);
         if(a.length>=5)setTimeout(assemble,2900);
-      } else setTimeout(()=>toast("ROCHE FRACTURÉE - AUCUNE DONNÉE"),550);
+      } else setTimeout(()=>toast("ROCHE FRACTURÉE // AUCUNE DONNÉE"),550);
    });
  }
  function assemble(){
    if(localStorage.getItem(OWN))return;
    const ov=document.getElementById("qcBladeAssembly"),stage=document.getElementById("qcBladeAssemblyStage"),txt=document.getElementById("qcBladeAssemblyText"),full=document.getElementById("qcBladeFull");
-   ov.classList.add("on");txt.textContent="ARTEFACT - RECONSTRUCTION...";
-   - Five visual fragments fly toward the centre.
+   ov.classList.add("on");txt.textContent="ARTEFACT // RECONSTRUCTION...";
+   // Five visual fragments fly toward the centre.
    FRAGS.forEach((src,i)=>{
      const im=document.createElement("img");im.className="qcAsFrag";im.src=src;
      const angle=(i/5)*Math.PI*2,dx=Math.cos(angle)*430,dy=Math.sin(angle)*260;
@@ -3345,7 +3345,7 @@ window.qcAndromedaBoss=(function(){
  setInterval(refresh,300);
  setTimeout(refresh,500);
 
- - Reserved interaction point for the future purpose of the artefact.
+ // Reserved interaction point for the future purpose of the artefact.
  /* Click behavior is handled by qcFrenchbladeClickAnimation in V14.8.3. */
  window.qcFrenchbladeHomeEnsure=refresh;
 })();
@@ -3484,7 +3484,7 @@ window.qcAndromedaBoss=(function(){
      rail.innerHTML='<div id="qcSecretTrophyRailTitle">OBJETS TROUVÉS</div><div id="qcSecretTrophyRailItems"></div>';
      items=rail.querySelector("#qcSecretTrophyRailItems");
 
-     - Place after the collection heading when possible, otherwise before the favorites panel.
+     // Place after the collection heading when possible, otherwise before the favorites panel.
      const headings=[...home.querySelectorAll("h1,h2,h3")];
      const title=headings.find(x=>/ma\s+collection/i.test(x.textContent||""));
      const fav=[...home.querySelectorAll("*")].find(x=>/mes\s+favorites/i.test(x.textContent||"") && x.children.length<8);
@@ -3515,7 +3515,7 @@ window.qcAndromedaBoss=(function(){
      if(unlocked(el)){
        if(el.parentElement!==items)items.appendChild(el);
        el.classList.add("qcTrophySlot");
-       - Rail controls display while in collection; individual unlock logic still controls ownership.
+       // Rail controls display while in collection; individual unlock logic still controls ownership.
        if(active){el.style.setProperty("display","flex","important");count++}
        else el.style.setProperty("display","none","important");
      } else {
@@ -4079,7 +4079,7 @@ window.qcAndromedaBoss=(function(){
 <div id="qcBearCase">
  <div id="qcBearTop"><button id="qcBearClose">×</button><strong>BUREAU DES AFFAIRES QUENQUEN</strong><span>UNITÉ DES OBJETS DISPARUS</span></div>
  <div id="qcBearBody">
-  <div class="qcCaseStamp">DOSSIER #001 - AFFAIRE OUVERTE</div><section class="qcCaseIntro"><img src="assets/embedded/asset_047_98c662dc5423.webp" alt=""><div><h2>L'OURS DISPARU</h2><p>À 22H14, CARTOON QUENQUEN signale la disparition de son ours en peluche.</p><p>La disparition aurait eu lieu entre 21H50 et 22H10.</p><p><b>4 SUSPECTS. 5 INDICES. UN SEUL COUPABLE.</b></p><div class="qcCaseMeta">OBJET RECHERCHÉ : OURS EN PELUCHE - PRIORITÉ : ÉTONNAMMENT ÉLEVÉE</div><div class="qcMissingObject"><div class="qcMissingLabel">OBJET DISPARU</div><img id="qcMissingBearImg" alt="Ours en peluche de Cartoon QuenQuen"><div>OURS EN PELUCHE DE CARTOON QUENQUEN</div></div></div></section>
+  <div class="qcCaseStamp">DOSSIER #001 // AFFAIRE OUVERTE</div><section class="qcCaseIntro"><img src="assets/embedded/asset_047_98c662dc5423.webp" alt=""><div><h2>L'OURS DISPARU</h2><p>À 22H14, CARTOON QUENQUEN signale la disparition de son ours en peluche.</p><p>La disparition aurait eu lieu entre 21H50 et 22H10.</p><p><b>4 SUSPECTS. 5 INDICES. UN SEUL COUPABLE.</b></p><div class="qcCaseMeta">OBJET RECHERCHÉ : OURS EN PELUCHE // PRIORITÉ : ÉTONNAMMENT ÉLEVÉE</div><div class="qcMissingObject"><div class="qcMissingLabel">OBJET DISPARU</div><img id="qcMissingBearImg" alt="Ours en peluche de Cartoon QuenQuen"><div>OURS EN PELUCHE DE CARTOON QUENQUEN</div></div></div></section>
   <nav class="qcTabs"><button data-pane="suspects" class="active">SUSPECTS</button><button data-pane="indices">INDICES <span id="qcEvCount">0/5</span></button><button data-pane="accuser">ACCUSER</button></nav>
   <section id="qcPaneSuspects" class="qcPane active"><div class="qcSuspects">
    <div class="qcSuspect" data-s="2"><img src="assets/embedded/asset_013_4f9c8300d7bf.webp"><b>DARK</b></div>
@@ -4088,11 +4088,11 @@ window.qcAndromedaBoss=(function(){
    <div class="qcSuspect" data-s="49"><img src="assets/embedded/asset_060_dbdb54ad636d.webp"><b>TELETEUBER</b></div>
   </div><div id="qcStatement">SÉLECTIONNEZ UN SUSPECT POUR CONSULTER SA DÉPOSITION.</div></section>
   <section id="qcPaneIndices" class="qcPane"><div class="qcEvidence">
-   <button>PREUVE #01 - CAMÉRA<span>À 22H03, une silhouette quitte les lieux. Son visage est inutilisable, mais sa sacoche contient plusieurs petits flacons.</span></button>
-   <button>PREUVE #02 - FRAGMENT D'ÉTIQUETTE<span>Un morceau d'étiquette a été retrouvé près de l'emplacement de l'ours : « …ÈDE CONTRE LE RH… »</span></button>
-   <button>PREUVE #03 - TERMINAL DU MARCHÉ<span>Les registres indiquent que le marché a fermé à 21H30. Charlatan affirme pourtant y avoir passé toute la soirée.</span></button>
-   <button>PREUVE #04 - PRÊTEUR SUR GAGE<span>À 22H08, quelqu'un l'a contacté pour connaître la valeur d'un ours en peluche. Il souhaitait être payé en médicaments.</span></button>
-   <button>PREUVE #05 - TRACE NOIRE<span>Résidu dimensionnel retrouvé près des lieux. Analyse : datation 3 jours. Sans rapport avec l'affaire.</span></button>
+   <button>PREUVE #01 // CAMÉRA<span>À 22H03, une silhouette quitte les lieux. Son visage est inutilisable, mais sa sacoche contient plusieurs petits flacons.</span></button>
+   <button>PREUVE #02 // FRAGMENT D'ÉTIQUETTE<span>Un morceau d'étiquette a été retrouvé près de l'emplacement de l'ours : « …ÈDE CONTRE LE RH… »</span></button>
+   <button>PREUVE #03 // TERMINAL DU MARCHÉ<span>Les registres indiquent que le marché a fermé à 21H30. Charlatan affirme pourtant y avoir passé toute la soirée.</span></button>
+   <button>PREUVE #04 // PRÊTEUR SUR GAGE<span>À 22H08, quelqu'un l'a contacté pour connaître la valeur d'un ours en peluche. Il souhaitait être payé en médicaments.</span></button>
+   <button>PREUVE #05 // TRACE NOIRE<span>Résidu dimensionnel retrouvé près des lieux. Analyse : datation 3 jours. Sans rapport avec l'affaire.</span></button>
   </div></section>
   <section id="qcPaneAccuser" class="qcPane"><div id="qcAccusePane"><h2>IDENTIFIER LE RESPONSABLE</h2><p id="qcAccuseHint">Consultez les 5 pièces à conviction avant de déposer une accusation.</p><div class="qcAccuseGrid">
    <button class="qcAccuseBtn" data-a="2" disabled>DARK</button><button class="qcAccuseBtn" data-a="40" disabled>GOTHIQUE</button><button class="qcAccuseBtn" data-a="47" disabled>CHARLATAN</button><button class="qcAccuseBtn" data-a="49" disabled>TELETEUBER</button>
@@ -4186,7 +4186,7 @@ window.qcAndromedaBoss=(function(){
    if(ok){await qcRunReconstruction();try{localStorage.setItem("quenquen_suzie_bear_recovered_v1","1")}catch(e){}if(typeof window.qcSecretTrophyRailRefresh==="function")window.qcSecretTrophyRailRefresh();}
    document.getElementById("qcVerdictImg").src=imgs[n];
    document.getElementById("qcVerdictText").textContent=ok?"AFFAIRE RÉSOLUE : CHARLATAN QUENQUEN":"ACCUSATION INSUFFISAMMENT ÉTAYÉE.";
-   document.getElementById("qcVerdictDetail").innerHTML=ok?`OURS DE CARTOON QUENQUEN RÉCUPÉRÉ.<div class="qcBearRecovered"><img src="${qcSuzieBearArt}" alt="Ours récupéré"><b>OBJET RÉCUPÉRÉ</b></div>MOBILE IDENTIFIÉ : le suspect comptait revendre l'ours à un prêteur sur gage en échange d'un remède contre…<br><br><b>LE RHUME DES ALBUMS DE CARTES.</b><br><br>BUREAU DES AFFAIRES QUENQUEN - …`:(n===2?"DARK : « Pathétique. »":n===40?"GOTHIQUE : « Vous devriez peut-être relire vos propres preuves. »":"TELETEUBER : « Hein ? Mais j'étais juste là pour le TikTok ! »");
+   document.getElementById("qcVerdictDetail").innerHTML=ok?`OURS DE CARTOON QUENQUEN RÉCUPÉRÉ.<div class="qcBearRecovered"><img src="${qcSuzieBearArt}" alt="Ours récupéré"><b>OBJET RÉCUPÉRÉ</b></div>MOBILE IDENTIFIÉ : le suspect comptait revendre l'ours à un prêteur sur gage en échange d'un remède contre…<br><br><b>LE RHUME DES ALBUMS DE CARTES.</b><br><br>BUREAU DES AFFAIRES QUENQUEN // …`:(n===2?"DARK : « Pathétique. »":n===40?"GOTHIQUE : « Vous devriez peut-être relire vos propres preuves. »":"TELETEUBER : « Hein ? Mais j'étais juste là pour le TikTok ! »");
    document.getElementById("qcVerdictContinue").textContent=ok?"CLOTURER LE DOSSIER":"CONTINUER L'ENQUÊTE";
    verdict.classList.add("on");
    document.getElementById("qcVerdictContinue").onclick=async()=>{verdict.classList.remove("on");if(ok)await close()};
@@ -4253,8 +4253,8 @@ window.qcAndromedaBoss=(function(){
  album.addEventListener("pointerleave",leave,{passive:true});
  if(!matchMedia("(prefers-reduced-motion: reduce)").matches) render();
 
- - Micro-son synthétique très discret au changement de page :
- - aucun asset supplémentaire, aucun impact sur la musique.
+ // Micro-son synthétique très discret au changement de page :
+ // aucun asset supplémentaire, aucun impact sur la musique.
  let ac;
  function paperTick(){
    try{
@@ -4298,7 +4298,7 @@ window.qcAndromedaBoss=(function(){
  function numberOf(el){return archiveNo[el?.id]??Number((el?.closest?.("[id]")?.textContent||"").match(/ARCHIVE\s*#(\d+)/i)?.[1])||""}
  async function adopt(el){
    if(!el||el===vid||watching)return; const src=el.currentSrc||el.src;if(!src)return;
-   source=el; const n=numberOf(el); title.textContent="QUENQUEN CORP - ARCHIVE"+(n!==""?" #"+n:"");
+   source=el; const n=numberOf(el); title.textContent="QUENQUEN CORP // ARCHIVE"+(n!==""?" #"+n:"");
    try{el.pause()}catch(e){}
    restore={parent:el.parentNode,display:el.style.display};
    el.style.display="none"; vid.src=src; ov.classList.add("open");ov.setAttribute("aria-hidden","false");
@@ -4380,7 +4380,7 @@ window.qcAndromedaBoss=(function(){
 (function(){
  const CARD=20,KEY='quenquen_monteur_quenquen_20_unlocked_v1',V1='assets/qc/x7f2k9/montage%20pro1.mp4',V2='assets/qc/x7f2k9/montage%20pro2.mp4';
  const quiz=document.getElementById('qcMonteur20Quiz'),start=document.getElementById('qcMonteur20Start'),prog=document.getElementById('qcMonteur20Progress'),bar=document.getElementById('qcMonteur20Bar'),status=document.getElementById('qcMonteur20Status'),picker=document.getElementById('qcMonteur20Picker'),badge=document.getElementById('qcMonteur20Badge'),stage=document.getElementById('qcMonteur20Stage'),video=document.getElementById('qcMonteur20Video');
- - Toujours reconstruire le visuel de l'objet trouvé depuis le fichier officiel.
+ // Toujours reconstruire le visuel de l'objet trouvé depuis le fichier officiel.
  badge.replaceChildren(Object.assign(document.createElement('img'),{className:'qcMonteurAvatar',src:'assets/qc/x7f2k9/LOGO.png',alt:''}));
  let running=false,audioState=[];
  function refresh(){badge.classList.toggle('visible',!!localStorage.getItem(KEY));window.qcSecretTrophyRailRefresh?.()}
@@ -4403,7 +4403,7 @@ window.qcAndromedaBoss=(function(){
  document.getElementById('qcMonteur20Close').addEventListener('click',closeVideo);
  document.addEventListener('click',e=>{const card=e.target.closest?.('.qcAlbumCard[data-card]');if(card&&Number(card.dataset.card)===CARD&&!localStorage.getItem(KEY))setTimeout(ask,180)},true);
  refresh();
- - Hook fiable : le moteur principal appelle directement le secret quand la carte #20 s'ouvre.
+ // Hook fiable : le moteur principal appelle directement le secret quand la carte #20 s'ouvre.
  const previousOpen=window.qcOpenIndividualCard;
  if(typeof previousOpen==='function'){
    window.qcOpenIndividualCard=function(c,i){
@@ -4436,34 +4436,6 @@ window.qcAndromedaBoss=(function(){
  document.addEventListener('contextmenu',e=>{if(e.target.closest?.('video'))e.preventDefault()},true);
 })();
 </script>
-
-<style id="qcArchiveCloseBottomCenteredFix">
-/* Relecture archives : fermeture sous la vidéo, centrée, cohérente avec l'album. */
-#qcReplayOverlay{align-items:center!important;justify-content:center!important;padding:24px 18px 92px!important}
-#qcReplayOverlay #qcReplayVideo{max-height:calc(100vh - 135px)!important;max-width:96vw!important}
-#qcReplayOverlay #qcReplayClose{
- position:fixed!important;left:50%!important;right:auto!important;top:auto!important;bottom:22px!important;
- transform:translateX(-50%)!important;background:#080808!important;color:#ffd400!important;
- border:2px solid #ffd400!important;border-radius:5px!important;padding:11px 22px!important;
- font-family:"Luckiest Guy",Impact,Arial,sans-serif!important;font-size:17px!important;letter-spacing:1px!important;
- opacity:1!important;box-shadow:0 7px 22px #000c!important;white-space:nowrap!important;
-}
-#qcReplayOverlay #qcReplayClose:hover{background:#ffd400!important;color:#000!important}
-</style>
-
-<style id="qcMonteurTrophyFrameMatchFix">
-/* Monteur QuenQuen : même cadre que les autres objets trouvés. */
-#qcSecretTrophyRailItems #qcMonteur20Badge.qcTrophySlot{
- width:64px!important;height:64px!important;min-width:64px!important;min-height:64px!important;
- padding:0!important;border:1px solid #6e5d00!important;border-radius:0!important;
- background:#050505!important;box-shadow:none!important;overflow:hidden!important;
- align-items:center!important;justify-content:center!important;
-}
-#qcSecretTrophyRailItems #qcMonteur20Badge .qcMonteurAvatar{
- width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;
- object-fit:contain!important;border:0!important;border-radius:0!important;background:transparent!important;
-}
-</style>
 </body></html>
 <style id="qcGift16ChristmasLogoFix">
 #qcGift16{
@@ -4480,7 +4452,7 @@ window.qcAndromedaBoss=(function(){
 </style>
 
 <style id="qcImmersiveV18ControlsScale">
-/* Interface basse plus présente, sans le statut CORP - ONLINE. */
+/* Interface basse plus présente, sans le statut CORP // ONLINE. */
 .corpConnection{display:none!important}
 
 #qcImmersiveHub{
@@ -4567,4 +4539,18 @@ window.qcAndromedaBoss=(function(){
 <style id="qcOwnerLockedV20">
 #ownerName{cursor:default!important;pointer-events:none!important}
 #ownerName:hover{background:transparent!important}
+</style>
+
+<style id="qcMonteurTrophyFrameMatchFix">
+/* Monteur QuenQuen : même cadre que les autres objets trouvés. */
+#qcSecretTrophyRailItems #qcMonteur20Badge.qcTrophySlot{
+ width:64px!important;height:64px!important;min-width:64px!important;min-height:64px!important;
+ padding:0!important;border:1px solid #6e5d00!important;border-radius:0!important;
+ background:#050505!important;box-shadow:none!important;overflow:hidden!important;
+ align-items:center!important;justify-content:center!important;
+}
+#qcSecretTrophyRailItems #qcMonteur20Badge .qcMonteurAvatar{
+ width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;
+ object-fit:contain!important;border:0!important;border-radius:0!important;background:transparent!important;
+}
 </style>
