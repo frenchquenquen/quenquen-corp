@@ -2902,7 +2902,7 @@ window.qcAndromedaBoss=(function(){
  }
  function labelFor(btn,n){
    const txt=(btn?.textContent||"").trim();
-   const m=txt.match(/ARCHIVE\s*#\d+\s*(?:\/\/|[-–—])\s*(.+)$/i);
+   const m=txt.match(/ARCHIVE\s*#\d+\s*\/\/\s*(.+)$/i);
    return m&&m[1] ? m[1].trim() : "";
  }
  async function openUnified(n,btn){
@@ -4464,27 +4464,6 @@ window.qcAndromedaBoss=(function(){
  object-fit:contain!important;border:0!important;border-radius:0!important;background:transparent!important;
 }
 </style>
-<style id="qcUnifiedArchiveLayoutFinalFix">
-#qcUnifiedArchive{padding:18px!important;align-items:center!important;justify-content:center!important}
-#qcUnifiedArchivePanel{width:min(1280px,96vw)!important;max-height:96vh!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;text-align:center!important}
-#qcUnifiedArchiveTitle{width:100%!important;text-align:left!important;color:#ffd400!important;font:900 12px monospace!important;letter-spacing:2px!important;margin:0 0 12px!important}
-#qcUnifiedArchiveVideo{display:block!important;width:100%!important;max-height:78vh!important;object-fit:contain!important}
-#qcUnifiedArchiveClose{position:static!important;display:block!important;margin:16px auto 0!important;transform:none!important;padding:10px 22px!important;background:#090909!important;border:2px solid #ffd400!important;border-radius:6px!important;color:#ffd400!important;font-family:"Luckiest Guy",Impact,Arial,sans-serif!important;font-size:17px!important;letter-spacing:1px!important;line-height:1.1!important;box-shadow:none!important}
-#qcUnifiedArchiveClose:hover{background:#ffd400!important;color:#000!important}
-</style>
-<script id="qcArchiveTextSeparatorFinalFix">
-(function(){
- function cleanArchiveSeparators(root=document){
-   const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
-   let n;while(n=walker.nextNode()){
-     if(n.nodeValue&&n.nodeValue.includes("//")) n.nodeValue=n.nodeValue.replace(/\s*\/\/\s*/g," - ");
-   }
- }
- cleanArchiveSeparators();
- const list=document.getElementById("archiveLibraryList");
- if(list)new MutationObserver(()=>cleanArchiveSeparators(list)).observe(list,{childList:true,subtree:true,characterData:true});
-})();
-</script>
 </body></html>
 <style id="qcGift16ChristmasLogoFix">
 #qcGift16{
