@@ -4362,13 +4362,13 @@ window.qcAndromedaBoss=(function(){
 #qcMonteur20Picker,#qcMonteur20Stage{position:fixed;inset:0;z-index:100090;background:rgba(0,0,0,.88);display:none;align-items:center;justify-content:center}#qcMonteur20Picker.open,#qcMonteur20Stage.open{display:flex}
 #qcMonteur20PickerBox{padding:24px;background:#090909;border:2px solid #ffd21c;border-radius:12px;text-align:center;color:#fff}#qcMonteur20PickerBox button{margin:12px 6px 0;padding:11px 16px;border:0;border-radius:8px;background:#ffd21c;font-weight:900;cursor:pointer}
 #qcMonteur20Video{max-width:90vw;max-height:84vh;background:#000}#qcMonteur20Close{position:absolute;top:22px;right:25px;background:#ffd21c;border:0;border-radius:7px;font-size:20px;font-weight:900;cursor:pointer}
-#qcMonteur20Badge{display:none;background:transparent;border:0;cursor:pointer;font-size:34px}#qcMonteur20Badge.visible{display:inline-flex}
+#qcMonteur20Badge{display:none;background:transparent;border:0;cursor:pointer;padding:0}.qcMonteurAvatar{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:#fff;border:3px solid #111;color:#111;font-weight:1000;font-size:17px;box-shadow:0 0 0 2px #ffd21c}#qcMonteur20Badge.visible{display:inline-flex}
 </style>
 <div id="qcMonteur20Root">
  <div id="qcMonteur20Quiz" aria-hidden="true"><div style="font-weight:900">MONTEUR QUENQUEN</div><button id="qcMonteur20Start" type="button">FAIRE UN MONTAGE PROFESSIONNEL</button><div id="qcMonteur20Progress"><div id="qcMonteur20Bar"></div></div><div id="qcMonteur20Status"></div></div>
  <div id="qcMonteur20Picker" aria-hidden="true"><div id="qcMonteur20PickerBox"><div style="font-weight:900">MONTEUR QUENQUEN</div><button data-mq-video="1" type="button">VIDÉO 1</button><button data-mq-video="2" type="button">VIDÉO 2</button><br><button id="qcMonteur20PickerClose" type="button">FERMER</button></div></div>
  <div id="qcMonteur20Stage" aria-hidden="true"><button id="qcMonteur20Close" type="button">✕</button><video id="qcMonteur20Video" controls playsinline preload="none"></video></div>
- <button id="qcMonteur20Badge" aria-label="Monteur QuenQuen — ouvrir les montages" title="Monteur QuenQuen — ouvrir les montages">🎬</button>
+ <button id="qcMonteur20Badge" aria-label="Monteur QuenQuen — ouvrir les montages" title="Monteur QuenQuen — ouvrir les montages"><span class="qcMonteurAvatar" aria-hidden="true">MQ</span></button>
 </div>
 <script id="qcMonteur20Engine">
 (function(){
@@ -4392,7 +4392,7 @@ window.qcAndromedaBoss=(function(){
  document.querySelectorAll('[data-mq-video]').forEach(b=>b.addEventListener('click',()=>play(b.dataset.mqVideo==='1'?V1:V2)));
  document.getElementById('qcMonteur20PickerClose').addEventListener('click',()=>picker.classList.remove('open'));
  document.getElementById('qcMonteur20Close').addEventListener('click',closeVideo);
- document.addEventListener('click',e=>{if(localStorage.getItem(KEY))return;const card=e.target.closest?.('.qcAlbumCard[data-card]');if(card&&Number(card.dataset.card)===CARD)setTimeout(ask,180)});
+ document.addEventListener('click',e=>{const card=e.target.closest?.('.qcAlbumCard[data-card]');if(card&&Number(card.dataset.card)===CARD&&!localStorage.getItem(KEY))setTimeout(ask,180)},true);
  refresh();
  // Hook fiable : le moteur principal appelle directement le secret quand la carte #20 s'ouvre.
  const previousOpen=window.qcOpenIndividualCard;
