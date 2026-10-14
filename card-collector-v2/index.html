@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QUENQUEN CORP — Card Collector Volume 2</title>
+<style>
+:root{color-scheme:dark;--gold:#f2c52d}*{box-sizing:border-box}body{margin:0;min-height:100vh;color:#f7f1dd;background:radial-gradient(ellipse at 50% 10%,#282213 0%,#101219 42%,#050608 100%);font:16px Arial,sans-serif}main{width:min(860px,92%);margin:0 auto;padding:52px 0 70px;text-align:center}.eyebrow{font:12px monospace;letter-spacing:4px;color:var(--gold)}h1{font-size:clamp(30px,6vw,62px);letter-spacing:3px;margin:18px 0 8px}h1 span{color:var(--gold)}p{color:#abb0ba;line-height:1.6}.panel{margin:32px auto;padding:30px 24px;max-width:620px;border:1px solid #f2c52d66;border-radius:20px;background:linear-gradient(140deg,#171a21,#090b10);box-shadow:0 22px 80px #0008}.panel h2{letter-spacing:2px}.button{border:1px solid var(--gold);border-radius:10px;background:var(--gold);color:#111;padding:13px 20px;font-size:14px;font-weight:800;cursor:pointer;display:inline-block;text-decoration:none}.button.secondary{background:transparent;color:var(--gold)}.button:disabled{opacity:.5;cursor:wait}.buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}.hidden{display:none!important}.error{color:#ff9696;overflow-wrap:anywhere}.small{font-size:13px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:25px}.stat{border:1px solid #ffffff1a;border-radius:12px;padding:18px 5px;background:#ffffff06}.stat strong{display:block;font-size:25px;color:var(--gold)}.stat span{font-size:11px;color:#b4b6bf}.avatar{width:76px;height:76px;border-radius:50%;border:2px solid var(--gold);object-fit:cover}footer{font:11px monospace;color:#7d818b;letter-spacing:2px;margin-top:35px}@media(max-width:480px){.panel{padding:24px 14px}.stats{gap:6px}.stat{padding:12px 2px}}
+</style></head><body><main>
+<div class="eyebrow">QUENQUEN CORP // COLLECTIONNEURS</div>
+<h1>CARD COLLECTOR <span>VOLUME 2</span></h1>
+<p>Votre collection. Votre histoire. Vos anomalies.</p>
+<section class="panel" id="loading"><h2>IDENTIFICATION EN COURS…</h2><p>Connexion au registre des collectionneurs.</p></section>
+<section class="panel hidden" id="guest"><h2>ACCÈS COLLECTIONNEUR</h2><p>Connectez votre compte Twitch pour retrouver votre futur album personnel.</p><button class="button" id="login">SE CONNECTER AVEC TWITCH</button><p class="small">Authentification officielle Twitch via Supabase. Aucun mot de passe n'est demandé par QUENQUEN CORP.</p></section>
+<section class="panel hidden" id="member"><img class="avatar hidden" id="avatar" alt="Avatar Twitch"><h2 id="welcome">AGENT IDENTIFIÉ</h2><p>Votre identité Twitch a été vérifiée.</p><div class="stats"><div class="stat"><strong>0</strong><span>Cartes enregistrées</span></div><div class="stat"><strong>0</strong><span>Doublons</span></div><div class="stat"><strong>0</strong><span>Cartes H</span></div></div><p class="small">Prototype : l'enregistrement des tirages n'est pas encore activé. Ces compteurs sont des valeurs de présentation, pas votre inventaire réel.</p><button class="button secondary" id="logout">SE DÉCONNECTER</button></section>
+<p class="error hidden" id="error" role="alert"></p>
+<div class="buttons"><a class="button secondary" href="../">REVENIR AU HUB QUENQUEN CORP</a></div>
+<footer>QUENQUEN CORP — ACCÈS VOLUME 2 / PHASE DE TEST</footer>
+</main>
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const supabase=createClient('https://qfkjrlpkykkizrmzlixp.supabase.co','sb_publishable_tBGclmheOxP-q6MVKz1SJQ_Mc3PDRnG',{auth:{flowType:'pkce',detectSessionInUrl:true,persistSession:true,autoRefreshToken:true}});
+const $=id=>document.getElementById(id);
+function show(id){for(const name of ['loading','guest','member'])$(name).classList.toggle('hidden',name!==id)}
+function fail(message){$('error').textContent=message;$('error').classList.remove('hidden')}
+function render(session){$('error').classList.add('hidden');if(!session?.user){show('guest');return}const u=session.user;const m=u.user_metadata||{};const name=m.preferred_username||m.user_name||m.full_name||m.name||'COLLECTIONNEUR';$('welcome').textContent='BIENVENUE, '+String(name).slice(0,45).toUpperCase();const url=m.avatar_url||m.picture;if(typeof url==='string'&&url.startsWith('https://')){$('avatar').src=url;$('avatar').classList.remove('hidden')}else $('avatar').classList.add('hidden');show('member')}
+$('login').addEventListener('click',async()=>{const btn=$('login');btn.disabled=true;try{const {error}=await supabase.auth.signInWithOAuth({provider:'twitch',options:{redirectTo:location.origin+location.pathname}});if(error)throw error}catch(e){fail('Connexion impossible : '+e.message);btn.disabled=false}});
+$('logout').addEventListener('click',async()=>{const {error}=await supabase.auth.signOut();if(error)fail('Déconnexion impossible : '+error.message);else render(null)});
+try{const {data,error}=await supabase.auth.getSession();if(error)throw error;render(data.session);supabase.auth.onAuthStateChange((_event,session)=>render(session));}catch(e){show('guest');fail('Impossible de vérifier la session : '+e.message)}
+</script></body></html>
