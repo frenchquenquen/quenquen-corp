@@ -4392,7 +4392,7 @@ window.qcAndromedaBoss=(function(){
  document.querySelectorAll('[data-mq-video]').forEach(b=>b.addEventListener('click',()=>play(b.dataset.mqVideo==='1'?V1:V2)));
  document.getElementById('qcMonteur20PickerClose').addEventListener('click',()=>picker.classList.remove('open'));
  document.getElementById('qcMonteur20Close').addEventListener('click',closeVideo);
- document.addEventListener('click',e=>{if(localStorage.getItem(KEY))return;setTimeout(()=>{if(currentCard()===CARD)ask()},120)});
+ document.addEventListener('click',e=>{if(localStorage.getItem(KEY))return;const card=e.target.closest?.('.qcAlbumCard[data-card]');if(card&&Number(card.dataset.card)===CARD)setTimeout(ask,180)});
  refresh();
  const oldRefresh=window.qcSecretTrophyRailRefresh;
  window.qcSecretTrophyRailRefresh=function(){try{oldRefresh?.()}catch(e){};const rail=document.getElementById('qcSecretTrophyRailItems'),b=document.getElementById('qcMonteur20Badge');if(rail&&b&&localStorage.getItem(KEY)&&b.parentElement!==rail)rail.appendChild(b);};
