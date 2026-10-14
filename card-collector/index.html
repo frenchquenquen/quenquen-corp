@@ -3469,7 +3469,7 @@ window.qcAndromedaBoss=(function(){
 </style>
 <script id="qcSecretTrophyRailEngine">
 (function(){
- const IDS=["qcTwitchUnlock","qcFrenchbladeFQDock","qcSpookyGhostBadge","qcGift16Badge","qcBits55Badge","qcSuzieBearBadge"];
+ const IDS=["qcTwitchUnlock","qcFrenchbladeFQDock","qcSpookyGhostBadge","qcGift16Badge","qcBits55Badge","qcSuzieBearBadge","qcMonteur20Badge"];
  let rail=null,items=null;
 
  function collectionHome(){
@@ -3502,6 +3502,7 @@ window.qcAndromedaBoss=(function(){
    if(el.id==="qcGift16Badge") return !!localStorage.getItem("quenquen_corp_archive_16_discovered_v1");
    if(el.id==="qcBits55Badge") return !!localStorage.getItem("quenquen_bits55_completed_v1");
    if(el.id==="qcSuzieBearBadge") return !!localStorage.getItem("quenquen_suzie_bear_recovered_v1");
+   if(el.id==="qcMonteur20Badge") return !!localStorage.getItem("quenquen_monteur_quenquen_20_unlocked_v1");
    return false;
  }
  function refresh(){
