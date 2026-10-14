@@ -4366,6 +4366,9 @@ window.qcAndromedaBoss=(function(){
 #qcMonteur20PickerBox{padding:24px;background:#090909;border:2px solid #ffd21c;border-radius:12px;text-align:center;color:#fff}#qcMonteur20PickerBox button{margin:12px 6px 0;padding:11px 16px;border:0;border-radius:8px;background:#ffd21c;font-weight:900;cursor:pointer}
 #qcMonteur20Video{max-width:90vw;max-height:84vh;background:#000}#qcMonteur20Close{position:absolute;z-index:7;right:20px;top:18px;border:1px solid #ffd400!important;background:#000b!important;color:#ffd400!important;font-size:20px;padding:7px 12px!important;border-radius:0!important;font-weight:400;cursor:pointer;opacity:.55}#qcMonteur20Close:hover{opacity:1}
 #qcMonteur20Badge{display:none;background:transparent;border:0;cursor:pointer;padding:0}.qcMonteurAvatar{display:block;width:64px;height:64px;object-fit:contain;border-radius:0;background:#000;border:2px solid #ffd21c;box-sizing:border-box}#qcMonteur20Badge.visible{display:inline-flex}
+
+#qcSecretTrophyRailItems #qcMonteur20Badge.qcTrophySlot{width:64px!important;height:64px!important;min-width:64px!important;min-height:64px!important;padding:5px!important;border-radius:2px!important;overflow:hidden!important}
+#qcSecretTrophyRailItems #qcMonteur20Badge .qcMonteurAvatar{display:block!important;width:53px!important;height:53px!important;max-width:53px!important;max-height:53px!important;object-fit:contain!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
 </style>
 <div id="qcMonteur20Root">
  <div id="qcMonteur20Quiz" aria-hidden="true"><div style="font-weight:900">MONTEUR QUENQUEN</div><button id="qcMonteur20Start" type="button">FAIRE UN MONTAGE PROFESSIONNEL</button><div id="qcMonteur20Progress"><div id="qcMonteur20Bar"></div></div><div id="qcMonteur20Status"></div></div>
@@ -4377,6 +4380,8 @@ window.qcAndromedaBoss=(function(){
 (function(){
  const CARD=20,KEY='quenquen_monteur_quenquen_20_unlocked_v1',V1='assets/qc/x7f2k9/montage%20pro1.mp4',V2='assets/qc/x7f2k9/montage%20pro2.mp4';
  const quiz=document.getElementById('qcMonteur20Quiz'),start=document.getElementById('qcMonteur20Start'),prog=document.getElementById('qcMonteur20Progress'),bar=document.getElementById('qcMonteur20Bar'),status=document.getElementById('qcMonteur20Status'),picker=document.getElementById('qcMonteur20Picker'),badge=document.getElementById('qcMonteur20Badge'),stage=document.getElementById('qcMonteur20Stage'),video=document.getElementById('qcMonteur20Video');
+ // Toujours reconstruire le visuel de l'objet trouvé depuis le fichier officiel.
+ badge.replaceChildren(Object.assign(document.createElement('img'),{className:'qcMonteurAvatar',src:'assets/qc/x7f2k9/LOGO.png',alt:''}));
  let running=false,audioState=[];
  function refresh(){badge.classList.toggle('visible',!!localStorage.getItem(KEY));window.qcSecretTrophyRailRefresh?.()}
  function ask(){if(localStorage.getItem(KEY)||running)return;quiz.classList.add('open');quiz.setAttribute('aria-hidden','false')}
