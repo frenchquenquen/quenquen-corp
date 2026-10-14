@@ -4578,3 +4578,12 @@ window.qcAndromedaBoss=(function(){
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))shut()});
 })();
 </script>
+
+
+<style id="qcArchiveCloseBottomFix">
+/* Archive player: close control below the video, centered. */
+#qcUnifiedArchivePanel{flex-direction:column!important;align-items:center!important}
+#qcUnifiedArchiveTitle{position:static!important;align-self:flex-start!important;margin:0 0 10px!important}
+#qcUnifiedArchiveClose{position:static!important;display:block!important;width:auto!important;height:auto!important;margin:14px auto 0!important;padding:9px 18px!important;border:1px solid #665900!important;background:#090909!important;color:#ffd400!important;font:900 13px/1.15 monospace!important;letter-spacing:2px!important;text-shadow:none!important;transform:none!important}
+#qcUnifiedArchiveClose:hover{border-color:#ffd400!important;box-shadow:0 0 14px rgba(255,212,0,.16)!important;transform:none!important}
+</style>
