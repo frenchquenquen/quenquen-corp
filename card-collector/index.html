@@ -1560,6 +1560,8 @@ qcOpenIndividualCard=function(c,i){
  qcMem.opens=(qcMem.opens||0)+1;qcMem.views[num]=(qcMem.views[num]||0)+1;qcMem.lastCard=num;qcMem.lastAt=new Date().toISOString();qcMemOpenCard=num;qcMemOpenAt=Date.now();qcMemSave();
  qcAffinitySessionViews[num]=(qcAffinitySessionViews[num]||0)+1;
  qcV14Open(c,i);setTimeout(qcMemAura,80);
+ // Événement Monteur QuenQuen : branché ici, au point central où le numéro réel de carte est connu.
+ if(num===20) setTimeout(()=>{try{window.qcMonteur20Ask?.()}catch(e){}},180);
  // Aura jaune après 3 consultations DANS CETTE SESSION; elle peut ensuite changer de carte.
  if(qcAffinitySessionViews[num]===3)qcMemToast('AFFINITÉ DÉTECTÉE // CARTE #'+String(num).padStart(2,'0'));
 };
@@ -4377,6 +4379,7 @@ window.qcAndromedaBoss=(function(){
  let running=false,audioState=[];
  function refresh(){badge.classList.toggle('visible',!!localStorage.getItem(KEY));window.qcSecretTrophyRailRefresh?.()}
  function ask(){if(localStorage.getItem(KEY)||running)return;quiz.classList.add('open');quiz.setAttribute('aria-hidden','false')}
+ window.qcMonteur20Ask=ask;
  function currentCard(){const modal=document.querySelector('.modal.active,.card-modal.active,.cardModal.active,[class*="modal"].active');const t=(modal?.textContent||'');const m=t.match(/(?:#|CARTE\s*)0*(\d{1,2})\b/i);return m?Number(m[1]):null}
  function pauseAudio(){audioState=[];document.querySelectorAll('audio').forEach(a=>{if(!a.paused){audioState.push(a);try{a.pause()}catch(e){}}})}
  async function restoreAudio(){for(const a of audioState.splice(0)){try{await a.play()}catch(e){}}}
