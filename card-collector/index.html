@@ -4640,3 +4640,12 @@ window.qcAndromedaBoss=(function(){
  #qcImmersiveCount{position:relative!important;right:auto!important;bottom:auto!important;text-align:right!important;margin:0 14px 8px!important}
 }
 </style>
+
+<style id="qcMobileHotspotFix">
+@media(max-width:700px){
+ /* Anciennes zones 5x2 prévues pour les planches : elles interceptaient les cartes de la grille 2 colonnes. */
+ .page.qcRebuilt .cardHotspot{display:none!important;pointer-events:none!important}
+ .page.qcRebuilt .qcCollectionGrid{position:relative!important;z-index:5!important}
+ .page.qcRebuilt .qcAlbumCard{position:relative!important;z-index:6!important;pointer-events:auto!important}
+}
+</style>
