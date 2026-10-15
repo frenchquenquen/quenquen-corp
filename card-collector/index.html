@@ -4599,3 +4599,29 @@ window.qcAndromedaBoss=(function(){
  document.addEventListener('play',e=>{if(document.hidden&&e.target instanceof HTMLMediaElement)e.target.pause()},true);
 })();
 </script>
+
+<style id="qcMobileSinglePageV1">
+/* Mobile uniquement : une planche lisible, navigation tactile et aucun changement PC. */
+@media(max-width:700px){
+ html,body{max-width:100%;overflow-x:hidden!important}
+ .stage{padding:12px 8px 145px!important;min-height:0!important;height:auto!important;align-items:flex-start!important}
+ .album{width:100%!important;max-width:100%!important;border-radius:8px!important;overflow:visible!important;transform:none!important}
+ .page.active{width:100%!important;height:auto!important;min-height:0!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;transform:none!important}
+ .page.active>img{display:block!important;width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important;margin:0 auto!important}
+ .favbar{width:100%!important;min-height:56px!important;padding:10px 8px!important;display:flex!important;justify-content:center!important}
+ .favbar .chooseFav{min-height:44px!important;max-width:100%!important;white-space:normal!important}
+ .home.active{height:auto!important;min-height:0!important;display:grid!important;grid-template-columns:minmax(0,1fr)!important;padding:18px 14px!important}
+ .coverSide,.summarySide{min-width:0!important;max-width:100%!important}
+ .favoriteShelf{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+ .top{padding:9px 12px!important;gap:8px!important}
+ .title{font-size:clamp(15px,4.5vw,22px)!important}
+ .nav{justify-content:center!important;gap:14px!important}
+ .nav button{min-width:46px!important;min-height:44px!important}
+ .qcImmersiveArrow{top:auto!important;bottom:78px!important;transform:none!important;width:48px!important;height:48px!important;border-radius:50%!important;opacity:.9!important}
+ #qcImmersivePrev{left:12px!important}#qcImmersiveNext{right:12px!important}
+ .tabs{bottom:12px!important;max-width:calc(100vw - 122px)!important;width:max-content!important;overflow-x:auto!important;scrollbar-width:none!important}
+ .tabs::-webkit-scrollbar{display:none}
+ #qcImmersiveHub{bottom:140px!important;left:12px!important;font-size:9px!important;padding:8px 10px!important}
+ #qcImmersiveCount{bottom:140px!important;right:12px!important}
+}
+</style>
