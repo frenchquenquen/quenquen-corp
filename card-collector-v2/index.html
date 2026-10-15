@@ -51,7 +51,7 @@ async function loadCollection(userId,version){
     const num=document.createElement('span');num.className='num';num.textContent=code.startsWith('H')?code:'#'+String(code).padStart(3,'0');
     if(count){
       const img=document.createElement('img'),n=code.startsWith('H')?code:parseInt(code,10);
-      img.src='./assets/cards/'+n+'.png'; img.alt='Carte '+code;
+      img.src='./assets/cards/'+(code.startsWith('H')?code+'-7':n)+'.png'; img.alt='Carte '+code;
       img.onerror=()=>{img.remove();const lock=document.createElement('div');lock.className='locked missing-art';lock.textContent='VISUEL À VENIR';tile.prepend(lock)};
       img.onload=()=>tile.addEventListener('click',()=>{$('viewerImg').src=img.src;$('viewer').classList.remove('hidden')});
       tile.append(img); const qty=document.createElement('span');qty.className='qty';qty.textContent='×'+count;tile.append(qty);
