@@ -4223,7 +4223,7 @@ window.qcAndromedaBoss=(function(){
  const op=document.getElementById("prev"),on=document.getElementById("next"),oc=document.getElementById("count");
  const p=document.createElement("button"),n=document.createElement("button"),c=document.createElement("div"),h=document.createElement("a");
  p.id="qcImmersivePrev";n.id="qcImmersiveNext";p.className=n.className="qcImmersiveArrow";p.textContent="‹";n.textContent="›";
- c.id="qcImmersiveCount";h.id="qcImmersiveHub";h.href="https://frenchquenquen.github.io/quenquen-corp/";h.textContent="← QUENQUEN CORP";
+ c.id="qcImmersiveCount";h.id="qcImmersiveHub";h.href="https://quenquen-corp.fr/";h.textContent="← QUENQUEN CORP";
  document.body.append(p,n,c,h);p.onclick=()=>op.click();n.onclick=()=>on.click();
  const sync=()=>{c.textContent=oc.textContent;p.disabled=op.disabled;n.disabled=on.disabled};sync();setInterval(sync,100);
 })();
