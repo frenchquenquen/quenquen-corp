@@ -4693,3 +4693,29 @@ window.qcAndromedaBoss=(function(){
   .qcImmersiveArrow {bottom:calc(210px + env(safe-area-inset-bottom, 0px))!important;}
 }
 </style>
+
+<style id="qcMobileCompactLayoutV2">
+@media(max-width:700px){
+  /* L'album doit suivre la hauteur de son contenu et non réserver un écran vide. */
+  .stage{min-height:0!important;height:auto!important;padding-bottom:12px!important;}
+  .album{min-height:0!important;height:auto!important;margin-bottom:0!important;}
+  .page.active{min-height:0!important;height:auto!important;}
+  body{padding-bottom:calc(190px + env(safe-area-inset-bottom,0px))!important;}
+  #qcImmersiveHub{
+    position:relative!important;display:inline-flex!important;
+    left:auto!important;bottom:auto!important;margin:8px 0 16px 12px!important;
+    z-index:15!important;
+  }
+  .qcImmersiveArrow{
+    position:fixed!important;top:auto!important;
+    bottom:calc(205px + env(safe-area-inset-bottom,0px))!important;
+    z-index:210!important;
+  }
+  .tabs .credit{
+    font-family:Arial,sans-serif!important;
+    font-size:11px!important;letter-spacing:0!important;
+    line-height:1.4!important;overflow-wrap:anywhere!important;
+    padding:3px 5px!important;
+  }
+}
+</style>
