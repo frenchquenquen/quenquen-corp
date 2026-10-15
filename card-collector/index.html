@@ -4719,3 +4719,58 @@ window.qcAndromedaBoss=(function(){
   }
 }
 </style>
+
+<style id="qcMobileControlsFinalV3">
+@media(max-width:700px){
+  /* Espace distinct pour les flèches et le lien hub, sans superposition. */
+  #qcImmersiveHub{
+    position:relative!important;left:auto!important;bottom:auto!important;
+    display:flex!important;width:max-content!important;max-width:calc(100% - 130px)!important;
+    margin:10px auto 18px!important;min-height:40px!important;
+    justify-content:center!important;z-index:150!important;
+    font-size:10px!important;letter-spacing:1px!important;
+    padding:10px 14px!important;
+  }
+  .qcImmersiveArrow{
+    position:fixed!important;bottom:calc(212px + env(safe-area-inset-bottom,0px))!important;
+    top:auto!important;z-index:160!important;width:42px!important;height:42px!important;
+  }
+  #qcImmersivePrev{left:12px!important}
+  #qcImmersiveNext{right:12px!important}
+  .tabs .qcMusicVolume{
+    grid-column:1 / -1!important;grid-row:auto!important;
+    width:100%!important;max-width:none!important;min-height:38px!important;
+    gap:8px!important;
+  }
+  .tabs .credit{
+    grid-column:1 / -1!important;grid-row:auto!important;
+    display:block!important;width:100%!important;
+    text-align:center!important;white-space:nowrap!important;
+    font:11px/1.4 Arial,sans-serif!important;
+    letter-spacing:0!important;overflow-wrap:normal!important;
+  }
+  .tabs .credit #qcAndromedaCredit{white-space:nowrap!important}
+  body{padding-bottom:calc(232px + env(safe-area-inset-bottom,0px))!important}
+  #qcCorpPhoneA1.visible{
+    display:block!important;position:relative!important;
+    left:auto!important;bottom:auto!important;
+    margin:12px 18px 16px!important;z-index:155!important;
+    font-size:12px!important;text-align:center!important;
+  }
+}
+</style>
+<script id="qcMobilePhoneVisibilityV3">
+(function(){
+  if(!window.matchMedia('(max-width:700px)').matches)return;
+  const phone=document.getElementById('qcCorpPhoneA1');
+  if(!phone)return;
+  function update(){
+    const carton=document.querySelector('.tabs .tab[data-go="6"]');
+    const overlay=document.getElementById('qcA1Overlay');
+    const show=!!(carton&&carton.classList.contains('active')&&!(overlay&&overlay.classList.contains('open')));
+    phone.classList.toggle('visible',show);
+  }
+  document.querySelectorAll('.tabs .tab').forEach(b=>b.addEventListener('click',()=>setTimeout(update,30)));
+  setInterval(update,500);update();
+})();
+</script>
