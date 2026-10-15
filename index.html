@@ -717,6 +717,28 @@ body:after{content:"";position:fixed;left:0;right:0;height:18vh;top:-22vh;z-inde
 
 /* V2 collage — cadrage bas + flou */
 .collector-v2 .v2-collage{inset:-12px;width:calc(100% + 24px);height:calc(100% + 24px);object-fit:cover;object-position:center 20%;filter:blur(6px);transform:translateY(62px) scale(1.04);opacity:1}
+
+/* MOBILE ONLY — création carte membre : PC inchangé */
+@media (max-width:760px){
+ #modal{inset:0!important;display:none;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain;align-items:start!important;justify-items:center!important;padding:12px 10px 100px!important;-webkit-overflow-scrolling:touch}
+ #modal.show{display:grid!important}
+ #modal .box.mega-box{width:100%!important;max-width:100%!important;min-width:0!important;margin:0 auto!important;padding:18px 12px 28px!important;max-height:none!important;overflow:visible!important}
+ #modal #formView,#modal .creator-layout,#modal .creator-preview-wrap,#modal .form{min-width:0!important;max-width:100%!important}
+ #modal .creator-layout{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:20px!important}
+ #modal .creator-preview-wrap{position:static!important;overflow:visible!important;text-align:center}
+ #modal .creator-card{width:420px!important;height:263px!important;min-width:420px!important;max-width:none!important;flex-basis:auto!important;zoom:.70;margin:0 auto!important}
+ #modal .form{grid-template-columns:minmax(0,1fr)!important}
+ #modal .form label,#modal .form input,#modal .form select{min-width:0!important;max-width:100%!important}
+ #modal .form input,#modal .form select{font-size:16px!important}
+ #modal .actions{flex-wrap:wrap!important;gap:10px!important}
+ #modal .actions .btn{min-width:100%!important;min-height:48px!important;white-space:normal!important}
+ #modal h2{font-size:clamp(19px,6vw,28px)!important;letter-spacing:1px!important;overflow-wrap:anywhere}
+ #modal .intro{line-height:1.5!important}
+ #modal .creator-note{max-width:100%!important}
+ #modal .first-visit-badge{max-width:100%;white-space:normal}
+ body:has(#modal.show) .qc-anomaly,body:has(#modal.show) .qc-activity{display:none!important}
+}
+@media(max-width:380px){#modal .creator-card{zoom:.59}}
 </style></head><body><div class="bg"></div><div class="stars"></div><div class="gridbg"></div>
 <header><div class="connection" id="connection"><span class="dot"></span><span id="connectionText">VISITEUR NON IDENTIFIÉ</span></div></header>
 <main><section class="hero" id="hubAccueil"><div class="micro">MULTIVERSE COMMUNITY ACCESS</div><h1>QUENQUEN-CORP</h1>
