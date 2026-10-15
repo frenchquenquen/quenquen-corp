@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://quenquen-corp.fr/sitemap.xml
