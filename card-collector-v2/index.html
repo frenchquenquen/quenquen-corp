@@ -50,7 +50,18 @@ function render(session){
   if(typeof url==='string'&&url.startsWith('https://')){$('avatar').src=url;$('avatar').classList.remove('hidden')}
   else $('avatar').classList.add('hidden');
   show('member');
-  loadCollection(u.id,requestVersion);
+  linkTwitchAndLoad(u.id,requestVersion);
+}
+async function linkTwitchAndLoad(userId,version){
+  $('album-status').textContent='Synchronisation de votre identité Twitch…';
+  const {data,error}=await supabase.rpc('qc_v2_link_current_twitch');
+  if(version!==requestVersion)return;
+  if(error){
+    fail('Synchronisation Twitch impossible : '+error.message);
+    loadCollection(userId,version);
+    return;
+  }
+  loadCollection(userId,version);
 }
 async function loadCollection(userId,version){
   $('total').textContent='…';$('duplicates').textContent='…';$('rare').textContent='…';
