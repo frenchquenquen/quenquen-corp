@@ -705,6 +705,9 @@ body:after{content:"";position:fixed;left:0;right:0;height:18vh;top:-22vh;z-inde
 /* V2 collage — PNG intact, aucun voile */
 .collector-v2 .v2-collage{inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;filter:none;transform:none;opacity:1}
 .collector-v2 .tease-vignette{display:none!important;background:none!important}
+
+/* V2 collage — cadrage bas + flou */
+.collector-v2 .v2-collage{inset:-12px;width:calc(100% + 24px);height:calc(100% + 24px);object-fit:cover;object-position:center 20%;filter:blur(6px);transform:translateY(62px) scale(1.04);opacity:1}
 </style></head><body><div class="bg"></div><div class="stars"></div><div class="gridbg"></div>
 <header><div class="connection" id="connection"><span class="dot"></span><span id="connectionText">VISITEUR NON IDENTIFIÉ</span></div></header>
 <main><section class="hero" id="hubAccueil"><div class="micro">MULTIVERSE COMMUNITY ACCESS</div><h1>QUENQUEN-CORP</h1>
