@@ -4588,3 +4588,14 @@ window.qcAndromedaBoss=(function(){
 #qcUnifiedArchiveClose{position:static!important;display:block!important;width:auto!important;height:auto!important;margin:14px auto 0!important;padding:9px 18px!important;border:1px solid #665900!important;background:#090909!important;color:#ffd400!important;font:900 13px/1.15 monospace!important;letter-spacing:2px!important;text-shadow:none!important;transform:none!important}
 #qcUnifiedArchiveClose:hover{border-color:#ffd400!important;box-shadow:0 0 14px rgba(255,212,0,.16)!important;transform:none!important}
 </style>
+
+<script id="qcVisibilityAudioPause">
+(()=>{
+ const paused=new Set();
+ document.addEventListener('visibilitychange',()=>{
+  if(document.hidden){document.querySelectorAll('audio').forEach(a=>{if(!a.paused){paused.add(a);a.pause()}})}
+  else{for(const a of paused){if(a.isConnected)a.play().catch(()=>{})}paused.clear()}
+ });
+ document.addEventListener('play',e=>{if(document.hidden&&e.target instanceof HTMLMediaElement)e.target.pause()},true);
+})();
+</script>
