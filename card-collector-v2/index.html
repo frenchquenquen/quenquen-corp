@@ -59,7 +59,7 @@ async function loadCollection(userId,version){
   if(error){$('album-status').textContent='Impossible de lire votre album pour le moment.';fail('Erreur de lecture Supabase : '+error.message);return}
   const entries=data||[],counts=new Map(); for(const e of entries)counts.set(e.card_code,(counts.get(e.card_code)||0)+1);
   $('total').textContent=String(entries.length);$('duplicates').textContent=String(entries.length-counts.size);$('rare').textContent=String(entries.filter(e=>/^H[1-7]$/.test(e.card_code)).length);
-  const stdOwned=[...counts.keys()].filter(c=>/^\\d+$/.test(c)).length,hOwned=[...counts.keys()].filter(c=>/^H[1-7]$/.test(c)).length;
+  const stdOwned=[...counts.keys()].filter(c=>/^\d+$/.test(c)).length,hOwned=[...counts.keys()].filter(c=>/^H[1-7]$/.test(c)).length;
   $('stdProgress').textContent=stdOwned+' / 113';$('hProgress').textContent=hOwned+' / 7';$('stdBar').style.width=(stdOwned/113*100)+'%';$('hBar').style.width=(hOwned/7*100)+'%';
   $('album-status').textContent=entries.length?counts.size+' carte(s) différente(s) — '+entries.length+' tirage(s) enregistré(s).':'Aucune carte enregistrée pour le moment. Votre aventure commence ici !';
   const makeSlot=(code,target)=>{
