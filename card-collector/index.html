@@ -4774,3 +4774,34 @@ window.qcAndromedaBoss=(function(){
   setInterval(update,500);update();
 })();
 </script>
+
+<style id="qcFlavieCard4EasterEggStyle">
+#qcFlavieCard4Message{position:fixed;inset:0;z-index:100500;display:none;align-items:center;justify-content:center;padding:24px;background:#000d;pointer-events:none}
+#qcFlavieCard4Message.show{display:flex}
+#qcFlavieCard4Message span{font:900 clamp(34px,8vw,100px)/1.1 "Luckiest Guy",Impact,sans-serif;text-align:center;color:#ffd400;text-shadow:0 5px 0 #000,0 0 32px #ffd40099}
+</style>
+<script id="qcFlavieCard4EasterEgg">
+(function(){
+ let selected=0,flips=0,shown=false,timer;
+ const message=document.createElement('div');
+ message.id='qcFlavieCard4Message';
+ const phrase=document.createElement('span');phrase.textContent='FLAVIE FERME TA GUEULE !';
+ message.appendChild(phrase);document.body.appendChild(message);
+ function show(){shown=true;message.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>message.classList.remove('show'),3500)}
+ const open=window.qcOpenIndividualCard;
+ if(typeof open==='function')window.qcOpenIndividualCard=function(collection,index){
+   const n=collection*10+index+1;
+   if(n!==selected){flips=0;shown=false}
+   selected=n;
+   return open.apply(this,arguments);
+ };
+ const flip=window.qcFlipIndividualCard;
+ if(typeof flip==='function')window.qcFlipIndividualCard=function(){
+   const result=flip.apply(this,arguments);
+   if(selected===4&&!shown&&document.getElementById('individualCardModal')?.classList.contains('open')){
+     flips++;if(flips>=20)show();
+   }
+   return result;
+ };
+})();
+</script>
