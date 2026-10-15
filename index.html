@@ -672,6 +672,15 @@ body:after{content:"";position:fixed;left:0;right:0;height:18vh;top:-22vh;z-inde
  .portal .panel-visual,.portal .social-visual,.portal .art{width:32%}
  .portal .info h2,.portal.social .info h2{font-size:15px}
 }
+
+/* V2 FEATURE — portail large sous la ligne principale */
+#hubPortails .collector-v2{grid-column:1/-1;height:285px}
+#hubPortails .collector-v2 .collector-cover{object-position:center 43%}
+#hubPortails .collector-v2 .info{padding-left:34px;padding-right:34px}
+#hubPortails .collector-v2 .info h2{font-size:24px}
+.collector-v2 .new-badge{position:absolute;z-index:8;top:16px;right:18px;padding:7px 12px;border:1px solid #ffe46b;border-radius:7px;background:#161204d9;color:#ffe05a;font:900 11px monospace;letter-spacing:2px;box-shadow:0 0 10px #f2c52d99,0 0 28px #f2c52d66;animation:newGlow 1.7s ease-in-out infinite alternate}
+@keyframes newGlow{from{filter:brightness(.9);box-shadow:0 0 7px #f2c52d77,0 0 18px #f2c52d44}to{filter:brightness(1.35);box-shadow:0 0 14px #ffe56dcc,0 0 38px #f2c52d88}}
+@media(max-width:850px){#hubPortails .collector-v2{grid-column:auto;height:300px}}
 </style></head><body><div class="bg"></div><div class="stars"></div><div class="gridbg"></div>
 <header><div class="connection" id="connection"><span class="dot"></span><span id="connectionText">VISITEUR NON IDENTIFIÉ</span></div></header>
 <main><section class="hero" id="hubAccueil"><div class="micro">MULTIVERSE COMMUNITY ACCESS</div><h1>QUENQUEN-CORP</h1>
@@ -679,9 +688,9 @@ body:after{content:"";position:fixed;left:0;right:0;height:18vh;top:-22vh;z-inde
 <div class="sectiontitle">CHOISISSEZ VOTRE DESTINATION</div>
 <section class="portals" id="hubPortails">
 <article class="portal collector" data-dest="collector" tabindex="0" role="link"><div class="panel-visual"><img class="collector-cover" src="assets/card_collector_panel.png" alt="Card Collector QuenQuen"><div class="collector-vignette"></div></div><div class="info"><h2>CARD COLLECTOR QUENQUEN — VOLUME 1</h2><p>Un banal album de cartes à collectionner… en apparence.</p><div class="enter">ENTRER DANS LA COLLECTION →</div></div></article>
-<article class="portal collector" data-dest="collectorV2" tabindex="0" role="link"><div class="panel-visual"><img class="collector-cover" src="assets/card_collector_panel.png" alt="Card Collector QuenQuen Volume 2"><div class="collector-vignette"></div></div><div class="info"><h2>CARD COLLECTOR QUENQUEN — VOLUME 2</h2><p>Votre collection Twitch. Vos tirages. Vos anomalies.</p><div class="enter">OUVRIR MON ALBUM →</div></div></article>
 <article class="portal wiki" data-dest="wiki" tabindex="0" role="link"><div class="panel-visual"><div class="wiki-sheet"></div></div><div class="info"><h2>WIKI QUENQUEN</h2><p>Encyclopédie officielle de l'univers des QuenQuen</p><div class="enter">CONSULTER LES ARCHIVES →</div></div></article>
 <article class="portal game" data-dest="game" tabindex="0" role="link"><div class="panel-visual"><img class="space-img" src="assets/multiverse.webp" alt=""><div class="space-vignette"></div><img class="french-img" src="assets/french_flying.png" alt="French QuenQuen"></div><div class="info"><h2>THE RISE OF FRENCH QUENQUEN</h2><p>Une aventure à travers le Multivers</p><div class="enter">LANCER LE JEU →</div></div></article>
+<article class="portal collector collector-v2" data-dest="collectorV2" tabindex="0" role="link"><div class="new-badge">NEW</div><div class="panel-visual"><img class="collector-cover" src="assets/card_collector_panel.png" alt="Card Collector QuenQuen Volume 2"><div class="collector-vignette"></div></div><div class="info"><h2>CARD COLLECTOR QUENQUEN — VOLUME 2</h2><p>Votre collection Twitch. Vos tirages. Vos anomalies.</p><div class="enter">OUVRIR MON ALBUM →</div></div></article>
 </section>
 <div class="sectiontitle social-title">TRANSMISSIONS QUENQUEN</div>
 <section class="portals social-portals" id="hubReseaux">
