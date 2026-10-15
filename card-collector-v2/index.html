@@ -18,6 +18,23 @@ const supabase=createClient('https://qfkjrlpkykkizrmzlixp.supabase.co','sb_publi
 const $=id=>document.getElementById(id);
 function show(id){for(const name of ['loading','guest','member'])$(name).classList.toggle('hidden',name!==id)}
 function fail(message){$('error').textContent=message;$('error').classList.remove('hidden')}
+let pageAudioCtx=null;
+function playPageFlipSound(){
+  try{
+    pageAudioCtx=pageAudioCtx||new (window.AudioContext||window.webkitAudioContext)();
+    const ctx=pageAudioCtx,now=ctx.currentTime,d=.16;
+    const buffer=ctx.createBuffer(1,Math.ceil(ctx.sampleRate*d),ctx.sampleRate),data=buffer.getChannelData(0);
+    for(let i=0;i<data.length;i++){
+      const t=i/data.length;
+      data[i]=(Math.random()*2-1)*Math.sin(Math.PI*t)*Math.pow(1-t,2.6);
+    }
+    const src=ctx.createBufferSource(),filter=ctx.createBiquadFilter(),gain=ctx.createGain();
+    filter.type='bandpass';filter.frequency.setValueAtTime(1800,now);filter.frequency.exponentialRampToValueAtTime(650,now+d);
+    filter.Q.value=.55;
+    gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.045,now+.018);gain.gain.exponentialRampToValueAtTime(.0001,now+d);
+    src.buffer=buffer;src.connect(filter);filter.connect(gain);gain.connect(ctx.destination);src.start(now);
+  }catch(_){}
+}
 let requestVersion=0;
 function render(session){
   $('error').classList.add('hidden');
@@ -51,7 +68,7 @@ async function loadCollection(userId,version){
       const img=document.createElement('img'),n=code.startsWith('H')?code:parseInt(code,10);
       img.src='./assets/cards/'+(code.startsWith('H')?code+'-7':n)+'.png'; img.alt='Carte '+code;
       img.onerror=()=>{img.remove();const lock=document.createElement('div');lock.className='locked missing-art';lock.textContent='VISUEL À VENIR';tile.prepend(lock)};
-      img.onload=()=>tile.addEventListener('click',()=>{const v=$('viewerImg');v.classList.remove('flip3d');v.src=img.src;$('viewer').classList.remove('hidden');void v.offsetWidth;v.classList.add('flip3d')});
+      img.onload=()=>tile.addEventListener('click',()=>{playPageFlipSound();const v=$('viewerImg');v.classList.remove('flip3d');v.src=img.src;$('viewer').classList.remove('hidden');void v.offsetWidth;v.classList.add('flip3d')});
       tile.append(img); const qty=document.createElement('span');qty.className='qty';qty.textContent='×'+count;tile.append(qty);
     }else{const lock=document.createElement('div');lock.className='locked';lock.textContent='???';tile.append(lock)}
     tile.append(num);target.append(tile);
