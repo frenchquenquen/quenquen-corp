@@ -1198,6 +1198,10 @@ function startIntegratedDemskaEvent(){
 function enterIntegratedDemskaNow(){
  if(demskaIntegratedStarted)return;
  demskaIntegratedStarted=true;demskaEntryTransition=null;demskaAndromedaHidden=9999;
+ // Climax Demska : après les panneaux rouges, la route commence dans le silence.
+ // La musique propre à la cabane reste gérée par la séquence Demska elle-même.
+ stopSurvivalProgressMusic();survivalBossMusic.pause();storyMusic.pause();darkBossMusic.pause();
+ try{survivalVolcanoMusic.currentTime=0}catch{}
  player.x=W/2;player.y=H*.77;player.vx=0;player.vy=0;
  demskaSandbox=true;startDemskaClean();
 }
