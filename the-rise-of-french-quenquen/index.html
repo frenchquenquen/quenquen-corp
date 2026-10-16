@@ -2838,10 +2838,10 @@ import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 const sb=createClient('https://qfkjrlpkykkizrmzlixp.supabase.co','sb_publishable_tBGclmheOxP-q6MVKz1SJQ_Mc3PDRnG',{auth:{flowType:'pkce',detectSessionInUrl:true,persistSession:true,autoRefreshToken:true}});
 const survivalButton=document.getElementById('start-survival');
 if(survivalButton){
- const box=document.createElement('div');box.id='riseLeaderboard';box.innerHTML='<h3>🏆 CLASSEMENT SURVIE</h3><div id="riseLeaderboardStatus">Chargement…</div><ol id="riseLeaderboardList"></ol><button id="riseLeaderboardLogin" type="button">CONNECTER TWITCH POUR ENREGISTRER MES SCORES</button>';
+ const box=document.createElement('div');box.id='riseLeaderboard';box.innerHTML='<h3>🏆 CLASSEMENT SURVIE</h3><div id="riseLeaderboardStatus">Chargement…</div><ol id="riseLeaderboardList"></ol><div id="riseLeaderboardAuth" style="margin-top:10px;text-align:center;font-size:11px;color:#bfc7d6">Vérification Twitch…</div><button id="riseLeaderboardLogin" type="button">CONNECTER TWITCH POUR ENREGISTRER MES SCORES</button>';
  survivalButton.insertAdjacentElement('afterend',box);
 }
-const status=document.getElementById('riseLeaderboardStatus'),list=document.getElementById('riseLeaderboardList'),login=document.getElementById('riseLeaderboardLogin');
+const status=document.getElementById('riseLeaderboardStatus'),list=document.getElementById('riseLeaderboardList'),login=document.getElementById('riseLeaderboardLogin'),authState=document.getElementById('riseLeaderboardAuth');
 let session=null;
 const fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
 async function loadBoard(){
@@ -2850,13 +2850,13 @@ async function loadBoard(){
  list.replaceChildren();const legend=document.createElement('li');legend.value=1;legend.innerHTML='<strong>👑 FRENCH QUENQUEN</strong> · V∞ · ∞ <span>AU-DELÀ DU MULTIVERS</span>';list.append(legend);(data||[]).slice(0,9).forEach((r,i)=>{const li=document.createElement('li');li.value=i+2;li.textContent=(r.twitch_display_name||r.twitch_login||'AGENT')+' · V'+r.best_wave+' · '+fmt(r.best_time_seconds)+' ';const sc=document.createElement('span');sc.textContent=r.best_score+' pts';li.append(sc);list.append(li)});
  status.textContent=data?.length?'TOP 10 QUENQUEN CORP':'LE MULTIVERS ATTEND SON PREMIER CHALLENGER.';
 }
-async function syncAuth(){const {data}=await sb.auth.getSession();session=data.session;login.hidden=!!session;}
+async function syncAuth(){const {data}=await sb.auth.getSession();session=data.session;if(!session){login.hidden=false;if(authState)authState.innerHTML='🔴 <strong>NON CONNECTÉ</strong><br>Connecte Twitch pour apparaître dans le classement.';return}login.hidden=true;const {data:linked}=await sb.from('qc_v2_twitch_users').select('twitch_display_name,twitch_login').eq('owner_user_id',session.user.id).maybeSingle();const name=linked?.twitch_display_name||linked?.twitch_login;if(authState)authState.innerHTML=name?'🟢 <strong>CONNECTÉ : '+String(name).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))+'</strong><br>Scores SURVIE enregistrés automatiquement.':'🟠 <strong>TWITCH À RELIER</strong><br>Reconnecte Twitch pour activer les scores.';if(!name)login.hidden=false;}
 login?.addEventListener('click',async e=>{e.stopPropagation();await sb.auth.signInWithOAuth({provider:'twitch',options:{redirectTo:location.origin+location.pathname}})});
 window.riseSubmitSurvivalScore=async(score,seconds,wave)=>{
  if(!session)return {skipped:'not_authenticated'};
  const {data,error}=await sb.rpc('rise_submit_survival_score',{p_score:Math.floor(score),p_time_seconds:Math.floor(seconds),p_wave:Math.floor(wave)});
  if(!error)await loadBoard();return {data,error};
 };
-await syncAuth();await loadBoard();sb.auth.onAuthStateChange((_e,s)=>{session=s;login.hidden=!!s;});
+await syncAuth();await loadBoard();sb.auth.onAuthStateChange(()=>{setTimeout(syncAuth,0);});
 </script>
 </body></html>
