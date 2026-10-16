@@ -2725,7 +2725,7 @@ function drawVictoryCinematic(){let t=endingCinematic.age,d=endingCinematic.dura
 function queueVictoryDialogue(startAt){storyDialogueSteps.length=storyDialogueBaseCount;let t=startAt;storyDialogueSteps.push({speaker:'FRENCH QUENQUEN',text:'… cet endroit…',avatar:'assets/embedded/66a059b70da9dc54.png',kind:'french',start:t,end:t+2.1});t+=2.1;storyDialogueSteps.push({speaker:'ANDROMEDA',text:'QuenQuen, est-ce que tout va bien ?…',avatar:'assets/embedded/9af2715083b0f520.png',kind:'andromeda',start:t,end:t+2.7});t+=2.7;storyDialogueSteps.push({speaker:'FRENCH QUENQUEN',text:'Je…',avatar:'assets/embedded/1d1de6a36e6b0cf3.png',kind:'french',start:t,end:t+1.6});t+=1.6;storyDialogueSteps.push({speaker:'FRENCH QUENQUEN',text:'J’ai besoin de fermer les yeux, juste 5 minutes…',avatar:'assets/embedded/66a059b70da9dc54.png',kind:'french',start:t,end:t+3.2});victoryDialogueEnd=t+3.2}function defeatBoss(){if(!boss||boss.defeated||victoryPending)return;bossExplosion={x:boss.x,y:boss.y,age:0,duration:1.65};boss.hp=0;boss.defeated=true;/* V48.50.4 : purge totale des aspérités/attaques Dark dès sa défaite. */boss.darkPhase3Active=false;boss.darkWaveAge=0;boss.darkWaveTimer=999;boss.darkP1TpFx=null;boss.darkP1TeleportState=0;boss.darkStealActive=false;boss.darkStealBeamState=0;boss.darkRebelActive=false;boss.darkFinisherActive=false;boss.darkMegaBeamActive=false;boss.darkMegaBeamImpact=false;boss.darkP3PendingShot=0;boss.darkP3Breather=0;survivalBossShots=[];enemyShots=[];lasers=[];shots=[];energyBeam.charging=false;energyBeam.active=false;energyBeam.charge=0;energyBeam.burst=0;stopEnergyBeamSfx();score+=5000;best=Math.max(best,score);saveBest(best);enemies=[];enemyShots=[];lasers=[];shots=[];pickups=[];flash=1.18;shake=15;playBossExplosionSfx();playDarkDefeatScreamSfx();for(let i=0;i<135;i++){let a=Math.random()*Math.PI*2,v=rnd(45,440);particles.push({x:boss.x,y:boss.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:rnd(.45,1.45),age:0,r:rnd(2,7),color:['#fffbe0','#ffe15b','#ff9a45','#ff344e'][i%4]})}victoryPending=true;if(gameMode==='story')darkPostBeam={age:0,duration:1.55,white:1.0,earthStarted:false};}
 function drawVictoryBanner(){}
 function showEnd(text,defeat=false){document.querySelector('.card').classList.toggle('defeat',defeat);message.innerHTML=defeat?`<strong class="defeat-title">DÉFAITE</strong><br>${text}`:text;overlay.classList.remove('off')}
-function gameOver(reason){if(!playing)return;playing=false;victoryPending=false;pauseModeMedia();audioReady();playDefeatSfx();let copy;if(gameMode==='survival'){let seconds=Math.floor(elapsed),time=`${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;if(!developerTestMode){survivalBest=Math.max(survivalBest,seconds);saveSurvivalBest(survivalBest)}let record=`${String(Math.floor(survivalBest/60)).padStart(2,'0')}:${String(survivalBest%60).padStart(2,'0')}`;survivalRecord.textContent=`MEILLEUR TEMPS : ${record}`;copy=`${developerTestMode?'TEST DÉVELOPPEUR — ':''}Temps tenu : <strong>${time}</strong><br>Vague atteinte : <strong>${survivalWave}</strong><br>Score : <strong>${score}</strong><br>Record : <strong>${record}</strong>`}else{best=Math.max(best,score);saveBest(best);copy=reason==='health'?'French QuenQuen n’a plus d’énergie.':reason==='timeout'?'Le temps est écoulé. Dark QuenQuen a gagné.':'La mission est terminée.';copy+=`<br>Score : <strong>${score}</strong><br>Record : <strong>${best}</strong>`}showEnd(copy,true)}
+function gameOver(reason){if(!playing)return;if(gameMode==='survival'&&!developerTestMode&&typeof window.riseSubmitSurvivalScore==='function'){window.riseSubmitSurvivalScore(score,Math.floor(elapsed),survivalWave).catch(()=>{})}playing=false;victoryPending=false;pauseModeMedia();audioReady();playDefeatSfx();let copy;if(gameMode==='survival'){let seconds=Math.floor(elapsed),time=`${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`;if(!developerTestMode){survivalBest=Math.max(survivalBest,seconds);saveSurvivalBest(survivalBest)}let record=`${String(Math.floor(survivalBest/60)).padStart(2,'0')}:${String(survivalBest%60).padStart(2,'0')}`;survivalRecord.textContent=`MEILLEUR TEMPS : ${record}`;copy=`${developerTestMode?'TEST DÉVELOPPEUR — ':''}Temps tenu : <strong>${time}</strong><br>Vague atteinte : <strong>${survivalWave}</strong><br>Score : <strong>${score}</strong><br>Record : <strong>${record}</strong>`}else{best=Math.max(best,score);saveBest(best);copy=reason==='health'?'French QuenQuen n’a plus d’énergie.':reason==='timeout'?'Le temps est écoulé. Dark QuenQuen a gagné.':'La mission est terminée.';copy+=`<br>Score : <strong>${score}</strong><br>Record : <strong>${best}</strong>`}showEnd(copy,true)}
 function finishVictory(){if(!victoryPending)return;victoryPending=false;pauseModeMedia();storyEndCard={age:0,duration:10.4,modeTyped:0,finTyped:0};keys.clear();pointer.down=false;pointer.rightDown=false;shots=[];enemyShots=[];lasers=[];enemies=[];boss=null;bossExplosion=null;}
 function drawDarkPostBeam(){
  if(!darkPostBeam)return;
@@ -2823,4 +2823,40 @@ window.addEventListener('blur',()=>{keys.delete('f');if(energyBeam.charging){ene
  playMenuMusic();
 })();
 </script><!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a284ad663baf4ed8bf03891fd7804656"}'></script><!-- End Cloudflare Web Analytics -->
+
+<!-- QUENQUEN CORP — SURVIVAL LEADERBOARD -->
+<style id="riseLeaderboardStyle">
+#riseLeaderboard{margin-top:14px;padding:12px 14px;border:1px solid #ffd84d55;border-radius:12px;background:#050810cc;text-align:left}
+#riseLeaderboard h3{margin:0 0 8px;color:#ffe16a;font-size:14px;letter-spacing:.08em;text-align:center}
+#riseLeaderboardStatus{font-size:11px;color:#bfc7d6;text-align:center;margin:6px 0}
+#riseLeaderboard ol{margin:8px 0 0;padding-left:26px;font-size:11px;line-height:1.65;color:#fff}
+#riseLeaderboard li span{float:right;color:#ffe16a;font-weight:900}
+#riseLeaderboardLogin{display:block;margin:9px auto 0;padding:7px 11px;border:1px solid #ffd84d88;border-radius:8px;background:#ffd84d14;color:#ffe16a;font-weight:900;cursor:pointer}
+</style>
+<script type="module" id="riseLeaderboardModule">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+const sb=createClient('https://qfkjrlpkykkizrmzlixp.supabase.co','sb_publishable_tBGclmheOxP-q6MVKz1SJQ_Mc3PDRnG',{auth:{flowType:'pkce',detectSessionInUrl:true,persistSession:true,autoRefreshToken:true}});
+const survivalButton=document.getElementById('start-survival');
+if(survivalButton){
+ const box=document.createElement('div');box.id='riseLeaderboard';box.innerHTML='<h3>🏆 CLASSEMENT SURVIE</h3><div id="riseLeaderboardStatus">Chargement…</div><ol id="riseLeaderboardList"></ol><button id="riseLeaderboardLogin" type="button">CONNECTER TWITCH POUR ENREGISTRER MES SCORES</button>';
+ survivalButton.insertAdjacentElement('afterend',box);
+}
+const status=document.getElementById('riseLeaderboardStatus'),list=document.getElementById('riseLeaderboardList'),login=document.getElementById('riseLeaderboardLogin');
+let session=null;
+const fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+async function loadBoard(){
+ const {data,error}=await sb.from('rise_survival_leaderboard').select('twitch_display_name,twitch_login,best_score,best_time_seconds,best_wave').order('best_score',{ascending:false}).order('best_time_seconds',{ascending:false}).limit(10);
+ if(error){status.textContent='Classement momentanément indisponible.';return}
+ list.replaceChildren();(data||[]).forEach((r,i)=>{const li=document.createElement('li');li.textContent=(r.twitch_display_name||r.twitch_login||'AGENT')+' · V'+r.best_wave+' · '+fmt(r.best_time_seconds)+' ';const sc=document.createElement('span');sc.textContent=r.best_score+' pts';li.append(sc);list.append(li)});
+ status.textContent=data?.length?'TOP 10 QUENQUEN CORP':'Aucun score enregistré. Sois le premier.';
+}
+async function syncAuth(){const {data}=await sb.auth.getSession();session=data.session;login.hidden=!!session;}
+login?.addEventListener('click',async e=>{e.stopPropagation();await sb.auth.signInWithOAuth({provider:'twitch',options:{redirectTo:location.origin+location.pathname}})});
+window.riseSubmitSurvivalScore=async(score,seconds,wave)=>{
+ if(!session)return {skipped:'not_authenticated'};
+ const {data,error}=await sb.rpc('rise_submit_survival_score',{p_score:Math.floor(score),p_time_seconds:Math.floor(seconds),p_wave:Math.floor(wave)});
+ if(!error)await loadBoard();return {data,error};
+};
+await syncAuth();await loadBoard();sb.auth.onAuthStateChange((_e,s)=>{session=s;login.hidden=!!s;});
+</script>
 </body></html>
