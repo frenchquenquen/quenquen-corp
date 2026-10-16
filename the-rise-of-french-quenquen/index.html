@@ -2253,6 +2253,33 @@ strand(42,.10,5.5,18,0,'#ffbf35');strand(28,.20,4.0,22,1.4,'#ffd84d');strand(16,
 ctx.globalAlpha=.65+.25*Math.sin(t*47);ctx.fillStyle='#fff4a8';ctx.beginPath();ctx.arc(r.x0,r.y0,8+Math.sin(t*35)*2,0,Math.PI*2);ctx.fill();
 ctx.globalAlpha=.28;ctx.fillStyle='#ffd34a';ctx.beginPath();ctx.arc(r.x0,r.y0,17+Math.sin(t*27)*3,0,Math.PI*2);ctx.fill();
 ctx.restore()}function draw(){if(!playing&&!endingCinematic){ctx.save();ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);ctx.restore();return}ctx.save();if(shake)ctx.translate(rnd(-shake,shake),rnd(-shake,shake));drawBg();if(gameMode==='story'&&(phase===3||victoryPending||(darkArenaTransition&&darkArenaTransition.arenaSwitched)))drawDarkEarthArena();drawPickups();drawLasers();drawBossShots();drawSurvivalColossusShots();drawColossusFragments();shots.forEach(s=>{ctx.save();ctx.strokeStyle='#fff0a0';ctx.lineCap='round';ctx.lineWidth=3.2;ctx.shadowBlur=10;ctx.shadowColor='#ffc928';ctx.beginPath();ctx.moveTo(s.x-s.vx*.025,s.y-s.vy*.025);ctx.lineTo(s.x,s.y);ctx.stroke();ctx.fillStyle='#fff9d7';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();ctx.restore()});enemies.forEach(drawEnemy);drawBoss();drawSurvivalColossus();drawHero();drawEnergyBeam();if(!demskaSandbox){drawOrb();drawDarkStealMiniBeam();drawDarkRebellion();drawDarkFinalMegaBeam();}drawEffects();drawBossExplosion();drawSurvivalColossusGlitch();ctx.restore();
+if(gameMode==='survival'&&demskaPostBossArmed&&!demskaIntegratedStarted&&!demskaEntryTransition){
+ let dw=Math.max(0,survivalWave-demskaPostBossBaseWave),stage=Math.max(demskaPostBossStage,dw>=2?2:dw>=1?1:0);
+ let t=survivalWaveClock,local=survivalWaveClock%25,intensity=stage>=2?.34:.18;
+ ctx.save();
+ // Une vignette froide s'installe après l'Eclipse et se resserre à la seconde vague.
+ let vg=ctx.createRadialGradient(W/2,H*.48,Math.min(W,H)*.18,W/2,H*.48,Math.max(W,H)*.72);
+ vg.addColorStop(0,'rgba(0,0,0,0)');
+ vg.addColorStop(.64,'rgba(4,2,14,'+(intensity*.24)+')');
+ vg.addColorStop(1,'rgba(0,0,8,'+(intensity+.08)+')');
+ ctx.fillStyle=vg;ctx.fillRect(0,0,W,H);
+ // Micro-déchirures déterministes : rares en vague 1, plus insistantes en vague 2.
+ let pulse1=Math.max(0,1-Math.abs(local-(stage>=2?5.8:9.4))/.12);
+ let pulse2=stage>=2?Math.max(0,1-Math.abs(local-14.2)/.16):0;
+ let pulse3=stage>=2?Math.max(0,1-Math.abs(local-20.4)/.11):0;
+ let gp=Math.max(pulse1,pulse2,pulse3);
+ if(gp>0){
+   ctx.globalAlpha=.13+.25*gp;
+   for(let i=0;i<(stage>=2?5:2);i++){
+     let y=((i*173+t*91)%H),h=2+(i%3)*2,off=(i%2?1:-1)*(5+stage*5)*gp;
+     try{ctx.drawImage(canvas,0,y,W,h,off,y,W,h)}catch{}
+   }
+   ctx.fillStyle='rgba(235,245,255,'+(.06+.12*gp)+')';ctx.fillRect(0,0,W,H);
+ }
+ // Très bref décrochement chromatique, suffisamment léger pour rester jouable.
+ if(stage>=2&&gp>.2){ctx.globalCompositeOperation='screen';ctx.globalAlpha=.035*gp;ctx.fillStyle='#ff1744';ctx.fillRect(-3,0,W,H);ctx.fillStyle='#00e5ff';ctx.fillRect(3,0,W,H);}
+ ctx.restore();
+}
 if(storyTemporalWarning&&!darkArenaTransition){
  let a=storyTemporalWarning.age,t=storyTemporalWarning.duration;
  if(a<t){
