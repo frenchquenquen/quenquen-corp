@@ -1517,7 +1517,7 @@ function qcV13UpgradeFavorites(){
        x0=Math.max(0,x0-pad);y0=Math.max(0,y0-pad);x1=Math.min(w-1,x1+pad);y1=Math.min(h-1,y1+pad);
        const cropped=document.createElement("canvas");cropped.width=x1-x0+1;cropped.height=y1-y0+1;
        cropped.getContext("2d").drawImage(im,x0,y0,cropped.width,cropped.height,0,0,cropped.width,cropped.height);
-       im.src=cropped.toDataURL("image/png");
+       im.onload=null;im.src=cropped.toDataURL("image/png");
      }catch(e){/* keep original image if crop detection fails */}
    };
  });
