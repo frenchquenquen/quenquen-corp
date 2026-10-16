@@ -548,8 +548,9 @@ body{overflow:auto!important}
 #musicVolumeValue{min-width:27px;text-align:right;font-variant-numeric:tabular-nums;color:var(--yellow);opacity:.82}
 @media(max-width:700px){.qcMusicVolume{gap:4px;padding:0 3px}.qcMusicVolume input[type="range"]{width:58px}#musicVolumeValue{display:none}}
 </style>
+<style id="qcMusicRemoval">.qcMusicVolume,#musicBtn{display:none!important}</style>
 </head><body>
-<audio id="music" autoplay loop preload="auto"><source src="assets/embedded/asset_002_7da7c0160d59.mp3" type="audio/mpeg"></audio>
+<audio id="music" preload="none"></audio>
 <header class="top"><div><div class="title">CARD COLLECTOR QUENQUEN — VOLUME 1</div><div id="sub">Couverture & collections</div></div>
 <div class="nav"><button id="prev">◀</button><span id="count">1 / 7</span><button id="next">▶</button></div></header>
 <main class="stage"><div class="album">
@@ -588,7 +589,7 @@ body{overflow:auto!important}
 <button class="tab" data-go="3">LAITON</button>
 <button class="tab" data-go="4">FER</button>
 <button class="tab" data-go="5">GRANITE</button>
-<button class="tab" data-go="6">CARTON</button><button class="musicbtn" id="musicBtn" hidden aria-hidden="true" tabindex="-1">♫ MUSIQUE</button><label class="qcMusicVolume" title="Volume de la musique"><span class="qcVolumeIcon" aria-hidden="true">🔊</span><input id="musicVolume" type="range" min="0" max="100" step="1" value="55" aria-label="Volume de la musique"><span id="musicVolumeValue">55%</span></label><span class="credit">Musique: <span id="qcAndromedaCredit">ANDROMEDA</span> by Demska.</span></nav>
+<button class="tab" data-go="6">CARTON</button><button class="musicbtn" id="musicBtn" hidden aria-hidden="true" tabindex="-1">♫ MUSIQUE</button><label class="qcMusicVolume" title="Volume de la musique"><span class="qcVolumeIcon" aria-hidden="true">🔊</span><input id="musicVolume" type="range" min="0" max="100" step="1" value="55" aria-label="Volume de la musique"><span id="musicVolumeValue">55%</span></label><span class="credit" hidden><span id="qcAndromedaCredit"></span></span></nav>
 
 <div class="secretModal" id="secretModal">
   <div class="secretNote">
