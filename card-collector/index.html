@@ -4782,24 +4782,32 @@ window.qcAndromedaBoss=(function(){
 </style>
 <script id="qcFlavieCard4EasterEgg">
 (function(){
- let selected=0,flips=0,shown=false,timer;
+ let selected=0,flips=0,timer;
  const message=document.createElement('div');
  message.id='qcFlavieCard4Message';
- const phrase=document.createElement('span');phrase.textContent='FLAVIE FERME TA GUEULE !';
+ const phrase=document.createElement('span');
  message.appendChild(phrase);document.body.appendChild(message);
- function show(){shown=true;message.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>message.classList.remove('show'),3500)}
+ function show(text){
+   phrase.textContent=text;
+   message.classList.add('show');
+   clearTimeout(timer);
+   timer=setTimeout(()=>message.classList.remove('show'),3500);
+ }
  const open=window.qcOpenIndividualCard;
  if(typeof open==='function')window.qcOpenIndividualCard=function(collection,index){
    const n=collection*10+index+1;
-   if(n!==selected){flips=0;shown=false}
+   if(n!==selected)flips=0;
    selected=n;
    return open.apply(this,arguments);
  };
  const flip=window.qcFlipIndividualCard;
  if(typeof flip==='function')window.qcFlipIndividualCard=function(){
    const result=flip.apply(this,arguments);
-   if(selected===4&&!shown&&document.getElementById('individualCardModal')?.classList.contains('open')){
-     flips++;if(flips>=20)show();
+   if((selected===4||selected===33)&&document.getElementById('individualCardModal')?.classList.contains('open')){
+     flips++;
+     if(flips%20===0){
+       show(selected===4?'FLAVIE FERME TA GUEULE !':'LA CHAUSSETTE PRÉFÉRÉE DE AREK !');
+     }
    }
    return result;
  };
