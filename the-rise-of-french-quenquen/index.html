@@ -2826,7 +2826,8 @@ window.addEventListener('blur',()=>{keys.delete('f');if(energyBeam.charging){ene
 
 <!-- QUENQUEN CORP — SURVIVAL LEADERBOARD -->
 <style id="riseLeaderboardStyle">
-#riseLeaderboard{margin-top:14px;padding:12px 14px;border:1px solid #ffd84d55;border-radius:12px;background:#050810cc;text-align:left}
+#riseLeaderboard{position:fixed;right:22px;top:50%;transform:translateY(-50%);width:min(390px,32vw);z-index:20;padding:12px 14px;border:1px solid #ffd84d55;border-radius:12px;background:#050810e8;text-align:left;box-sizing:border-box}
+@media(max-width:900px){#riseLeaderboard{position:static;right:auto;top:auto;transform:none;width:100%;margin-top:14px}}
 #riseLeaderboard h3{margin:0 0 8px;color:#ffe16a;font-size:14px;letter-spacing:.08em;text-align:center}
 #riseLeaderboardStatus{font-size:11px;color:#bfc7d6;text-align:center;margin:6px 0}
 #riseLeaderboard ol{margin:8px 0 0;padding-left:26px;font-size:11px;line-height:1.65;color:#fff}
