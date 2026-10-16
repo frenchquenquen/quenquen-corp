@@ -589,7 +589,7 @@ body{overflow:auto!important}
 <button class="tab" data-go="3">LAITON</button>
 <button class="tab" data-go="4">FER</button>
 <button class="tab" data-go="5">GRANITE</button>
-<button class="tab" data-go="6">CARTON</button><button class="musicbtn" id="musicBtn" hidden aria-hidden="true" tabindex="-1">♫ MUSIQUE</button><label class="qcMusicVolume" title="Volume de la musique"><span class="qcVolumeIcon" aria-hidden="true">🔊</span><input id="musicVolume" type="range" min="0" max="100" step="1" value="55" aria-label="Volume de la musique"><span id="musicVolumeValue">55%</span></label><span class="credit" hidden><span id="qcAndromedaCredit"></span></span></nav>
+<button class="tab" data-go="6">CARTON</button><button class="musicbtn" id="musicBtn" hidden aria-hidden="true" tabindex="-1">♫ MUSIQUE</button><label class="qcMusicVolume" title="Volume de la musique"><span class="qcVolumeIcon" aria-hidden="true">🔊</span><input id="musicVolume" type="range" min="0" max="100" step="1" value="55" aria-label="Volume de la musique"><span id="musicVolumeValue">55%</span></label><button id="qcArchive12Signal" type="button" aria-label="Signal inconnu" title="Signal inconnu">✦</button></nav>
 
 <div class="secretModal" id="secretModal">
   <div class="secretNote">
@@ -2076,6 +2076,10 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
 
 
 <style id="qcAndromeda12Style">
+#qcArchive12Signal{display:none;background:transparent;border:0;color:#807340;font-size:12px;opacity:.5;cursor:pointer;padding:5px;transform:rotate(-12deg)}
+#qcArchive12Signal:hover,#qcArchive12Signal:focus-visible{opacity:1;color:#ffd400}
+body.qcArchive12Fer #qcArchive12Signal{display:inline-block}
+
 #qcAndromedaCredit{color:inherit;text-decoration:none;cursor:default}
 #qcA12Overlay{position:fixed;inset:0;z-index:100900;background:#000;display:none;align-items:center;justify-content:center}
 #qcA12Overlay.open{display:flex}
@@ -2109,7 +2113,7 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
 (function(){
  const URL="https://raw.githubusercontent.com/frenchquenquen/quenquen-corp/refs/heads/main/card-collector/assets/qc/x7f2k9/qcx_a12e73f.mp4", TWITCH="https://www.twitch.tv/frenchquenquen_";
  const DISC="quenquen_corp_archive_12_discovered_v1", FIRST="quenquen_corp_archive_12_firstplay_v1";
- const credit=document.getElementById("qcAndromedaCredit"),ov=document.getElementById("qcA12Overlay"),
+ const credit=document.getElementById("qcArchive12Signal"),ov=document.getElementById("qcA12Overlay"),
  intro=document.getElementById("qcA12Intro"),wrap=document.getElementById("qcA12VideoWrap"),vid=document.getElementById("qcA12Video"),
  hub=document.getElementById("qcTwitchUnlock");
  let busy=false,timers=[],wasPlaying=false,savedTime=0;
@@ -2126,6 +2130,8 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
  }
  function refreshHub(){hub.classList.toggle("visible",!!localStorage.getItem(DISC)&&home()&&!ov.classList.contains("open"))}
  setInterval(refreshHub,400);setTimeout(refreshHub,700);
+ function refreshSignal(){document.body.classList.toggle("qcArchive12Fer",onFer())}
+ setInterval(refreshSignal,400);refreshSignal();
  hub.onclick=()=>window.open(TWITCH,"_blank","noopener,noreferrer");
 
  function pauseMusic(){if(typeof music!=="undefined"){wasPlaying=!music.paused;savedTime=music.currentTime;music.pause();if(typeof updateMusic==="function")updateMusic()}}
