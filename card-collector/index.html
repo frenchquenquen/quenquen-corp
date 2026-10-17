@@ -4640,6 +4640,50 @@ window.qcAndromedaBoss=(function(){
 })();
 </script>
 
+
+<style id="qcSaboteur69Style">
+#qcSaboteur69Overlay{position:fixed;inset:0;z-index:30100;background:#000;display:none;align-items:center;justify-content:center}
+#qcSaboteur69Overlay.open{display:flex}
+#qcSaboteur69Video{width:100%;height:100%;object-fit:contain;background:#000}
+#qcSaboteur69Close{position:absolute;z-index:2;right:18px;top:16px;background:#000c;color:#ffd400;border:1px solid #ffd400;padding:8px 12px;font-size:20px;cursor:pointer}
+#qcSaboteur69Badge{display:none;width:48px;height:48px;border:0;padding:0;background:transparent;align-items:center;justify-content:center;cursor:pointer}
+#qcSaboteur69Badge img{width:48px;height:48px;object-fit:contain}
+</style>
+<button id="qcSaboteur69Badge" type="button" title="Saboteur"><img src="Saboteur1.png" alt="Saboteur"></button>
+<div id="qcSaboteur69Overlay" aria-hidden="true"><button id="qcSaboteur69Close" type="button">✕</button><video id="qcSaboteur69Video" playsinline preload="metadata" src="WhatsApp%20Video%202026-09-12%20at%2014.26.27.mp4"></video></div>
+<script id="qcSaboteur69Engine">
+(function(){
+ const KEY="quenquen_saboteur69_found_v1",WAIT=10000;
+ const slider=document.getElementById("musicVolume"),overlay=document.getElementById("qcSaboteur69Overlay"),video=document.getElementById("qcSaboteur69Video"),badge=document.getElementById("qcSaboteur69Badge");
+ let timer=null,wasPlaying=false,musicTime=0;
+ function onHome(){const home=document.querySelector("section.home[data-page='0']");return !!home&&home.classList.contains("active")}
+ function cancel(){if(timer!==null){clearTimeout(timer);timer=null}}
+ function found(){return !!localStorage.getItem(KEY)}
+ function refreshBadge(){
+   const rail=document.getElementById("qcSecretTrophyRailItems");
+   if(found()&&rail&&badge.parentElement!==rail)rail.appendChild(badge);
+   badge.style.display=found()?"flex":"none";if(found())badge.classList.add("qcTrophySlot");
+ }
+ async function showVideo(){
+   timer=null;if(Number(slider?.value)!==69||!onHome())return;
+   localStorage.setItem(KEY,new Date().toISOString());refreshBadge();
+   if(typeof music!=="undefined"){wasPlaying=!music.paused;musicTime=music.currentTime;music.pause();if(typeof updateMusic==="function")updateMusic()}
+   overlay.classList.add("open");overlay.setAttribute("aria-hidden","false");
+   try{video.currentTime=0;await video.play()}catch(e){}
+ }
+ function evaluate(){cancel();if(!found()&&onHome()&&Number(slider?.value)===69)timer=setTimeout(showVideo,WAIT)}
+ async function closeVideo(){
+   video.pause();overlay.classList.remove("open");overlay.setAttribute("aria-hidden","true");
+   if(typeof music!=="undefined"&&wasPlaying){try{music.currentTime=musicTime;await music.play()}catch(e){}if(typeof updateMusic==="function")updateMusic()}
+ }
+ slider?.addEventListener("input",evaluate);
+ const oldGo=window.go;if(typeof oldGo==="function")window.go=function(){const out=oldGo.apply(this,arguments);setTimeout(evaluate,0);return out};
+ document.getElementById("qcSaboteur69Close").addEventListener("click",closeVideo);video.addEventListener("ended",closeVideo);
+ badge.addEventListener("click",async()=>{if(!found())return;if(typeof music!=="undefined"){wasPlaying=!music.paused;musicTime=music.currentTime;music.pause();if(typeof updateMusic==="function")updateMusic()}overlay.classList.add("open");overlay.setAttribute("aria-hidden","false");try{video.currentTime=0;await video.play()}catch(e){}});
+ refreshBadge();setTimeout(evaluate,500);
+})();
+</script>
+
 </body></html>
 <style id="qcGift16ChristmasLogoFix">
 #qcGift16{
