@@ -3535,7 +3535,7 @@ window.qcAndromedaBoss=(function(){
 </style>
 <script id="qcSecretTrophyRailEngine">
 (function(){
- const IDS=["qcTwitchUnlock","qcFrenchbladeFQDock","qcSpookyGhostBadge","qcGift16Badge","qcBits55Badge","qcSuzieBearBadge","qcMonteur20Badge","qcJungleCroissantBadge"];
+ const IDS=["qcTwitchUnlock","qcFrenchbladeFQDock","qcSpookyGhostBadge","qcGift16Badge","qcBits55Badge","qcSuzieBearBadge","qcMonteur20Badge","qcJungleCroissantBadge","qcRoyalQuantinBadge"];
  let rail=null,items=null;
 
  function collectionHome(){
@@ -3570,6 +3570,7 @@ window.qcAndromedaBoss=(function(){
    if(el.id==="qcSuzieBearBadge") return !!localStorage.getItem("quenquen_suzie_bear_recovered_v1");
    if(el.id==="qcMonteur20Badge") return !!localStorage.getItem("quenquen_monteur_quenquen_20_unlocked_v1");
    if(el.id==="qcJungleCroissantBadge") return !!localStorage.getItem("quenquen_jungle_croissant_unlocked_v1");
+   if(el.id==="qcRoyalQuantinBadge") return !!localStorage.getItem("qc_royal_quantin_unlocked_v1");
    return false;
  }
  function refresh(){
@@ -4550,6 +4551,42 @@ window.qcAndromedaBoss=(function(){
  setTimeout(check,1200);document.addEventListener("click",()=>setTimeout(check,350));
 })();
 </script>
+<style id="qcRoyalQuantinStyle">
+#qcRoyalQuantinBadge{display:none;align-items:center;justify-content:center;border:1px solid #d4ae35;border-radius:7px;background:#fff;cursor:pointer;width:62px;height:62px;padding:2px}
+#qcRoyalQuantinBadge .qcRoyalLogo{color:#c71930;font:900 10px/1 Arial,sans-serif;text-align:center;letter-spacing:-.3px}
+#qcRoyalQuantinBadge .qcRoyalLogo b{display:block;font-size:21px;line-height:1}
+#qcRoyalQuestion,#qcRoyalVideoOverlay{position:fixed;inset:0;z-index:250000;display:none;align-items:center;justify-content:center;background:#000e;padding:18px}
+#qcRoyalQuestion.open,#qcRoyalVideoOverlay.open{display:flex}
+#qcRoyalQuestion .qcRoyalPanel{width:min(92vw,480px);background:#111217;border:2px solid #ffd43b;border-radius:14px;padding:24px;color:#fff;text-align:center;box-shadow:0 0 35px #f3b62155;font-family:Arial,sans-serif}
+#qcRoyalQuestion h2{color:#ffdc3e;font-size:21px}#qcRoyalQuestion input{width:min(100%,230px);padding:12px;border:1px solid #e5c544;background:#fff;color:#111;border-radius:6px;font-size:18px;text-align:center}
+#qcRoyalQuestion button,#qcRoyalVideoOverlay button{margin:10px 5px 0;padding:10px 14px;border:1px solid #ffd43b;border-radius:7px;background:#151515;color:#ffdc3e;font-weight:bold;cursor:pointer}
+#qcRoyalVideoOverlay video{width:min(95vw,1050px);max-height:83vh;background:#000}
+#qcRoyalVideoOverlay .qcRoyalPlayer{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+#qcRoyalError{min-height:22px;color:#ff9b9b;font-size:13px}
+</style>
+<div id="qcRoyalQuestion" role="dialog" aria-modal="true" aria-label="Énigme Young QuenQuen"><div class="qcRoyalPanel"><h2>YOUNG QUENQUEN</h2><p>Quelle est la date d'anniversaire de notre jeune QuenQuen ?</p><form id="qcRoyalForm"><input id="qcRoyalAnswer" type="text" placeholder="JJ/MM/AAAA" autocomplete="off" aria-label="Date de naissance"><div><button type="submit">VALIDER</button><button type="button" id="qcRoyalCancel">FERMER</button></div></form><div id="qcRoyalError" aria-live="polite"></div></div></div>
+<div id="qcRoyalVideoOverlay" role="dialog" aria-modal="true" aria-label="Royal Quantin"><div class="qcRoyalPlayer"><button id="qcRoyalClose" type="button">✕ FERMER</button><video id="qcRoyalVideo" src="royal%20quantin.mp4" playsinline controls preload="none"></video></div></div>
+<script id="qcRoyalQuantinEngine">
+(()=>{
+ const KEY='qc_royal_quantin_unlocked_v1',frame=document.getElementById('individualCardFrame'),question=document.getElementById('qcRoyalQuestion'),form=document.getElementById('qcRoyalForm'),answer=document.getElementById('qcRoyalAnswer'),err=document.getElementById('qcRoyalError'),overlay=document.getElementById('qcRoyalVideoOverlay'),video=document.getElementById('qcRoyalVideo');
+ if(!frame||!question||!video)return;
+ const badge=document.createElement('button');badge.id='qcRoyalQuantinBadge';badge.type='button';badge.title='ROYAL QUANTIN — Revoir la vidéo';badge.setAttribute('aria-label','Royal Quantin : revoir la vidéo');badge.innerHTML='<span class="qcRoyalLogo"><b>♛</b>ROYAL<br>QUANTIN</span>';document.body.appendChild(badge);
+ function unlocked(){return !!localStorage.getItem(KEY)}
+ function showBadge(){badge.style.display=unlocked()?'flex':'none'}
+ function showVideo(){overlay.classList.add('open');try{const music=document.getElementById('music');if(music&&!music.paused){video.dataset.resumeMusic='1';music.pause()}else video.dataset.resumeMusic='0'}catch(e){}video.currentTime=0;video.play().catch(()=>{})}
+ function closeVideo(){overlay.classList.remove('open');video.pause();const music=document.getElementById('music');if(video.dataset.resumeMusic==='1'&&music&&!document.hidden)music.play().catch(()=>{});video.dataset.resumeMusic='0'}
+ function closeQuestion(){question.classList.remove('open');answer.value='';err.textContent=''}
+ function currentCard(){const img=document.getElementById('individualCardFrontImg');return img&&img.src===new URL((window.qcCardHD||[])[23]||'',location.href).href}
+ function checkFlip(){if(!document.getElementById('individualCardModal')?.classList.contains('open')||!frame.classList.contains('flipped')||!currentCard()||unlocked()||question.classList.contains('open'))return;question.classList.add('open');answer.focus()}
+ frame.addEventListener('click',()=>setTimeout(checkFlip,80));frame.addEventListener('keydown',()=>setTimeout(checkFlip,80));
+ form.addEventListener('submit',e=>{e.preventDefault();const normalized=answer.value.trim().replace(/[.\-\s]/g,'/');if(!/^(23\/07\/1990|23\/7\/1990|23071990)$/.test(normalized)){err.textContent='MAUVAISE DATE… RÉESSAIE !';return}localStorage.setItem(KEY,'1');closeQuestion();showBadge();showVideo();document.dispatchEvent(new Event('qcRoyalQuantinUnlocked'))});
+ document.getElementById('qcRoyalCancel').addEventListener('click',closeQuestion);document.getElementById('qcRoyalClose').addEventListener('click',closeVideo);
+ badge.addEventListener('click',showVideo);video.addEventListener('ended',closeVideo);
+ question.addEventListener('click',e=>{if(e.target===question)closeQuestion()});overlay.addEventListener('click',e=>{if(e.target===overlay)closeVideo()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(overlay.classList.contains('open'))closeVideo();else if(question.classList.contains('open'))closeQuestion()}});
+ showBadge();setInterval(showBadge,2500);
+})();
+</script>
 </body></html>
 <style id="qcGift16ChristmasLogoFix">
 #qcGift16{
@@ -5040,7 +5077,7 @@ function update(){
  affinity,has('qc_egg_flavie4_v1'),has('qc_egg_arek33_v1'),has('qc_egg_reims27_v1'),
  has('quenquen_monteur_quenquen_20_unlocked_v1'),has('quenquen_quick43_burger_unlocked_v1'),
  has('quenquen_bits55_completed_v1'),has('quenquen_corp_archive_14_discovered_v1')||list('quenquen_corp_archive_14_fragments_v1').length>=6,
- has('quenquen_frenchblade_acquired_v1'),has('quenquen_corp_three_badges_message_v1')
+ has('quenquen_frenchblade_acquired_v1'),has('quenquen_corp_three_badges_message_v1'),has('qc_royal_quantin_unlocked_v1')
  ];
  const n=done.filter(Boolean).length;count.textContent=String(n);
 }
