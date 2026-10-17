@@ -3535,7 +3535,7 @@ window.qcAndromedaBoss=(function(){
 </style>
 <script id="qcSecretTrophyRailEngine">
 (function(){
- const IDS=["qcTwitchUnlock","qcFrenchbladeFQDock","qcSpookyGhostBadge","qcGift16Badge","qcBits55Badge","qcSuzieBearBadge","qcMonteur20Badge","qcJungleCroissantBadge","qcRoyalQuantinBadge"];
+ const IDS=["qcTwitchUnlock","qcFrenchbladeFQDock","qcSpookyGhostBadge","qcGift16Badge","qcBits55Badge","qcSuzieBearBadge","qcMonteur20Badge","qcJungleCroissantBadge","qcRoyalQuantinBadge","qcFrenchGrenierBadge"];
  let rail=null,items=null;
 
  function collectionHome(){
@@ -3571,6 +3571,7 @@ window.qcAndromedaBoss=(function(){
    if(el.id==="qcMonteur20Badge") return !!localStorage.getItem("quenquen_monteur_quenquen_20_unlocked_v1");
    if(el.id==="qcJungleCroissantBadge") return !!localStorage.getItem("quenquen_jungle_croissant_unlocked_v1");
    if(el.id==="qcRoyalQuantinBadge") return !!localStorage.getItem("qc_royal_quantin_unlocked_v1");
+   if(el.id==="qcFrenchGrenierBadge") return !!localStorage.getItem("qc_french_grenier_unlocked_v1");
    return false;
  }
  function refresh(){
@@ -5077,7 +5078,7 @@ function update(){
  affinity,has('qc_egg_flavie4_v1'),has('qc_egg_arek33_v1'),has('qc_egg_reims27_v1'),
  has('quenquen_monteur_quenquen_20_unlocked_v1'),has('quenquen_quick43_burger_unlocked_v1'),
  has('quenquen_bits55_completed_v1'),has('quenquen_corp_archive_14_discovered_v1')||list('quenquen_corp_archive_14_fragments_v1').length>=6,
- has('quenquen_frenchblade_acquired_v1'),has('quenquen_corp_three_badges_message_v1'),has('qc_royal_quantin_unlocked_v1')
+ has('quenquen_frenchblade_acquired_v1'),has('quenquen_corp_three_badges_message_v1'),has('qc_royal_quantin_unlocked_v1'),has('qc_french_grenier_unlocked_v1')
  ];
  const n=done.filter(Boolean).length;count.textContent=String(n);
 }
@@ -5134,5 +5135,57 @@ if(!active)return;active=false;if(usingVideoFrames)video.cancelVideoFrameCallbac
 }
 badge.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();open()});
 video.addEventListener('ended',close);
+})();
+</script>
+
+<style id="qcFrenchGrenierStyle">
+#qcGrenierScene{position:fixed;inset:0;z-index:425;pointer-events:none;display:none}
+#qcGrenierScene.on{display:block}
+#qcGrenierFrenchy{position:absolute;left:clamp(8px,4vw,80px);bottom:7vh;height:min(42vh,360px);max-width:27vw;object-fit:contain;object-position:bottom left;filter:drop-shadow(0 0 13px #ffd54b44);animation:qcGrenierFloat 3s ease-in-out infinite}
+#qcGrenierSkull{position:absolute;right:clamp(12px,4vw,65px);bottom:5vh;width:clamp(78px,11vw,155px);height:clamp(78px,11vw,155px);object-fit:contain;pointer-events:auto;cursor:pointer;filter:drop-shadow(0 0 12px #ffdd64) drop-shadow(0 0 23px #ffca3888);animation:qcGrenierGlow 1.8s ease-in-out infinite}
+#qcGrenierWhisper{position:absolute;left:50%;bottom:2vh;transform:translateX(-50%);width:min(90vw,650px);text-align:center;color:#f5db81;font:900 clamp(12px,1.4vw,18px) Georgia,serif;text-shadow:0 2px 8px #000,0 0 12px #e6bd4d99;letter-spacing:1px;pointer-events:none}
+@keyframes qcGrenierGlow{0%,100%{filter:drop-shadow(0 0 6px #ffd46c);transform:scale(1)}50%{filter:drop-shadow(0 0 18px #fff3a5) drop-shadow(0 0 32px #ffc423);transform:scale(1.07)}}
+@keyframes qcGrenierFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+#qcGrenierQuiz,#qcGrenierVideoScreen{position:fixed;inset:0;z-index:260000;display:none;align-items:center;justify-content:center;padding:16px;background:#000e}
+#qcGrenierQuiz.open,#qcGrenierVideoScreen.open{display:flex}
+#qcGrenierQuizPanel{width:min(94vw,460px);border:2px solid #eacb55;border-radius:14px;background:#101013;padding:25px;text-align:center;box-shadow:0 0 35px #e8bd3e55;color:#fff;font-family:Arial,sans-serif}
+#qcGrenierQuizPanel h2{color:#ffe06e;font-size:clamp(20px,3vw,28px);margin:0 0 22px}
+#qcGrenierQuizPanel button{display:block;width:100%;margin:10px 0;padding:12px;border:1px solid #c5a944;border-radius:8px;background:#252017;color:#fff;font-weight:900;cursor:pointer}
+#qcGrenierQuizPanel button:hover{background:#4c3713}
+#qcGrenierQuizPanel .qcGrenierExit{background:#151515;color:#d6c790}
+#qcGrenierFeedback{min-height:20px;color:#ffc5c5;font-size:13px}
+#qcGrenierVideoScreen .qcGrenierPlayer{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+#qcGrenierVideoScreen video{max-width:95vw;width:min(1000px,95vw);max-height:82vh;background:#000}
+#qcGrenierVideoClose{background:#161616;color:#ffdf65;border:1px solid #e8c750;border-radius:7px;padding:9px 16px;cursor:pointer}
+#qcFrenchGrenierBadge{display:none;align-items:center;justify-content:center;width:62px;height:62px;border:1px solid #d3b44b;border-radius:7px;background:#0a0a0a;cursor:pointer;padding:2px}
+#qcFrenchGrenierBadge img{width:54px;height:54px;object-fit:contain}
+@media(max-width:700px){#qcGrenierFrenchy{height:24vh;max-width:30vw;left:4px;bottom:12vh}#qcGrenierSkull{right:5px;bottom:12vh;width:85px;height:85px}#qcGrenierWhisper{bottom:2vh;font-size:11px}}
+@media(prefers-reduced-motion:reduce){#qcGrenierFrenchy,#qcGrenierSkull{animation:none}}
+</style>
+<div id="qcGrenierScene" aria-hidden="true"><img id="qcGrenierFrenchy" src="frenchy%20quenquen.png" alt=""><img id="qcGrenierSkull" src="crane%20chauve.png" alt="Crâne mystérieux" role="button" tabindex="0"><div id="qcGrenierWhisper">Vous sentez un immense pouvoir vous envahir.</div></div>
+<div id="qcGrenierQuiz" role="dialog" aria-modal="true" aria-label="Question French Grenier"><div id="qcGrenierQuizPanel"><h2>TOUCHE PAS À MA ?</h2><button type="button" data-grenier-answer="sextape">SEXTAPE</button><button type="button" data-grenier-answer="bulma">BULMA</button><button type="button" data-grenier-answer="courgette">COURGETTE</button><div id="qcGrenierFeedback" aria-live="polite"></div><button class="qcGrenierExit" id="qcGrenierQuizClose" type="button">FERMER</button></div></div>
+<div id="qcGrenierVideoScreen" role="dialog" aria-modal="true" aria-label="French Grenier"><div class="qcGrenierPlayer"><button id="qcGrenierVideoClose" type="button">✕ FERMER</button><video id="qcGrenierVideo" src="French%20Grenier%20Version%20Finale.mp4" controls playsinline preload="none"></video></div></div>
+<script id="qcFrenchGrenierEngine">
+(()=>{
+const KEY='qc_french_grenier_unlocked_v1',modal=document.getElementById('individualCardModal'),scene=document.getElementById('qcGrenierScene'),skull=document.getElementById('qcGrenierSkull'),quiz=document.getElementById('qcGrenierQuiz'),videoScreen=document.getElementById('qcGrenierVideoScreen'),video=document.getElementById('qcGrenierVideo'),feedback=document.getElementById('qcGrenierFeedback');
+if(!modal||!scene||!skull||!quiz||!video)return;
+const badge=document.createElement('button');badge.id='qcFrenchGrenierBadge';badge.type='button';badge.title='FRENCH GRENIER — Revoir la vidéo';badge.setAttribute('aria-label','French Grenier : revoir la vidéo');badge.innerHTML='<img src="French%20Grenier%203.png" alt="French Grenier">';document.body.appendChild(badge);
+let currentNumber=0;
+const originalOpen=qcOpenIndividualCard,originalClose=qcCloseIndividualCard;
+qcOpenIndividualCard=function(collection,index){currentNumber=collection*10+index+1;originalOpen.apply(this,arguments);refreshScene()};
+qcCloseIndividualCard=function(){currentNumber=0;scene.classList.remove('on');closeQuiz();originalClose.apply(this,arguments)};
+function refreshScene(){scene.classList.toggle('on',currentNumber===11&&modal.classList.contains('open')&&!quiz.classList.contains('open')&&!videoScreen.classList.contains('open'))}
+function openQuiz(){if(currentNumber!==11)return;scene.classList.remove('on');feedback.textContent='';quiz.classList.add('open')}
+function closeQuiz(){quiz.classList.remove('open');feedback.textContent='';refreshScene()}
+function showBadge(){badge.style.display=localStorage.getItem(KEY)?'flex':'none'}
+function showVideo(){quiz.classList.remove('open');scene.classList.remove('on');videoScreen.classList.add('open');const music=document.getElementById('music');video.dataset.resumeMusic=music&&!music.paused?'1':'0';if(music&&video.dataset.resumeMusic==='1')music.pause();video.currentTime=0;video.play().catch(()=>{})}
+function closeVideo(){video.pause();videoScreen.classList.remove('open');const music=document.getElementById('music');if(video.dataset.resumeMusic==='1'&&music&&!document.hidden)music.play().catch(()=>{});video.dataset.resumeMusic='0';refreshScene()}
+skull.addEventListener('click',openQuiz);skull.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openQuiz()}});
+quiz.querySelectorAll('[data-grenier-answer]').forEach(button=>button.addEventListener('click',()=>{if(button.dataset.grenierAnswer!=='bulma'){feedback.textContent='MAUVAISE RÉPONSE… ESSAIE ENCORE !';return}localStorage.setItem(KEY,'1');showBadge();showVideo();document.dispatchEvent(new Event('qcFrenchGrenierUnlocked'))}));
+document.getElementById('qcGrenierQuizClose').addEventListener('click',closeQuiz);document.getElementById('qcGrenierVideoClose').addEventListener('click',closeVideo);
+badge.addEventListener('click',showVideo);video.addEventListener('ended',closeVideo);
+quiz.addEventListener('click',e=>{if(e.target===quiz)closeQuiz()});videoScreen.addEventListener('click',e=>{if(e.target===videoScreen)closeVideo()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(videoScreen.classList.contains('open'))closeVideo();else if(quiz.classList.contains('open'))closeQuiz()}});
+showBadge();setInterval(showBadge,2000);
 })();
 </script>
