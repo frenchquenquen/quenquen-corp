@@ -3512,7 +3512,7 @@ window.qcAndromedaBoss=(function(){
 </style>
 <script id="qcSecretTrophyRailEngine">
 (function(){
- const IDS=["qcTwitchUnlock","qcFrenchbladeFQDock","qcSpookyGhostBadge","qcGift16Badge","qcBits55Badge","qcSuzieBearBadge","qcMonteur20Badge"];
+ const IDS=["qcTwitchUnlock","qcFrenchbladeFQDock","qcSpookyGhostBadge","qcGift16Badge","qcBits55Badge","qcSuzieBearBadge","qcMonteur20Badge","qcJungleCroissantBadge"];
  let rail=null,items=null;
 
  function collectionHome(){
@@ -3546,6 +3546,7 @@ window.qcAndromedaBoss=(function(){
    if(el.id==="qcBits55Badge") return !!localStorage.getItem("quenquen_bits55_completed_v1");
    if(el.id==="qcSuzieBearBadge") return !!localStorage.getItem("quenquen_suzie_bear_recovered_v1");
    if(el.id==="qcMonteur20Badge") return !!localStorage.getItem("quenquen_monteur_quenquen_20_unlocked_v1");
+   if(el.id==="qcJungleCroissantBadge") return !!localStorage.getItem("quenquen_jungle_croissant_unlocked_v1");
    return false;
  }
  function refresh(){
@@ -4941,12 +4942,17 @@ const scoreEl=document.getElementById('qcJungleScore'),bestEl=document.getElemen
 const key='qc_jungle_best_v1';let best=Number(localStorage.getItem(key)||0);bestEl.textContent=best;
 let playing=false,opened=false,raf=0,last=0,spawn=0,score=0,obstacles=[],bananas=[],player={y:0,vy:0},musicWasPlaying=false,musicPosition=0;
 const ground=380,px=110;
+const CROISSANT_REWARD_KEY="quenquen_jungle_croissant_unlocked_v1";
+const croissantBadge=document.createElement("button");croissantBadge.id="qcJungleCroissantBadge";croissantBadge.type="button";croissantBadge.title="CROISSANT DE LA JUNGLE";croissantBadge.setAttribute("aria-label","Croissant de la jungle");croissantBadge.style.cssText="display:none;align-items:center;justify-content:center;cursor:default";document.body.appendChild(croissantBadge);
 const croissantSprite=new Image();croissantSprite.src='data:image/webp;base64,UklGRtgDAABXRUJQVlA4WAoAAAAQAAAAKQAAKQAAQUxQSCEBAAABkELbtrFt57Nt20ZkNJJt27btbqN9yWi2/X2/bd8fj+7zq0bEBMB/Mh8/JysMYntWDo5Wp0ocBDGJD71F5Ht5ClhaEfWbJEHGxE0f0UBoy5UR3ZKl27eI/ntPepy5zxHDb71oNSHm3znT8EY4H2hTEtjGgsopCe7hKaIEI1g+WVOq/IzlSwSVbIT5kRqZ42dcqItE9ABhf6lBFIxYmEXUy4Y5DoJxNjyQIoghejbzAMMHfQLe9IWN2S5fFVDzDA7yK75m5Is5AQBwAVXpoOk39D5ok9HWy179TGODnzEAHpsbSktWgNXmKYWvZoDZfusrySdjXMBfR/JKFRuovyQ6F8IH3URTwEL1xwRBbIDQXzaEWQEZL9GmCbBUx1YY/rkBAFZQOCCQAgAAMA4AnQEqKgAqAD6VOpZIJaMiITHWbACwEolsALfrzEknpvGKcdRBcgPUBtgPMB0E/Og6kDeRP8IwQVoMszSRzPfGb9N+wHuoBcn89XE5f4WnGxF6v/aGVCWUCipADMGZ0f2yD0M9s/Y+CQO9kFRrnPnz7HES+CCS0IAA/v5KQ/PbaHP05cnCq6S9yO7jfuN/DU9fu0+cLn+RHURi7DNnXS8zi7UbGOHap5jvGQ2J6lYRcQEQ8vf+ylTWWq9Ody8qssIYNXmbi3P7Bs0EAjG85Gqy751Z2Yhx5CiFXgguN9PJ8nnbrk9EV0Epjl+H8APmJygW0VwJM4GPruJ8eBtWbaAErT3H0ctZrH5r/CBt+tmG8uvrFmPA8MqDaJGw8SvF041bf+Zist5vUOE26pwd7YjEB74rgf/gdKU2wruq7fxoUuWMJZZ7ssB7WuhqjPdat8RUXv7DRVFTmYHjz4bIqc8O1vxs3DXZHCIiTCTS0/xUrvGA4xp0QaeH2qmviV+r2wJ5Dew1lFDqw7NF+zEgI8P9WByJQucywVFZInYb0bzBuuak5ZS+JdjMfsui3A+2f/6aMgNN1JtdlaS2DL46LDpPyO6ea58qJJj8KJnHRIuXSHTM7hmmVxXGhKUWIc9IKHXwWB6gW9glaCo+ngxckPmA224CXxWdthiNb4CbIijFQUfyaqM2vxs48p8AHMRXVkQ1UvMm5ydaLHnb5htg0Yne5mfYn1nzbhEL39TBXmEpUpC7pixwDjBRNjAKD+UVl9DU9X9M0OxyY2SKhmI8rpxHTuXNsuQbceTpha8+06FLMU/jGVhtWH3lIs7DH33FK3nARnFZ7gp4KPagJf98O/nQnc75q++R2PqoiH0pAAA=';
+croissantBadge.innerHTML='<img alt="Croissant de la jungle" style="width:53px;height:53px;object-fit:contain" src="'+croissantSprite.src+'">';
 let croissantSoundContext;
 function playCroissantCoin(){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;croissantSoundContext=croissantSoundContext||new C();const ac=croissantSoundContext,now=ac.currentTime;[880,1320].forEach((freq,i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type='sine';o.frequency.setValueAtTime(freq,now+i*.07);g.gain.setValueAtTime(.0001,now+i*.07);g.gain.exponentialRampToValueAtTime(.16,now+i*.07+.008);g.gain.exponentialRampToValueAtTime(.0001,now+i*.07+.095);o.connect(g);g.connect(ac.destination);o.start(now+i*.07);o.stop(now+i*.07+.1)})}catch(e){}}
 const jungleBackground=new Image();jungleBackground.src='assets/niveau_junglequenquen.jpg';jungleBackground.onload=()=>{if(!playing)draw()};
 const jungleSprite=new Image();jungleSprite.src='assets/jungle-quenquen.png';jungleSprite.onload=()=>{if(!playing)draw()};
 const jungleMusic=new Audio('assets/Shaq%20Fu%20SNES%20Music%20-%20Lost%20Jungle%20(Voodoo).mp3');jungleMusic.loop=true;jungleMusic.preload='none';
+function playJungleVictory(){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const ac=croissantSoundContext=croissantSoundContext||new C(),t=ac.currentTime;[523.25,659.25,783.99,1046.5].forEach((f,i)=>{const o=ac.createOscillator(),g=ac.createGain(),at=t+i*.15;o.type='triangle';o.frequency.setValueAtTime(f,at);g.gain.setValueAtTime(.0001,at);g.gain.exponentialRampToValueAtTime(.22,at+.025);g.gain.exponentialRampToValueAtTime(.0001,at+.31);o.connect(g);g.connect(ac.destination);o.start(at);o.stop(at+.32)})}catch(e){}}
+function jungleWin(){playing=false;cancelAnimationFrame(raf);localStorage.setItem(CROISSANT_REWARD_KEY,'1');window.qcSecretTrophyRailRefresh?.();playJungleVictory();start.hidden=false;start.textContent='REJOUER';draw();ctx.fillStyle='rgba(0,0,0,.75)';ctx.fillRect(0,120,800,165);ctx.textAlign='center';ctx.fillStyle='#ffd500';ctx.font='bold 34px Arial';ctx.fillText('VICTOIRE !',400,185);ctx.font='bold 21px Arial';ctx.fillText('CROISSANT DE LA JUNGLE OBTENU !',400,230);ctx.textAlign='left'}
 function reset(){score=0;spawn=0;obstacles=[];bananas=[];player.y=ground;player.vy=0;scoreEl.textContent=0;last=0}
 function jump(){if(!opened)return;if(!playing){startGame();return}if(player.y>=ground-1)player.vy=-680}
 function startGame(){reset();playing=true;start.hidden=true;cancelAnimationFrame(raf);raf=requestAnimationFrame(tick)}
@@ -4968,6 +4974,7 @@ for(const o of obstacles)o.x-=speed*dt;for(const b of bananas)b.x-=speed*dt;
 obstacles=obstacles.filter(o=>o.x>-70);bananas=bananas.filter(b=>b.x>-70);
 for(const o of obstacles)if(o.x<px+25&&o.x+32>px-20&&player.y>ground-43){end();return}
 bananas=bananas.filter(b=>{if(Math.abs(b.x-px)<42&&Math.abs(b.y-player.y)<54){score+=10;scoreEl.textContent=score;playCroissantCoin();return false}return true});
+if(score>=100){jungleWin();return}
 draw();raf=requestAnimationFrame(tick)}
 function open(){opened=true;playing=false;reset();launch.hidden=true;modal.classList.add('open');try{musicWasPlaying=!music.paused;musicPosition=music.currentTime;music.pause();updateMusic()}catch(e){}jungleMusic.currentTime=0;jungleMusic.play().catch(()=>{});start.hidden=false;start.textContent='JOUER';draw()}
 async function close(){opened=false;playing=false;jungleMusic.pause();jungleMusic.currentTime=0;cancelAnimationFrame(raf);modal.classList.remove('open');launch.hidden=!document.getElementById('individualCardModal').classList.contains('open');try{if(musicWasPlaying){music.currentTime=musicPosition;await music.play()}updateMusic()}catch(e){}}
