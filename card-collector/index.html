@@ -5161,6 +5161,16 @@ video.addEventListener('ended',close);
 #qcFrenchGrenierBadge img{width:54px;height:54px;object-fit:contain}
 @media(max-width:700px){#qcGrenierFrenchy{height:24vh;max-width:30vw;left:4px;bottom:12vh}#qcGrenierSkull{right:5px;bottom:12vh;width:85px;height:85px}#qcGrenierWhisper{bottom:2vh;font-size:11px}}
 @media(prefers-reduced-motion:reduce){#qcGrenierFrenchy,#qcGrenierSkull{animation:none}}
+
+/* French Grenier: personnages au sol, message au-dessus de la carte et trophée cadré */
+#qcGrenierFrenchy{left:clamp(10px,2.5vw,52px);bottom:0;height:min(68vh,650px);max-width:38vw;object-position:bottom left;filter:drop-shadow(0 0 18px #ffd34a77)}
+#qcGrenierSkull{right:clamp(8px,2.5vw,48px);bottom:0;width:clamp(165px,20vw,330px);height:clamp(165px,20vw,330px);object-position:bottom right;filter:drop-shadow(0 0 22px #fff2a5) drop-shadow(0 0 55px #ffd333);animation:qcGrenierSuperGlow 1.4s ease-in-out infinite}
+@keyframes qcGrenierSuperGlow{0%,100%{filter:brightness(1.25) drop-shadow(0 0 16px #fff2ad) drop-shadow(0 0 40px #ffcf24);transform:scale(1)}50%{filter:brightness(1.7) drop-shadow(0 0 32px #fff9d1) drop-shadow(0 0 75px #ffdd38);transform:scale(1.035)}}
+#qcGrenierWhisper{position:fixed;left:50%;top:calc(50% - min(44vh,425px) - 48px);bottom:auto;z-index:430;transform:translateX(-50%);width:min(85vw,600px);font-size:clamp(13px,1.45vw,20px);line-height:1.3;text-shadow:0 2px 6px #000,0 0 16px #f5c641}
+#qcFrenchGrenierBadge{overflow:hidden;padding:0!important;box-sizing:border-box}
+#qcFrenchGrenierBadge img{display:block;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:cover!important;object-position:center 34%;margin:0!important;border-radius:4px}
+@media(max-width:700px){#qcGrenierFrenchy{height:42vh;max-width:48vw;bottom:0;left:0}#qcGrenierSkull{width:clamp(110px,30vw,185px);height:clamp(110px,30vw,185px);bottom:0;right:0}#qcGrenierWhisper{top:7vh;width:92vw;font-size:12px}}
+@media(prefers-reduced-motion:reduce){#qcGrenierSkull{animation:none}}
 </style>
 <div id="qcGrenierScene" aria-hidden="true"><img id="qcGrenierFrenchy" src="frenchy%20quenquen.png" alt=""><img id="qcGrenierSkull" src="crane%20chauve.png" alt="Crâne mystérieux" role="button" tabindex="0"><div id="qcGrenierWhisper">Vous sentez un immense pouvoir vous envahir.</div></div>
 <div id="qcGrenierQuiz" role="dialog" aria-modal="true" aria-label="Question French Grenier"><div id="qcGrenierQuizPanel"><h2>TOUCHE PAS À MA ?</h2><button type="button" data-grenier-answer="sextape">SEXTAPE</button><button type="button" data-grenier-answer="bulma">BULMA</button><button type="button" data-grenier-answer="courgette">COURGETTE</button><div id="qcGrenierFeedback" aria-live="polite"></div><button class="qcGrenierExit" id="qcGrenierQuizClose" type="button">FERMER</button></div></div>
