@@ -1,0 +1,19 @@
+{
+  "name": "QUENQUEN CORP — Le Multivers",
+  "short_name": "QUENQUEN CORP",
+  "description": "Le portail officiel du multivers de French QuenQuen",
+  "lang": "fr",
+  "start_url": "./?source=app",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#090b0f",
+  "theme_color": "#ffcc00",
+  "icons": [
+    {
+      "src": "./assets/logo-quenquen-corp-entier.png",
+      "type": "image/png",
+      "sizes": "any",
+      "purpose": "any"
+    }
+  ]
+}
