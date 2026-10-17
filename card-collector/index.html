@@ -3524,7 +3524,7 @@ window.qcAndromedaBoss=(function(){
    const home=collectionHome(); if(!home)return null;
    if(!rail){
      rail=document.createElement("div");rail.id="qcSecretTrophyRail";
-     rail.innerHTML='<div id="qcSecretTrophyRailTitle">OBJETS TROUVÉS</div><div id="qcSecretTrophyRailItems"></div>';
+     rail.innerHTML='<div id="qcSecretTrophyRailTitle">OBJETS TROUVÉS — <span id="qcSecretTrophyCount">0</span> / ??</div><div id="qcSecretTrophyRailItems"></div>';
      items=rail.querySelector("#qcSecretTrophyRailItems");
 
      // Place after the collection heading when possible, otherwise before the favorites panel.
@@ -3566,6 +3566,7 @@ window.qcAndromedaBoss=(function(){
        el.style.setProperty("display","none","important");
      }
    });
+   const trophyCount=document.getElementById("qcSecretTrophyCount");if(trophyCount)trophyCount.textContent=String(count);
    r.classList.toggle("visible",active&&count>0);
  }
  setInterval(refresh,250);
