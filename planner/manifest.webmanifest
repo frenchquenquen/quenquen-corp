@@ -1,0 +1,19 @@
+{
+  "name": "QUENQUEN PLANNER",
+  "short_name": "FQ Planner",
+  "description": "Créer et publier les plannings de live French QuenQuen",
+  "lang": "fr",
+  "start_url": "./?source=app",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#101014",
+  "theme_color": "#ffcc00",
+  "icons": [
+    {
+      "src": "./logo%20FQQ_20261018_002912_0000.png",
+      "sizes": "500x500",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
