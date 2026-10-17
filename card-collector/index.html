@@ -4929,7 +4929,8 @@ window.qcAndromedaBoss=(function(){
 #qcJungleHUD button,#qcJungleStart{background:#e6d64e;color:#132c0f;border:0;border-radius:9px;padding:9px 15px;cursor:pointer;font-weight:bold}
 #qcJungleInfo{margin-top:10px;text-align:center;font:14px Arial,sans-serif}
 </style>
-<button id="qcJungleLaunch" type="button" hidden>🌴 ENTRER DANS LA JUNGLE 🍌</button>
+<style id="qcJungleCroissantMirror">#qcJungleLaunch .qcJungleCroissantLeft{display:inline-block;transform:scaleX(-1)}</style>
+<button id="qcJungleLaunch" type="button" hidden><span class="qcJungleCroissantLeft" aria-hidden="true">🥐</span> ENTRER DANS LA JUNGLE <span aria-hidden="true">🥐</span></button>
 <div id="qcJungleGame" role="dialog" aria-modal="true" aria-label="Mini-jeu Jungle QuenQuen">
  <div id="qcJungleHUD"><span>🥐 <b id="qcJungleScore">0</b> · RECORD <b id="qcJungleBest">0</b></span><button id="qcJungleExit">QUITTER ✕</button></div>
  <canvas id="qcJungleCanvas" width="800" height="450"></canvas>
