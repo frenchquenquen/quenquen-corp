@@ -578,7 +578,7 @@ body{overflow:auto!important}
 <button id="archiveAccess" class="archiveAccess qcCatalogAccess" type="button"><span class="qcCatalogIcon qcArchiveIcon">▣</span><span>ARCHIVES — <span id="archiveCount">01</span><span class="qcCatalogTotal"> / ??</span></span></button>
 <button id="cringeAccess" class="archiveAccess qcCatalogAccess qcCringeAccess" type="button"><span class="qcCatalogIcon qcCringeHead" aria-hidden="true"></span><span>L’AMOUR DU CRINGE — <span id="cringeCount">00</span><span class="qcCatalogTotal"> / ??</span></span></button>
 </div>
-<div id="qcEggHunter" aria-label="Progression Chasseur d’Easter Eggs"><div class="qcEggTitle">🥚 CHASSEUR D’EASTER EGGS <strong id="qcEggCount">0 / 10</strong></div><div class="qcEggTrack"><div id="qcEggFill"></div></div><div class="qcEggHint">Découvre les secrets cachés dans l’album pour progresser.</div></div>
+<div id="qcEggHunter" aria-label="Progression Chasseur d’Easter Eggs"><div class="qcEggTitle">🥚 CHASSEUR D’EASTER EGGS <strong id="qcEggCount">0</strong></div><div class="qcEggHint">Les secrets découverts sont comptabilisés ici.</div></div>
 </div>
 </div>
 </section>
@@ -4980,14 +4980,12 @@ draw();
 #qcEggHunter{margin:15px auto 0;padding:13px 15px;max-width:520px;background:#080808;border:1px solid #65540e;border-radius:10px;color:#ffd400;font-family:Arial,sans-serif;box-sizing:border-box}
 #qcEggHunter .qcEggTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:900;font-size:12px;letter-spacing:.6px}
 #qcEggHunter .qcEggTitle strong{white-space:nowrap;font-size:15px}
-#qcEggHunter .qcEggTrack{height:8px;background:#29250f;border-radius:10px;overflow:hidden;margin:11px 0 7px}
-#qcEggFill{height:100%;width:0;background:#ffd400;border-radius:10px;transition:width .4s}
 #qcEggHunter .qcEggHint{font-size:10px;opacity:.7;line-height:1.4}
 @media(max-width:700px){#qcEggHunter{width:100%;padding:11px}#qcEggHunter .qcEggTitle{font-size:11px}}
 </style>
 <script id="qcEggHunterEngine">
 (()=>{
-const count=document.getElementById('qcEggCount'),fill=document.getElementById('qcEggFill');if(!count||!fill)return;
+const count=document.getElementById('qcEggCount');if(!count)return;
 const has=k=>!!localStorage.getItem(k);
 const list=k=>{try{const v=JSON.parse(localStorage.getItem(k)||'[]');return Array.isArray(v)?v:[]}catch(e){return []}};
 function update(){
@@ -4999,7 +4997,7 @@ function update(){
  has('quenquen_bits55_completed_v1'),has('quenquen_corp_archive_14_discovered_v1')||list('quenquen_corp_archive_14_fragments_v1').length>=6,
  has('quenquen_frenchblade_acquired_v1'),has('quenquen_corp_three_badges_message_v1')
  ];
- const n=done.filter(Boolean).length;count.textContent=n+' / 10';fill.style.width=(n*10)+'%';
+ const n=done.filter(Boolean).length;count.textContent=String(n);
 }
 update();document.addEventListener('click',()=>setTimeout(update,120));document.addEventListener('visibilitychange',update);setInterval(update,1800);
 })();
