@@ -4576,7 +4576,7 @@ window.qcAndromedaBoss=(function(){
  function showVideo(){overlay.classList.add('open');try{const music=document.getElementById('music');if(music&&!music.paused){video.dataset.resumeMusic='1';music.pause()}else video.dataset.resumeMusic='0'}catch(e){}video.currentTime=0;video.play().catch(()=>{})}
  function closeVideo(){overlay.classList.remove('open');video.pause();const music=document.getElementById('music');if(video.dataset.resumeMusic==='1'&&music&&!document.hidden)music.play().catch(()=>{});video.dataset.resumeMusic='0'}
  function closeQuestion(){question.classList.remove('open');answer.value='';err.textContent=''}
- function currentCard(){const img=document.getElementById('individualCardFrontImg');return img&&img.src===new URL((window.qcCardHD||[])[23]||'',location.href).href}
+ function currentCard(){const img=document.getElementById('individualCardFrontImg');return img&&img.src===new URL((typeof qcCardHD!=='undefined'?qcCardHD[23]:'')||'',location.href).href}
  function checkFlip(){if(!document.getElementById('individualCardModal')?.classList.contains('open')||!frame.classList.contains('flipped')||!currentCard()||unlocked()||question.classList.contains('open'))return;question.classList.add('open');answer.focus()}
  frame.addEventListener('click',()=>setTimeout(checkFlip,80));frame.addEventListener('keydown',()=>setTimeout(checkFlip,80));
  form.addEventListener('submit',e=>{e.preventDefault();const normalized=answer.value.trim().replace(/[.\-\s]/g,'/');if(!/^(23\/07\/1990|23\/7\/1990|23071990)$/.test(normalized)){err.textContent='MAUVAISE DATE… RÉESSAIE !';return}localStorage.setItem(KEY,'1');closeQuestion();showBadge();showVideo();document.dispatchEvent(new Event('qcRoyalQuantinUnlocked'))});
