@@ -3273,6 +3273,26 @@ window.qcAndromedaBoss=(function(){
 @keyframes qcGRockFall{0%{opacity:1;transform:translate(0) rotate(0)}22%{transform:translate(7px,8px) rotate(8deg)}100%{opacity:0;transform:translate(30px,150px) rotate(105deg)}}
 @keyframes qcGReveal{0%{opacity:0;transform:scale(.65) rotate(-8deg)}55%{opacity:1;transform:scale(1.08) rotate(-3deg)}100%{opacity:1;transform:scale(1) rotate(0)}}
 @keyframes qcFullBlade{0%{opacity:0;transform:translate(-50%,-50%) scale(.72)}60%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+
+/* Roche de granite : impact, fissures lumineuses et éclats animés */
+.qcGRock{right:-59px;top:30%;width:92px;height:104px;z-index:3;pointer-events:none;clip-path:polygon(20% 0,74% 4%,100% 25%,94% 74%,70% 100%,20% 93%,0 64%,5% 24%);background:linear-gradient(125deg,#9d9fa2 0%,#575a60 23%,#292d35 53%,#5e6064 70%,#181b21 100%);border:0;box-shadow:inset 8px 6px 12px #ffffff38,inset -10px -8px 14px #0009,0 8px 18px #000a;filter:drop-shadow(0 0 5px #e8c46a55)}
+.qcGRock:before{content:"";position:absolute;inset:8% 12%;background:linear-gradient(135deg,transparent 27%,#d6d8d958 29%,transparent 32%),linear-gradient(30deg,transparent 44%,#0a0c10 46%,transparent 49%),linear-gradient(155deg,transparent 62%,#c3c7d244 64%,transparent 67%);opacity:.9}
+.qcGCrack{right:-59px;top:30%;width:92px;height:104px;z-index:5;animation:qcGStonePulse 2.6s ease-in-out infinite;filter:drop-shadow(0 0 2px #f8cf7a66)}
+.qcGCrack:before,.qcGCrack:after,.qcGCrack i{background:#f3cf78;box-shadow:0 0 4px #ffe8a8,0 0 9px #f0a52d;opacity:.76}
+.qcGCrack:before{left:43px;top:13px;height:42px;transform:rotate(-23deg)}.qcGCrack:after{left:26px;top:52px;height:39px;transform:rotate(29deg)}
+.qcGCrack .a{left:36px;top:41px;height:30px;transform:rotate(58deg)}.qcGCrack .b{left:42px;top:60px;height:26px;transform:rotate(-56deg)}.qcGCrack .c{left:31px;top:72px;height:19px;transform:rotate(53deg)}
+.qcGCrack.break{animation:qcGCrackFlash .35s ease-out forwards}
+.qcGRock.fall{animation:qcGStoneShatter .58s ease-out forwards}
+.qcGShard{position:absolute;right:-22px;top:45%;width:20px;height:26px;z-index:8;pointer-events:none;opacity:0;clip-path:polygon(15% 0,95% 20%,80% 90%,30% 100%,0 45%);background:linear-gradient(135deg,#a4a5a9,#333841 70%,#15171b);filter:drop-shadow(0 0 3px #f5c45c);--sx:0px;--sy:0px;--sr:0deg}
+.qcGShard.fly{animation:qcGShardBurst .9s cubic-bezier(.18,.65,.35,1) forwards}
+.qcGImpact{position:absolute;right:-60px;top:30%;width:95px;height:105px;z-index:7;pointer-events:none;opacity:0;border-radius:50%;background:radial-gradient(circle,#fffbe0 0%,#ffdd74 16%,#f4ae3b66 38%,transparent 70%)}
+.qcGImpact.burst{animation:qcGImpactBurst .6s ease-out forwards}
+@keyframes qcGStonePulse{0%,100%{opacity:.45}50%{opacity:1}}
+@keyframes qcGCrackFlash{0%{opacity:1;filter:brightness(1)}35%{opacity:1;filter:brightness(3) drop-shadow(0 0 9px #ffde72)}100%{opacity:0;transform:scale(1.25)}}
+@keyframes qcGStoneShatter{0%{opacity:1;transform:scale(1)}35%{opacity:1;transform:scale(1.08) rotate(-5deg);filter:brightness(2)}100%{opacity:0;transform:scale(.45) rotate(24deg)}}
+@keyframes qcGShardBurst{0%{opacity:1;transform:translate(0,0) rotate(0) scale(1)}100%{opacity:0;transform:translate(var(--sx),var(--sy)) rotate(var(--sr)) scale(.3)}}
+@keyframes qcGImpactBurst{0%{opacity:0;transform:scale(.2)}20%{opacity:1}100%{opacity:0;transform:scale(2)}}
+@media(prefers-reduced-motion:reduce){.qcGCrack{animation:none}.qcGShard.fly,.qcGImpact.burst{animation-duration:.15s}}
 </style>
 <div id="qcGToast"></div>
 <div id="qcBladeAssembly"><div id="qcBladeAssemblyStage"><img id="qcBladeFull" src="assets/embedded/asset_091_4ef99f7f12b0.png"></div><div id="qcBladeAssemblyText"></div></div>
@@ -3303,6 +3323,9 @@ window.qcAndromedaBoss=(function(){
    crack.addEventListener("click",e=>{
       e.preventDefault();e.stopPropagation();if(crack.classList.contains("break"))return;
       crack.classList.add("break");rock.classList.add("fall");crackSound();
+      const flash=document.createElement("div");flash.className="qcGImpact burst";layer.appendChild(flash);
+      for(let i=0;i<9;i++){const shard=document.createElement("span");shard.className="qcGShard fly";const angle=(i/9)*Math.PI*2;const distance=45+(i%3)*23;shard.style.setProperty("--sx",Math.round(Math.cos(angle)*distance)+"px");shard.style.setProperty("--sy",Math.round(Math.sin(angle)*distance+28)+"px");shard.style.setProperty("--sr",(i%2?1:-1)*(85+i*37)+"deg");shard.style.right=(-14+(i%3)*8)+"px";shard.style.top=(39+(i%4)*4)+"%";layer.appendChild(shard)}
+      setTimeout(()=>{flash.remove();layer.querySelectorAll(".qcGShard").forEach(x=>x.remove())},1000);
       if(idx>=0&&!already){
         frag.classList.add("show");let a=got();if(!a.includes(n))a.push(n);save(a);
         setTimeout(()=>toast("FRAGMENT D'ARTEFACT // "+a.length+"/5"),650);
