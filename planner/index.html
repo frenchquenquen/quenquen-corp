@@ -19,6 +19,6 @@ publish.onclick=async()=>{
  const data=await response.json().catch(()=>({}));
  if(!response.ok)throw Error(data.error||'Erreur de publication ('+response.status+')');
  status.textContent='Planning publié sur Discord !';
- }catch(e){status.textContent='Échec : '+e.message}finally{await refresh();}
+ }catch(e){status.textContent='Échec : '+e.message}finally{const {data:{user}}=await sb.auth.getUser();publish.disabled=user?.id!==adminId;}
 };
 </script></html>
