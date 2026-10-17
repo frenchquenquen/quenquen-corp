@@ -157,5 +157,18 @@ function doBigSearch(){let v=document.getElementById('bigq').value.trim(),n=norm
 window.addEventListener('hashchange',render);render();
 </script>
 <div class="qc-wiki-music" aria-label="Ambiance musicale du wiki"><button id="qcWikiMusicToggle" type="button" aria-pressed="false">▶ MUSIQUE</button><label for="qcWikiMusicVolume">🔊 <input id="qcWikiMusicVolume" type="range" min="0" max="100" step="1" value="40" aria-label="Volume de la musique"></label></div><audio id="qcWikiMusic" src="../card-collector/assets/QUENQUEN_CORP_Archives_Classifiees_V2_LOOP_CORRIGEE.wav" loop preload="none"></audio>
-<script id="qcWikiMusicEngine">(()=>{const a=document.getElementById('qcWikiMusic'),b=document.getElementById('qcWikiMusicToggle'),v=document.getElementById('qcWikiMusicVolume');if(!a||!b||!v)return;let n=40;try{const raw=localStorage.getItem('qc_wiki_music_volume_v1');if(raw!==null&&Number.isFinite(Number(raw)))n=Math.max(0,Math.min(100,Number(raw)))}catch(_){}v.value=String(n);a.volume=n/100;let enabled=false;function sync(){b.textContent=enabled?'❚❚ MUSIQUE':'▶ MUSIQUE';b.setAttribute('aria-pressed',String(enabled))}function play(){if(!enabled||document.hidden)return;a.play().catch(()=>{enabled=false;sync()})}b.addEventListener('click',()=>{enabled=!enabled;if(enabled)play();else a.pause();sync()});v.addEventListener('input',()=>{a.volume=Number(v.value)/100;try{localStorage.setItem('qc_wiki_music_volume_v1',v.value)}catch(_){}});document.addEventListener('visibilitychange',()=>{if(document.hidden)a.pause();else play()});window.addEventListener('pagehide',()=>a.pause());sync()})();</script>
+<script id="qcWikiMusicEngine">
+(()=>{const audio=document.getElementById('qcWikiMusic'),toggle=document.getElementById('qcWikiMusicToggle'),slider=document.getElementById('qcWikiMusicVolume');if(!audio||!toggle||!slider)return;
+const key='qc_wiki_music_volume_v1';let saved=40;try{const raw=localStorage.getItem(key),n=Number(raw);if(raw!==null&&Number.isFinite(n))saved=Math.max(0,Math.min(100,n))}catch(_){}slider.value=String(saved);audio.volume=saved/100;
+let wantsMusic=true,blocked=false;
+function sync(){toggle.textContent=wantsMusic?'❚❚ MUSIQUE':'▶ MUSIQUE';toggle.setAttribute('aria-pressed',String(wantsMusic))}
+function resume(){if(!wantsMusic||document.hidden)return;audio.play().then(()=>{blocked=false;sync()}).catch(()=>{blocked=true;sync()})}
+function firstGesture(){if(wantsMusic&&blocked)resume()}
+document.addEventListener('pointerdown',firstGesture);document.addEventListener('keydown',firstGesture);
+toggle.addEventListener('click',()=>{wantsMusic=!wantsMusic;if(wantsMusic)resume();else{blocked=false;audio.pause()}sync()});
+slider.addEventListener('input',()=>{audio.volume=Number(slider.value)/100;try{localStorage.setItem(key,slider.value)}catch(_){}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)audio.pause();else resume()});
+window.addEventListener('pagehide',()=>audio.pause());sync();resume();
+})();
+</script>
 </body></html>
