@@ -4940,7 +4940,7 @@ window.qcAndromedaBoss=(function(){
 const modal=document.getElementById('qcJungleGame'),launch=document.getElementById('qcJungleLaunch'),canvas=document.getElementById('qcJungleCanvas'),ctx=canvas.getContext('2d');
 const scoreEl=document.getElementById('qcJungleScore'),bestEl=document.getElementById('qcJungleBest'),start=document.getElementById('qcJungleStart');
 const key='qc_jungle_best_v1';let best=Number(localStorage.getItem(key)||0);bestEl.textContent=best;
-let playing=false,opened=false,raf=0,last=0,spawn=0,score=0,obstacles=[],bananas=[],player={y:0,vy:0},musicWasPlaying=false,musicPosition=0;
+let playing=false,opened=false,raf=0,last=0,spawn=0,score=0,obstacles=[],bananas=[],player={y:0,vy:0},musicWasPlaying=false,musicPosition=0,croissantCount=0,rewardAnnounced=false;
 const ground=380,px=110;
 const CROISSANT_REWARD_KEY="quenquen_jungle_croissant_unlocked_v1";
 const croissantBadge=document.createElement("button");croissantBadge.id="qcJungleCroissantBadge";croissantBadge.type="button";croissantBadge.title="CROISSANT DE LA JUNGLE";croissantBadge.setAttribute("aria-label","Croissant de la jungle");croissantBadge.style.cssText="display:none;align-items:center;justify-content:center;cursor:default";document.body.appendChild(croissantBadge);
@@ -4952,8 +4952,8 @@ const jungleBackground=new Image();jungleBackground.src='assets/niveau_jungleque
 const jungleSprite=new Image();jungleSprite.src='assets/jungle-quenquen.png';jungleSprite.onload=()=>{if(!playing)draw()};
 const jungleMusic=new Audio('assets/Shaq%20Fu%20SNES%20Music%20-%20Lost%20Jungle%20(Voodoo).mp3');jungleMusic.loop=true;jungleMusic.preload='none';
 function playJungleVictory(){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const ac=croissantSoundContext=croissantSoundContext||new C(),t=ac.currentTime;[523.25,659.25,783.99,1046.5].forEach((f,i)=>{const o=ac.createOscillator(),g=ac.createGain(),at=t+i*.15;o.type='triangle';o.frequency.setValueAtTime(f,at);g.gain.setValueAtTime(.0001,at);g.gain.exponentialRampToValueAtTime(.22,at+.025);g.gain.exponentialRampToValueAtTime(.0001,at+.31);o.connect(g);g.connect(ac.destination);o.start(at);o.stop(at+.32)})}catch(e){}}
-function jungleWin(){playing=false;cancelAnimationFrame(raf);localStorage.setItem(CROISSANT_REWARD_KEY,'1');window.qcSecretTrophyRailRefresh?.();playJungleVictory();start.hidden=false;start.textContent='REJOUER';draw();ctx.fillStyle='rgba(0,0,0,.75)';ctx.fillRect(0,120,800,165);ctx.textAlign='center';ctx.fillStyle='#ffd500';ctx.font='bold 34px Arial';ctx.fillText('VICTOIRE !',400,185);ctx.font='bold 21px Arial';ctx.fillText('CROISSANT DE LA JUNGLE OBTENU !',400,230);ctx.textAlign='left'}
-function reset(){score=0;spawn=0;obstacles=[];bananas=[];player.y=ground;player.vy=0;scoreEl.textContent=0;last=0}
+function jungleWin(){if(rewardAnnounced)return;rewardAnnounced=true;localStorage.setItem(CROISSANT_REWARD_KEY,'1');window.qcSecretTrophyRailRefresh?.();playJungleVictory();const notice=document.createElement('div');notice.textContent='🏆 CROISSANT DE LA JUNGLE OBTENU !';notice.style.cssText='position:absolute;left:50%;top:22%;transform:translateX(-50%);background:rgba(0,0,0,.9);border:2px solid #ffd500;color:#ffd500;padding:13px 19px;font:bold 17px Arial,sans-serif;text-align:center;z-index:10;pointer-events:none;max-width:90%';modal.appendChild(notice);setTimeout(()=>notice.remove(),2600)}
+function reset(){score=0;croissantCount=0;rewardAnnounced=false;spawn=0;obstacles=[];bananas=[];player.y=ground;player.vy=0;scoreEl.textContent=0;last=0}
 function jump(){if(!opened)return;if(!playing){startGame();return}if(player.y>=ground-1)player.vy=-680}
 function startGame(){reset();playing=true;start.hidden=true;cancelAnimationFrame(raf);raf=requestAnimationFrame(tick)}
 function end(){playing=false;start.hidden=false;start.textContent='REJOUER';if(score>best){best=score;localStorage.setItem(key,String(best));bestEl.textContent=best}draw()}
@@ -4973,8 +4973,7 @@ if(spawn>1.15){spawn=0;obstacles.push({x:820});if(Math.random()>.25)bananas.push
 for(const o of obstacles)o.x-=speed*dt;for(const b of bananas)b.x-=speed*dt;
 obstacles=obstacles.filter(o=>o.x>-70);bananas=bananas.filter(b=>b.x>-70);
 for(const o of obstacles)if(o.x<px+25&&o.x+32>px-20&&player.y>ground-43){end();return}
-bananas=bananas.filter(b=>{if(Math.abs(b.x-px)<42&&Math.abs(b.y-player.y)<54){score+=10;scoreEl.textContent=score;playCroissantCoin();return false}return true});
-if(score>=100){jungleWin();return}
+bananas=bananas.filter(b=>{if(Math.abs(b.x-px)<42&&Math.abs(b.y-player.y)<54){score+=10;croissantCount++;scoreEl.textContent=score;playCroissantCoin();if(croissantCount===10&&!localStorage.getItem(CROISSANT_REWARD_KEY))jungleWin();return false}return true});
 draw();raf=requestAnimationFrame(tick)}
 function open(){opened=true;playing=false;reset();launch.hidden=true;modal.classList.add('open');try{musicWasPlaying=!music.paused;musicPosition=music.currentTime;music.pause();updateMusic()}catch(e){}jungleMusic.currentTime=0;jungleMusic.play().catch(()=>{});start.hidden=false;start.textContent='JOUER';draw()}
 async function close(){opened=false;playing=false;jungleMusic.pause();jungleMusic.currentTime=0;cancelAnimationFrame(raf);modal.classList.remove('open');launch.hidden=!document.getElementById('individualCardModal').classList.contains('open');try{if(musicWasPlaying){music.currentTime=musicPosition;await music.play()}updateMusic()}catch(e){}}
