@@ -3535,7 +3535,7 @@ window.qcAndromedaBoss=(function(){
 </style>
 <script id="qcSecretTrophyRailEngine">
 (function(){
- const IDS=["qcTwitchUnlock","qcFrenchbladeFQDock","qcSpookyGhostBadge","qcGift16Badge","qcBits55Badge","qcSuzieBearBadge","qcMonteur20Badge","qcJungleCroissantBadge","qcRoyalQuantinBadge","qcFrenchGrenierBadge"];
+ const IDS=["qcTwitchUnlock","qcFrenchbladeFQDock","qcSpookyGhostBadge","qcGift16Badge","qcBits55Badge","qcSuzieBearBadge","qcMonteur20Badge","qcJungleCroissantBadge","qcRoyalQuantinBadge","qcFrenchGrenierBadge","qcArek33Badge"];
  let rail=null,items=null;
 
  function collectionHome(){
@@ -3572,6 +3572,7 @@ window.qcAndromedaBoss=(function(){
    if(el.id==="qcJungleCroissantBadge") return !!localStorage.getItem("quenquen_jungle_croissant_unlocked_v1");
    if(el.id==="qcRoyalQuantinBadge") return !!localStorage.getItem("qc_royal_quantin_unlocked_v1");
    if(el.id==="qcFrenchGrenierBadge") return !!localStorage.getItem("qc_french_grenier_unlocked_v1");
+   if(el.id==="qcArek33Badge") return !!localStorage.getItem("qc_egg_arek33_v1");
    return false;
  }
  function refresh(){
@@ -5051,6 +5052,7 @@ window.qcAndromedaBoss=(function(){
      flips++;
      if(flips%20===0){
        localStorage.setItem(selected===4?'qc_egg_flavie4_v1':'qc_egg_arek33_v1','1');
+       if(selected===33)window.qcSecretTrophyRailRefresh?.();
        show(selected===4?'FLAVIE FERME TA GUEULE !':'LA CHAUSSETTE PRÉFÉRÉE DE AREK !');
      }
    }
@@ -5059,6 +5061,17 @@ window.qcAndromedaBoss=(function(){
 })();
 </script>
 
+<style id="qcArek33TrophyStyle">
+#qcArek33Badge{width:64px;height:64px;min-width:64px;min-height:64px;border:1px solid #6e5d00;background:#050505;display:none;align-items:center;justify-content:center;overflow:hidden;padding:0;cursor:default}
+#qcArek33Badge img{display:block;width:100%;height:100%;object-fit:contain}
+</style>
+<script id="qcArek33TrophyEngine">
+(function(){
+ const badge=document.createElement('div');badge.id='qcArek33Badge';badge.title='La chaussette préférée de Arek — carte 33';
+ const img=document.createElement('img');img.src='chau1.png';img.alt='Chaussette de Arek';badge.appendChild(img);document.body.appendChild(badge);
+ window.qcSecretTrophyRailRefresh?.();
+})();
+</script>
 <style id="qcMobilePageCounterPositionV1">
 /* Compteur mobile sous l'album, centré, sans toucher au bureau. */
 @media(max-width:700px){
