@@ -1,4 +1,4 @@
-<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FRENCH QUENQUEN — PLANNER</title><style>body{margin:0;background:#101014;color:white;font:16px system-ui;padding:24px}main{max-width:900px;margin:auto}h1{color:#ffdf37}textarea{width:100%;box-sizing:border-box;min-height:180px;background:#222;color:white;border:1px solid #666;border-radius:10px;padding:15px;font:16px system-ui}button{padding:13px 20px;border:0;border-radius:9px;background:#ffdf37;color:#111;font-weight:800;cursor:pointer;margin:12px 8px 12px 0}canvas{max-width:100%;border-radius:12px}small{color:#aaa}</style><main><h1>QUENQUEN PLANNER</h1><p>Une ligne par live : <b>Jour | Heure | Émission</b></p><textarea id="schedule">Mardi | 20h30 | Radio QuenQuen&#10;Jeudi | 21h00 | Gaming&#10;Samedi | 21h00 | Soirée communautaire</textarea><div><button id="generate">Générer le planning</button><button id="download">Télécharger le PNG</button><button id="login" type="button">Connexion Twitch</button><button id="publish" type="button" disabled>Publier sur Discord</button><button id="logout" type="button" hidden>Déconnexion</button></div><p id="authStatus" role="status">Connexion Twitch nécessaire pour publier.</p><canvas id="poster" width="1200" height="675"></canvas><p><small>Le planning est généré localement. La publication envoie le PNG et le récapitulatif sur Discord, uniquement depuis le compte administrateur.</small></p></main><script>const c=document.querySelector('#poster'),x=c.getContext('2d');function draw(){
+<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FRENCH QUENQUEN — PLANNER</title><style>@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");body{margin:0;background:#101014;color:white;font:16px system-ui;padding:24px}main{max-width:900px;margin:auto}h1{color:#ffdf37}textarea{width:100%;box-sizing:border-box;min-height:180px;background:#222;color:white;border:1px solid #666;border-radius:10px;padding:15px;font:16px system-ui}button{padding:13px 20px;border:0;border-radius:9px;background:#ffdf37;color:#111;font-weight:800;cursor:pointer;margin:12px 8px 12px 0}canvas{max-width:100%;border-radius:12px}small{color:#aaa}</style><main><h1>QUENQUEN PLANNER</h1><p>Une ligne par live : <b>Jour | Heure | Émission</b></p><textarea id="schedule">Mardi | 20h30 | Radio QuenQuen&#10;Jeudi | 21h00 | Gaming&#10;Samedi | 21h00 | Soirée communautaire</textarea><div><button id="generate">Générer le planning</button><button id="download">Télécharger le PNG</button><button id="login" type="button">Connexion Twitch</button><button id="publish" type="button" disabled>Publier sur Discord</button><button id="logout" type="button" hidden>Déconnexion</button></div><p id="authStatus" role="status">Connexion Twitch nécessaire pour publier.</p><canvas id="poster" width="1200" height="675"></canvas><p><small>Le planning est généré localement. La publication envoie le PNG et le récapitulatif sur Discord, uniquement depuis le compte administrateur.</small></p></main><script>const c=document.querySelector('#poster'),x=c.getContext('2d');async function draw(){await document.fonts.load('83px "Luckiest Guy"');
 const lines=document.querySelector('#schedule').value.split('\n').map(s=>s.trim()).filter(Boolean).slice(0,8);
 x.clearRect(0,0,1200,675);
 x.fillStyle='#0d0d10';x.fillRect(0,0,1200,675);
@@ -6,7 +6,7 @@ x.fillStyle='#ffdf37';x.fillRect(0,0,14,675);
 x.fillRect(0,0,1200,11);
 x.save();x.translate(1010,-115);x.rotate(.28);x.fillStyle='rgba(255,223,55,.075)';x.fillRect(0,0,190,1050);x.fillRect(230,0,50,1050);x.restore();
 x.textAlign='left';
-x.fillStyle='#ffdf37';x.font='900 83px system-ui';x.fillText('FRENCH',58,102);x.fillText('QUENQUEN',58,185);
+x.fillStyle='#d9aa12';x.font='83px "Luckiest Guy", system-ui';x.fillText('FRENCH',58,110);x.fillText('QUENQUEN',58,194);
 x.fillStyle='#fff';x.font='800 32px system-ui';x.fillText('PLANNING DES LIVES',65,238);
 x.fillStyle='#ffdf37';x.fillRect(65,259,1070,4);
 const top=286,bottom=575,step=Math.min(65,(bottom-top)/Math.max(lines.length,1));
@@ -23,7 +23,7 @@ x.fillText(title,530,y+h/2+9);
 x.fillStyle='#ffdf37';x.fillRect(65,610,1070,2);
 x.font='800 27px system-ui';x.fillText('TWITCH.TV/FRENCHQUENQUEN_',65,651);
 x.fillStyle='#85858d';x.font='600 14px system-ui';x.textAlign='right';x.fillText('QUENQUEN CORP',1135,651);x.textAlign='left';
-}document.querySelector('#generate').onclick=draw;document.querySelector('#download').onclick=()=>{draw();let a=document.createElement('a');a.download='quenquen-planning.png';a.href=c.toDataURL('image/png');a.click()};draw();</script>
+}document.querySelector('#generate').onclick=draw;document.querySelector('#download').onclick=async()=>{await draw();let a=document.createElement('a');a.download='quenquen-planning.png';a.href=c.toDataURL('image/png');a.click()};draw();</script>
 <script type="module">
 import {createClient} from 'https://esm.sh/@supabase/supabase-js@2';
 const sb=createClient('https://qfkjrlpkykkizrmzlixp.supabase.co','sb_publishable_tBGclmheOxP-q6MVKz1SJQ_Mc3PDRnG',{auth:{flowType:'pkce',detectSessionInUrl:true,persistSession:true,autoRefreshToken:true}});
@@ -40,7 +40,7 @@ publish.onclick=async()=>{
  const raw=document.getElementById('schedule').value.split('\n').map(s=>s.trim()).filter(Boolean);
  if(!raw.length||raw.length>8)throw Error('Indique entre 1 et 8 lives.');
  const entries=raw.map(s=>{const p=s.split('|').map(t=>t.trim());if(p.length<3||!p[0]||!p[1]||!p.slice(2).join('|').trim())throw Error('Format attendu : Jour | Heure | Émission');return {day:p[0],time:p[1],title:p.slice(2).join(' | ')}});
- draw();
+ await draw();
  const image=document.getElementById('poster').toDataURL('image/png');
  const response=await fetch('https://qfkjrlpkykkizrmzlixp.supabase.co/functions/v1/quenquen-planner-publish',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+session.access_token,'apikey':'sb_publishable_tBGclmheOxP-q6MVKz1SJQ_Mc3PDRnG'},body:JSON.stringify({entries,image})});
  const data=await response.json().catch(()=>({}));
