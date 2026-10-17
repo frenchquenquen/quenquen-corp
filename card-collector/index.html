@@ -5015,11 +5015,9 @@ update();document.addEventListener('click',()=>setTimeout(update,120));document.
 #qcCroissantVideoOverlay{position:fixed;inset:0;z-index:240000;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.72)}
 #qcCroissantVideoOverlay.open{display:flex}
 #qcCroissantVideoCanvas{width:100vw;height:100vh;object-fit:contain;pointer-events:none}
-#qcCroissantVideoClose{position:absolute;right:18px;top:18px;background:#080808;color:#ffd500;border:1px solid #ffd500;padding:9px 15px;cursor:pointer;font-weight:bold;z-index:1}
 #qcCroissantVideoSource{display:none}
 </style>
 <div id="qcCroissantVideoOverlay" role="dialog" aria-label="Animation du croissant" aria-modal="true">
-<button id="qcCroissantVideoClose" type="button" aria-label="Fermer l’animation">FERMER ✕</button>
 <canvas id="qcCroissantVideoCanvas" width="800" height="450"></canvas>
 <video id="qcCroissantVideoSource" playsinline preload="none"></video>
 </div>
@@ -5061,9 +5059,6 @@ function close(){
 if(!active)return;active=false;cancelAnimationFrame(frame);video.pause();video.removeAttribute('src');video.load();ctx.clearRect(0,0,canvas.width,canvas.height);overlay.classList.remove('open');
 }
 badge.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();open()});
-document.getElementById('qcCroissantVideoClose').addEventListener('click',close);
-overlay.addEventListener('click',e=>{if(e.target===overlay)close()});
 video.addEventListener('ended',close);
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&active)close()});
 })();
 </script>
