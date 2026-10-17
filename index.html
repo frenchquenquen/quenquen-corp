@@ -1135,7 +1135,7 @@ status.style.width='100%';
 area.append(login,publish,planner,status);document.getElementById('member').after(area);
 const endpoint='https://qfkjrlpkykkizrmzlixp.supabase.co/functions/v1/agent-discord-bulk';
 async function request(session,body){const res=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json','apikey':'sb_publishable_tBGclmheOxP-q6MVKz1SJQ_Mc3PDRnG','Authorization':'Bearer '+session.access_token},body:JSON.stringify(body)});const json=await res.json().catch(()=>({}));if(!res.ok)throw Error(json.error||'Erreur '+res.status);return json}
-async function refresh(){const {data:{user}}=await sb.auth.getUser();const admin=user?.id===adminId;let hasCard=false;try{hasCard=!!JSON.parse(localStorage.getItem('quenquen_corp_identity_v2')||'null')?.corpId}catch(e){}area.style.display=(admin||hasCard)?'flex':'none';login.style.display=(!user&&hasCard)?'':'none';publish.style.display=admin?'':'none';planner.style.display=admin?'':'none';}
+async function refresh(){const {data:{user}}=await sb.auth.getUser();const admin=user?.id===adminId;let hasCard=false;try{hasCard=!!JSON.parse(localStorage.getItem('quenquen_corp_identity_v2')||'null')?.corpId}catch(e){}area.style.display=admin?'flex':'none';login.style.display='none';publish.style.display=admin?'':'none';planner.style.display=admin?'':'none';}
 login.onclick=async()=>{const {error}=await sb.auth.signInWithOAuth({provider:'twitch',options:{redirectTo:location.origin+location.pathname}});if(error)status.textContent=error.message};
 sb.auth.onAuthStateChange(()=>refresh());refresh();
 publish.onclick=async()=>{
