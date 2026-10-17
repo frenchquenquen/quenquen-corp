@@ -114,7 +114,7 @@ async function loadCollection(userId,version){
             }
           }
         }catch(err){/* Garde le visuel original si le recadrage échoue. */}
-        tile.addEventListener('click',()=>{playPageFlipSound();const v=$('viewerImg');v.classList.remove('flip3d');v.src=img.src;$('viewer').classList.remove('hidden');void v.offsetWidth;v.classList.add('flip3d')});
+        if(tile.dataset.viewerReady)return;tile.dataset.viewerReady='1';tile.addEventListener('click',()=>{playPageFlipSound();const v=$('viewerImg');v.classList.remove('flip3d');v.src=img.src;$('viewer').classList.remove('hidden');void v.offsetWidth;v.classList.add('flip3d')});
       tile.append(img); const qty=document.createElement('span');qty.className='qty';qty.textContent='×'+count;tile.append(qty);
     }else{const lock=document.createElement('div');lock.className='locked';lock.textContent='';tile.append(lock)}
     tile.append(num);target.append(tile);
