@@ -5014,7 +5014,7 @@ update();document.addEventListener('click',()=>setTimeout(update,120));document.
 <style id="qcCroissantVideoStyle">
 #qcCroissantVideoOverlay{position:fixed;inset:0;z-index:240000;display:none;align-items:center;justify-content:center;background:transparent}
 #qcCroissantVideoOverlay.open{display:flex}
-#qcCroissantVideoCanvas{width:100vw;height:100vh;object-fit:contain;pointer-events:none}
+#qcCroissantVideoCanvas{width:130vw;height:130vh;max-width:none;max-height:none;object-fit:cover;pointer-events:none;flex-shrink:0}
 #qcCroissantVideoSource{display:none}
 </style>
 <div id="qcCroissantVideoOverlay" role="dialog" aria-label="Animation du croissant" aria-modal="true">
@@ -5026,12 +5026,12 @@ update();document.addEventListener('click',()=>setTimeout(update,120));document.
 const badge=document.getElementById('qcJungleCroissantBadge'),overlay=document.getElementById('qcCroissantVideoOverlay'),canvas=document.getElementById('qcCroissantVideoCanvas'),ctx=canvas.getContext('2d',{willReadFrequently:true}),video=document.getElementById('qcCroissantVideoSource');
 if(!badge||!overlay||!ctx||!video)return;
 const clips=[1,2,3,4].map(n=>'assets/qc/x7f2k9/Croissant%20'+n+'.mp4');
-let previous=-1,frame=0,active=false;
+let previous=-1,frame=0,active=false,usingVideoFrames=typeof video.requestVideoFrameCallback==='function';
 const buffer=document.createElement('canvas'),bctx=buffer.getContext('2d',{willReadFrequently:true});
 function draw(){
 if(!active)return;
 if(video.readyState>=2&&video.videoWidth){
-const w=video.videoWidth,h=video.videoHeight;
+const scale=Math.min(1,960/video.videoWidth,540/video.videoHeight),w=Math.max(1,Math.round(video.videoWidth*scale)),h=Math.max(1,Math.round(video.videoHeight*scale));
 if(buffer.width!==w||buffer.height!==h){buffer.width=w;buffer.height=h;canvas.width=w;canvas.height=h}
 bctx.drawImage(video,0,0,w,h);
 const im=bctx.getImageData(0,0,w,h),d=im.data;
@@ -5046,17 +5046,17 @@ if(alpha>0){d[i]=Math.min(255,rr+Math.round(gg*(1-alpha)*.12));d[i+1]=Math.min(2
 }
 ctx.putImageData(im,0,0);
 }
-frame=requestAnimationFrame(draw);
+frame=usingVideoFrames?video.requestVideoFrameCallback(draw):requestAnimationFrame(draw);
 }
 async function open(){
 if(active||!localStorage.getItem('quenquen_jungle_croissant_unlocked_v1'))return;
 active=true;overlay.classList.add('open');
 let idx=Math.floor(Math.random()*clips.length);if(idx===previous)idx=(idx+1+Math.floor(Math.random()*(clips.length-1)))%clips.length;previous=idx;
-video.src=clips[idx];video.currentTime=0;video.load();frame=requestAnimationFrame(draw);
+video.src=clips[idx];video.currentTime=0;video.load();frame=usingVideoFrames?video.requestVideoFrameCallback(draw):requestAnimationFrame(draw);
 try{await video.play()}catch(e){close()}
 }
 function close(){
-if(!active)return;active=false;cancelAnimationFrame(frame);video.pause();video.removeAttribute('src');video.load();ctx.clearRect(0,0,canvas.width,canvas.height);overlay.classList.remove('open');
+if(!active)return;active=false;if(usingVideoFrames)video.cancelVideoFrameCallback(frame);else cancelAnimationFrame(frame);video.pause();video.removeAttribute('src');video.load();ctx.clearRect(0,0,canvas.width,canvas.height);overlay.classList.remove('open');
 }
 badge.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();open()});
 video.addEventListener('ended',close);
