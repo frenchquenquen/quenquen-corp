@@ -3566,7 +3566,7 @@ window.qcAndromedaBoss=(function(){
        el.style.setProperty("display","none","important");
      }
    });
-   const trophyCount=document.getElementById("qcSecretTrophyCount");if(trophyCount)trophyCount.textContent=String(count);
+   const trophyCount=document.getElementById("qcSecretTrophyCount");if(trophyCount){const displayed=[...items.children].filter(el=>getComputedStyle(el).display!=="none" && getComputedStyle(el).visibility!=="hidden");trophyCount.textContent=String(displayed.length);}
    r.classList.toggle("visible",active&&count>0);
  }
  setInterval(refresh,250);
