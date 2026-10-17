@@ -578,6 +578,7 @@ body{overflow:auto!important}
 <button id="archiveAccess" class="archiveAccess qcCatalogAccess" type="button"><span class="qcCatalogIcon qcArchiveIcon">▣</span><span>ARCHIVES — <span id="archiveCount">01</span><span class="qcCatalogTotal"> / ??</span></span></button>
 <button id="cringeAccess" class="archiveAccess qcCatalogAccess qcCringeAccess" type="button"><span class="qcCatalogIcon qcCringeHead" aria-hidden="true"></span><span>L’AMOUR DU CRINGE — <span id="cringeCount">00</span><span class="qcCatalogTotal"> / ??</span></span></button>
 </div>
+<div id="qcEggHunter" aria-label="Progression Chasseur d’Easter Eggs"><div class="qcEggTitle">🥚 CHASSEUR D’EASTER EGGS <strong id="qcEggCount">0 / 10</strong></div><div class="qcEggTrack"><div id="qcEggFill"></div></div><div class="qcEggHint">Découvre les secrets cachés dans l’album pour progresser.</div></div>
 </div>
 </div>
 </section>
@@ -1599,7 +1600,7 @@ qcOpenIndividualCard=function(c,i){
  // Événement Monteur QuenQuen : branché ici, au point central où le numéro réel de carte est connu.
  if(num===20) setTimeout(()=>{try{window.qcMonteur20Ask?.()}catch(e){}},180);
  // Aura jaune après 3 consultations DANS CETTE SESSION; elle peut ensuite changer de carte.
- if(qcAffinitySessionViews[num]===3)qcMemToast('AFFINITÉ DÉTECTÉE // CARTE #'+String(num).padStart(2,'0'));
+ if(qcAffinitySessionViews[num]===3){localStorage.setItem("qc_egg_affinity_v1","1");qcMemToast('AFFINITÉ DÉTECTÉE // CARTE #'+String(num).padStart(2,'0'));}
 };
 const qcV14Close=qcCloseIndividualCard;
 qcCloseIndividualCard=function(){if(qcMemOpenAt){qcMem.totalMs=(qcMem.totalMs||0)+(Date.now()-qcMemOpenAt);qcMemOpenAt=0;qcMemOpenCard=null;qcMemSave()}qcV14Close()};
@@ -3867,6 +3868,7 @@ window.qcAndromedaBoss=(function(){
  function reveal(){
    if(current!==27||shown)return;
    shown=true;
+   localStorage.setItem("qc_egg_reims27_v1","1");
    box.setAttribute("aria-hidden","false");
    requestAnimationFrame(()=>requestAnimationFrame(()=>{
      box.classList.add("on");
@@ -4889,6 +4891,7 @@ window.qcAndromedaBoss=(function(){
    if((selected===4||selected===33)&&document.getElementById('individualCardModal')?.classList.contains('open')){
      flips++;
      if(flips%20===0){
+       localStorage.setItem(selected===4?'qc_egg_flavie4_v1':'qc_egg_arek33_v1','1');
        show(selected===4?'FLAVIE FERME TA GUEULE !':'LA CHAUSSETTE PRÉFÉRÉE DE AREK !');
      }
    }
@@ -4970,5 +4973,34 @@ launch.addEventListener('click',e=>{e.stopPropagation();open()});start.addEventL
 canvas.addEventListener('pointerdown',jump);
 document.addEventListener('keydown',e=>{if(!opened)return;if(e.key==='Escape'){close();return}if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();jump()}});
 draw();
+})();
+</script>
+
+<style id="qcEggHunterStyle">
+#qcEggHunter{margin:15px auto 0;padding:13px 15px;max-width:520px;background:#080808;border:1px solid #65540e;border-radius:10px;color:#ffd400;font-family:Arial,sans-serif;box-sizing:border-box}
+#qcEggHunter .qcEggTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:900;font-size:12px;letter-spacing:.6px}
+#qcEggHunter .qcEggTitle strong{white-space:nowrap;font-size:15px}
+#qcEggHunter .qcEggTrack{height:8px;background:#29250f;border-radius:10px;overflow:hidden;margin:11px 0 7px}
+#qcEggFill{height:100%;width:0;background:#ffd400;border-radius:10px;transition:width .4s}
+#qcEggHunter .qcEggHint{font-size:10px;opacity:.7;line-height:1.4}
+@media(max-width:700px){#qcEggHunter{width:100%;padding:11px}#qcEggHunter .qcEggTitle{font-size:11px}}
+</style>
+<script id="qcEggHunterEngine">
+(()=>{
+const count=document.getElementById('qcEggCount'),fill=document.getElementById('qcEggFill');if(!count||!fill)return;
+const has=k=>!!localStorage.getItem(k);
+const list=k=>{try{const v=JSON.parse(localStorage.getItem(k)||'[]');return Array.isArray(v)?v:[]}catch(e){return []}};
+function update(){
+ const memory=(()=>{try{return JSON.parse(localStorage.getItem('quenquen_v14_memory_v1')||'{}')}catch(e){return {}}})();
+ const affinity=has('qc_egg_affinity_v1')||Object.values(memory.views||{}).some(v=>Number(v)>=3);
+ const done=[
+ affinity,has('qc_egg_flavie4_v1'),has('qc_egg_arek33_v1'),has('qc_egg_reims27_v1'),
+ has('quenquen_monteur_quenquen_20_unlocked_v1'),has('quenquen_quick43_burger_unlocked_v1'),
+ has('quenquen_bits55_completed_v1'),has('quenquen_corp_archive_14_discovered_v1')||list('quenquen_corp_archive_14_fragments_v1').length>=6,
+ has('quenquen_frenchblade_acquired_v1'),has('quenquen_corp_three_badges_message_v1')
+ ];
+ const n=done.filter(Boolean).length;count.textContent=n+' / 10';fill.style.width=(n*10)+'%';
+}
+update();document.addEventListener('click',()=>setTimeout(update,120));document.addEventListener('visibilitychange',update);setInterval(update,1800);
 })();
 </script>
