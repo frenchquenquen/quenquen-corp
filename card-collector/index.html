@@ -3535,7 +3535,7 @@ window.qcAndromedaBoss=(function(){
 </style>
 <script id="qcSecretTrophyRailEngine">
 (function(){
- const IDS=["qcTwitchUnlock","qcFrenchbladeFQDock","qcSpookyGhostBadge","qcGift16Badge","qcBits55Badge","qcSuzieBearBadge","qcMonteur20Badge","qcJungleCroissantBadge","qcRoyalQuantinBadge","qcFrenchGrenierBadge","qcArek33Badge"];
+ const IDS=["qcTwitchUnlock","qcFrenchbladeFQDock","qcSpookyGhostBadge","qcGift16Badge","qcBits55Badge","qcSuzieBearBadge","qcMonteur20Badge","qcJungleCroissantBadge","qcRoyalQuantinBadge","qcFrenchGrenierBadge","qcArek33Badge","qcChocolat45Badge"];
  let rail=null,items=null;
 
  function collectionHome(){
@@ -3573,6 +3573,7 @@ window.qcAndromedaBoss=(function(){
    if(el.id==="qcRoyalQuantinBadge") return !!localStorage.getItem("qc_royal_quantin_unlocked_v1");
    if(el.id==="qcFrenchGrenierBadge") return !!localStorage.getItem("qc_french_grenier_unlocked_v1");
    if(el.id==="qcArek33Badge") return !!localStorage.getItem("qc_egg_arek33_v1");
+   if(el.id==="qcChocolat45Badge") return !!localStorage.getItem("qc_chocolat45_found_v1");
    return false;
  }
  function refresh(){
@@ -5069,6 +5070,60 @@ window.qcAndromedaBoss=(function(){
 (function(){
  const badge=document.createElement('div');badge.id='qcArek33Badge';badge.title='La chaussette préférée de Arek — carte 33';
  const img=document.createElement('img');img.src='chau1.png';img.alt='Chaussette de Arek';badge.appendChild(img);document.body.appendChild(badge);
+ window.qcSecretTrophyRailRefresh?.();
+})();
+</script>
+
+<style id="qcChocolat45Style">
+#qcChocolat45Heart{position:absolute;right:7%;top:7%;z-index:5;width:18px;height:18px;display:none;align-items:center;justify-content:center;border:0;background:transparent;padding:0;cursor:pointer;opacity:.65}
+#qcChocolat45Heart svg{width:9px;height:9px;fill:#000;stroke:#202020;stroke-width:.7;filter:drop-shadow(0 0 1px #666)}
+#qcChocolat45Badge{display:none;width:64px;height:64px;min-width:64px;min-height:64px;padding:0;border:1px solid #6e5d00;background:#050505;align-items:center;justify-content:center;cursor:pointer;overflow:hidden}
+#qcChocolat45Badge img{width:100%;height:100%;object-fit:contain}
+#qcChocolat45Message{position:fixed;top:38%;left:50%;transform:translate(-50%,-50%);z-index:260002;pointer-events:none;display:none;color:#e4bd45;font:900 clamp(24px,5vw,56px) "Luckiest Guy",Impact,sans-serif;text-align:center;text-shadow:0 3px 3px #000,0 0 25px #ad7b1b}
+#qcChocolat45Message.show{display:block;animation:qcChocolat45Pop .5s ease-out}
+@keyframes qcChocolat45Pop{from{opacity:0;transform:translate(-50%,-50%) scale(.7)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+#qcChocolat45Overlay{position:fixed;inset:0;z-index:240001;display:none;align-items:center;justify-content:center;background:transparent;pointer-events:none}
+#qcChocolat45Overlay.open{display:flex}
+#qcChocolat45Canvas{width:130vw;height:130vh;max-width:none;max-height:none;object-fit:cover}
+#qcChocolat45Video{display:none}
+</style>
+<div id="qcChocolat45Message">JE SUIS CHAUD COMME LA BRAISE</div>
+<div id="qcChocolat45Overlay"><canvas id="qcChocolat45Canvas" width="800" height="450"></canvas><video id="qcChocolat45Video" src="Chocolat%204.mp4" preload="none" playsinline></video></div>
+<script id="qcChocolat45Engine">
+(()=>{
+ const KEY='qc_chocolat45_found_v1',stage=document.querySelector('#individualCardModal .individualCardStage'),modal=document.getElementById('individualCardModal');
+ if(!stage||!modal)return;
+ const heart=document.createElement('button');heart.id='qcChocolat45Heart';heart.type='button';heart.title='';heart.setAttribute('aria-label','Découvrir le secret');heart.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-9-5.7-9-12a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 6.3-9 12-9 12z"/></svg>';stage.append(heart);
+ const badge=document.createElement('button');badge.id='qcChocolat45Badge';badge.type='button';badge.title='Chocolat Cartoon — revoir la vidéo';badge.innerHTML='<img src="chocolat%20cartoon.png" alt="Chocolat Cartoon">';document.body.append(badge);
+ const overlay=document.getElementById('qcChocolat45Overlay'),canvas=document.getElementById('qcChocolat45Canvas'),ctx=canvas.getContext('2d',{willReadFrequently:true}),video=document.getElementById('qcChocolat45Video'),message=document.getElementById('qcChocolat45Message');
+ const buffer=document.createElement('canvas'),bctx=buffer.getContext('2d',{willReadFrequently:true});
+ let selected=0,active=false,frame=0,hideTimer;
+ const videoFrames=typeof video.requestVideoFrameCallback==='function';
+ function refreshHeart(){heart.style.display=selected===45&&modal.classList.contains('open')?'flex':'none'}
+ const originalOpen=window.qcOpenIndividualCard;
+ if(typeof originalOpen==='function')window.qcOpenIndividualCard=function(c,i){selected=Number(c)*10+Number(i)+1;const out=originalOpen.apply(this,arguments);refreshHeart();return out};
+ const originalClose=window.qcCloseIndividualCard;
+ if(typeof originalClose==='function')window.qcCloseIndividualCard=function(){selected=0;refreshHeart();return originalClose.apply(this,arguments)};
+ function draw(){
+  if(!active)return;
+  if(video.readyState>=2&&video.videoWidth){
+   const scale=Math.min(1,960/video.videoWidth,540/video.videoHeight),w=Math.max(1,Math.round(video.videoWidth*scale)),h=Math.max(1,Math.round(video.videoHeight*scale));
+   if(buffer.width!==w||buffer.height!==h){buffer.width=w;buffer.height=h;canvas.width=w;canvas.height=h}
+   bctx.drawImage(video,0,0,w,h);
+   const im=bctx.getImageData(0,0,w,h),d=im.data;
+   for(let i=0;i<d.length;i+=4){
+    const rr=d[i],gg=d[i+1],bb=d[i+2],dominance=gg-Math.max(rr,bb);
+    if(dominance>18&&gg>55){const alpha=Math.max(0,Math.min(1,(65-dominance)/47));d[i+3]=Math.round(255*alpha);if(alpha>0){d[i]=Math.min(255,rr+Math.round(gg*(1-alpha)*.12));d[i+1]=Math.min(255,gg*alpha);d[i+2]=Math.min(255,bb+Math.round(gg*(1-alpha)*.12))}}
+   }
+   ctx.putImageData(im,0,0);
+  }
+  frame=videoFrames?video.requestVideoFrameCallback(draw):requestAnimationFrame(draw);
+ }
+ function close(){if(!active)return;active=false;if(videoFrames)video.cancelVideoFrameCallback(frame);else cancelAnimationFrame(frame);video.pause();video.currentTime=0;ctx.clearRect(0,0,canvas.width,canvas.height);overlay.classList.remove('open')}
+ async function play(){if(active||!localStorage.getItem(KEY))return;active=true;overlay.classList.add('open');video.currentTime=0;frame=videoFrames?video.requestVideoFrameCallback(draw):requestAnimationFrame(draw);try{await video.play()}catch(e){close()}}
+ heart.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();if(selected!==45)return;localStorage.setItem(KEY,new Date().toISOString());window.qcSecretTrophyRailRefresh?.();message.classList.add('show');clearTimeout(hideTimer);hideTimer=setTimeout(()=>message.classList.remove('show'),3500)});
+ badge.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();play()});
+ video.addEventListener('ended',close);video.addEventListener('error',close);
  window.qcSecretTrophyRailRefresh?.();
 })();
 </script>
