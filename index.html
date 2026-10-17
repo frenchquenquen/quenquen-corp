@@ -1019,6 +1019,30 @@ function visual(a){
  portrait:a.portrait||1,hair:a.hair||1,mouth:a.mouth||1,eyes:a.eyes||1,facial:a.facial||1,shape:a.shape||1,motif:a.motif||1,palette:a.palette||1,shine:a.shine||1,
  photoFrame:a.photo_frame||"#d8b63e",cardAccent:a.card_accent||"auto",corpId:a.corp_id||""};
 }
+async function announceNewAgent(payload,secret){
+ const card=buildCard(payload,0).querySelector(".membercard");
+ const stage=document.createElement("div");
+ stage.style.cssText="position:fixed;left:0;top:0;z-index:-1;pointer-events:none;width:320px;height:220px;opacity:1";
+ card.style.width="300px";card.style.height="188px";
+ stage.appendChild(card);document.body.appendChild(stage);
+ try{
+  if(!window.htmlToImage){
+   await new Promise((resolve,reject)=>{
+    const script=document.createElement("script");
+    script.src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.js";
+    script.onload=resolve;script.onerror=reject;document.head.appendChild(script);
+   });
+  }
+  await document.fonts.ready;
+  const image=await window.htmlToImage.toPng(card,{pixelRatio:2,cacheBust:true,backgroundColor:"#0c0d10"});
+  const response=await fetch(SUPABASE_URL+"/functions/v1/agent-discord-register",{
+   method:"POST",headers:{"Content-Type":"application/json",apikey:SUPABASE_KEY},
+   body:JSON.stringify({corp_id:payload.corp_id,edit_token:secret,image})
+  });
+  if(!response.ok)throw new Error("Discord HTTP "+response.status);
+  const result=await response.json();if(!result.ok)throw new Error("Discord response");
+ }finally{stage.remove()}
+}
 function buildCard(a,i){
  const d=visual(a),wrap=document.createElement("div");wrap.className="agent-card-entry";wrap.title="Voir la carte de "+d.pseudo;
  const card=document.createElement("div");card.className="membercard";
@@ -1071,6 +1095,7 @@ $r("registerAgent").addEventListener("click",async()=>{
   }
   if(res.status===409){$r("registryStatus").textContent="CE MATRICULE EST DÉJÀ PRÉSENT DANS LE REGISTRE";await loadRegistry();return}
   if(!res.ok)throw new Error("HTTP "+res.status+" "+await res.text());
+  if(!updating){try{await announceNewAgent(payload,tokenFor(me.corpId))}catch(err){console.warn("QUENQUEN CORP Discord announcement pending",err);$r("registryStatus").textContent="INSCRIPTION VALIDÉE — ENVOI DISCORD NON CONFIRMÉ";await loadRegistry();return}}
   $r("registryStatus").textContent=updating?"CARTE D’AGENT MISE À JOUR - SYNCHRONISATION TERMINÉE":"INSCRIPTION VALIDÉE - BIENVENUE DANS LE REGISTRE, AGENT "+me.pseudo.toUpperCase();await loadRegistry();$r("registryList").classList.add("open");
  }catch(e){btn.disabled=false;btn.textContent=updating?"METTRE À JOUR MA CARTE D’AGENT":"M’INSCRIRE AU REGISTRE PUBLIC";$r("registryStatus").textContent=updating?"ÉCHEC DE LA MISE À JOUR - VÉRIFIEZ LES AUTORISATIONS DU REGISTRE":"ÉCHEC DE L’INSCRIPTION - RÉESSAYEZ";console.warn("QUENQUEN CORP registry insert",e)}
 });
