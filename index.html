@@ -1069,6 +1069,26 @@ async function loadRegistry(){
  }catch(e){count.textContent="?";status.textContent="REGISTRE CENTRAL INJOIGNABLE - RÉESSAYEZ PLUS TARD";console.warn("QUENQUEN CORP registry",e)}
 }
 loadRegistry();
+const discordRetry=document.createElement("button");
+discordRetry.type="button";discordRetry.className="secondary";
+discordRetry.textContent="ENVOYER MA CARTE SUR DISCORD";
+discordRetry.style.display="none";
+$r("registerAgent").parentElement.appendChild(discordRetry);
+function syncDiscordRetry(){const me=identity();discordRetry.style.display=registeredAgent&&me&&tokenFor(me.corpId)?"":"none"}
+const oldRegistryLoad=loadRegistry;
+loadRegistry=async function(){await oldRegistryLoad();syncDiscordRetry()};
+syncDiscordRetry();
+discordRetry.addEventListener("click",async()=>{
+ const me=identity();if(!me||!registeredAgent||!tokenFor(me.corpId))return;
+ discordRetry.disabled=true;discordRetry.textContent="ENVOI DISCORD…";
+ try{
+ const payload={corp_id:me.corpId,pseudo:me.pseudo,universe:universeNumber(me.universe),title:me.title,rank:me.rank,portrait:me.portrait,hair:me.hair,mouth:me.mouth,eyes:me.eyes,facial:me.facial,shape:me.shape,motif:me.motif,palette:me.palette,shine:me.shine,photo_frame:me.photoFrame,card_accent:me.cardAccent};
+ await announceNewAgent(payload,tokenFor(me.corpId));
+ $r("registryStatus").textContent="ENVOI DISCORD CONFIRMÉ";
+ discordRetry.style.display="none";
+ }catch(e){console.warn("Discord retry",e);$r("registryStatus").textContent="ÉCHEC DE L'ENVOI DISCORD — RÉESSAYEZ";}
+ finally{discordRetry.disabled=false;discordRetry.textContent="ENVOYER MA CARTE SUR DISCORD"}
+});
 $r("toggleRegistry").addEventListener("click",()=>{const l=$r("registryList");l.classList.toggle("open");$r("toggleRegistry").textContent=l.classList.contains("open")?"FERMER LE REGISTRE":"CONSULTER LE REGISTRE"});
 $r("registerAgent").addEventListener("click",async()=>{
  const me=identity();if(!me||!me.pseudo||!me.corpId){alert("Créez d'abord votre carte de membre QUENQUEN CORP.");return}
