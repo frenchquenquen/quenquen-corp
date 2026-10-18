@@ -101,6 +101,7 @@
     "quenquen_quick43_burger_unlocked_v1":"quick43",
     "qc_og_letter_unlocked_v1":"og_letter",
     "quenquen_andromeda_watch_unlocked_v9":"andromeda_watch",
+    "quenquen_spooky_17_seen_v1":"spooky17",
     "quenquen_noel39_found_v1":"noel39",
     "quenquen_saboteur69_found_v1":"saboteur69"
   });
