@@ -5101,9 +5101,12 @@ window.qcAndromedaBoss=(function(){
 </script>
 
 <style id="qcFlavie4TrophyStyle">
-#qcFlavie4Badge{display:none;align-items:center;justify-content:center;width:58px;height:58px;min-width:58px;min-height:58px;background:#110b0d;border:1px solid #ffd400;color:#ffd400;padding:3px;cursor:pointer;font:bold 10px/1.15 Arial,sans-serif;text-align:center;overflow:hidden}
+#qcFlavie4Badge{display:none;align-items:center;justify-content:center;width:58px;height:58px;min-width:58px;min-height:58px;background:#080808;border:1px solid #ffd400;color:#111;padding:3px;cursor:pointer;font:bold 10px/1.15 Arial,sans-serif;text-align:center;overflow:hidden}
+#qcFlavie4Badge .qcFlavieSign{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;width:48px;height:40px;background:#ffd400;border:2px solid #151515;transform:rotate(-6deg);box-shadow:2px 3px 0 #665400}
+#qcFlavie4Badge .qcFlavieSign small{font:700 5px Arial,sans-serif;letter-spacing:.3px}
+#qcFlavie4Badge .qcFlavieSign strong{font:900 11px/1 Arial,sans-serif;letter-spacing:-.4px}
 </style>
-<button id="qcFlavie4Badge" type="button" title="Flavie — carte 4, vingt retournements" aria-label="Revoir le message secret de Flavie">FLAVIE<br>FERME TA<br>GUEULE !</button>
+<button id="qcFlavie4Badge" type="button" title="Flavie — carte 4, vingt retournements" aria-label="Revoir le message secret de Flavie"><span class="qcFlavieSign"><small>QUENQUEN CORP</small><strong>CHUT<br>FLAVIE !</strong></span></button>
 <script id="qcFlavie4TrophyEngine">
 (function(){
  const badge=document.getElementById("qcFlavie4Badge"),KEY="qc_egg_flavie4_v1";
