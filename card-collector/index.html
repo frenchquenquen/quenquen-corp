@@ -5439,7 +5439,7 @@ showBadge();setInterval(showBadge,2000);
 
 <style id="qcOgLetterStyles">
 .qcOgFragment{position:absolute;z-index:65;width:15px;height:12px;padding:0;border:0;background:#b3a084;clip-path:polygon(4% 19%,35% 0,61% 18%,91% 3%,100% 68%,67% 100%,36% 77%,0 94%);opacity:.52;transform:rotate(var(--og-rotation,12deg));cursor:default;filter:brightness(.68);touch-action:manipulation}
-.qcOgFragment:focus-visible{outline:1px dotted #a68b50}
+.qcOgFragment{min-width:15px;min-height:12px;pointer-events:auto!important}.qcOgFragment:focus-visible{outline:1px dotted #a68b50}
 #qcOgLetterModal{position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:18px;overflow:auto}
 #qcOgLetterModal.open{display:flex}
 #qcOgLetterPaper{position:relative;max-width:610px;width:100%;max-height:90vh;overflow:auto;padding:clamp(24px,5vw,48px);background:#d5c19a;color:#31251a;box-shadow:0 15px 70px #000;font:italic 17px/1.65 Georgia,serif;white-space:pre-line;border:1px solid #826c48}
@@ -5487,12 +5487,11 @@ OG QuenQuen</div></div>
   const found=fragments(),done=!!localStorage.getItem(DONE);
   badge.style.display=done?'flex':'none';
   if(done){const rail=document.getElementById('qcSecretTrophyRailItems');if(rail&&badge.parentElement!==rail)rail.appendChild(badge)}
-  document.querySelectorAll('.qcOgFragment').forEach(el=>el.remove());
-  if(!unlocked()||done)return;
+  if(!unlocked()||done){document.querySelectorAll('.qcOgFragment').forEach(el=>el.remove());return}
   for(let i=0;i<7;i++){
-   if(found.includes(i))continue;
-   const page=document.querySelector('section[data-page="'+i+'"]');if(!page)continue;
-   const p=positions[i],b=document.createElement('button');b.type='button';b.className='qcOgFragment';b.setAttribute('aria-label','');b.style.left=p.x+'%';b.style.top=p.y+'%';b.style.setProperty('--og-rotation',p.r+'deg');
+   if(found.includes(i)){document.querySelectorAll('.qcOgFragment[data-fragment="'+i+'"]').forEach(el=>el.remove());continue}
+   const page=document.querySelector('section[data-page="'+i+'"]');if(!page||page.querySelector('.qcOgFragment[data-fragment="'+i+'"]'))continue;
+   const p=positions[i],b=document.createElement('button');b.type='button';b.className='qcOgFragment';b.dataset.fragment=String(i);b.setAttribute('aria-label','');b.style.left=p.x+'%';b.style.top=p.y+'%';b.style.setProperty('--og-rotation',p.r+'deg');
    if(getComputedStyle(page).position==='static')page.style.position='relative';
    b.addEventListener('click',e=>{e.stopPropagation();if(!unlocked())return;const a=fragments();if(!a.includes(i))a.push(i);localStorage.setItem(KEY,JSON.stringify(a));b.remove();if(a.length===7){localStorage.setItem(DONE,'1');openLetter()}refresh()});
    page.appendChild(b);
