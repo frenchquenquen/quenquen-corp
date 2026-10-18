@@ -50,6 +50,29 @@
     } catch { return false; }
     finally { pending.delete(code); }
   }
+  function installChoice() {
+    const anchor = document.getElementById("musicVolume");
+    if (!anchor || document.getElementById("qcV1TrackingChoice")) return;
+    const holder = document.createElement("div");
+    holder.id = "qcV1TrackingChoice";
+    holder.style.cssText = "margin:9px 0;padding:7px 9px;border:1px solid #b99a3466;border-radius:7px;color:#f2c52d;font:12px Arial,sans-serif;max-width:300px";
+    const button = document.createElement("button");
+    button.type = "button";
+    button.style.cssText = "background:transparent;border:0;color:inherit;cursor:pointer;font:inherit;text-align:left;padding:4px";
+    const note = document.createElement("div");
+    note.style.cssText = "color:#b8b8b8;font-size:10px;margin-top:4px";
+    note.textContent = "Facultatif : associe les secrets trouvés à votre carte d’agent CORP sur cet appareil. Désactivable à tout moment.";
+    function refresh() { button.textContent = "SUIVI DES DÉCOUVERTES : " + (enabled() ? "OUI ✓" : "NON"); }
+    button.addEventListener("click", () => {
+      window.QCV1Tracking.consent(!enabled());
+      refresh();
+    });
+    holder.append(button, note);
+    anchor.parentElement?.insertAdjacentElement("afterend", holder);
+    refresh();
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", installChoice);
+  else installChoice();
   window.QCV1Tracking = Object.freeze({
     record,
     isEnabled: enabled,
