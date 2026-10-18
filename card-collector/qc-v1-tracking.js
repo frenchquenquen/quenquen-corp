@@ -55,15 +55,28 @@
     if (!anchor || document.getElementById("qcV1TrackingChoice")) return;
     const holder = document.createElement("div");
     holder.id = "qcV1TrackingChoice";
-    holder.style.cssText = "margin:0 auto 16px;padding:0;text-align:center;color:#f2c52d;font:12px Arial,sans-serif;max-width:360px";
+    holder.style.cssText = "position:relative;z-index:30;margin:0 auto 16px;padding:0;text-align:center;color:#f2c52d;font:12px Arial,sans-serif;max-width:360px;pointer-events:auto";
     const button = document.createElement("button");
     button.type = "button";
-    button.style.cssText = "background:#16171b;border:1px solid #b99a3466;border-radius:999px;color:inherit;cursor:pointer;font:700 11px Arial,sans-serif;letter-spacing:.05em;text-align:center;padding:9px 14px";
+    button.id = "qcV1TrackingToggle";
+    button.style.cssText = "display:inline-block;position:relative;z-index:31;min-width:235px;min-height:44px;background:#202027;border:2px solid #a18a2b;border-radius:999px;color:#ffd400;cursor:pointer;font:700 12px Arial,sans-serif;letter-spacing:.04em;text-align:center;padding:11px 16px;touch-action:manipulation;pointer-events:auto";
     const note = document.createElement("div");
-    note.style.cssText = "color:#b8b8b8;font-size:10px;margin:6px auto 0;max-width:320px";
-    note.textContent = "Facultatif : associe les secrets trouvés à votre carte d’agent CORP sur cet appareil. Désactivable à tout moment.";
-    function refresh() { button.textContent = "SUIVI DES DÉCOUVERTES  " + (enabled() ? "● ACTIVÉ" : "○ DÉSACTIVÉ"); }
-    button.addEventListener("click", () => {
+    note.style.cssText = "color:#555;font-size:11px;margin:8px auto 0;max-width:330px;line-height:1.4";
+    function refresh() {
+      const on = enabled();
+      button.textContent = on ? "✓ SUIVI ACTIVÉ — CLIQUER POUR DÉSACTIVER" : "○ ACTIVER LE SUIVI DES DÉCOUVERTES";
+      button.style.background = on ? "#ffd400" : "#202027";
+      button.style.color = on ? "#111" : "#ffd400";
+      button.style.borderColor = on ? "#111" : "#a18a2b";
+      button.setAttribute("aria-pressed", String(on));
+      button.title = on ? "Désactiver le suivi des découvertes" : "Activer le suivi des découvertes";
+      note.textContent = on
+        ? "Suivi activé sur cet appareil. Les nouvelles découvertes seront enregistrées."
+        : "Facultatif : cliquez pour associer vos prochaines découvertes à votre carte d’agent CORP.";
+    }
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
       window.QCV1Tracking.consent(!enabled());
       refresh();
     });
