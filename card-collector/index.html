@@ -1708,6 +1708,7 @@ document.addEventListener('click',e=>{const x=e.target.closest&&e.target.closest
    if(!a.includes(id)){
      a.push(id);
      localStorage.setItem(FOUND_KEY,JSON.stringify(a));
+     window.QCV1Tracking?.record('cringe_'+String(id).padStart(2,'0'));
    }
    refreshCringeLibrary();
  }
