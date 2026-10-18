@@ -1176,7 +1176,19 @@ document.getElementById("archiveLibraryClose").addEventListener("click",()=>{arc
 archiveLibrary.addEventListener("click",e=>{if(e.target===archiveLibrary){archiveLibrary.classList.remove("open");archiveLibrary.setAttribute("aria-hidden","true")}});
 document.getElementById("qc6Close").addEventListener("click",qc6CloseArchive);
 qc6Video.addEventListener("ended",()=>qc6Later(qc6CloseArchive,650));
-refreshArchiveLibrary();setTimeout(qc6DiscoverCheck,1700);document.addEventListener("click",()=>setTimeout(qc6DiscoverCheck,320));
+refreshArchiveLibrary();
+// Keep the home archive counter and library in sync even when later scripts
+// unlock an archive without explicitly refreshing the original catalog.
+(function(){
+ const keys=["quenquen_corp_archive_0_discovered_v1","quenquen_corp_archive_1_discovered_v1","quenquen_corp_archive_3_discovered_v1","quenquen_corp_archive_6_discovered_v1","quenquen_corp_archive_8_discovered_v1","quenquen_corp_archive_11_discovered_v1","quenquen_corp_archive_12_discovered_v1","quenquen_corp_archive_14_discovered_v1","quenquen_corp_archive_16_discovered_v1","quenquen_corp_archive_23_discovered_v1"];
+ const snapshot=()=>keys.map(k=>localStorage.getItem(k)?"1":"0").join("");
+ let previous=snapshot();
+ const check=()=>{const now=snapshot();if(now!==previous){previous=now;refreshArchiveLibrary()}};
+ setInterval(check,650);
+ window.addEventListener("storage",e=>{if(!e.key||keys.includes(e.key))check()});
+ document.addEventListener("visibilitychange",()=>{if(!document.hidden)check()});
+})();
+setTimeout(qc6DiscoverCheck,1700);document.addEventListener("click",()=>setTimeout(qc6DiscoverCheck,320));
 
 
 // --- V11.2 : QUENQUEN (#10) + FUTUR QUENQUEN (#22) / ARCHIVE #0 ---
