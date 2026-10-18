@@ -1273,8 +1273,11 @@ function qcCloseIndividualCard(){
  document.getElementById("individualCardFrame").classList.remove("flipped");
 }
 function qcInstallCardHotspots(){
+ // Never let legacy card hotspots cover the album home/cover.
+ document.querySelectorAll("section.home .cardHotspot, section.home .qcAlbumCard").forEach(el=>el.remove());
  qcSheetImages().forEach((img,c)=>{
-  if(!img||img.dataset.cardHotspots==="1")return;img.dataset.cardHotspots="1";
+  if(!img||!img.closest("section.page[data-page]"))return;
+  if(img.dataset.cardHotspots==="1")return;img.dataset.cardHotspots="1";
   const p=img.parentElement;if(getComputedStyle(p).position==="static")p.style.position="relative";
   for(let i=0;i<qcCollectionCounts[c];i++){
    const b=document.createElement("button");b.className="cardHotspot";b.type="button";
@@ -5196,6 +5199,7 @@ window.qcAndromedaBoss=(function(){
  window.qcSecretTrophyRailRefresh?.();
 })();
 </script>
+<style id="qcHomeHotspotGuard">section.home .cardHotspot,section.home .qcAlbumCard{display:none!important;pointer-events:none!important}</style>
 <style id="qcMobilePageCounterPositionV1">
 /* Compteur mobile sous l'album, centré, sans toucher au bureau. */
 @media(max-width:700px){
