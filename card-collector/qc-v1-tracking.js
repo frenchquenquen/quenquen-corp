@@ -111,6 +111,7 @@
     "qc_chocolat45_found_v1":"chocolat45",
     "qc_egg_arek33_v1":"arek33",
     "qc_egg_reims27_v1":"reims27",
+    "qc_egg_flavie4_v1":"flavie4",
     "qc_last_page_dot_found_v1":"last_page_dot",
     "qc_expert_quenquen_unlocked_v1":"expert_quenquen",
     "quenquen_quick43_burger_unlocked_v1":"quick43",
