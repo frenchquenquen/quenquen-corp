@@ -109,6 +109,7 @@
     "qc_royal_quantin_unlocked_v1":"royal_quantin",
     "qc_french_grenier_unlocked_v1":"french_grenier",
     "qc_chocolat45_found_v1":"chocolat45",
+    "qc_egg_arek33_v1":"arek33",
     "qc_last_page_dot_found_v1":"last_page_dot",
     "qc_expert_quenquen_unlocked_v1":"expert_quenquen",
     "quenquen_quick43_burger_unlocked_v1":"quick43",
@@ -125,6 +126,8 @@
     const result = originalSetItem.apply(this, arguments);
     if (mystery && !wasUnlocked && value != null && String(value) !== "" && enabled()) {
       void record(mystery);
+      if (mystery === "archive16") void record("gift16");
+      if (mystery === "archive12") void record("twitch_unlock");
     }
     return result;
   };
