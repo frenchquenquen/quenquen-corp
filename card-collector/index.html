@@ -1160,6 +1160,8 @@ function refreshArchiveLibrary(){
  if(localStorage.getItem("quenquen_corp_archive_8_discovered_v1"))items.push({n:8,label:"LIÉS PAR LE DESTIN",open:()=>window.qcReplayArchive8?.()});
  if(localStorage.getItem("quenquen_corp_archive_16_discovered_v1"))items.push({n:16,label:"QUENQUEN NOËL",open:()=>window.qcReplayArchive16?.()});
  if(localStorage.getItem("quenquen_corp_archive_12_discovered_v1"))items.push({n:12,label:"ANDROMEDA / UNIVERS 0",open:()=>window.qcReplayArchive12?.()});
+ if(localStorage.getItem("quenquen_corp_archive_14_discovered_v1"))items.push({n:14,label:"DONNÉES RECONSTITUÉES",open:()=>window.qcReplayArchive14?.()});
+ if(localStorage.getItem("quenquen_corp_archive_23_discovered_v1"))items.push({n:23,label:"ARCHIVE #23",open:()=>window.qcReplayArchive23?.()});
  archiveLibraryList.innerHTML="";
  items.sort((a,b)=>a.n-b.n).forEach(a=>{const b=document.createElement("button");b.className="archiveItem";b.textContent=`ARCHIVE #${a.n}  //  ${a.label}`;b.onclick=a.open;archiveLibraryList.appendChild(b)});
  if(items.length){archiveAccess.classList.add("visible");archiveCount.textContent=String(items.length).padStart(2,"0")}
