@@ -1,0 +1,46 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>QUENQUEN CORP — Messagerie privée</title><style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;padding:24px;background:#090b10;color:#eee;font:15px/1.5 system-ui,Arial,sans-serif}main{max-width:1080px;margin:auto}h1{color:#ffd128;letter-spacing:2px}h2{margin:0 0 12px}a{color:#ffd128}.muted{color:#aaa}.panel{background:#171a22;border:1px solid #383b44;padding:20px;border-radius:10px;margin:16px 0}button,select{background:#22252d;color:#fff;border:1px solid #6d6131;border-radius:6px;padding:10px;cursor:pointer;font:inherit}button:hover{border-color:#ffd128}.gold{background:#ffd128;color:#101010;font-weight:800}.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:20px 0}.message{padding:16px;margin:10px 0;background:#12141a;border:1px solid #333842;border-radius:9px}.message.new{border-left:4px solid #ffd128}.message header{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between}.message p{white-space:pre-wrap;overflow-wrap:anywhere}.actions{display:flex;flex-wrap:wrap;gap:8px}.meta{color:#bbb;font-size:13px}.error{color:#ffb5a8}#dashboard[hidden],#login[hidden]{display:none}@media(max-width:600px){body{padding:14px}.panel{padding:14px}}
+</style></head><body><main><a href="../">← Retour au hub</a><h1>QUENQUEN CORP</h1><p class="muted">CONSOLE PRIVÉE — TRANSMISSIONS REÇUES</p>
+<section id="login" class="panel"><h2>Accès administrateur</h2><p>Connecte-toi avec ton compte Twitch administrateur.</p><button id="connect" class="gold">CONNEXION TWITCH</button></section>
+<p id="notice" role="status"></p>
+<section id="dashboard" hidden><div class="toolbar"><strong id="summary"></strong><label for="filter">Afficher :</label><select id="filter"><option value="all">Tous les messages</option><option value="new">Nouveaux</option><option value="read">Lus</option><option value="closed">Traités</option></select><button id="refresh">Actualiser</button><button id="logout">Déconnexion</button></div><div id="messages"></div></section>
+</main><script type="module">
+import {createClient} from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+const URL='https://qfkjrlpkykkizrmzlixp.supabase.co',KEY='sb_publishable_tBGclmheOxP-q6MVKz1SJQ_Mc3PDRnG',ADMIN='981b43b7-511b-4e1b-9517-442274c4371b';
+const sb=createClient(URL,KEY,{auth:{detectSessionInUrl:true,persistSession:true,autoRefreshToken:true}});
+const $=id=>document.getElementById(id),node=(tag,cls,text)=>{const el=document.createElement(tag);el.className=cls||'';if(text!==undefined)el.textContent=text;return el};let messages=[];
+$('connect').onclick=async()=>{const {error}=await sb.auth.signInWithOAuth({provider:'twitch',options:{redirectTo:location.origin+location.pathname}});if(error)$('notice').textContent=error.message};
+$('logout').onclick=async()=>{await sb.auth.signOut();location.reload()};
+$('refresh').onclick=()=>load();
+$('filter').onchange=()=>render();
+function render(){
+ const newCount=messages.filter(m=>m.status==='new').length;
+ $('summary').textContent=messages.length+' messages · '+newCount+' nouveaux';
+ const root=$('messages');root.replaceChildren();
+ const filtered=messages.filter(m=>$('filter').value==='all'||m.status===$('filter').value);
+ if(!filtered.length){root.append(node('p','muted','Aucun message dans cette catégorie.'));return}
+ const labels={pro:'Collaboration / partenariat',bug:'Signalement d’anomalie',other:'Autre demande'};
+ for(const m of filtered){
+  const card=node('article','message '+m.status),head=node('header'),left=node('div'),right=node('div','meta',new Date(m.created_at).toLocaleString('fr-FR'));
+  left.append(node('strong','',labels[m.category]||m.category),node('div','meta',m.status==='new'?'● Nouveau':m.status==='read'?'Lu':'Traité'));head.append(left,right);
+  const email=node('a','',m.email);email.href='mailto:'+encodeURIComponent(m.email);
+  const body=node('p','',m.message),actions=node('div','actions');
+  for(const [status,label] of [['new','Marquer nouveau'],['read','Marquer lu'],['closed','Marquer traité']]){
+   if(m.status===status)continue;
+   const b=node('button',status==='closed'?'gold':'',label);b.onclick=async()=>{b.disabled=true;const {data,error}=await sb.rpc('qc_contact_admin_set_status',{p_id:m.id,p_status:status});if(error||!data){$('notice').textContent='Erreur : '+(error?.message||'Mise à jour impossible');b.disabled=false;return}m.status=status;$('notice').textContent='Statut mis à jour.';render()};actions.append(b);
+  }
+  card.append(head,email,body,actions);root.append(card);
+ }
+}
+async function load(){
+ $('notice').textContent='Chargement…';
+ const {data:{user},error}=await sb.auth.getUser();
+ if(error||!user||user.id!==ADMIN){$('login').hidden=false;$('dashboard').hidden=true;$('notice').textContent=user?'Ce compte ne dispose pas des droits administrateur.':'';return}
+ $('login').hidden=true;
+ const result=await sb.rpc('qc_contact_admin_inbox');
+ if(result.error){$('notice').textContent='Erreur : '+result.error.message;return}
+ messages=Array.isArray(result.data)?result.data:[];
+ $('dashboard').hidden=false;$('notice').textContent='';render();
+}
+await load();
+</script></body></html>
