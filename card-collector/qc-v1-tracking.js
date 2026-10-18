@@ -6,7 +6,22 @@
   const ENDPOINT = "https://qfkjrlpkykkizrmzlixp.supabase.co/functions/v1/qc-v1-discovery";
   const CONSENT = "qc_v1_tracking_consent_v1";
   const VISITOR = "qc_v1_tracking_visitor_v1";
+  const IDENTITY = "quenquen_corp_identity_v2";
+  const TOKENS = "quenquen_corp_edit_tokens_v1";
   const pending = new Set();
+  function agentCredentials() {
+    try {
+      const agent = JSON.parse(localStorage.getItem(IDENTITY) || "null");
+      const tokens = JSON.parse(localStorage.getItem(TOKENS) || "{}");
+      const corpId = agent?.corpId;
+      const token = corpId && tokens?.[corpId];
+      if (typeof corpId === "string" && corpId.length <= 80 &&
+          typeof token === "string" && token.length <= 256) {
+        return { corp_id: corpId, agent_token: token };
+      }
+    } catch {}
+    return null;
+  }
   function enabled() {
     try { return localStorage.getItem(CONSENT) === "yes"; } catch { return false; }
   }
@@ -29,7 +44,7 @@
       const response = await fetch(ENDPOINT, {
         method: "POST", mode: "cors", credentials: "omit",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code, visitor_id })
+        body: JSON.stringify({ code, visitor_id, ...(agentCredentials() || {}) })
       });
       return response.ok;
     } catch { return false; }
@@ -38,6 +53,7 @@
   window.QCV1Tracking = Object.freeze({
     record,
     isEnabled: enabled,
+    hasAgentCard: () => agentCredentials() !== null,
     consent(value) {
       if (value !== true && value !== false) return;
       try {
