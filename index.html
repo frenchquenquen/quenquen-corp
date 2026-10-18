@@ -1188,7 +1188,7 @@ setInterval(()=>{i=(i+1)%msgs.length;a.innerHTML="<b>SYSTÈME</b> - "+msgs[i];to
 const anomaly=()=>{n.classList.add("show");tone(155,.28,.09,"sawtooth");tone(116,.36,.065,"sawtooth",.12);setTimeout(()=>n.classList.remove("show"),1350);setTimeout(anomaly,30000+Math.random()*30000)};setTimeout(anomaly,22000+Math.random()*18000)})();
 </script>
 <style id="qcContactStyle">
-#qcContactTrigger{position:fixed;bottom:18px;left:18px;z-index:115;border:1px solid #e3bb00;border-radius:4px;background:#08090d;color:#ffcc00;padding:10px 16px;font:800 12px Arial,sans-serif;letter-spacing:1.4px;cursor:pointer;box-shadow:0 3px 18px #0008}
+#qcContactTrigger{position:fixed;bottom:18px;right:18px;z-index:115;border:1px solid #e3bb00;border-radius:4px;background:#08090d;color:#ffcc00;padding:10px 16px;font:800 12px Arial,sans-serif;letter-spacing:1.4px;cursor:pointer;box-shadow:0 3px 18px #0008}
 #qcContactTrigger:hover{background:#ffcc00;color:#111}
 #qcContactOverlay{display:none;position:fixed;inset:0;z-index:200000;background:#000c;align-items:center;justify-content:center;padding:16px}
 #qcContactOverlay.open{display:flex}
@@ -1203,7 +1203,7 @@ const anomaly=()=>{n.classList.add("show");tone(155,.28,.09,"sawtooth");tone(116
 #qcContactClose{position:absolute;right:15px;top:12px;background:none;border:0;color:#ffcc00;font-size:26px;cursor:pointer}
 #qcContactStatus{min-height:18px}
 #qcContactPanel .qcContactTrap{position:absolute;left:-10000px;opacity:0;pointer-events:none}
-@media(max-width:600px){#qcContactTrigger{bottom:12px;left:12px;padding:9px 12px}#qcContactPanel{padding:24px 18px}}
+@media(max-width:600px){#qcContactTrigger{bottom:12px;right:12px;padding:9px 12px}#qcContactPanel{padding:24px 18px}}
 </style>
 <button id="qcContactTrigger" type="button">✉ CONTACT</button>
 <div id="qcContactOverlay" aria-hidden="true">
