@@ -5130,9 +5130,9 @@ window.qcAndromedaBoss=(function(){
 </script>
 
 <style id="qcLastPageDotStyle">
-#count{position:relative}
-#qcLastPageDot{display:none;position:absolute;right:-15px;bottom:-10px;width:13px;height:13px;padding:0;border:0;background:transparent;align-items:center;justify-content:center;cursor:pointer;z-index:30}
-#qcLastPageDot::before{content:"";width:3px;height:3px;border-radius:50%;background:#ffe443;box-shadow:0 0 4px 1px #ffd70077;animation:qcLastPageDotGlow 3.4s ease-in-out infinite}
+#qcImmersiveCount{position:fixed}
+#qcLastPageDot{display:none;position:absolute;right:-16px;bottom:-9px;width:16px;height:16px;padding:0;border:0;background:transparent;align-items:center;justify-content:center;cursor:pointer;z-index:30}
+#qcLastPageDot::before{content:"";width:4px;height:4px;border-radius:50%;background:#ffe443;box-shadow:0 0 4px 1px #ffd70077;animation:qcLastPageDotGlow 3.4s ease-in-out infinite}
 @keyframes qcLastPageDotGlow{0%,100%{opacity:.48;box-shadow:0 0 3px #ffd70066}50%{opacity:1;box-shadow:0 0 6px 1px #ffd700aa}}
 #qcLastPageDotBadge{display:none;align-items:center;justify-content:center;width:64px;height:64px;min-width:64px;min-height:64px;border:1px solid #6e5d00;background:#050505;padding:0;cursor:pointer;overflow:hidden}
 #qcLastPageDotBadge img{width:100%;height:100%;object-fit:contain}
@@ -5143,7 +5143,7 @@ window.qcAndromedaBoss=(function(){
 <video id="qcLastPageDotVideo" src="0124.mp4" preload="none" playsinline></video>
 <script id="qcLastPageDotEngine">
 (()=>{
- const KEY='qc_last_page_dot_found_v1',count=document.getElementById('count'),video=document.getElementById('qcLastPageDotVideo');
+ const KEY='qc_last_page_dot_found_v1',count=document.getElementById('qcImmersiveCount'),video=document.getElementById('qcLastPageDotVideo');
  if(!count||!video)return;
  const dot=document.createElement('button');dot.type='button';dot.id='qcLastPageDot';dot.setAttribute('aria-label','Point mystérieux');count.appendChild(dot);
  const badge=document.createElement('button');badge.type='button';badge.id='qcLastPageDotBadge';badge.title='Revoir le secret de la dernière page';badge.innerHTML='<img src="icone.png" alt="Objet secret de la dernière page">';document.body.appendChild(badge);
