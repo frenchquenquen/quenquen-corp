@@ -3535,7 +3535,7 @@ window.qcAndromedaBoss=(function(){
 </style>
 <script id="qcSecretTrophyRailEngine">
 (function(){
- const IDS=["qcTwitchUnlock","qcFrenchbladeFQDock","qcSpookyGhostBadge","qcGift16Badge","qcBits55Badge","qcSuzieBearBadge","qcMonteur20Badge","qcJungleCroissantBadge","qcRoyalQuantinBadge","qcFrenchGrenierBadge","qcArek33Badge","qcChocolat45Badge"];
+ const IDS=["qcTwitchUnlock","qcFrenchbladeFQDock","qcSpookyGhostBadge","qcGift16Badge","qcBits55Badge","qcSuzieBearBadge","qcMonteur20Badge","qcJungleCroissantBadge","qcRoyalQuantinBadge","qcFrenchGrenierBadge","qcArek33Badge","qcChocolat45Badge","qcLastPageDotBadge"];
  let rail=null,items=null;
 
  function collectionHome(){
@@ -3574,6 +3574,7 @@ window.qcAndromedaBoss=(function(){
    if(el.id==="qcFrenchGrenierBadge") return !!localStorage.getItem("qc_french_grenier_unlocked_v1");
    if(el.id==="qcArek33Badge") return !!localStorage.getItem("qc_egg_arek33_v1");
    if(el.id==="qcChocolat45Badge") return !!localStorage.getItem("qc_chocolat45_found_v1");
+   if(el.id==="qcLastPageDotBadge") return !!localStorage.getItem("qc_last_page_dot_found_v1");
    return false;
  }
  function refresh(){
@@ -5124,6 +5125,35 @@ window.qcAndromedaBoss=(function(){
  heart.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();if(selected!==45)return;localStorage.setItem(KEY,new Date().toISOString());window.qcSecretTrophyRailRefresh?.();message.classList.add('show');clearTimeout(hideTimer);hideTimer=setTimeout(()=>message.classList.remove('show'),3500)});
  badge.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();play()});
  video.addEventListener('ended',close);video.addEventListener('error',close);
+ window.qcSecretTrophyRailRefresh?.();
+})();
+</script>
+
+<style id="qcLastPageDotStyle">
+#count{position:relative}
+#qcLastPageDot{display:none;position:absolute;right:-15px;bottom:-10px;width:13px;height:13px;padding:0;border:0;background:transparent;align-items:center;justify-content:center;cursor:pointer;z-index:30}
+#qcLastPageDot::before{content:"";width:3px;height:3px;border-radius:50%;background:#ffe443;box-shadow:0 0 4px 1px #ffd70077;animation:qcLastPageDotGlow 3.4s ease-in-out infinite}
+@keyframes qcLastPageDotGlow{0%,100%{opacity:.48;box-shadow:0 0 3px #ffd70066}50%{opacity:1;box-shadow:0 0 6px 1px #ffd700aa}}
+#qcLastPageDotBadge{display:none;align-items:center;justify-content:center;width:64px;height:64px;min-width:64px;min-height:64px;border:1px solid #6e5d00;background:#050505;padding:0;cursor:pointer;overflow:hidden}
+#qcLastPageDotBadge img{width:100%;height:100%;object-fit:contain}
+#qcLastPageDotVideo{position:fixed;right:0;top:50%;transform:translateY(-50%);width:min(48vw,680px);height:auto;max-height:94vh;object-fit:contain;z-index:240002;pointer-events:none;display:none;background:transparent}
+#qcLastPageDotVideo.playing{display:block}
+@media(max-width:700px){#qcLastPageDotVideo{width:62vw;max-height:75vh}}
+</style>
+<video id="qcLastPageDotVideo" src="0124.mp4" preload="none" playsinline></video>
+<script id="qcLastPageDotEngine">
+(()=>{
+ const KEY='qc_last_page_dot_found_v1',count=document.getElementById('count'),video=document.getElementById('qcLastPageDotVideo');
+ if(!count||!video)return;
+ const dot=document.createElement('button');dot.type='button';dot.id='qcLastPageDot';dot.setAttribute('aria-label','Point mystérieux');count.appendChild(dot);
+ const badge=document.createElement('button');badge.type='button';badge.id='qcLastPageDotBadge';badge.title='Revoir le secret de la dernière page';badge.innerHTML='<img src="icone.png" alt="Objet secret de la dernière page">';document.body.appendChild(badge);
+ function update(){dot.style.display=(count.textContent||'').trim()==='7 / 7'?'flex':'none'}
+ const observer=new MutationObserver(update);observer.observe(count,{childList:true,characterData:true,subtree:true});update();
+ function stop(){video.classList.remove('playing');video.pause();video.currentTime=0}
+ function play(){stop();video.classList.add('playing');video.currentTime=0;video.play().catch(stop)}
+ dot.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();localStorage.setItem(KEY,'1');window.qcSecretTrophyRailRefresh?.();play()});
+ badge.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();play()});
+ video.addEventListener('ended',stop);video.addEventListener('error',stop);
  window.qcSecretTrophyRailRefresh?.();
 })();
 </script>
