@@ -1272,6 +1272,10 @@ function qcCloseIndividualCard(){
  const m=document.getElementById("individualCardModal");m.classList.remove("open");m.setAttribute("aria-hidden","true");
  document.getElementById("individualCardFrame").classList.remove("flipped");
 }
+function qcFlipIndividualCard(){
+ const frame=document.getElementById("individualCardFrame");
+ if(frame)frame.classList.toggle("flipped");
+}
 function qcInstallCardHotspots(){
  // Never let legacy card hotspots cover the album home/cover.
  document.querySelectorAll("section.home .cardHotspot, section.home .qcAlbumCard").forEach(el=>el.remove());
@@ -4373,7 +4377,7 @@ window.qcAndromedaBoss=(function(){
  ];
  const archiveNo={qcVideo:11,qc6Video:6,qc0Video:0,qc16Video:16,qcA1Video:1,qcD8Video:8,qcA12Video:12,qcA14FirstVideo:14,qcA23Video:23};
  let source=null,restore=null,watching=false;
- function numberOf(el){return archiveNo[el?.id]??Number((el?.closest?.("[id]")?.textContent||"").match(/ARCHIVE\s*#(\d+)/i)?.[1])||""}
+ function numberOf(el){return archiveNo[el?.id]??(Number((el?.closest?.("[id]")?.textContent||"").match(/ARCHIVE\s*#(\d+)/i)?.[1])||"")}
  async function adopt(el){
    if(!el||el===vid||watching)return; const src=el.currentSrc||el.src;if(!src)return;
    source=el; const n=numberOf(el); title.textContent="QUENQUEN CORP // ARCHIVE"+(n!==""?" #"+n:"");
