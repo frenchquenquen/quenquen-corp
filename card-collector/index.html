@@ -4736,6 +4736,23 @@ window.qcAndromedaBoss=(function(){
 })();
 </script>
 
+<script id="qcArchiveHomeCountDisplayFix">
+(function(){
+ const count=document.getElementById("archiveCount");
+ const list=document.getElementById("archiveLibraryList");
+ if(!count||!list)return;
+ function update(){
+   const entries=[...list.querySelectorAll(".archiveItem")];
+   const ids=new Set(entries.map(el=>((el.textContent||"").match(/ARCHIVE\s*#\s*(\d+)/i)||[])[1]).filter(Boolean));
+   const total=ids.size||entries.length;
+   count.textContent=String(total).padStart(2,"0");
+ }
+ const observer=new MutationObserver(update);
+ observer.observe(list,{childList:true,subtree:true,characterData:true});
+ setInterval(update,1000);
+ update();
+})();
+</script>
 </body></html>
 <style id="qcGift16ChristmasLogoFix">
 #qcGift16{
