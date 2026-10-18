@@ -51,24 +51,24 @@
     finally { pending.delete(code); }
   }
   function installChoice() {
-    const anchor = document.getElementById("musicVolume");
+    const anchor = document.querySelector(".coverSide .qcCoverTitle");
     if (!anchor || document.getElementById("qcV1TrackingChoice")) return;
     const holder = document.createElement("div");
     holder.id = "qcV1TrackingChoice";
-    holder.style.cssText = "margin:9px 0;padding:7px 9px;border:1px solid #b99a3466;border-radius:7px;color:#f2c52d;font:12px Arial,sans-serif;max-width:300px";
+    holder.style.cssText = "margin:0 auto 16px;padding:0;text-align:center;color:#f2c52d;font:12px Arial,sans-serif;max-width:360px";
     const button = document.createElement("button");
     button.type = "button";
-    button.style.cssText = "background:transparent;border:0;color:inherit;cursor:pointer;font:inherit;text-align:left;padding:4px";
+    button.style.cssText = "background:#16171b;border:1px solid #b99a3466;border-radius:999px;color:inherit;cursor:pointer;font:700 11px Arial,sans-serif;letter-spacing:.05em;text-align:center;padding:9px 14px";
     const note = document.createElement("div");
-    note.style.cssText = "color:#b8b8b8;font-size:10px;margin-top:4px";
+    note.style.cssText = "color:#b8b8b8;font-size:10px;margin:6px auto 0;max-width:320px";
     note.textContent = "Facultatif : associe les secrets trouvés à votre carte d’agent CORP sur cet appareil. Désactivable à tout moment.";
-    function refresh() { button.textContent = "SUIVI DES DÉCOUVERTES : " + (enabled() ? "OUI ✓" : "NON"); }
+    function refresh() { button.textContent = "SUIVI DES DÉCOUVERTES  " + (enabled() ? "● ACTIVÉ" : "○ DÉSACTIVÉ"); }
     button.addEventListener("click", () => {
       window.QCV1Tracking.consent(!enabled());
       refresh();
     });
     holder.append(button, note);
-    anchor.parentElement?.insertAdjacentElement("afterend", holder);
+    anchor.insertAdjacentElement("afterend", holder);
     refresh();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", installChoice);
