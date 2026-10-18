@@ -3900,6 +3900,31 @@ window.qcAndromedaBoss=(function(){
   <div id="qcCard27MapWrap"><img id="qcCard27Map" src="assets/embedded/asset_100_9ce92f496762.png" alt=""><span id="qcCard27ReimsDot"></span></div>
  </div>
 </div>
+<style id="qcReims27TrophyStyle">
+#qcReims27Trophy{display:none;cursor:pointer;background:#090909;border:1px solid #8b770b;border-radius:4px;padding:4px}
+#qcReims27Trophy img{width:48px;height:48px;object-fit:contain}
+</style>
+<button id="qcReims27Trophy" type="button" title="Carte de France — Reims" aria-label="Revoir la carte de France — Reims"><img src="assets/embedded/asset_100_9ce92f496762.png" alt="Carte de France, point sur Reims"></button>
+<script id="qcReims27TrophyEngine">
+(function(){
+ const KEY="qc_egg_reims27_v1",badge=document.getElementById("qcReims27Trophy");
+ if(!badge)return;
+ badge.addEventListener("click",()=>{const box=document.getElementById("qcCard27Reims"),dot=document.getElementById("qcCard27ReimsDot");if(!box)return;box.setAttribute("aria-hidden","false");box.classList.add("on");dot?.classList.remove("blink");void dot?.offsetWidth;dot?.classList.add("blink")});
+ function refresh(){
+   const rail=document.getElementById("qcSecretTrophyRailItems");
+   const home=document.querySelector("section.home[data-page='0']");
+   const active=!!home&&(home.classList.contains("active")||getComputedStyle(home).display!=="none");
+   const unlocked=!!localStorage.getItem(KEY);
+   if(unlocked&&rail&&badge.parentElement!==rail)rail.appendChild(badge);
+   badge.classList.toggle("qcTrophySlot",unlocked);
+   badge.style.display=unlocked&&active?"flex":"none";
+   if(unlocked&&active)document.getElementById("qcSecretTrophyRail")?.classList.add("visible");
+   const count=document.getElementById("qcSecretTrophyCount");
+   if(count&&rail)count.textContent=String([...rail.children].filter(el=>getComputedStyle(el).display!=="none"&&getComputedStyle(el).visibility!=="hidden").length);
+ }
+ setInterval(refresh,400);setTimeout(refresh,500);
+})();
+</script>
 <script id="qcCard27ReimsDirectEngine">
 (function(){
  const box=document.getElementById("qcCard27Reims"),dot=document.getElementById("qcCard27ReimsDot"),close=document.getElementById("qcCard27ReimsClose");
