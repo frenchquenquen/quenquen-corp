@@ -4610,6 +4610,7 @@ window.qcAndromedaBoss=(function(){
 </style>
 <button id="qcNoel39Badge" type="button" title="QuenQuen Noël"><img src="QuenQuenNoel1.png" alt="QuenQuen Noël"></button>
 <div id="qcNoel39Overlay" aria-hidden="true"><button id="qcNoel39Close" type="button">✕</button><video id="qcNoel39Video" playsinline preload="metadata" src="lutin%20quenquen%20noel.mp4"></video></div>
+<script defer src="qc-v1-tracking.js"></script>
 <script id="qcNoel39VideoEngine">
 (function(){
  const CARD=39,WAIT=20000,KEY="quenquen_noel39_found_v1";
@@ -4628,7 +4629,7 @@ window.qcAndromedaBoss=(function(){
  async function startVideo(){
    timer=null;
    if(current!==CARD||!cardModalOpen())return;
-   localStorage.setItem(KEY,new Date().toISOString());showBadge();
+   localStorage.setItem(KEY,new Date().toISOString());showBadge();window.QCV1Tracking?.record("noel39");
    if(typeof music!=="undefined"){wasPlaying=!music.paused;musicTime=music.currentTime;music.pause();if(typeof updateMusic==="function")updateMusic()}
    overlay.classList.add("open");overlay.setAttribute("aria-hidden","false");
    try{video.currentTime=0;await video.play()}catch(e){}
