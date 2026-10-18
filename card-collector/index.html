@@ -3535,7 +3535,7 @@ window.qcAndromedaBoss=(function(){
 </style>
 <script id="qcSecretTrophyRailEngine">
 (function(){
- const IDS=["qcTwitchUnlock","qcFrenchbladeFQDock","qcSpookyGhostBadge","qcGift16Badge","qcBits55Badge","qcSuzieBearBadge","qcMonteur20Badge","qcJungleCroissantBadge","qcRoyalQuantinBadge","qcFrenchGrenierBadge","qcArek33Badge","qcChocolat45Badge","qcLastPageDotBadge"];
+ const IDS=["qcTwitchUnlock","qcFrenchbladeFQDock","qcSpookyGhostBadge","qcGift16Badge","qcBits55Badge","qcSuzieBearBadge","qcMonteur20Badge","qcJungleCroissantBadge","qcRoyalQuantinBadge","qcFrenchGrenierBadge","qcArek33Badge","qcChocolat45Badge","qcLastPageDotBadge","qcExpertQuenQuenBadge"];
  let rail=null,items=null;
 
  function collectionHome(){
@@ -3575,6 +3575,7 @@ window.qcAndromedaBoss=(function(){
    if(el.id==="qcArek33Badge") return !!localStorage.getItem("qc_egg_arek33_v1");
    if(el.id==="qcChocolat45Badge") return !!localStorage.getItem("qc_chocolat45_found_v1");
    if(el.id==="qcLastPageDotBadge") return !!localStorage.getItem("qc_last_page_dot_found_v1");
+   if(el.id==="qcExpertQuenQuenBadge") return !!localStorage.getItem("qc_expert_quenquen_unlocked_v1");
    return false;
  }
  function refresh(){
@@ -5154,6 +5155,44 @@ window.qcAndromedaBoss=(function(){
  dot.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();localStorage.setItem(KEY,'1');window.qcSecretTrophyRailRefresh?.();play()});
  badge.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();play()});
  video.addEventListener('ended',stop);video.addEventListener('error',stop);
+ window.qcSecretTrophyRailRefresh?.();
+})();
+</script>
+
+<style id="qcExpertQuenQuenStyle">
+#qcExpertQuenQuenBadge{display:none;align-items:center;justify-content:center;width:66px;height:66px;min-width:66px;min-height:66px;border:1px solid #6e5d00;background:#050505;padding:0;cursor:pointer;overflow:hidden}
+#qcExpertQuenQuenBadge img{width:100%;height:100%;object-fit:cover;object-position:center center}
+#qcExpertQuenQuenOverlay{position:fixed;inset:0;z-index:240003;display:none;align-items:center;justify-content:center;background:#000d}
+#qcExpertQuenQuenOverlay.open{display:flex}
+#qcExpertQuenQuenVideo{width:min(95vw,1100px);max-height:90vh;object-fit:contain;background:transparent}
+#qcExpertQuenQuenClose{position:absolute;right:18px;top:18px;z-index:2;border:1px solid #ffd400;background:#090909;color:#ffd400;padding:8px 12px;cursor:pointer}
+</style>
+<div id="qcExpertQuenQuenOverlay" aria-hidden="true"><button id="qcExpertQuenQuenClose" type="button" aria-label="Fermer la vidéo">✕</button><video id="qcExpertQuenQuenVideo" src="expert%20quenquen%20final.mp4" playsinline preload="none"></video></div>
+<script id="qcExpertQuenQuenEngine">
+(()=>{
+ const KEY='qc_expert_quenquen_unlocked_v1',FAV='quenquen_album_favorites_v1';
+ const overlay=document.getElementById('qcExpertQuenQuenOverlay'),video=document.getElementById('qcExpertQuenQuenVideo');
+ if(!overlay||!video)return;
+ const badge=document.createElement('button');badge.type='button';badge.id='qcExpertQuenQuenBadge';badge.title='Expert QuenQuen — revoir la vidéo';badge.setAttribute('aria-label','Expert QuenQuen — revoir la vidéo');badge.innerHTML='<img src="expert%20quenquen.png" alt="Expert QuenQuen">';document.body.appendChild(badge);
+ let triggered=false,previous='',lastCheck=0;
+ function hasCombo(){
+  let f={};try{f=JSON.parse(localStorage.getItem(FAV)||'{}')||{}}catch(e){}
+  return Object.entries(f).some(([c,i])=>Number(c)*10+Number(i)+1===9)&&Object.entries(f).some(([c,i])=>Number(c)*10+Number(i)+1===43);
+ }
+ function close(){video.pause();video.currentTime=0;overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true')}
+ function play(){close();overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');video.currentTime=0;video.play().catch(close)}
+ function check(){
+  const combo=hasCombo();
+  if(combo&&!localStorage.getItem(KEY)){
+   localStorage.setItem(KEY,'1');window.qcSecretTrophyRailRefresh?.();play();
+  }
+ }
+ badge.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();if(localStorage.getItem(KEY))play()});
+ document.getElementById('qcExpertQuenQuenClose').addEventListener('click',close);
+ video.addEventListener('ended',close);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))close()});
+ window.addEventListener('storage',e=>{if(e.key===FAV)check()});
+ setInterval(check,500);setTimeout(check,300);
  window.qcSecretTrophyRailRefresh?.();
 })();
 </script>
