@@ -119,6 +119,52 @@
     "quenquen_noel39_found_v1":"noel39",
     "quenquen_saboteur69_found_v1":"saboteur69"
   });
+  // Backfill saved discoveries only after explicit consent; never alter album progress.
+  const CRINGE_KEY = "quenquen_amour_du_cringe_found_v1";
+  const BACKFILL_VERSION = "qc_v1_tracking_backfill_v2";
+  async function syncSaved() {
+    if (!enabled()) return {total:0,success:0};
+    const codes = new Set();
+    try {
+      for (const [key, code] of Object.entries(MYSTERY_FLAGS)) {
+        if (key === CRINGE_KEY || code === "remote_archive99") continue;
+        if (localStorage.getItem(key)) {
+          codes.add(code);
+          if (code === "archive16") codes.add("gift16");
+          if (code === "archive12") codes.add("twitch_unlock");
+        }
+      }
+      // Legacy keys still used by collectible triggers.
+      const legacy = {
+        "qc_quick43_unlocked_v1":"quick43",
+        "qc_noel39_unlocked_v1":"noel39",
+        "qc_og_letter_unlocked_v1":"og_letter",
+        "qc_egg_arek33_v1":"arek33"
+      };
+      for (const [key, code] of Object.entries(legacy)) if (localStorage.getItem(key)) codes.add(code);
+      const saved = JSON.parse(localStorage.getItem(CRINGE_KEY) || "[]");
+      if (Array.isArray(saved)) for (const id of saved) {
+        const n = Number(id);
+        if (Number.isInteger(n) && n >= 1 && n <= 16) codes.add("cringe_" + String(n).padStart(2,"0"));
+      }
+    } catch {}
+    let success = 0;
+    for (const code of codes) {
+      if (!enabled()) break;
+      if (await record(code)) success++;
+    }
+    if (enabled() && success === codes.size) {
+      try { localStorage.setItem(BACKFILL_VERSION, "done"); } catch {}
+    }
+    return {total:codes.size,success};
+  }
+  let syncInFlight = null;
+  function synchronize() {
+    if (!enabled()) return Promise.resolve({total:0,success:0});
+    if (syncInFlight) return syncInFlight;
+    syncInFlight = syncSaved().finally(() => { syncInFlight = null; });
+    return syncInFlight;
+  }
   const originalSetItem = Storage.prototype.setItem;
   Storage.prototype.setItem = function(key, value) {
     const mystery = this === localStorage && MYSTERY_FLAGS[String(key)];
@@ -135,12 +181,15 @@
     record,
     isEnabled: enabled,
     hasAgentCard: () => agentCredentials() !== null,
+    syncSaved: synchronize,
     consent(value) {
       if (value !== true && value !== false) return;
       try {
         localStorage.setItem(CONSENT, value ? "yes" : "no");
+        if (value) void synchronize();
         if (!value) localStorage.removeItem(VISITOR);
       } catch {}
     }
   });
+  if (enabled()) setTimeout(() => { void synchronize(); }, 1200);
 })();
