@@ -5177,7 +5177,7 @@ window.qcAndromedaBoss=(function(){
  let triggered=false,previous='',lastCheck=0;
  function hasCombo(){
   let f={};try{f=JSON.parse(localStorage.getItem(FAV)||'{}')||{}}catch(e){}
-  return Object.entries(f).some(([c,i])=>Number(c)*10+Number(i)+1===9)&&Object.entries(f).some(([c,i])=>Number(c)*10+Number(i)+1===43);
+  return Object.entries(f).some(([c,i])=>Number(c)*10+Number(i)+1===55)&&Object.entries(f).some(([c,i])=>Number(c)*10+Number(i)+1===43);
  }
  function close(){video.pause();video.currentTime=0;overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true')}
  function play(){close();overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');video.currentTime=0;video.play().catch(close)}
