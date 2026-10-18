@@ -73,6 +73,47 @@
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", installChoice);
   else installChoice();
+
+  // Observe only genuine first-time unlock writes, never replay old saved flags.
+  const MYSTERY_FLAGS = Object.freeze({
+    "quenquen_corp_archive_11_discovered_v1":"archive11",
+    "quenquen_corp_archive_6_discovered_v1":"archive6",
+    "quenquen_corp_archive_1_discovered_v1":"archive1",
+    "quenquen_corp_archive_3_discovered_v1":"archive3",
+    "quenquen_corp_archive_8_discovered_v1":"archive8",
+    "quenquen_corp_archive_16_discovered_v1":"archive16",
+    "quenquen_corp_archive_12_discovered_v1":"archive12",
+    "quenquen_corp_archive_0_discovered_v1":"archive0",
+    "quenquen_corp_remote_archive_99_discovered_v1":"remote_archive99",
+    "quenquen_corp_archive_23_discovered_v1":"archive23",
+    "quenquen_corp_archive_14_discovered_v1":"archive14",
+    "quenquen_amour_du_cringe_found_v1":"cringe_love",
+    "quenquen_frenchblade_acquired_v1":"frenchblade",
+    "quenquen_bits55_completed_v1":"bits55",
+    "quenquen_suzie_bear_recovered_v1":"suzie_bear",
+    "quenquen_monteur_quenquen_20_unlocked_v1":"monteur20",
+    "quenquen_jungle_croissant_unlocked_v1":"jungle_croissant",
+    "qc_royal_quantin_unlocked_v1":"royal_quantin",
+    "qc_french_grenier_unlocked_v1":"french_grenier",
+    "qc_chocolat45_found_v1":"chocolat45",
+    "qc_last_page_dot_found_v1":"last_page_dot",
+    "qc_expert_quenquen_unlocked_v1":"expert_quenquen",
+    "quenquen_quick43_burger_unlocked_v1":"quick43",
+    "qc_og_letter_unlocked_v1":"og_letter",
+    "quenquen_andromeda_watch_unlocked_v9":"andromeda_watch",
+    "quenquen_noel39_found_v1":"noel39",
+    "quenquen_saboteur69_found_v1":"saboteur69"
+  });
+  const originalSetItem = Storage.prototype.setItem;
+  Storage.prototype.setItem = function(key, value) {
+    const mystery = this === localStorage && MYSTERY_FLAGS[String(key)];
+    const wasUnlocked = mystery ? this.getItem(key) !== null : false;
+    const result = originalSetItem.apply(this, arguments);
+    if (mystery && !wasUnlocked && value != null && String(value) !== "" && enabled()) {
+      void record(mystery);
+    }
+    return result;
+  };
   window.QCV1Tracking = Object.freeze({
     record,
     isEnabled: enabled,
