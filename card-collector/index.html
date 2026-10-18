@@ -4678,7 +4678,7 @@ window.qcAndromedaBoss=(function(){
  }
  async function showVideo(){
    timer=null;if(Number(slider?.value)!==69||!onHome())return;
-   localStorage.setItem(KEY,new Date().toISOString());refreshBadge();
+   localStorage.setItem(KEY,new Date().toISOString());refreshBadge();window.QCV1Tracking?.record("saboteur69");
    if(typeof music!=="undefined"){wasPlaying=!music.paused;musicTime=music.currentTime;music.pause();if(typeof updateMusic==="function")updateMusic()}
    overlay.classList.add("open");overlay.setAttribute("aria-hidden","false");
    try{video.currentTime=0;await video.play()}catch(e){}
