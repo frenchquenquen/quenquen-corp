@@ -123,9 +123,23 @@
   });
   // Backfill saved discoveries only after explicit consent; never alter album progress.
   const CRINGE_KEY = "quenquen_amour_du_cringe_found_v1";
-  const BACKFILL_VERSION = "qc_v1_tracking_backfill_v2";
+  const BACKFILL_VERSION = "qc_v1_tracking_backfill_v3";
+  const BACKFILL_OWNER = "qc_v1_tracking_backfill_owner_v1";
+  function identityKey() {
+    const creds = agentCredentials();
+    return creds ? "agent:" + creds.corp_id : "visitor:" + (visitorId() || "unknown");
+  }
   async function syncSaved() {
     if (!enabled()) return {total:0,success:0};
+    const currentIdentity = identityKey();
+    try {
+      const previousOwner = localStorage.getItem(BACKFILL_OWNER);
+      if (previousOwner && previousOwner !== currentIdentity) {
+        // Never replay one browser's old album flags into another agent identity.
+        return {total:0,success:0,skipped:"identity_changed"};
+      }
+      localStorage.setItem(BACKFILL_OWNER, currentIdentity);
+    } catch {}
     const codes = new Set();
     try {
       for (const [key, code] of Object.entries(MYSTERY_FLAGS)) {
@@ -156,7 +170,10 @@
       if (await record(code)) success++;
     }
     if (enabled() && success === codes.size) {
-      try { localStorage.setItem(BACKFILL_VERSION, "done"); } catch {}
+      try {
+        localStorage.setItem(BACKFILL_VERSION, currentIdentity);
+        localStorage.setItem(BACKFILL_OWNER, currentIdentity);
+      } catch {}
     }
     return {total:codes.size,success};
   }
@@ -183,6 +200,7 @@
     record,
     isEnabled: enabled,
     hasAgentCard: () => agentCredentials() !== null,
+    identityKey,
     syncSaved: synchronize,
     consent(value) {
       if (value !== true && value !== false) return;
