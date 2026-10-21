@@ -1341,7 +1341,7 @@ function updateMavikClean(dt){
    c.reachedT+=dt;
    if(c.reachedT>1.35){
     c.endT+=dt;
-    if(c.endT>=8.6&&!c.menuReturn){c.menuReturn=true;setTimeout(()=>{if(demskaSandbox&&demskaIntegratedStarted){if(gameMode==='survival'&&!developerTestMode&&typeof window.riseMarkMavikCompletion==='function')window.riseMarkMavikCompletion().catch(()=>{});resumeSurvivalAfterMavik()}},650);}
+    if(c.endT>=10.35&&!c.menuReturn){c.menuReturn=true;if(gameMode==='survival'&&!developerTestMode&&typeof window.riseMarkMavikCompletion==='function')window.riseMarkMavikCompletion().catch(()=>{});resumeSurvivalAfterMavik();}
     try{demskaOST.volume=Math.max(0,Math.min(.13,(musicLevel/100)*.13)*(1-Math.min(1,c.endT/1.2)));}catch(e){}
    }
   }
