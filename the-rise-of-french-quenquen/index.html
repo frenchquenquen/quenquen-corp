@@ -51,6 +51,25 @@
 @media(max-width:760px){#overlay .controls{margin:8px 0 0;white-space:normal;flex-wrap:wrap}}
 @media(max-height:650px){#overlay{padding:7px}#overlay .mode-list{gap:7px;margin-bottom:8px}#overlay .mode-card{min-height:64px}#overlay>.card{padding:4px 12px}}
 </style>
+<style id="rise-menu-compact-fix">
+/* Menu principal : laisser respirer le logo/titre et compacter les choix. */
+#overlay{padding-bottom:10px}
+#overlay>.card{width:min(590px,94%);padding:4px 14px 7px;transform:translateY(12px)}
+#overlay .mode-list{gap:7px;margin:0 auto 9px}
+#overlay .mode-card{min-height:64px;padding:5px 14px;border-radius:12px}
+#overlay .mode-name{font-size:clamp(27px,3.8vw,36px);line-height:.95}
+#overlay .mode-desc{font-size:clamp(10px,1.2vw,12px);line-height:1.2}
+#overlay .mode-detail,#overlay .mode-record{font-size:9px;line-height:1.1}
+#overlay .audio-open{min-height:42px;margin:0 auto 4px;font-size:16px}
+#overlay .controls{margin-top:5px}
+@media(max-height:720px){
+ #overlay>.card{transform:translateY(18px)}
+ #overlay .mode-list{gap:5px;margin-bottom:6px}
+ #overlay .mode-card{min-height:57px;padding:4px 12px}
+ #overlay .mode-name{font-size:clamp(25px,3.5vw,32px)}
+ #overlay .audio-open{min-height:38px}
+}
+</style>
 <style id="qc-corp-return-style">
 #qcCorpReturn{position:fixed;z-index:2147483640;top:8px;left:12px;display:flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid rgba(242,197,45,.48);border-radius:999px;background:rgba(5,7,9,.62);color:#f2c52d;text-decoration:none;font:800 10px/1 Arial,sans-serif;letter-spacing:1.4px;backdrop-filter:blur(8px);box-shadow:0 4px 18px rgba(0,0,0,.22);opacity:.58;transition:opacity .18s,background .18s,border-color .18s,transform .18s}
 #qcCorpReturn:hover,#qcCorpReturn:focus-visible{opacity:1;background:rgba(5,7,9,.92);border-color:#f2c52d;transform:translateY(-1px);outline:none}
