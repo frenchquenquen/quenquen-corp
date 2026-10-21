@@ -563,7 +563,7 @@ body{overflow:auto!important}
 <div class="ownerCard">
   <div class="ownerLabel">Cet album appartient à...</div>
   <button id="ownerName" class="ownerName" type="button">ÉCRIRE MON PSEUDO</button>
-  <div class="ownerHint">identité liée à votre carte QUENQUEN CORP</div><div id="collectorSince" class="collectorSince"></div><button id="andromedaSecret" class="andromedaSecret" title="Andromeda" aria-label="Activer Andromeda">
+  <div class="ownerHint">VISITEUR ou identité liée à votre carte QUENQUEN CORP</div><div id="collectorSince" class="collectorSince"></div><button id="andromedaSecret" class="andromedaSecret" title="Andromeda" aria-label="Activer Andromeda">
   <span class="androWatch" aria-hidden="true">
     <span class="androBrand">ANDROMEDA</span>
     <span class="androScreen">00:00</span>
@@ -819,12 +819,20 @@ music.play().then(updateMusic).catch(()=>{updateMusic();const starter=()=>{music
 
 const ownerName=document.getElementById("ownerName");
 const ownerKey="quenquen_album_owner_v1";
+const qcIdentityKey="quenquen_corp_identity_v2";
 function loadOwner(){
-  const saved=localStorage.getItem(ownerKey);
-  ownerName.textContent=saved?saved:"ÉCRIRE MON PSEUDO";
+  let label="VISITEUR";
+  try{
+    const agent=JSON.parse(localStorage.getItem(qcIdentityKey)||"null");
+    const pseudo=typeof agent?.pseudo==="string"?agent.pseudo.trim():"";
+    if(pseudo) label=/^AGENT\s+/i.test(pseudo)?pseudo:"AGENT "+pseudo;
+  }catch(e){}
+  ownerName.textContent=label;
 }
 function editOwner(){ return; }
 loadOwner();
+window.addEventListener("storage",(event)=>{if(event.key===qcIdentityKey)loadOwner()});
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)loadOwner()});
 
 
 // --- Collectionneur depuis ---
