@@ -2910,26 +2910,30 @@ window.addEventListener('blur',()=>{keys.delete('f');if(energyBeam.charging){ene
 #riseLeaderboardLogin{display:block;margin:9px auto 0;padding:7px 11px;border:1px solid #ffd84d88;border-radius:8px;background:#ffd84d14;color:#ffe16a;font-weight:900;cursor:pointer}
 </style>
 <style id="rise-leaderboard-responsive-fix">
-/* Classement : uniquement dans la colonne libre à droite, jamais sur le menu. */
+/* Classement isolé du menu central : colonne latérale fixe. */
 #riseLeaderboard{
- position:fixed;
- top:50%;
- right:max(12px,calc((100vw - min(100vw, (100vh - 42px) * 1.6))/2 + 12px));
- transform:translateY(-50%);
- width:min(350px,30vw);
- max-height:78vh;
- overflow:auto;
+ position:fixed!important;
+ left:auto!important;
+ right:18px!important;
+ top:50%!important;
+ bottom:auto!important;
+ transform:translateY(-50%)!important;
+ width:340px!important;
+ max-width:22vw!important;
+ max-height:82vh!important;
+ overflow:auto!important;
+ z-index:20;
 }
-@media (max-width:1180px){
- #riseLeaderboard{width:min(310px,28vw);padding:9px 10px}
+@media (max-width:1500px){
+ #riseLeaderboard{width:300px!important;max-width:20vw!important;padding:9px 10px}
  #riseLeaderboard h3{font-size:12px}
  #riseLeaderboard ol{font-size:10px}
  #riseLeaderboard .player-details{font-size:9px}
  #riseLeaderboard .mavik-complete,#riseLeaderboard .multiverse-title{font-size:7px}
  #riseLeaderboardLogin{font-size:9px;padding:6px 8px}
 }
-/* À cette largeur, la colonne de droite n'est plus assez grande : on masque plutôt que recouvrir. */
-@media (max-width:1050px){
+/* En dessous, la colonne latérale n'est plus assez large : mieux vaut masquer que chevaucher. */
+@media (max-width:1250px){
  #riseLeaderboard{display:none!important}
 }
 </style>
