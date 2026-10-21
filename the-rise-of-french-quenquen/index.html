@@ -1341,7 +1341,7 @@ function updateMavikClean(dt){
    c.reachedT+=dt;
    if(c.reachedT>1.35){
     c.endT+=dt;
-    if(c.endT>=8.6&&!c.menuReturn){c.menuReturn=true;setTimeout(()=>{if(demskaSandbox&&demskaIntegratedStarted)returnToMenu()},650);}
+    if(c.endT>=8.6&&!c.menuReturn){c.menuReturn=true;setTimeout(()=>{if(demskaSandbox&&demskaIntegratedStarted){if(gameMode==='survival'&&!developerTestMode){let seconds=Math.floor(elapsed);survivalBest=Math.max(survivalBest,seconds);saveSurvivalBest(survivalBest);if(typeof window.riseSubmitSurvivalScore==='function')window.riseSubmitSurvivalScore(score,seconds,survivalWave).catch(()=>{});}returnToMenu()}},650);}
     try{demskaOST.volume=Math.max(0,Math.min(.13,(musicLevel/100)*.13)*(1-Math.min(1,c.endT/1.2)));}catch(e){}
    }
   }
