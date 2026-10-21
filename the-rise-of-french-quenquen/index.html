@@ -2904,6 +2904,9 @@ window.addEventListener('blur',()=>{keys.delete('f');if(energyBeam.charging){ene
 #riseLeaderboard .mavik-complete{color:#ffe16a;font-size:8px;font-weight:900;letter-spacing:.025em;text-shadow:0 0 10px #ffd84d55;white-space:nowrap}
 #riseLeaderboard .mavik-unranked{list-style:none;margin-left:-18px;padding-top:2px}
 #riseLeaderboard .mavik-unranked .player-head{font-weight:800}
+#riseLeaderboard .multiverse-legend{list-style:none;margin:0 0 9px -18px;padding:7px 8px;border:1px solid #ffd84d66;border-radius:8px;background:#ffd84d0a;box-shadow:inset 0 0 18px #ffd84d0b}
+#riseLeaderboard .multiverse-legend .player-name{color:#fff4bd;text-shadow:0 0 10px #ffd84d66}
+#riseLeaderboard .multiverse-title{margin-left:auto;color:#ffe16a;font-size:8px;font-weight:900;letter-spacing:.055em;white-space:nowrap}
 #riseLeaderboardLogin{display:block;margin:9px auto 0;padding:7px 11px;border:1px solid #ffd84d88;border-radius:8px;background:#ffd84d14;color:#ffe16a;font-weight:900;cursor:pointer}
 </style>
 <style id="rise-leaderboard-responsive-fix">
@@ -2966,6 +2969,9 @@ async function loadBoard(){
  const mavikIds=new Set((mavikData||[]).map(r=>r.twitch_user_id));
  const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
  list.replaceChildren();
+ const legend=document.createElement('li');legend.className='multiverse-legend';
+ legend.innerHTML='<div class="player-head"><span class="player-name">FrenchQuenQuen</span><span class="multiverse-title">✦ AU-DELÀ DU MULTIVERS ✦</span></div>';
+ list.append(legend);
  (data||[]).slice(0,10).forEach((r,i)=>{
   const li=document.createElement('li');li.value=i+1;
   const badge=mavikIds.has(r.twitch_user_id)?'<span class="mavik-complete">✦ A SUIVI MAVIK JUSQU’AU BOUT ✦</span>':'';
@@ -2979,7 +2985,7 @@ async function loadBoard(){
   const li=document.createElement('li');li.className='mavik-simulated';
   li.innerHTML='<div class="player-head"><span class="player-name">'+esc(akura.twitch_display_name||akura.twitch_login||'Akura77')+'</span><span class="mavik-complete">✦ A SUIVI MAVIK JUSQU’AU BOUT ✦</span></div><div class="player-details"><span>V16 · 09:55</span><span class="player-score">380000 PTS</span></div>';
   if(arekRow)arekRow.insertAdjacentElement('afterend',li);else list.append(li);
-  [...list.children].forEach((row,i)=>row.value=i+1);
+  [...list.querySelectorAll('li:not(.multiverse-legend)')].forEach((row,i)=>row.value=i+1);
  }
  status.textContent=data?.length?'TOP 10 QUENQUEN CORP':'LE MULTIVERS ATTEND SON PREMIER CHALLENGER.';
 }
