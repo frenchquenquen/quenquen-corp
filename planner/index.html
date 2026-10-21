@@ -1,4 +1,4 @@
-<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FRENCH QUENQUEN — PLANNER</title><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#ffcc00"><link rel="icon" type="image/png" href="./logo%20FQQ_20261018_002912_0000.png"><link rel="apple-touch-icon" href="./logo%20FQQ_20261018_002912_0000.png"><style>@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");body{margin:0;background:#101014;color:white;font:16px system-ui;padding:24px}main{max-width:900px;margin:auto}h1{color:#ffcc00}input,select{box-sizing:border-box;width:100%;min-width:0;background:#222;color:white;border:1px solid #666;border-radius:9px;padding:12px;font:16px system-ui}.live-row{display:grid;grid-template-columns:minmax(105px,1fr) minmax(85px,.7fr) minmax(90px,.75fr) minmax(160px,2.2fr) auto;gap:9px;align-items:end;padding:12px;margin:10px 0;background:#1a1a20;border:1px solid #39393e;border-radius:12px}.live-row label{display:block;font-size:13px;color:#ccc;margin-bottom:5px}.remove-live{background:#37373e;color:white;margin:0;padding:12px}@media(max-width:650px){.live-row{grid-template-columns:1fr 1fr}.live-row .title-field{grid-column:1/3}.remove-live{grid-column:1/3}}button{padding:13px 20px;border:0;border-radius:9px;background:#ffcc00;color:#111;font-weight:800;cursor:pointer;margin:12px 8px 12px 0}canvas{max-width:100%;border-radius:12px}small{color:#aaa}</style><main><h1>QUENQUEN PLANNER</h1><p>Prépare tes lives : choisis un jour, une heure et un titre.</p><div id="liveRows"></div><button id="addLive" type="button">+ Ajouter un live</button><p id="rowInfo" style="color:#aaa;font-size:13px">Jusqu’à 8 lives par planning.</p><div><button id="generate">Générer le planning</button><button id="download">Télécharger le PNG</button><button id="login" type="button">Connexion Twitch</button><button id="publish" type="button" disabled>Publier sur Discord</button><button id="logout" type="button" hidden>Déconnexion</button></div><p id="authStatus" role="status">Connexion Twitch nécessaire pour publier.</p><p id="logoStatus" style="color:#FFCC00;font-size:13px">Version logo FQ 2 — chargement du logo…</p><canvas id="poster" width="1200" height="675"></canvas><p><small>Le planning est généré localement. La publication envoie le PNG et le récapitulatif sur Discord, uniquement depuis le compte administrateur.</small></p></main><script>const days=['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FRENCH QUENQUEN — PLANNER</title><link rel="manifest" href="./manifest.webmanifest"><meta name="theme-color" content="#ffcc00"><link rel="icon" type="image/png" href="./logo%20FQQ_20261018_002912_0000.png"><link rel="apple-touch-icon" href="./logo%20FQQ_20261018_002912_0000.png"><style>@import url("https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap");body{margin:0;background:#101014;color:white;font:16px system-ui;padding:24px}main{max-width:900px;margin:auto}h1{color:#ffcc00}input,select{box-sizing:border-box;width:100%;min-width:0;background:#222;color:white;border:1px solid #666;border-radius:9px;padding:12px;font:16px system-ui}.live-row{display:grid;grid-template-columns:minmax(105px,1fr) minmax(85px,.7fr) minmax(90px,.75fr) minmax(160px,2.2fr) auto;gap:9px;align-items:end;padding:12px;margin:10px 0;background:#1a1a20;border:1px solid #39393e;border-radius:12px}.live-row label{display:block;font-size:13px;color:#ccc;margin-bottom:5px}.remove-live{background:#37373e;color:white;margin:0;padding:12px}@media(max-width:650px){.live-row{grid-template-columns:1fr 1fr}.live-row .title-field{grid-column:1/3}.remove-live{grid-column:1/3}}button{padding:13px 20px;border:0;border-radius:9px;background:#ffcc00;color:#111;font-weight:800;cursor:pointer;margin:12px 8px 12px 0}canvas{max-width:100%;border-radius:12px}small{color:#aaa} .format-controls{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:12px}.format-controls select{width:auto;max-width:100%}.format-controls label{font-weight:700;color:#ffcc00}canvas{width:100%;height:auto;box-shadow:0 15px 50px #0008} </style><main><h1>QUENQUEN PLANNER</h1><p>Prépare tes lives : choisis un jour, une heure et un titre.</p><div id="liveRows"></div><button id="addLive" type="button">+ Ajouter un live</button><p id="rowInfo" style="color:#aaa;font-size:13px">Jusqu’à 8 lives par planning.</p><div class="format-controls"><label for="format">FORMAT DE L’AFFICHE</label><select id="format"><option value="wide">Horizontal 16:9 — Discord</option><option value="story">Vertical 9:16 — Story</option></select><button id="both" type="button">Télécharger les deux PNG</button></div><div><button id="generate">Générer le planning</button><button id="download">Télécharger le PNG</button><button id="login" type="button">Connexion Twitch</button><button id="publish" type="button" disabled>Publier sur Discord</button><button id="logout" type="button" hidden>Déconnexion</button></div><p id="authStatus" role="status">Connexion Twitch nécessaire pour publier.</p><p id="logoStatus" style="color:#FFCC00;font-size:13px">Version logo FQ 2 — chargement du logo…</p><canvas id="poster" width="1200" height="675"></canvas><p><small>Le planning est généré localement. La publication envoie le PNG et le récapitulatif sur Discord, uniquement depuis le compte administrateur.</small></p></main><script>const days=['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
 const rows=document.getElementById('liveRows');
 function addLive(day='Mardi',date='',time='20h30',title=''){
  if(rows.children.length>=8)return;
@@ -64,4 +64,98 @@ publish.onclick=async()=>{
  status.textContent='Planning et image PNG publiés sur Discord !';
  }catch(e){status.textContent='Échec : '+e.message}finally{const {data:{user}}=await sb.auth.getUser();publish.disabled=user?.id!==adminId;}
 };
-</script><script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(console.warn))}</script></html>
+</script><script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(console.warn))}</script>
+<script>
+/* Planner V2: expérimentation isolée sur branche de test. */
+const formatSelect=document.getElementById('format');
+const originalDraw=draw;
+const weekdays=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+function dateForDay(day){
+ const today=new Date(), offset=(weekdays.indexOf(day)-today.getDay()+7)%7;
+ const d=new Date(today.getFullYear(),today.getMonth(),today.getDate()+offset);
+ return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0');
+}
+rows.addEventListener('change',e=>{
+ if(e.target.matches('.day')){
+  const row=e.target.closest('.live-row');
+  const date=row.querySelector('.date');
+  if(!date.value || date.dataset.auto==='true'){date.value=dateForDay(e.target.value);date.dataset.auto='true';}
+  draw().catch(console.error);
+ }
+});
+rows.addEventListener('input',e=>{if(e.target.matches('.date'))e.target.dataset.auto='false'});
+function roundedRect(ctx,a,b,w,h,r,fill){
+ ctx.fillStyle=fill;ctx.beginPath();ctx.roundRect(a,b,w,h,r);ctx.fill();
+}
+function fitText(str,max,font=30,min=15){
+ let size=font;do{x.font='800 '+size+'px system-ui';if(x.measureText(str).width<=max)break;size--}while(size>min);
+ return size;
+}
+function background(w,h){
+ x.clearRect(0,0,w,h);
+ x.fillStyle='#09090e';x.fillRect(0,0,w,h);
+ const glow=x.createRadialGradient(w*.85,h*.08,0,w*.85,h*.08,w*.9);
+ glow.addColorStop(0,'rgba(255,204,0,.16)');glow.addColorStop(.5,'rgba(170,110,0,.04)');glow.addColorStop(1,'rgba(0,0,0,0)');
+ x.fillStyle=glow;x.fillRect(0,0,w,h);
+ x.fillStyle='#ffcc00';x.fillRect(0,0,w,7);
+}
+function logoAt(px,py,mw,mh){
+ if(!fqLogo.naturalWidth)return;
+ const scale=Math.min(mw/fqLogo.naturalWidth,mh/fqLogo.naturalHeight);
+ x.drawImage(fqLogo,px,py,fqLogo.naturalWidth*scale,fqLogo.naturalHeight*scale);
+}
+draw=async function(){
+ await document.fonts.load('70px "Luckiest Guy"');
+ if(!fqLogo.complete)await new Promise(resolve=>{fqLogo.addEventListener('load',resolve,{once:true});fqLogo.addEventListener('error',resolve,{once:true})});
+ const story=formatSelect.value==='story',w=story?1080:1200,h=story?1920:675;
+ c.width=w;c.height=h;background(w,h);
+ const entries=getEntries().filter(e=>e.title&&e.time).slice(0,8);
+ x.textAlign='left';
+ if(!story){
+  x.fillStyle='#ffcc00';x.font='66px "Luckiest Guy"';x.fillText('FRENCH QUENQUEN',55,91);
+  x.fillStyle='#fff';x.font='800 27px system-ui';x.fillText('PLANNING DES LIVES',59,135);
+  logoAt(1000,25,150,115);
+  x.fillStyle='#ffcc00';x.fillRect(55,155,1090,3);
+  const gap=7,available=420,rowH=Math.min(74,(available-(entries.length-1)*gap)/Math.max(entries.length,1));
+  entries.forEach((e,i)=>{
+   const y=177+i*(rowH+gap);
+   roundedRect(x,55,y,1090,rowH,12,i%2?'#202027':'#292930');
+   x.fillStyle='#ffcc00';x.fillRect(55,y+10,4,rowH-20);
+   x.font='800 23px system-ui';x.fillStyle='#ffcc00';x.fillText(e.day.toUpperCase().slice(0,17),77,y+rowH/2+8);
+   x.fillStyle='#fff';x.font='800 24px system-ui';x.fillText(e.time.slice(0,12),350,y+rowH/2+8);
+   const title=e.title.toUpperCase().slice(0,70);x.font='800 '+fitText(title,590,25,15)+'px system-ui';x.fillText(title,530,y+rowH/2+8);
+  });
+  x.fillStyle='#ffcc00';x.fillRect(55,618,1090,2);
+  x.font='800 25px system-ui';x.fillText('TWITCH.TV/FRENCHQUENQUEN_',55,654);
+  x.fillStyle='#92929c';x.font='700 15px system-ui';x.textAlign='right';x.fillText('QUENQUEN CORP',1145,652);
+ }else{
+  logoAt(390,100,300,260);
+  x.textAlign='center';x.fillStyle='#ffcc00';x.font='82px "Luckiest Guy"';x.fillText('FRENCH QUENQUEN',540,460);
+  x.fillStyle='#fff';x.font='800 52px system-ui';x.fillText('CETTE SEMAINE',540,535);
+  x.fillStyle='#ffcc00';x.fillRect(90,580,900,4);
+  const top=625,bottom=1570,gap=20,rowH=Math.min(150,(bottom-top-(entries.length-1)*gap)/Math.max(entries.length,1));
+  entries.forEach((e,i)=>{
+   const y=top+i*(rowH+gap);roundedRect(x,90,y,900,rowH,20,i%2?'#202027':'#292930');
+   x.textAlign='left';x.fillStyle='#ffcc00';x.font='800 31px system-ui';x.fillText(e.day.toUpperCase().slice(0,24),115,y+Math.min(44,rowH*.42));
+   x.textAlign='right';x.fillText(e.time.slice(0,12),955,y+Math.min(44,rowH*.42));
+   x.textAlign='left';x.fillStyle='#fff';const title=e.title.toUpperCase().slice(0,85);
+   x.font='800 '+fitText(title,835,37,17)+'px system-ui';x.fillText(title,115,y+Math.min(103,rowH*.82));
+  });
+  x.textAlign='center';x.fillStyle='#fff';x.font='800 32px system-ui';x.fillText('RETROUVE-MOI EN LIVE',540,1720);
+  roundedRect(x,115,1750,850,78,14,'#ffcc00');
+  x.fillStyle='#101014';x.font='800 36px system-ui';x.fillText('TWITCH.TV/FRENCHQUENQUEN_',540,1802);
+  x.fillStyle='#888894';x.font='700 20px system-ui';x.fillText('QUENQUEN CORP',540,1870);
+ }
+ x.textAlign='left';
+};
+formatSelect.addEventListener('change',()=>draw().catch(console.error));
+document.querySelector('#download').onclick=async()=>{await draw();const a=document.createElement('a');a.download='quenquen-planning-'+formatSelect.value+'.png';a.href=c.toDataURL('image/png');a.click()};
+document.getElementById('both').onclick=async()=>{
+ const original=formatSelect.value;
+ for(const fmt of ['wide','story']){
+  formatSelect.value=fmt;await draw();const a=document.createElement('a');a.download='quenquen-planning-'+fmt+'.png';a.href=c.toDataURL('image/png');a.click();
+ }
+ formatSelect.value=original;await draw();
+};
+draw().catch(console.error);
+</script></html>
