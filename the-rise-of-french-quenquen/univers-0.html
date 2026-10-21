@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UNIVERS 0</title>
+<style>
+html,body{margin:0;width:100%;height:100%;background:#000;color:#fff;overflow:hidden}
+body{display:grid;place-items:center;font-family:Arial,Helvetica,sans-serif}
+main{width:min(680px,84vw);text-align:center}
+h1{font-size:clamp(28px,5vw,54px);letter-spacing:.18em;margin:0 0 28px}
+#message{min-height:58px;font-size:clamp(14px,2vw,19px);letter-spacing:.12em;line-height:1.65}
+#loader{display:none;margin:28px auto 0;width:min(480px,75vw)}
+.track{height:5px;border:1px solid #555;padding:2px}
+#bar{height:100%;width:0;background:#fff;transition:width .45s ease}
+#percent{margin-top:10px;font-size:12px;letter-spacing:.16em;color:#aaa}
+#error{display:none;color:#fff;font-weight:900;letter-spacing:.16em}
+#back{display:none;margin:34px auto 0;background:transparent;color:#fff;border:1px solid #777;padding:12px 22px;letter-spacing:.14em;cursor:pointer}
+#back:hover{border-color:#fff}
+.glitch{animation:glitch .13s steps(2) 6}
+@keyframes glitch{0%{transform:translate(0)}25%{transform:translate(-4px,2px)}50%{transform:translate(4px,-2px)}75%{transform:translate(-2px,-1px)}100%{transform:translate(0)}}
+</style>
+</head>
+<body>
+<main id="screen">
+<h1>UNIVERS 0</h1>
+<div id="message"></div>
+<div id="loader"><div class="track"><div id="bar"></div></div><div id="percent">0 %</div></div>
+<div id="error">ERREUR.</div>
+<button id="back" type="button">RETOUR AU MENU</button>
+</main>
+<script>
+const msg=document.getElementById('message'),loader=document.getElementById('loader'),bar=document.getElementById('bar'),pct=document.getElementById('percent'),err=document.getElementById('error'),back=document.getElementById('back'),screen=document.getElementById('screen');
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+(async()=>{
+ await wait(1600); msg.textContent='ACCÈS AUTORISÉ.';
+ await wait(1900); msg.textContent='CHARGEMENT DE LA RÉALITÉ…'; loader.style.display='block';
+ for(const [n,d] of [[12,650],[37,700],[68,850],[91,850],[99,2400]]){bar.style.width=n+'%';pct.textContent=n+' %';await wait(d)}
+ msg.textContent='';loader.style.display='none';err.style.display='block';screen.classList.add('glitch');
+ await wait(1200);screen.classList.remove('glitch');err.style.display='none';msg.textContent='AUCUNE RÉALITÉ À CHARGER.';
+ await wait(2200);msg.innerHTML='QUENQUEN CORP travaille actuellement à la reconstruction de cet univers.<br><br>Revenez ultérieurement, Agent.';back.style.display='block';
+})();
+back.addEventListener('click',()=>location.href='index.html');
+</script>
+</body>
+</html>
