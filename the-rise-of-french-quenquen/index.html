@@ -2906,6 +2906,46 @@ window.addEventListener('blur',()=>{keys.delete('f');if(energyBeam.charging){ene
 #riseLeaderboard .mavik-unranked .player-head{font-weight:800}
 #riseLeaderboardLogin{display:block;margin:9px auto 0;padding:7px 11px;border:1px solid #ffd84d88;border-radius:8px;background:#ffd84d14;color:#ffe16a;font-weight:900;cursor:pointer}
 </style>
+<style id="rise-leaderboard-responsive-fix">
+/* Le classement ne doit jamais masquer les choix du menu. */
+@media (max-width:1180px){
+ #riseLeaderboard{
+  position:fixed;
+  top:auto;
+  right:10px;
+  bottom:10px;
+  transform:none;
+  width:min(330px,42vw);
+  max-height:48vh;
+  overflow:auto;
+  padding:9px 11px;
+ }
+ #riseLeaderboard h3{font-size:12px;margin-bottom:5px}
+ #riseLeaderboard ol{margin-top:5px;font-size:10px}
+ #riseLeaderboard li{margin-bottom:4px}
+ #riseLeaderboard .player-details{font-size:9px}
+ #riseLeaderboard .mavik-complete{font-size:7px}
+ #riseLeaderboardLogin{font-size:9px;padding:6px 8px}
+}
+@media (max-width:900px){
+ #riseLeaderboard{
+  position:absolute;
+  left:8px;
+  right:8px;
+  top:auto;
+  bottom:8px;
+  width:auto;
+  max-height:30vh;
+  transform:none;
+  z-index:21;
+ }
+ #overlay>.card{padding-bottom:min(31vh,190px)}
+}
+@media (max-width:620px),(max-height:520px){
+ #riseLeaderboard{display:none}
+ #overlay>.card{padding-bottom:7px}
+}
+</style>
 <script type="module" id="riseLeaderboardModule">
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 const sb=createClient('https://qfkjrlpkykkizrmzlixp.supabase.co','sb_publishable_tBGclmheOxP-q6MVKz1SJQ_Mc3PDRnG',{auth:{flowType:'pkce',detectSessionInUrl:true,persistSession:true,autoRefreshToken:true}});
