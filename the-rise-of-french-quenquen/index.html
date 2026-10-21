@@ -1341,7 +1341,7 @@ function updateMavikClean(dt){
    c.reachedT+=dt;
    if(c.reachedT>1.35){
     c.endT+=dt;
-    if(c.endT>=8.6&&!c.menuReturn){c.menuReturn=true;setTimeout(()=>{if(demskaSandbox&&demskaIntegratedStarted){if(gameMode==='survival'&&!developerTestMode){let seconds=Math.floor(elapsed);survivalBest=Math.max(survivalBest,seconds);saveSurvivalBest(survivalBest);if(typeof window.riseSubmitSurvivalScore==='function')window.riseSubmitSurvivalScore(score,seconds,survivalWave).catch(()=>{});}returnToMenu()}},650);}
+    if(c.endT>=8.6&&!c.menuReturn){c.menuReturn=true;setTimeout(()=>{if(demskaSandbox&&demskaIntegratedStarted){if(gameMode==='survival'&&!developerTestMode){let seconds=Math.floor(elapsed);survivalBest=Math.max(survivalBest,seconds);saveSurvivalBest(survivalBest);if(typeof window.riseSubmitSurvivalScore==='function')window.riseSubmitSurvivalScore(score,seconds,survivalWave).catch(()=>{});if(typeof window.riseMarkMavikCompletion==='function')window.riseMarkMavikCompletion().catch(()=>{});}returnToMenu()}},650);}
     try{demskaOST.volume=Math.max(0,Math.min(.13,(musicLevel/100)*.13)*(1-Math.min(1,c.endT/1.2)));}catch(e){}
    }
   }
@@ -2864,6 +2864,7 @@ window.addEventListener('blur',()=>{keys.delete('f');if(energyBeam.charging){ene
 #riseLeaderboardStatus{font-size:11px;color:#bfc7d6;text-align:center;margin:6px 0}
 #riseLeaderboard ol{margin:8px 0 0;padding-left:26px;font-size:11px;line-height:1.65;color:#fff}
 #riseLeaderboard li span{float:right;color:#ffe16a;font-weight:900}
+#riseLeaderboard .mavik-complete{clear:both;padding:1px 0 4px;color:#ffe16a;font-size:9px;font-weight:900;letter-spacing:.055em;text-shadow:0 0 10px #ffd84d55}
 #riseLeaderboardLogin{display:block;margin:9px auto 0;padding:7px 11px;border:1px solid #ffd84d88;border-radius:8px;background:#ffd84d14;color:#ffe16a;font-weight:900;cursor:pointer}
 </style>
 <script type="module" id="riseLeaderboardModule">
@@ -2878,13 +2879,15 @@ const status=document.getElementById('riseLeaderboardStatus'),list=document.getE
 let session=null;
 const fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
 async function loadBoard(){
- const {data,error}=await sb.from('rise_survival_leaderboard').select('twitch_display_name,twitch_login,best_score,best_time_seconds,best_wave').order('best_score',{ascending:false}).order('best_time_seconds',{ascending:false}).limit(10);
+ const [{data,error},{data:mavikData}]=await Promise.all([sb.from('rise_survival_leaderboard').select('twitch_user_id,twitch_display_name,twitch_login,best_score,best_time_seconds,best_wave').order('best_score',{ascending:false}).order('best_time_seconds',{ascending:false}).limit(10),sb.from('rise_mavik_completions').select('twitch_user_id')]);
  if(error){status.textContent='Classement momentanément indisponible.';return}
- list.replaceChildren();const legend=document.createElement('li');legend.value=1;legend.innerHTML='<strong>FRENCH QUENQUEN</strong><span>AU-DELÀ DU MULTIVERS</span>';list.append(legend);(data||[]).slice(0,9).forEach((r,i)=>{const li=document.createElement('li');li.value=i+2;li.textContent=(r.twitch_display_name||r.twitch_login||'AGENT')+' · V'+r.best_wave+' · '+fmt(r.best_time_seconds)+' ';const sc=document.createElement('span');sc.textContent=r.best_score+' pts';li.append(sc);list.append(li)});
+ const mavikIds=new Set((mavikData||[]).map(r=>r.twitch_user_id));
+ list.replaceChildren();const legend=document.createElement('li');legend.value=1;legend.innerHTML='<strong>FRENCH QUENQUEN</strong><span>AU-DELÀ DU MULTIVERS</span>';list.append(legend);(data||[]).slice(0,9).forEach((r,i)=>{const li=document.createElement('li');li.value=i+2;li.textContent=(r.twitch_display_name||r.twitch_login||'AGENT')+' · V'+r.best_wave+' · '+fmt(r.best_time_seconds)+' ';const sc=document.createElement('span');sc.textContent=r.best_score+' pts';li.append(sc);if(mavikIds.has(r.twitch_user_id)){const badge=document.createElement('div');badge.className='mavik-complete';badge.textContent='✦ IL A SUIVI MAVIK JUSQU’AU BOUT ✦';li.append(badge)}list.append(li)});
  status.textContent=data?.length?'TOP 10 QUENQUEN CORP':'LE MULTIVERS ATTEND SON PREMIER CHALLENGER.';
 }
 async function syncAuth(){const {data}=await sb.auth.getSession();session=data.session;if(!session){login.hidden=false;if(authState)authState.innerHTML='🔴 <strong>NON CONNECTÉ</strong><br>Connecte Twitch pour apparaître dans le classement.';return}login.hidden=true;let {data:linked}=await sb.from('qc_v2_twitch_users').select('twitch_display_name,twitch_login').eq('owner_user_id',session.user.id).maybeSingle();if(!linked){const {error:linkError}=await sb.rpc('qc_v2_link_current_twitch');if(!linkError){const retry=await sb.from('qc_v2_twitch_users').select('twitch_display_name,twitch_login').eq('owner_user_id',session.user.id).maybeSingle();linked=retry.data}}const name=linked?.twitch_display_name||linked?.twitch_login;if(authState)authState.innerHTML=name?'🟢 <strong>CONNECTÉ : '+String(name).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))+'</strong><br>Scores SURVIE enregistrés automatiquement.':'🟠 <strong>TWITCH À RELIER</strong><br>Reconnecte Twitch pour activer les scores.';if(!name)login.hidden=false;}
 login?.addEventListener('click',async e=>{e.stopPropagation();await sb.auth.signInWithOAuth({provider:'twitch',options:{redirectTo:location.origin+location.pathname}})});
+window.riseMarkMavikCompletion=async()=>{if(!session)return {skipped:'not_authenticated'};const {data,error}=await sb.rpc('rise_mark_mavik_completion');if(!error)await loadBoard();return {data,error};};
 window.riseSubmitSurvivalScore=async(score,seconds,wave)=>{
  if(!session)return {skipped:'not_authenticated'};
  const {data,error}=await sb.rpc('rise_submit_survival_score',{p_score:Math.floor(score),p_time_seconds:Math.floor(seconds),p_wave:Math.floor(wave)});
