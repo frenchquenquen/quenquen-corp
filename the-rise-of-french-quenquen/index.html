@@ -2862,9 +2862,15 @@ window.addEventListener('blur',()=>{keys.delete('f');if(energyBeam.charging){ene
 @media(max-width:900px){#riseLeaderboard{position:static;right:auto;top:auto;transform:none;width:100%;margin-top:14px}}
 #riseLeaderboard h3{margin:0 0 8px;color:#ffe16a;font-size:14px;letter-spacing:.08em;text-align:center}
 #riseLeaderboardStatus{font-size:11px;color:#bfc7d6;text-align:center;margin:6px 0}
-#riseLeaderboard ol{margin:8px 0 0;padding-left:26px;font-size:11px;line-height:1.65;color:#fff}
-#riseLeaderboard li span{float:right;color:#ffe16a;font-weight:900}
-#riseLeaderboard .mavik-complete{clear:both;padding:1px 0 4px;color:#ffe16a;font-size:9px;font-weight:900;letter-spacing:.055em;text-shadow:0 0 10px #ffd84d55}
+#riseLeaderboard ol{margin:8px 0 0;padding-left:26px;font-size:11px;color:#fff}
+#riseLeaderboard li{margin:0 0 7px;line-height:1.25}
+#riseLeaderboard .player-head{display:flex;align-items:baseline;gap:7px;min-width:0;font-weight:800}
+#riseLeaderboard .player-name{white-space:nowrap}
+#riseLeaderboard .player-details{display:flex;justify-content:space-between;gap:10px;margin-top:2px;color:#d6d9e2;font-size:10px}
+#riseLeaderboard .player-score{color:#ffe16a;font-weight:900;white-space:nowrap}
+#riseLeaderboard .mavik-complete{color:#ffe16a;font-size:8px;font-weight:900;letter-spacing:.025em;text-shadow:0 0 10px #ffd84d55;white-space:nowrap}
+#riseLeaderboard .mavik-unranked{list-style:none;margin-left:-18px;padding-top:2px}
+#riseLeaderboard .mavik-unranked .player-head{font-weight:800}
 #riseLeaderboardLogin{display:block;margin:9px auto 0;padding:7px 11px;border:1px solid #ffd84d88;border-radius:8px;background:#ffd84d14;color:#ffe16a;font-weight:900;cursor:pointer}
 </style>
 <script type="module" id="riseLeaderboardModule">
@@ -2882,11 +2888,24 @@ async function refreshUniverseZeroAccess(){if(!universeZeroButton)return;if(!ses
 universeZeroButton?.addEventListener('click',e=>{e.stopPropagation();location.href='univers-0.html';});
 const fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
 async function loadBoard(){
- const [{data,error},{data:mavikData}]=await Promise.all([sb.from('rise_survival_leaderboard').select('twitch_user_id,twitch_display_name,twitch_login,best_score,best_time_seconds,best_wave').order('best_score',{ascending:false}).order('best_time_seconds',{ascending:false}).limit(10),sb.from('rise_mavik_completions').select('twitch_user_id')]);
+ const [{data,error},{data:mavikData}]=await Promise.all([sb.from('rise_survival_leaderboard').select('twitch_user_id,twitch_display_name,twitch_login,best_score,best_time_seconds,best_wave').order('best_score',{ascending:false}).order('best_time_seconds',{ascending:false}).limit(10),sb.from('rise_mavik_completions').select('twitch_user_id,twitch_display_name,twitch_login')]);
  if(error){status.textContent='Classement momentanément indisponible.';return}
  const mavikIds=new Set((mavikData||[]).map(r=>r.twitch_user_id));
- list.replaceChildren();const legend=document.createElement('li');legend.value=1;legend.innerHTML='<strong>FRENCH QUENQUEN</strong><span>AU-DELÀ DU MULTIVERS</span>';list.append(legend);(data||[]).slice(0,9).forEach((r,i)=>{const li=document.createElement('li');li.value=i+2;li.textContent=(r.twitch_display_name||r.twitch_login||'AGENT')+' · V'+r.best_wave+' · '+fmt(r.best_time_seconds)+' ';const sc=document.createElement('span');sc.textContent=r.best_score+' pts';li.append(sc);if(mavikIds.has(r.twitch_user_id)){const badge=document.createElement('div');badge.className='mavik-complete';badge.textContent='✦ IL A SUIVI MAVIK JUSQU’AU BOUT ✦';li.append(badge)}list.append(li)});
- const rankedIds=new Set((data||[]).map(r=>r.twitch_user_id));(mavikData||[]).filter(r=>!rankedIds.has(r.twitch_user_id)).forEach(r=>{const li=document.createElement('li');li.className='mavik-unranked';li.removeAttribute('value');li.textContent='Akura77';const badge=document.createElement('div');badge.className='mavik-complete';badge.textContent='✦ IL A SUIVI MAVIK JUSQU’AU BOUT ✦';li.append(badge);list.append(li)});
+ const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+ list.replaceChildren();
+ const legend=document.createElement('li');legend.value=1;legend.innerHTML='<div class="player-head"><span class="player-name">FRENCH QUENQUEN</span><span class="mavik-complete">AU-DELÀ DU MULTIVERS</span></div>';list.append(legend);
+ (data||[]).slice(0,9).forEach((r,i)=>{
+  const li=document.createElement('li');li.value=i+2;
+  const badge=mavikIds.has(r.twitch_user_id)?'<span class="mavik-complete">✦ A SUIVI MAVIK JUSQU’AU BOUT ✦</span>':'';
+  li.innerHTML='<div class="player-head"><span class="player-name">'+esc(r.twitch_display_name||r.twitch_login||'AGENT')+'</span>'+badge+'</div><div class="player-details"><span>V'+r.best_wave+' · '+fmt(r.best_time_seconds)+'</span><span class="player-score">'+r.best_score+' PTS</span></div>';
+  list.append(li);
+ });
+ const rankedIds=new Set((data||[]).map(r=>r.twitch_user_id));
+ (mavikData||[]).filter(r=>!rankedIds.has(r.twitch_user_id)).forEach(r=>{
+  const li=document.createElement('li');li.className='mavik-unranked';
+  li.innerHTML='<div class="player-head"><span class="player-name">— '+esc(r.twitch_display_name||r.twitch_login||'AGENT')+'</span><span class="mavik-complete">✦ A SUIVI MAVIK JUSQU’AU BOUT ✦</span></div>';
+  list.append(li);
+ });
  status.textContent=data?.length?'TOP 10 QUENQUEN CORP':'LE MULTIVERS ATTEND SON PREMIER CHALLENGER.';
 }
 async function syncAuth(){const {data}=await sb.auth.getSession();session=data.session;if(!session){login.hidden=false;if(authState)authState.innerHTML='🔴 <strong>NON CONNECTÉ</strong><br>Connecte Twitch pour apparaître dans le classement.';return}login.hidden=true;let {data:linked}=await sb.from('qc_v2_twitch_users').select('twitch_display_name,twitch_login').eq('owner_user_id',session.user.id).maybeSingle();if(!linked){const {error:linkError}=await sb.rpc('qc_v2_link_current_twitch');if(!linkError){const retry=await sb.from('qc_v2_twitch_users').select('twitch_display_name,twitch_login').eq('owner_user_id',session.user.id).maybeSingle();linked=retry.data}}const name=linked?.twitch_display_name||linked?.twitch_login;if(authState)authState.innerHTML=name?'🟢 <strong>CONNECTÉ : '+String(name).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))+'</strong><br>Scores SURVIE enregistrés automatiquement.':'🟠 <strong>TWITCH À RELIER</strong><br>Reconnecte Twitch pour activer les scores.';if(!name)login.hidden=false;await refreshUniverseZeroAccess();}
