@@ -2891,7 +2891,7 @@ window.addEventListener('blur',()=>{keys.delete('f');if(energyBeam.charging){ene
 <!-- QUENQUEN CORP — SURVIVAL LEADERBOARD -->
 <style id="riseLeaderboardStyle">
 #riseLeaderboard{position:fixed;right:22px;top:50%;transform:translateY(-50%);width:min(390px,32vw);z-index:20;padding:12px 14px;border:1px solid #ffd84d55;border-radius:12px;background:#050810e8;text-align:left;box-sizing:border-box}
-@media(min-width:901px){#overlay>.card{width:min(620px,96%);margin-right:0}#riseLeaderboard{right:20px;width:370px;top:50%;transform:translateY(-50%)}}
+@media(min-width:901px){#riseLeaderboard{right:20px;width:370px;top:50%;transform:translateY(-50%)}}
 @media(max-width:900px){#riseLeaderboard{position:static;right:auto;top:auto;transform:none;width:100%;margin-top:14px}}
 #riseLeaderboard h3{margin:0 0 8px;color:#ffe16a;font-size:14px;letter-spacing:.08em;text-align:center}
 #riseLeaderboardStatus{font-size:11px;color:#bfc7d6;text-align:center;margin:6px 0}
@@ -2943,7 +2943,7 @@ const sb=createClient('https://qfkjrlpkykkizrmzlixp.supabase.co','sb_publishable
 const survivalButton=document.getElementById('start-survival');
 if(survivalButton){
  const box=document.createElement('div');box.id='riseLeaderboard';box.innerHTML='<h3>🏆 CLASSEMENT SURVIE</h3><div id="riseLeaderboardStatus">Chargement…</div><ol id="riseLeaderboardList"></ol><div id="riseLeaderboardAuth" style="margin-top:10px;text-align:center;font-size:11px;color:#bfc7d6">Vérification Twitch…</div><button id="riseLeaderboardLogin" type="button">CONNECTER TWITCH POUR ENREGISTRER MES SCORES</button>';
- survivalButton.insertAdjacentElement('afterend',box);
+ document.body.appendChild(box);
 }
 const status=document.getElementById('riseLeaderboardStatus'),list=document.getElementById('riseLeaderboardList'),login=document.getElementById('riseLeaderboardLogin'),authState=document.getElementById('riseLeaderboardAuth');
 let session=null;
