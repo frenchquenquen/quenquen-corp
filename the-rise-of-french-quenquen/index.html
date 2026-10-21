@@ -1341,12 +1341,26 @@ function updateMavikClean(dt){
    c.reachedT+=dt;
    if(c.reachedT>1.35){
     c.endT+=dt;
-    if(c.endT>=8.6&&!c.menuReturn){c.menuReturn=true;setTimeout(()=>{if(demskaSandbox&&demskaIntegratedStarted){if(gameMode==='survival'&&!developerTestMode){let seconds=Math.floor(elapsed);survivalBest=Math.max(survivalBest,seconds);saveSurvivalBest(survivalBest);if(typeof window.riseSubmitSurvivalScore==='function')window.riseSubmitSurvivalScore(score,seconds,survivalWave).catch(()=>{});if(typeof window.riseMarkMavikCompletion==='function')window.riseMarkMavikCompletion().catch(()=>{});}returnToMenu()}},650);}
+    if(c.endT>=8.6&&!c.menuReturn){c.menuReturn=true;setTimeout(()=>{if(demskaSandbox&&demskaIntegratedStarted){if(gameMode==='survival'&&!developerTestMode&&typeof window.riseMarkMavikCompletion==='function')window.riseMarkMavikCompletion().catch(()=>{});resumeSurvivalAfterMavik()}},650);}
     try{demskaOST.volume=Math.max(0,Math.min(.13,(musicLevel/100)*.13)*(1-Math.min(1,c.endT/1.2)));}catch(e){}
    }
   }
  }
  if(!shown)demskaCleanHideFrench();
+}
+function resumeSurvivalAfterMavik(){
+ if(gameMode!=='survival'||!playing)return;
+ demskaSandbox=false;demskaEntryTransition=null;
+ demskaAct1=demskaAct2=demskaAct3=demskaAct4=demskaAct5=demskaAct6=demskaAct7=null;
+ demskaPostBossArmed=false;demskaPostBossStage=0;demskaAndromedaHidden=0;
+ enemies=[];enemyShots=[];survivalBossShots=[];pickups=[];lasers=[];shots=[];survivalBoss=null;boss=null;
+ pointer.down=false;pointer.rightDown=false;keys.clear();
+ player.x=W/2;player.y=H*.77;player.vx=0;player.vy=0;player.invuln=Math.max(player.invuln,3);player.hp=Math.max(player.hp,65);
+ survivalWaveClock=(Math.max(survivalWave,demskaPostBossBaseWave+3)-1)*25;
+ survivalWave=Math.floor(survivalWaveClock/25)+1;
+ waveBanner=3.2;spawnTimer=.35;laserTimer=0;nextSurvivalEvent=elapsed+22;
+ try{demskaOST.pause();demskaOST.currentTime=0}catch(e){}
+ resumeSurvivalBaseMusic();flash=1;shake=10;
 }
 function startMavikAct1(){
  if(!demskaSandbox||!playing)return;
@@ -1634,7 +1648,7 @@ function update(dt,mediaTime=null){if(storyEndCard){keys.clear();pointer.down=fa
 }if(demskaTestT>0)demskaTestT=Math.max(0,demskaTestT-dt);if(demskaAndromedaHidden>0&&demskaAndromedaHidden<9000)demskaAndromedaHidden=Math.max(0,demskaAndromedaHidden-dt);survivalLifeNotice=Math.max(0,survivalLifeNotice-dt);if(cinematicSlow>0){cinematicSlow=Math.max(0,cinematicSlow-dt);dt*=.30}if(false&&eclipseDeathTimer>0){eclipseDeathTimer-=dt;if(eclipseDeathTimer<=0&&survivalBoss&&survivalBoss.kind==='eclipse'){let b=survivalBoss;for(let i=0;i<100;i++){let a=Math.random()*Math.PI*2,v=rnd(90,440);particles.push({x:b.x,y:b.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:rnd(.4,1.2),age:0,r:rnd(2,7),color:i%3?'#c578ff':'#ffffff'})}shake=28;flash=1;b.hp=0;defeatSurvivalColossus()}}if(gameMode==='story'){elapsed+=dt;if(phase===0){if(elapsed>=25){phase=1;survivalWave=1;survivalWaveClock=0;waveBanner=2.4;spawnTimer=.72;laserTimer=0;nextSurvivalEvent=elapsed+36;dialogueOverlay.classList.add('off');primeSurvivalBossMusic();}}else if(phase===1){if(!survivalBoss){survivalWaveClock+=dt;let waveLocal=survivalWaveClock%25;if(survivalWave===9&&waveLocal>=19.5&&!storyTemporalWarning&&!darkArenaTransition){storyTemporalWarning={age:0,duration:3.5};playTemporalDangerWarningSfx();}if(storyTemporalWarning)storyTemporalWarning.age=Math.min(storyTemporalWarning.duration,storyTemporalWarning.age+dt);let nextWave=Math.floor(survivalWaveClock/25)+1;if(nextWave!==survivalWave){survivalWave=nextWave;waveBanner=2.4;if(survivalWave>=10){survivalEvent=null;survivalBoss=null;survivalBossShots=[];enemies=[];enemyShots=[];lasers=[];pickups=[];storyMusic.pause();survivalMusic.pause();survivalRidersMusic.pause();survivalVolcanoMusic.pause();survivalBossMusic.pause();portalTransition=null;storyTemporalWarning=null;darkArenaTransition={age:0,duration:3.6,arenaSwitched:false};playDarkArenaTransitionSfx();}else if(survivalWave>1&&survivalWave%5===0)startSurvivalColossus()}if(phase===1&&!survivalBoss&&!survivalEvent&&elapsed>=nextSurvivalEvent)startSurvivalEvent();if(phase===1&&survivalEvent){survivalEvent.time-=dt;if(survivalEvent.time<=0)finishSurvivalEvent(false)}}}if(survivalEventNotice){survivalEventNotice.age-=dt;if(survivalEventNotice.age<=0)survivalEventNotice=null}}else{elapsed+=dt;if(phase!==1)switchPhase(1);if(!survivalBoss){survivalWaveClock+=dt;let nextWave=Math.floor(survivalWaveClock/25)+1;if(nextWave!==survivalWave){survivalWave=nextWave;waveBanner=2.4;
  // Après le 5e boss : deux vagues de respiration avec micro-anomalies d'Andromeda, puis Mavik à la troisième.
  if(demskaPostBossArmed&&!demskaIntegratedStarted){let dw=survivalWave-demskaPostBossBaseWave;if(dw>=1&&demskaPostBossStage<1){demskaPostBossStage=1;demskaAndromedaHidden=.18;}if(dw>=2&&demskaPostBossStage<2){demskaPostBossStage=2;demskaAndromedaHidden=.42;}if(dw>=3){startIntegratedMavikEvent();}}
- if(!demskaIntegratedStarted&&survivalWave>1&&(survivalWave-1)%5===0)startSurvivalColossus()}if(!survivalBoss&&!survivalEvent&&elapsed>=nextSurvivalEvent)startSurvivalEvent();if(survivalEvent){survivalEvent.time-=dt;if(survivalEvent.time<=0)finishSurvivalEvent(false)}}if(survivalEventNotice){survivalEventNotice.age-=dt;if(survivalEventNotice.age<=0)survivalEventNotice=null}}
+ if(survivalWave>1&&(survivalWave-1)%5===0)startSurvivalColossus()}if(!survivalBoss&&!survivalEvent&&elapsed>=nextSurvivalEvent)startSurvivalEvent();if(survivalEvent){survivalEvent.time-=dt;if(survivalEvent.time<=0)finishSurvivalEvent(false)}}if(survivalEventNotice){survivalEventNotice.age-=dt;if(survivalEventNotice.age<=0)survivalEventNotice=null}}
 if(darkArenaTransition){darkArenaTransition.age+=dt;player.vx=0;player.vy=0;player.boost=0;player.boostVisual=0;enemyShots=[];lasers=[];shots=[];let switchAt=darkArenaTransition.duration*.42;if(!darkArenaTransition.arenaSwitched&&darkArenaTransition.age>=switchAt){darkArenaTransition.arenaSwitched=true;phase=3;switchPhase(3);try{video.currentTime=0}catch{}video.muted=true;video.loop=true;video.play().catch(()=>{});}if(darkArenaTransition.age<darkArenaTransition.duration){pointer.down=false;pointer.rightDown=false;return;}darkArenaTransition=null;}
 let beamBossActive=(usesSurvivalLoop()&&survivalBoss&&survivalBoss.intro<=0)||(gameMode==='story'&&phase===3&&boss&&boss.hp>0);
 let beamPickupPresent=pickups.some(p=>p.type==='beam'&&!p.gone);
