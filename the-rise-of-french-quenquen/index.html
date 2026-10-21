@@ -2910,43 +2910,27 @@ window.addEventListener('blur',()=>{keys.delete('f');if(energyBeam.charging){ene
 #riseLeaderboardLogin{display:block;margin:9px auto 0;padding:7px 11px;border:1px solid #ffd84d88;border-radius:8px;background:#ffd84d14;color:#ffe16a;font-weight:900;cursor:pointer}
 </style>
 <style id="rise-leaderboard-responsive-fix">
-/* Le classement ne doit jamais masquer les choix du menu. */
+/* Classement : uniquement dans la colonne libre à droite, jamais sur le menu. */
+#riseLeaderboard{
+ position:fixed;
+ top:50%;
+ right:max(12px,calc((100vw - min(100vw, (100vh - 42px) * 1.6))/2 + 12px));
+ transform:translateY(-50%);
+ width:min(350px,30vw);
+ max-height:78vh;
+ overflow:auto;
+}
 @media (max-width:1180px){
- #riseLeaderboard{
-  position:fixed;
-  top:auto;
-  right:10px;
-  bottom:10px;
-  transform:none;
-  width:min(330px,42vw);
-  max-height:48vh;
-  overflow:auto;
-  padding:9px 11px;
- }
- #riseLeaderboard h3{font-size:12px;margin-bottom:5px}
- #riseLeaderboard ol{margin-top:5px;font-size:10px}
- #riseLeaderboard li{margin-bottom:4px}
+ #riseLeaderboard{width:min(310px,28vw);padding:9px 10px}
+ #riseLeaderboard h3{font-size:12px}
+ #riseLeaderboard ol{font-size:10px}
  #riseLeaderboard .player-details{font-size:9px}
- #riseLeaderboard .mavik-complete{font-size:7px}
+ #riseLeaderboard .mavik-complete,#riseLeaderboard .multiverse-title{font-size:7px}
  #riseLeaderboardLogin{font-size:9px;padding:6px 8px}
 }
-@media (max-width:900px){
- #riseLeaderboard{
-  position:absolute;
-  left:8px;
-  right:8px;
-  top:auto;
-  bottom:8px;
-  width:auto;
-  max-height:30vh;
-  transform:none;
-  z-index:21;
- }
- #overlay>.card{padding-bottom:min(31vh,190px)}
-}
-@media (max-width:620px),(max-height:520px){
- #riseLeaderboard{display:none}
- #overlay>.card{padding-bottom:7px}
+/* À cette largeur, la colonne de droite n'est plus assez grande : on masque plutôt que recouvrir. */
+@media (max-width:1050px){
+ #riseLeaderboard{display:none!important}
 }
 </style>
 <script type="module" id="riseLeaderboardModule">
