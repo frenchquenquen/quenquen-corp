@@ -756,6 +756,20 @@ body:after{content:"";position:fixed;left:0;right:0;height:18vh;top:-22vh;z-inde
 header .connection{display:none!important}
 .hero-agent-status{position:relative;z-index:2;color:#f2c52d;font:700 clamp(11px,1.4vw,15px)/1.5 monospace;letter-spacing:2px;text-align:center;margin:6px auto 20px;text-shadow:0 0 14px #f2c52d44}
 @media(max-width:600px){.hero-agent-status{font-size:11px;letter-spacing:1.3px;margin:8px auto 18px}}
+
+/* À la une — vlog de Nice */
+.featured-video{max-width:980px;margin:27px auto 36px;display:grid;grid-template-columns:minmax(260px,.95fr) 1.05fr;overflow:hidden;border:1px solid #f2c52d66;border-radius:20px;background:linear-gradient(125deg,#131821,#080a0e);color:#f4f4f4;text-decoration:none;box-shadow:0 20px 55px #0007;transition:transform .22s,border-color .22s,box-shadow .22s}
+.featured-video:hover{transform:translateY(-3px);border-color:#f2c52d;box-shadow:0 25px 65px #000a,0 0 24px #f2c52d18}
+.featured-video:focus-visible{outline:3px solid #f2c52d;outline-offset:4px}
+.featured-video__thumb{position:relative;min-height:225px;background:#11151c;overflow:hidden}
+.featured-video__thumb img{display:block;width:100%;height:100%;min-height:225px;object-fit:cover;aspect-ratio:16/9}
+.featured-video__badge{position:absolute;top:14px;left:14px;padding:8px 11px;border:1px solid #f2c52d88;border-radius:999px;background:#080a0ddd;color:#f2c52d;font:9px monospace;letter-spacing:2px}
+.featured-video__copy{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:clamp(22px,4vw,42px)}
+.featured-video__eyebrow{color:#f2c52d;font:9px monospace;letter-spacing:3px;text-transform:uppercase}
+.featured-video__copy h2{margin:12px 0 10px;font-size:clamp(21px,3vw,31px);line-height:1.15;letter-spacing:.2px}
+.featured-video__copy p{margin:0 0 20px;color:#aab1bc;font-size:14px;line-height:1.6}
+.featured-video__cta{display:inline-flex;align-items:center;gap:9px;padding:12px 16px;border-radius:9px;background:#f2c52d;color:#090a0b;font:900 10px monospace;letter-spacing:1.5px}
+@media(max-width:650px){.featured-video{grid-template-columns:1fr;margin:22px auto 30px;border-radius:16px}.featured-video__thumb,.featured-video__thumb img{min-height:0}.featured-video__copy{padding:21px}.featured-video__copy p{font-size:13px;margin-bottom:16px}}
 </style><script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -769,6 +783,10 @@ header .connection{display:none!important}
 <header><div class="connection" id="connection"><span class="dot"></span><span id="connectionText">VISITEUR NON IDENTIFIÉ</span></div></header>
 <main><section class="hero" id="hubAccueil"><div class="micro">MULTIVERSE COMMUNITY ACCESS</div><img class="hero-logo" src="./assets/logo-quenquen-corp-entier.png" alt="QUENQUEN CORP"><div class="hero-agent-status" id="heroAgentStatus" aria-live="polite">MODE VISITEUR</div>
 </section>
+<a class="featured-video" href="https://youtu.be/khFWTTlk2WA" target="_blank" rel="noopener noreferrer" aria-label="Regarder le vlog de QuenQuen à Nice sur YouTube">
+<div class="featured-video__thumb"><img src="https://i.ytimg.com/vi/khFWTTlk2WA/hqdefault.jpg" alt="Miniature du vlog de QuenQuen à Nice"><span class="featured-video__badge">À LA UNE</span></div>
+<div class="featured-video__copy"><div class="featured-video__eyebrow">VLOG · CÔTE D’AZUR</div><h2>Je suis parti à Nice sans avoir de thune…</h2><p>Un budget proche du néant, 17 € de parking, Cannes et un beignet probablement encore congelé.</p><span class="featured-video__cta">REGARDER LE VLOG <span aria-hidden="true">↗</span></span></div>
+</a>
 <div class="sectiontitle">CHOISISSEZ VOTRE DESTINATION</div>
 <section class="portals" id="hubPortails">
 <article class="portal collector" data-dest="collector" tabindex="0" role="link"><div class="portal-badge badge-discovery">DÉCOUVERTE</div><div class="panel-visual"><img class="collector-cover" src="assets/card_collector_panel.png" alt="Card Collector QuenQuen"><div class="collector-vignette"></div></div><div class="info"><h2>CARD COLLECTOR QUENQUEN — VOLUME 1</h2><p>Un banal album de cartes à collectionner… en apparence.</p><div class="enter">ENTRER DANS LA COLLECTION →</div></div></article>
