@@ -61,7 +61,7 @@ ont été trouvés à la lecture du code et en naviguant.
 3. **Musiques.** Décision du 12/11/2026 : on ne touche pas aux musiques. Aucun fichier audio n'a été modifié ni supprimé.
 4. **Lien OnlyFan.** `go/onlyfan.html` mène à un vrai compte OnlyFans depuis un site tout public.
 5. **Fichiers de sauvegarde.** `wiki_patched.html`, `wiki/index-legacy-backup.html` (identiques, 5,6 Mo chacun) et `wiki/assets/images/wiki-c630a41cfb026da7.png` (2,4 Mo) n'étaient liés par aucune page : supprimés le 12/11/2026, récupérables dans l'historique Git. `planner-preview/` et `assets/quenquen-corp-v1.png` semblent aussi inutilisés, laissés en place.
-6. **Poids du dépôt : 849 Mo**, dont 433 Mo pour le Volume 1 (vidéos) et 300 Mo pour les PNG du Volume 2. GitHub recommande de rester sous 1 Go. Passer les cartes en WebP et les vidéos sur YouTube ou un stockage dédié réglerait le problème.
+6. **Poids du dépôt : 852 Mo**, dont 433 Mo pour le Volume 1 (vidéos) et 300 Mo pour les PNG du Volume 2. GitHub recommande de rester sous 1 Go. Passer les cartes en WebP et les vidéos sur YouTube ou un stockage dédié réglerait le problème.
 7. **Volume 1.** Le contour de focus est volontairement masqué sur les cartes (pour cacher les zones secrètes). Le jeu reste donc difficile au clavier ; le corriger changerait le jeu.
 8. **The Rise.** Jeu sur canvas, non jouable avec un lecteur d'écran ; c'est une limite du format.
 
