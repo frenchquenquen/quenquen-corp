@@ -37,7 +37,8 @@ async function enableFallbackSound(){
  soundFallbackButton.hidden=!!(audio&&audio.state==="running");
 }
 soundFallbackButton.addEventListener("click",enableFallbackSound);
-if(autoStartIntro){
+if(autoStartIntro&&window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches){openYoutube()}
+else if(autoStartIntro){
  document.body.classList.add("autoplay");
  skipIntroButton.hidden=false;
  play();
