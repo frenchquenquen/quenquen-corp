@@ -19,6 +19,10 @@ h1{font-size:clamp(28px,5vw,54px);letter-spacing:.18em;margin:0 0 28px}
 #back:hover{border-color:#fff}
 .glitch{animation:glitch .13s steps(2) 6}
 @keyframes glitch{0%{transform:translate(0)}25%{transform:translate(-4px,2px)}50%{transform:translate(4px,-2px)}75%{transform:translate(-2px,-1px)}100%{transform:translate(0)}}
+
+/* Accessibilité — 12/11/2026 */
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:3px solid #ffcc00;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>

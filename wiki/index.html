@@ -21,24 +21,47 @@
 .corp-hub-return{position:fixed;top:14px;left:14px;right:auto;bottom:auto;z-index:60}
 .qc-wiki-music{position:fixed;top:14px;right:14px;bottom:auto;z-index:60}
 @media(max-width:900px){.corp-hub-return{position:relative;display:inline-flex;top:auto;left:auto;right:auto;bottom:auto;margin:10px 10px 0}.qc-wiki-music{position:relative;display:flex;top:auto;right:auto;bottom:auto;width:max-content;max-width:calc(100% - 20px);margin:10px 10px 10px auto}}
+
+/* Accessibilité — ajouts du 12/11/2026 */
+.qc-skip{position:fixed;left:12px;top:-60px;z-index:300;padding:9px 13px;border-radius:6px;background:#202122;color:#fff;font-weight:700}
+.qc-skip:focus{top:12px}
+:where(a,button,input,select,[tabindex]):focus-visible{outline:3px solid #36c;outline-offset:2px}
+.qc-wiki-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;max-width:var(--max);margin:0 auto;padding:10px 18px 0}
+.qc-wiki-bar .corp-hub-return,.qc-wiki-bar .qc-wiki-music{position:static!important;margin:0!important;width:auto}
+.qc-wiki-bar .corp-hub-return,.qc-menu-jump{font-size:13px}
+.qc-menu-jump{display:none;padding:8px 12px;border:1px solid var(--line);border-radius:7px;background:var(--panel);color:var(--ink);font-weight:700}
+a.brand{color:inherit;text-decoration:none}a.brand:hover{text-decoration:none}
+.side h2{margin:20px 0 5px;border-bottom:1px solid var(--soft);font-weight:400;font-size:13px;color:#544b3f}.side h2:first-child{margin-top:0}
+.suggest a{display:block;padding:8px 10px;border-bottom:1px solid var(--soft);color:var(--ink)}.suggest a:hover,.suggest a:focus{background:var(--panel);text-decoration:none}
+.article:focus{outline:none}
+.side a span,.portrait.visual figcaption{font-size:12px}
+@media(max-width:760px){
+ .side{display:block;order:2;margin-top:8px;padding:16px;border:1px solid var(--line);background:var(--panel);font-size:15px;scroll-margin-top:12px}
+ .side a{padding:7px 0}
+ .side h2{font-size:14px}
+ .qc-menu-jump{display:inline-flex}
+ .qc-wiki-bar{padding:10px 10px 0}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<a class="corp-hub-return" href="../index.html" aria-label="Revenir au hub de la QUENQUEN CORP">← Revenir au hub de la QUENQUEN CORP</a>
+<a class="qc-skip" href="#article">Aller à l’article</a>
+<div class="qc-wiki-bar" role="navigation" aria-label="Outils du wiki"><a class="corp-hub-return" href="../">← Revenir au hub de la QUENQUEN CORP</a><a class="qc-menu-jump" href="#wikiNav">Menu du wiki ↓</a><div class="qc-wiki-music" role="group" aria-label="Ambiance musicale du wiki"><button id="qcWikiMusicToggle" type="button" aria-pressed="false">▶ MUSIQUE</button><label for="qcWikiMusicVolume"><span aria-hidden="true">🔊</span> <input id="qcWikiMusicVolume" type="range" min="0" max="100" step="1" value="40" aria-label="Volume de la musique"></label></div></div>
 
 <header class="top"><div class="topin">
-  <div class="brand" onclick="go('accueil')"><div class="mark">Q</div><div><b>WIKI QUENQUEN</b><small>L'encyclopédie de l'Univers QuenQuen</small></div></div>
-  <div class="search"><div class="searchrow"><input id="q" autocomplete="off" placeholder="Rechercher dans WIKI QUENQUEN"><button onclick="searchNow()">Rechercher</button></div><div class="suggest" id="suggest"></div></div>
+  <a class="brand" href="#accueil"><div class="mark" aria-hidden="true">Q</div><div><b>WIKI QUENQUEN</b><small>L'encyclopédie de l'Univers QuenQuen</small></div></a>
+  <div class="search" role="search"><div class="searchrow"><input id="q" type="search" autocomplete="off" aria-label="Rechercher dans WIKI QUENQUEN" placeholder="Rechercher dans WIKI QUENQUEN"><button type="button" onclick="searchNow()">Rechercher</button></div><div class="suggest" id="suggest"></div></div>
 </div></header>
 <div class="layout">
-<aside class="side">
-  <h4>Découvrir</h4>
+<nav class="side" id="wikiNav" aria-label="Sommaire du wiki">
+  <h2>Découvrir</h2>
   <a href="#accueil">Accueil</a>
   <a href="#univers-quenquen">Univers QuenQuen</a>
   <a href="#chronologie">Chronologie</a>
   <a href="#variantes">Liste des variantes</a>
 
-  <h4>Personnages</h4>
+  <h2>Personnages</h2>
   <a href="#french-quenquen">French QuenQuen</a>
   <a href="#mavik">Mavik</a>
   <a href="#og-quenquen">OG QuenQuen</a>
@@ -47,7 +70,7 @@
   <a href="#quick-quenquen">Quick QuenQuen</a>
   <a href="#variantes">Tous les personnages →</a>
 
-  <h4>Univers & concepts</h4>
+  <h2>Univers & concepts</h2>
   <a href="#univers-0">Univers 0</a>
   <a href="#andromeda">Andromeda</a>
   <a href="#andromeda-negative">Andromeda négative</a>
@@ -55,23 +78,23 @@
   <a href="#evenements">Événements</a>
   <a href="#relations">Relations</a>
 
-  <h4>Créations</h4>
+  <h2>Créations</h2>
   <a href="#card-collector">Card Collector QuenQuen</a>
   <a href="#radio-quenquen">Radio QuenQuen <span title="Format de streaming">(émission)</span></a>
 
-  <h4>Encyclopédie</h4>
+  <h2>Encyclopédie</h2>
   <a href="#canon">Canon</a>
   <a href="#glossaire">Glossaire</a>
   <a href="#toutes-les-pages">Toutes les pages</a>
 
-  <h4>Hors univers</h4>
+  <h2>Hors univers</h2>
   <a href="#creation-univers">Création de l’univers</a>
   <a href="#coulisses">Dans les coulisses</a>
 
-  <h4>Outils</h4>
+  <h2>Outils</h2>
   <a href="#recherche">Recherche</a>
-</aside>
-<main class="main"><article class="article" id="article"></article></main>
+</nav>
+<main class="main"><article class="article" id="article" tabindex="-1"></article></main>
 </div>
 <footer class="footer">WIKI QUENQUEN est l’encyclopédie officielle de l’Univers QuenQuen. Les éléments fictionnels sont présentés comme tels. Cette interface est un projet indépendant et n'est pas affiliée à Wikipédia ni à la Wikimedia Foundation.</footer>
 <script>
@@ -124,21 +147,21 @@ const titles={'og-quenquen':'OG QuenQuen','mavik':'Mavik','quick-quenquen':'Quic
 function go(s){location.hash=s}function render(){let raw=location.hash.slice(1)||'accueil',slug=raw.split('?')[0];document.getElementById('article').innerHTML=(pages[slug]||notFound)(slug);document.title=(titles[slug]||'Article introuvable')+' — WIKI QUENQUEN';window.scrollTo(0,0);if(slug==='recherche')setTimeout(()=>{if(document.getElementById('bigq').value)doBigSearch()},0)}
 function notFound(slug){let name=decodeURIComponent(slug).replaceAll('-',' ');return `<h1>${name}</h1><div class="tagline">WIKI QUENQUEN</div><div class="notice"><b>WIKI QUENQUEN ne possède pas encore d'article avec ce titre.</b><br>Vous pouvez effectuer une ${link('recherche','recherche')} ou consulter ${link('toutes-les-pages','la liste des pages existantes')}.</div>`}
 function normalize(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()}
-const q=document.getElementById('q'),sg=document.getElementById('suggest');q.addEventListener('input',()=>{let v=normalize(q.value.trim());if(!v){sg.style.display='none';return}let arr=Object.entries(titles).filter(([s,t])=>normalize(t).includes(v)).slice(0,8);sg.innerHTML=arr.map(([s,t])=>`<div onclick="go('${s}');sg.style.display='none';q.value=''">${t}</div>`).join('')||`<div class="empty">Aucun titre correspondant</div>`;sg.style.display='block'});q.addEventListener('keydown',e=>{if(e.key==='Enter')searchNow()});document.addEventListener('click',e=>{if(!e.target.closest('.search'))sg.style.display='none'});
+const q=document.getElementById('q'),sg=document.getElementById('suggest');q.addEventListener('input',()=>{let v=normalize(q.value.trim());if(!v){sg.style.display='none';return}let arr=Object.entries(titles).filter(([s,t])=>normalize(t).includes(v)).slice(0,8);sg.innerHTML=arr.map(([s,t])=>`<a href="#${s}" onclick="sg.style.display='none';q.value=''">${t}</a>`).join('')||`<div class="empty">Aucun titre correspondant</div>`;sg.style.display='block'});q.addEventListener('keydown',e=>{if(e.key==='Enter')searchNow()});document.addEventListener('click',e=>{if(!e.target.closest('.search'))sg.style.display='none'});
 function searchNow(){let v=q.value.trim();if(!v)return;let exact=Object.entries(titles).find(([s,t])=>normalize(t)===normalize(v));if(exact){go(exact[0])}else{location.hash='recherche?q='+encodeURIComponent(v)}sg.style.display='none'}
 function doBigSearch(){let v=document.getElementById('bigq').value.trim(),n=normalize(v),res=document.getElementById('results');if(!v){res.innerHTML='';return}let hits=Object.entries(titles).filter(([s,t])=>!['accueil','recherche','toutes-les-pages'].includes(s)&&normalize(t).includes(n));V.forEach(name=>{if(normalize(name).includes(n)&&!hits.some(x=>x[1]===name))hits.push(['variantes',name])});res.innerHTML=`<h2>Résultats de recherche</h2>${hits.length?'<ul>'+hits.map(([s,t])=>`<li><b>${link(s,t)}</b>${s==='variantes'&&t!==titles[s]?' — entrée dans la liste des variantes':''}</li>`).join('')+'</ul>':`<p>Aucun résultat pour « <b>${v.replace(/[<>]/g,'')}</b> ».</p>`}`}
 window.addEventListener('hashchange',render);render();
 </script>
-<div class="qc-wiki-music" aria-label="Ambiance musicale du wiki"><button id="qcWikiMusicToggle" type="button" aria-pressed="false">▶ MUSIQUE</button><label for="qcWikiMusicVolume">🔊 <input id="qcWikiMusicVolume" type="range" min="0" max="100" step="1" value="40" aria-label="Volume de la musique"></label></div><audio id="qcWikiMusic" src="../card-collector/assets/QUENQUEN_CORP_Archives_Classifiees_V2_LOOP_CORRIGEE.wav" loop preload="none"></audio>
+<audio id="qcWikiMusic" src="../card-collector/assets/QUENQUEN_CORP_Archives_Classifiees_V2_LOOP_CORRIGEE.wav" loop preload="none"></audio>
 <script id="qcWikiMusicEngine">
 (()=>{const audio=document.getElementById('qcWikiMusic'),toggle=document.getElementById('qcWikiMusicToggle'),slider=document.getElementById('qcWikiMusicVolume');if(!audio||!toggle||!slider)return;
 const key='qc_wiki_music_volume_v1';let saved=40;try{const raw=localStorage.getItem(key),n=Number(raw);if(raw!==null&&Number.isFinite(n))saved=Math.max(0,Math.min(100,n))}catch(_){}slider.value=String(saved);audio.volume=saved/100;
-let wantsMusic=true,blocked=false;
+let wantsMusic=true,blocked=false;const prefKey='qc_wiki_music_on_v1';try{if(localStorage.getItem(prefKey)==='off')wantsMusic=false}catch(_){}
 function sync(){toggle.textContent=wantsMusic?'❚❚ MUSIQUE':'▶ MUSIQUE';toggle.setAttribute('aria-pressed',String(wantsMusic))}
 function resume(){if(!wantsMusic||document.hidden)return;audio.play().then(()=>{blocked=false;sync()}).catch(()=>{blocked=true;sync()})}
 function firstGesture(){if(wantsMusic&&blocked)resume()}
 document.addEventListener('pointerdown',firstGesture);document.addEventListener('keydown',firstGesture);
-toggle.addEventListener('click',()=>{wantsMusic=!wantsMusic;if(wantsMusic)resume();else{blocked=false;audio.pause()}sync()});
+toggle.addEventListener('click',()=>{wantsMusic=!wantsMusic;try{localStorage.setItem(prefKey,wantsMusic?'on':'off')}catch(_){}if(wantsMusic)resume();else{blocked=false;audio.pause()}sync()});
 slider.addEventListener('input',()=>{audio.volume=Number(slider.value)/100;try{localStorage.setItem(key,slider.value)}catch(_){}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)audio.pause();else resume()});
 window.addEventListener('pagehide',()=>audio.pause());sync();resume();
