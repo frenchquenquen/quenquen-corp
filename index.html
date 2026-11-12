@@ -2,7 +2,7 @@
 <link rel="icon" type="image/svg+xml" href="./assets/favicon-quenquen-q.svg?v=3"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QUENQUEN CORP — Portail officiel | French QuenQuen</title>
 <meta name="description" content="La QUENQUEN CORP recense, analyse et documente toutes les variantes de QuenQuen. Sujet prioritaire : French QuenQuen, observé en direct sur Twitch.">
 <link rel="canonical" href="https://quenquen-corp.fr/">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <meta property="og:type" content="website">
 <meta property="og:title" content="QUENQUEN CORP — Chaque QuenQuen du Multivers est identifié ici">
 <meta property="og:description" content="Dossiers des variantes, Card Collector, The Rise of French QuenQuen et observations en direct du sujet prioritaire, French QuenQuen.">
@@ -986,6 +986,55 @@ body.v2 #qcSoundToggle{padding:0 10px}
 .v2-pill{top:8px;left:8px;font-size:12px;padding:3px 8px}
 }
 @media (prefers-reduced-motion:reduce){.v2-card{transition:none}.v2-card:hover{transform:none}}
+
+/* ===== Esthétique (13/11) : titres façon logo, atmosphère du haut de page, animations ===== */
+/* 1. Titres condensés, dans l'esprit du logo */
+.v2-h1,.v2-h2,.v2-card__t,.v2-feature__title{font-family:Anton,Impact,"Arial Black",sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:.6px}
+.v2-h1{font-size:54px;line-height:1.05}
+.v2-h2{font-size:34px;line-height:1.1}
+.v2-h2--sm{font-size:26px}
+.v2-card__t{font-size:23px;line-height:1.15}
+.v2-feature__title{font-size:30px;line-height:1.12}
+/* 2. Atmosphère : grille, étoiles et lueur dorée derrière le logo */
+.v2-hero{position:relative;isolation:isolate}
+.v2-hero:before{content:"";position:absolute;top:-1px;bottom:0;left:calc(50% - 50vw);right:calc(50% - 50vw);z-index:-1;pointer-events:none;
+background:
+radial-gradient(ellipse 46% 38% at 50% 26%,#f2c52d26,transparent 70%),
+radial-gradient(ellipse 80% 60% at 50% 20%,#1a223299,transparent 75%);
+-webkit-mask-image:linear-gradient(#000 62%,transparent);mask-image:linear-gradient(#000 62%,transparent)}
+.v2-hero:after{content:"";position:absolute;top:0;bottom:0;left:calc(50% - 50vw);right:calc(50% - 50vw);z-index:-1;pointer-events:none;opacity:.07;
+background:repeating-linear-gradient(180deg,transparent 0 3px,#ffffff 3px 4px);-webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}
+.v2-hero__logo img{filter:drop-shadow(0 10px 40px #f2c52d24)}
+/* Grille sur toute la page ; les fiches et panneaux restent gris */
+body.v2{background-color:#0b0d12;background-image:linear-gradient(#ffffff0b 1px,transparent 1px),linear-gradient(90deg,#ffffff0b 1px,transparent 1px);background-size:80px 80px;background-position:center top}
+body.v2 .v2-band{background:#0f1218e0}
+body.v2 header.v2-top{background:#0b0d12f2}
+/* 3. Animations */
+.v2-hero__logo{position:relative;overflow:hidden}
+.v2-hero__logo:after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:30%;pointer-events:none;background:linear-gradient(90deg,transparent,#f2c52d55,#fff6,#f2c52d55,transparent);mix-blend-mode:overlay;transform:skewX(-18deg);animation:v2Scan 1.6s .35s ease-out both}
+@keyframes v2Scan{from{left:-40%}to{left:120%}}
+.v2-hero__logo img{animation:v2LogoIn .9s ease-out both}
+@keyframes v2LogoIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.v2-hero>*:not(.v2-hero__logo){animation:v2Up .7s ease-out both}
+.v2-hero>.v2-kicker{animation-delay:.35s}.v2-hero>.v2-h1{animation-delay:.45s}.v2-hero>.v2-lead{animation-delay:.55s}.v2-hero>.v2-cta{animation-delay:.65s}.v2-hero>.qc-plan{animation-delay:.75s}
+@keyframes v2Up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.v2-card,.v2-feature{transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.v2-card:hover,.v2-card:focus-visible{transform:translateY(-4px);border-color:#f2c52d;box-shadow:0 14px 40px #000a,0 0 0 1px #f2c52d55,0 0 28px #f2c52d22}
+.v2-card__img img{transition:transform .5s ease}
+.v2-card:hover .v2-card__img img{transform:scale(1.06)}
+.v2-card--new:hover .v2-card__img img{transform:scale(1.1)}
+.v2-feature:hover{box-shadow:0 0 28px #f2c52d1f}
+.v2-feature__thumb{overflow:hidden}.v2-feature__thumb img{transition:transform .5s ease}.v2-feature:hover .v2-feature__thumb img{transform:scale(1.04)}
+.v2-btn{transition:background .2s,color .2s,border-color .2s,transform .2s}
+.v2-btn--gold:hover{transform:translateY(-2px);box-shadow:0 8px 24px #f2c52d33}
+@media (max-width:640px){.v2-h1{font-size:34px}.v2-h2{font-size:28px}.v2-card__t{font-size:20px}.v2-feature__title{font-size:24px}}
+@media (prefers-reduced-motion:reduce){
+.v2-hero__logo:after{display:none}
+.v2-hero__logo img,.v2-hero>*{animation:none!important}
+.v2-card,.v2-feature,.v2-card__img img,.v2-feature__thumb img,.v2-btn{transition:none}
+.v2-card:hover,.v2-card:focus-visible,.v2-btn--gold:hover{transform:none}
+.v2-card:hover .v2-card__img img,.v2-feature:hover .v2-feature__thumb img{transform:none}
+}
 </style>
 </head><body class="v2"><a class="qc-skip" href="#v2Main">Aller au contenu</a>
 <header class="v2-top">
