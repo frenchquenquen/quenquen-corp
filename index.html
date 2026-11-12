@@ -1000,15 +1000,15 @@ body.v2 #qcSoundToggle{padding:0 10px}
 .v2-hero:before{content:"";position:absolute;top:-1px;bottom:0;left:calc(50% - 50vw);right:calc(50% - 50vw);z-index:-1;pointer-events:none;
 background:
 radial-gradient(ellipse 46% 38% at 50% 26%,#f2c52d26,transparent 70%),
-radial-gradient(circle,#ffffff 0 1px,transparent 1.3px) 0 0/90px 90px,
-radial-gradient(circle,#ffffff 0 .8px,transparent 1.1px) 45px 30px/130px 130px,
-linear-gradient(#ffffff0d 1px,transparent 1px) 0 0/80px 80px,
-linear-gradient(90deg,#ffffff0d 1px,transparent 1px) 0 0/80px 80px,
-radial-gradient(ellipse 80% 60% at 50% 20%,#1a2232,#0b0d12 75%);
+radial-gradient(ellipse 80% 60% at 50% 20%,#1a223299,transparent 75%);
 -webkit-mask-image:linear-gradient(#000 62%,transparent);mask-image:linear-gradient(#000 62%,transparent)}
 .v2-hero:after{content:"";position:absolute;top:0;bottom:0;left:calc(50% - 50vw);right:calc(50% - 50vw);z-index:-1;pointer-events:none;opacity:.07;
 background:repeating-linear-gradient(180deg,transparent 0 3px,#ffffff 3px 4px);-webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}
 .v2-hero__logo img{filter:drop-shadow(0 10px 40px #f2c52d24)}
+/* Grille sur toute la page ; les fiches et panneaux restent gris */
+body.v2{background-color:#0b0d12;background-image:linear-gradient(#ffffff0b 1px,transparent 1px),linear-gradient(90deg,#ffffff0b 1px,transparent 1px);background-size:80px 80px;background-position:center top}
+body.v2 .v2-band{background:#0f1218e0}
+body.v2 header.v2-top{background:#0b0d12f2}
 /* 3. Animations */
 .v2-hero__logo{position:relative;overflow:hidden}
 .v2-hero__logo:after{content:"";position:absolute;top:0;bottom:0;left:-40%;width:30%;pointer-events:none;background:linear-gradient(90deg,transparent,#f2c52d55,#fff6,#f2c52d55,transparent);mix-blend-mode:overlay;transform:skewX(-18deg);animation:v2Scan 1.6s .35s ease-out both}
