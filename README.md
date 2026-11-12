@@ -26,7 +26,7 @@ Chaque carte `card-collector-v2/assets/cards/N.png` a une vignette légère
 `card-collector-v2/assets/cards/thumbs/N.webp` (480 px) utilisée dans l'album.
 Sans vignette, l'album charge directement le PNG.
 
-## Live Twitch et vidéo à la une
+## Live Twitch, vidéo à la une et planning
 
 L'accueil interroge la fonction Supabase `qc-hub-status` (publique, lecture seule) toutes les 90 secondes.
 Elle renvoie l'état du live Twitch de `frenchquenquen_` et la dernière vidéo de la chaîne YouTube `@quenquen-le-multivers`.
@@ -36,3 +36,7 @@ Elle renvoie l'état du live Twitch de `frenchquenquen_` et la dernière vidéo 
 - Si la fonction ne répond pas, l'accueil garde la vidéo écrite en dur dans `index.html` et n'affiche pas de bandeau.
 - Sans clés Twitch, le live est détecté par l'aperçu public de Twitch (quelques minutes de décalage possibles, pas de titre garanti).
   Avec les secrets `TWITCH_CLIENT_ID` et `TWITCH_CLIENT_SECRET` dans Supabase, la fonction utilise l'API officielle (titre, jeu, spectateurs).
+- Planning : quand le Planner publie sur Discord, la fonction `quenquen-planner-publish` enregistre aussi les lives
+  dans la table Supabase `qc_live_schedule` (elle remplace le planning précédent). L'accueil affiche le prochain live
+  et les suivants ; un live disparaît 3 heures après son début, et le bloc est masqué si le planning est vide.
+  Dans le Planner, la date s'écrit `18/10` et l'heure `20h30` (heure de Paris).
