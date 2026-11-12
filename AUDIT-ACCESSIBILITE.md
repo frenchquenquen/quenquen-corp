@@ -58,10 +58,10 @@ ont été trouvés à la lecture du code et en naviguant.
 
 1. **Liens des réseaux.** `go/youtube.html` envoie vers `youtube.com/@frenchquenquen` et `go/tiktok.html` vers `tiktok.com/@frenchquenquen`, alors que le portail affiche « QUENQUEN-LE MULTIVERS ». Les mêmes adresses sont dans les données pour Google (JSON-LD). À confirmer.
 2. **Intro de 6,6 s avant YouTube.** Un visiteur qui clique sur YouTube attend l'animation (bouton « passer » présent). C'est le seul réseau avec ce délai.
-3. **Musiques de jeux du commerce.** The Rise et le Volume 1 contiennent des fichiers nommés d'après des jeux Sonic et Shaq Fu. Sur un site public, c'est un risque de réclamation de droits d'auteur.
+3. **Musiques.** Décision du 12/11/2026 : on ne touche pas aux musiques. Aucun fichier audio n'a été modifié ni supprimé.
 4. **Lien OnlyFan.** `go/onlyfan.html` mène à un vrai compte OnlyFans depuis un site tout public.
-5. **Fichiers de sauvegarde en ligne.** `wiki_patched.html` et `wiki/index-legacy-backup.html` sont identiques (5,6 Mo chacun), accessibles publiquement et liés par aucune page. `planner-preview/`, `assets/quenquen-corp-v1.png` et `wiki/assets/images/wiki-c630a41cfb026da7.png` (2,4 Mo) semblent aussi inutilisés.
-6. **Poids du dépôt : 862 Mo**, dont 433 Mo pour le Volume 1 (vidéos) et 300 Mo pour les PNG du Volume 2. GitHub recommande de rester sous 1 Go. Passer les cartes en WebP et les vidéos sur YouTube ou un stockage dédié réglerait le problème.
+5. **Fichiers de sauvegarde.** `wiki_patched.html`, `wiki/index-legacy-backup.html` (identiques, 5,6 Mo chacun) et `wiki/assets/images/wiki-c630a41cfb026da7.png` (2,4 Mo) n'étaient liés par aucune page : supprimés le 12/11/2026, récupérables dans l'historique Git. `planner-preview/` et `assets/quenquen-corp-v1.png` semblent aussi inutilisés, laissés en place.
+6. **Poids du dépôt : 849 Mo**, dont 433 Mo pour le Volume 1 (vidéos) et 300 Mo pour les PNG du Volume 2. GitHub recommande de rester sous 1 Go. Passer les cartes en WebP et les vidéos sur YouTube ou un stockage dédié réglerait le problème.
 7. **Volume 1.** Le contour de focus est volontairement masqué sur les cartes (pour cacher les zones secrètes). Le jeu reste donc difficile au clavier ; le corriger changerait le jeu.
 8. **The Rise.** Jeu sur canvas, non jouable avec un lecteur d'écran ; c'est une limite du format.
 
