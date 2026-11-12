@@ -2,6 +2,7 @@
 <link rel="icon" type="image/svg+xml" href="./assets/favicon-quenquen-q.svg?v=3"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>QUENQUEN CORP | French QuenQuen</title>
 <meta name="description" content="Site officiel de French QuenQuen, streamer et vidéaste : Twitch, YouTube et le Multivers QUENQUEN CORP. Découvrez Card Collector, le Wiki et The Rise of French QuenQuen.">
 <link rel="canonical" href="https://quenquen-corp.fr/">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <meta property="og:type" content="website">
 <meta property="og:title" content="QUENQUEN CORP — Le Multivers de French QuenQuen">
 <meta property="og:description" content="Explorez le Multivers de French QuenQuen : Card Collector, Wiki QuenQuen, The Rise of French QuenQuen et archives.">
@@ -840,41 +841,227 @@ header{position:absolute}
 @media(max-width:700px){.qc-live{margin:16px auto -2px;padding:12px 14px}.qc-live__title{flex-basis:100%;white-space:normal}.qc-live__cta{width:100%;text-align:center}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
-</head><body><a class="qc-skip" href="#hubPortails">Aller au contenu</a><div class="bg" aria-hidden="true"></div><div class="stars" aria-hidden="true"></div><div class="gridbg" aria-hidden="true"></div>
-<header><button id="qcSoundToggle" type="button" aria-pressed="true">🔊 SON</button><div class="connection" id="connection"><span class="dot"></span><span id="connectionText">VISITEUR NON IDENTIFIÉ</span></div></header>
-<main><section class="hero" id="hubAccueil"><div class="micro">MULTIVERSE COMMUNITY ACCESS</div><h1 class="qc-sr">QUENQUEN CORP — le Multivers de French QuenQuen</h1><img class="hero-logo" src="./assets/logo-quenquen-corp-entier.png" alt="" width="2048" height="1152"><div class="hero-agent-status" id="heroAgentStatus" aria-live="polite">MODE VISITEUR</div>
-</section>
-<div id="qcLiveSlot" role="status" aria-live="polite"><a id="qcLiveBanner" class="qc-live" href="https://www.twitch.tv/frenchquenquen_" hidden><span class="qc-live__dot" aria-hidden="true"></span><span class="qc-live__label">EN LIVE MAINTENANT</span><span class="qc-live__title" id="qcLiveTitle"></span><span class="qc-live__cta">REJOINDRE LE LIVE <span aria-hidden="true">→</span></span></a></div>
-<section class="qc-plan" id="qcPlanning" aria-label="Planning des lives" hidden>
-<div class="qc-plan__bar"><span class="qc-plan__badge" id="qcPlanBadge">PROCHAIN LIVE</span><span class="qc-plan__next"><b id="qcPlanNextTitle"></b> <span class="qc-plan__when" id="qcPlanNextWhen"></span></span><button type="button" class="qc-plan__toggle" id="qcPlanToggle" aria-expanded="false" aria-controls="qcPlanDetails" hidden></button><a class="qc-plan__follow" href="https://www.twitch.tv/frenchquenquen_" target="_blank" rel="noopener noreferrer">Suivre sur Twitch<span class="qc-sr"> (nouvel onglet)</span> <span aria-hidden="true">↗</span></a></div>
+<style id="qc-v2">
+/* ===== Refonte de l'accueil — portail QUENQUEN CORP (12/11/2026) ===== */
+body.v2{background:#0b0d12;color:#f4f4f4;font-family:Inter,system-ui,Arial,sans-serif;font-size:16px;line-height:1.55}
+body.v2:before,body.v2:after{display:none!important}
+body.v2 .bg,body.v2 .stars,body.v2 .gridbg,body.v2 .mobile-hub-nav,body.v2 .qc-activity{display:none!important}
+body.v2 main{width:auto;margin:0;padding:0}
+.v2-wrap{max-width:1200px;margin:0 auto;padding-left:40px;padding-right:40px;box-sizing:border-box}
+.v2-kicker{display:block;font:500 13px/1.4 "JetBrains Mono",monospace;letter-spacing:3px;color:#f2c52d}
+.v2-kicker--muted{color:#b6bdc8;font-size:12px;letter-spacing:2px}
+.v2-h2{margin:0 0 18px;font:700 28px/1.2 "Space Grotesk",Arial,sans-serif}
+.v2-h2--sm{font-size:22px;margin:0}
+.v2-sub{margin:-8px 0 24px;color:#b6bdc8;max-width:720px}
+.v2-block{padding-top:56px;padding-bottom:56px}
+.v2-band{background:#0f1218;border-top:1px solid #ffffff10;border-bottom:1px solid #ffffff10}
+
+/* En-tête */
+body.v2 header.v2-top{position:sticky;top:0;right:auto;z-index:50;display:block;pointer-events:auto;background:#0b0d12f2;border-bottom:1px solid #ffffff14;backdrop-filter:blur(8px)}
+.v2-top__in{display:flex;align-items:center;gap:24px;min-height:72px}
+.v2-brand{flex:none;display:flex}.v2-brand img{height:34px;width:auto;display:block}
+.v2-nav{display:flex;gap:28px;flex:1;font-weight:600;font-size:15px}
+.v2-nav a{color:#f4f4f4;text-decoration:none}.v2-nav a:hover{color:#f2c52d}
+.v2-top__tools{display:flex;align-items:center;gap:10px;margin-left:auto}
+.v2-status{font:500 12px/1.3 "JetBrains Mono",monospace;letter-spacing:1px;color:#f2c52d;max-width:240px;text-align:right}
+body.v2 #qcSoundToggle{min-height:44px;padding:0 14px;border:1px solid #ffffff26;border-radius:10px;background:transparent;color:#f4f4f4;font:600 14px Inter,Arial,sans-serif;letter-spacing:0;cursor:pointer}
+body.v2 #qcSoundToggle:hover{border-color:#f2c52d;color:#f2c52d}
+body.v2 #qcContactTrigger{position:static;min-height:44px;padding:0 16px;border:1px solid #f2c52d;border-radius:10px;background:transparent;color:#f2c52d;font:700 14px Inter,Arial,sans-serif;letter-spacing:0;box-shadow:none;cursor:pointer}
+body.v2 #qcContactTrigger:hover{background:#f2c52d;color:#0b0d12}
+
+/* Bandeau d'observation en direct */
+body.v2 .qc-live{display:block;max-width:none;margin:0;padding:0;border:0;border-radius:0;background:#b81d24;box-shadow:none;color:#fff;text-decoration:none}
+body.v2 .qc-live[hidden]{display:none}
+body.v2 .qc-live:hover{background:#a3161d}
+.qc-live__in{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding-top:12px;padding-bottom:12px}
+body.v2 .qc-live__dot{background:#fff;box-shadow:none}
+body.v2 .qc-live__label{font:700 14px Inter,Arial,sans-serif;letter-spacing:1px}
+body.v2 .qc-live__title{flex:1 1 260px;color:#ffe3e3;font:15px/1.35 Inter,Arial,sans-serif;white-space:normal}
+.qc-live__who{color:#fff}
+body.v2 .qc-live__cta{padding:0;background:none;color:#fff;font:700 15px Inter,Arial,sans-serif;letter-spacing:0}
+
+/* Héros : le logo en grand */
+.v2-hero{display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px;padding-top:40px;padding-bottom:56px}
+.v2-hero__logo{margin:0;width:100%;line-height:0}
+.v2-hero__logo img{display:block;width:min(620px,100%);height:auto;margin:0 auto 8px}
+.v2-h1{margin:0;max-width:820px;font:700 46px/1.1 "Space Grotesk",Arial,sans-serif;letter-spacing:-.5px}
+.v2-lead{margin:0;max-width:640px;font-size:19px;color:#c3c9d2}
+.v2-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:4px}
+.v2-btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 24px;border:1px solid #ffffff33;border-radius:12px;color:#f4f4f4;text-decoration:none;font-weight:700}
+.v2-btn:hover{border-color:#f2c52d;color:#f2c52d}
+.v2-btn--gold{background:#f2c52d;border-color:#f2c52d;color:#0b0d12}
+.v2-btn--gold:hover{background:#ffd84a;color:#0b0d12}
+.v2-hero .qc-plan{width:100%;max-width:760px;text-align:left}
+
+/* Planning dans le héros */
+body.v2 .qc-plan{max-width:none;margin:8px 0 0;border:1px solid #ffffff1f;border-radius:12px;background:#12161e}
+body.v2 .qc-plan__badge{background:#f2c52d;color:#0b0d12}
+
+/* Dernière transmission */
+.v2-feature{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);overflow:hidden;border:1px solid #ffffff1f;border-radius:20px;background:#12161e;color:#f4f4f4;text-decoration:none}
+.v2-feature:hover{border-color:#f2c52d99}
+.v2-feature__thumb{display:block;background:#1b212c;aspect-ratio:16/9}
+.v2-feature__thumb img{display:block;width:100%;height:100%;object-fit:cover}
+.v2-feature__copy{display:flex;flex-direction:column;justify-content:center;gap:12px;padding:32px}
+.v2-feature__title{font:700 26px/1.2 "Space Grotesk",Arial,sans-serif}
+.v2-feature__text{color:#b6bdc8}
+.v2-feature__cta{font-weight:700;color:#f2c52d}
+
+/* Archives */
+.v2-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.v2-card{display:flex;flex-direction:column;overflow:hidden;border:1px solid #ffffff1f;border-radius:18px;background:#151a23;color:#f4f4f4;text-decoration:none;transition:transform .2s,border-color .2s}
+.v2-card:hover{transform:translateY(-3px);border-color:#f2c52d99}
+.v2-card--new{border-color:#f2c52d80}
+.v2-card__img{position:relative;display:block;height:200px;overflow:hidden;background:#0b0d12}
+.v2-card__img img{display:block;width:100%;height:100%;object-fit:cover}
+.v2-card__img--wiki{display:flex;align-items:center;justify-content:center;background:#fff;color:#111;font:700 72px Georgia,serif}
+.v2-card__img--rise .v2-rise__bg{position:absolute;inset:0}
+.v2-card__img--rise .v2-rise__fr{position:absolute;left:50%;top:8px;width:auto;height:230px;transform:translateX(-50%);object-fit:contain}
+/* Volume 2 : visuels floutés pour ne rien dévoiler des cartes */
+.v2-card--new .v2-card__img img{position:absolute;inset:-12px;width:calc(100% + 24px);height:calc(100% + 24px);filter:blur(7px) saturate(.9) brightness(.8);transform:scale(1.04)}
+.v2-pill{position:absolute;top:12px;left:12px;padding:4px 10px;border-radius:999px;background:#f2c52d;color:#0b0d12;font:700 12px Inter,Arial,sans-serif;letter-spacing:.5px}
+.v2-card__body{display:flex;flex-direction:column;gap:6px;padding:18px}
+.v2-card__k{font:500 12px "JetBrains Mono",monospace;letter-spacing:1.5px;color:#f2c52d}
+.v2-card__t{font:700 20px/1.25 "Space Grotesk",Arial,sans-serif}
+.v2-card__d{font-size:15px;color:#b6bdc8}
+
+/* Canaux de transmission */
+.v2-channels{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;padding-top:44px;padding-bottom:44px}
+.v2-chips{display:flex;flex-wrap:wrap;gap:10px}
+.v2-chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border:1px solid #ffffff26;border-radius:999px;color:#f4f4f4;text-decoration:none;font-weight:600;font-size:15px}
+.v2-chip:hover{border-color:#f2c52d;color:#f2c52d}
+.v2-chip--secret{border-style:dashed;color:#b6bdc8}
+.v2-chip__state{font:500 12px "JetBrains Mono",monospace;letter-spacing:1px;color:#b6bdc8}
+.v2-chip.is-live{border-color:#ff5a5a;color:#fff}.v2-chip.is-live .v2-chip__state{color:#ff8a8a}
+
+/* Recrutement : carte d'agent et registre, inchangés, simplement recadrés */
+body.v2 #v2Agents .community-bottom{margin-top:8px}
+body.v2 #v2Agents .member,body.v2 #v2Agents .registry{max-width:none;margin:0!important}
+
+/* Fenêtres et zone agent : police et interlignage d'origine */
+body.v2 .modal,body.v2 .community-bottom,body.v2 #cardZoom,body.v2 #qcContactOverlay{font-family:Arial,sans-serif;line-height:normal}
+/* L'éditeur de carte défile quand il est plus haut que l'écran (le bouton de validation était inaccessible) */
+body.v2 .modal{overflow-y:auto;place-items:start center}
+body.v2 .modal .box{margin:auto 0}
+/* Pied de page */
+.v2-foot{border-top:1px solid #ffffff14}
+.v2-foot__in{padding-top:40px;padding-bottom:56px}
+.v2-quote{margin:0 0 8px;max-width:620px;font-size:17px;color:#e6e6e6}
+
+/* Anomalies : plus rares, mêmes effets */
+body.v2 .qc-anomaly{font-size:12px}
+
+@media (max-width:900px){
+.v2-hero{padding-top:28px}
+.v2-feature{grid-template-columns:minmax(0,1fr)}
+.v2-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+.v2-status{display:none}
+}
+@media (max-width:640px){
+.v2-wrap{padding-left:18px;padding-right:18px}
+.v2-nav{display:none}
+.v2-top__in{gap:10px;min-height:64px}
+.v2-brand img{height:28px}
+.v2-h1{font-size:30px}
+.v2-hero__logo img{width:min(320px,90%)}
+.v2-lead{font-size:17px}
+.v2-cta{flex-direction:column}
+.v2-cards{grid-template-columns:minmax(0,1fr)}
+.v2-block{padding-top:40px;padding-bottom:40px}
+.v2-feature__copy{padding:20px}
+.v2-feature__title{font-size:22px}
+body.v2 #qcSoundToggle{padding:0 10px}
+.v2-card{flex-direction:row;min-height:132px}
+.v2-card__img{width:36%;height:auto;flex:none}
+.v2-card__img--wiki{font-size:40px}
+.v2-card__img--rise .v2-rise__fr{height:150px;top:4px}
+.v2-card__body{padding:14px 14px 14px 16px;gap:4px;justify-content:center;min-width:0}
+.v2-card__t{font-size:18px}
+.v2-card__d{font-size:14px}
+.v2-pill{top:8px;left:8px;font-size:12px;padding:3px 8px}
+}
+@media (prefers-reduced-motion:reduce){.v2-card{transition:none}.v2-card:hover{transform:none}}
+</style>
+</head><body class="v2"><a class="qc-skip" href="#v2Main">Aller au contenu</a>
+<header class="v2-top">
+<div class="v2-wrap v2-top__in">
+<a class="v2-brand" href="./" aria-label="QUENQUEN CORP — accueil"><img src="./assets/logo-quenquen-corp-recadre.webp" alt="" width="622" height="332"></a>
+<nav class="v2-nav" aria-label="Navigation principale"><a href="#hubPortails">Archives</a><a href="#v2Transmissions">Transmissions</a><a href="#v2Agents">Devenir agent</a></nav>
+<div class="v2-top__tools">
+<div class="v2-status" id="heroAgentStatus" aria-live="polite">MODE VISITEUR</div>
+<div class="connection" id="connection" hidden><span class="dot"></span><span id="connectionText">VISITEUR NON IDENTIFIÉ</span></div>
+<button id="qcSoundToggle" type="button" aria-pressed="true">🔊 SON</button>
+<button id="qcContactTrigger" type="button">Contact</button>
+</div>
+</div>
+</header>
+<div id="qcLiveSlot" role="status" aria-live="polite"><a id="qcLiveBanner" class="qc-live" href="https://www.twitch.tv/frenchquenquen_" hidden><span class="v2-wrap qc-live__in"><span class="qc-live__dot" aria-hidden="true"></span><span class="qc-live__label">OBSERVATION EN DIRECT</span><span class="qc-live__title"><span class="qc-live__who">French QuenQuen est en live sur Twitch</span> <span id="qcLiveTitle"></span></span><span class="qc-live__cta">Rejoindre l’observation <span aria-hidden="true">→</span></span></span></a></div>
+<main id="v2Main">
+<section class="v2-hero v2-wrap" id="hubAccueil">
+<h1 class="v2-hero__logo"><img src="./assets/logo-quenquen-corp-recadre.png" alt="QUENQUEN CORP" width="1245" height="664"></h1>
+<div class="v2-kicker">PORTAIL OFFICIEL</div>
+<p class="v2-h1">Chaque QuenQuen du Multivers est identifié ici.</p>
+<p class="v2-lead">La QUENQUEN CORP recense, analyse et documente toutes les variantes de QuenQuen. Sujet prioritaire : French QuenQuen, observé en direct sur Twitch et archivé sur YouTube.</p>
+<div class="v2-cta">
+<a class="v2-btn v2-btn--gold" href="https://www.twitch.tv/frenchquenquen_" target="_blank" rel="noopener noreferrer">Observer French en direct<span class="qc-sr"> sur Twitch (nouvel onglet)</span></a>
+<a class="v2-btn" href="#hubPortails">Consulter les archives</a>
+</div>
+<section class="qc-plan" id="qcPlanning" aria-label="Planning des observations en direct" hidden>
+<div class="qc-plan__bar"><span class="qc-plan__badge" id="qcPlanBadge">PROCHAINE OBSERVATION</span><span class="qc-plan__next"><b id="qcPlanNextTitle"></b> <span class="qc-plan__when" id="qcPlanNextWhen"></span></span><button type="button" class="qc-plan__toggle" id="qcPlanToggle" aria-expanded="false" aria-controls="qcPlanDetails" hidden></button><a class="qc-plan__follow" href="https://www.twitch.tv/frenchquenquen_" target="_blank" rel="noopener noreferrer">Suivre sur Twitch<span class="qc-sr"> (nouvel onglet)</span> <span aria-hidden="true">↗</span></a></div>
 <div class="qc-plan__details" id="qcPlanDetails" hidden><ul class="qc-plan__list" id="qcPlanList"></ul><p class="qc-plan__more">Le planning est aussi publié sur <a href="./go/discord.html" target="_blank" rel="noopener noreferrer">Discord<span class="qc-sr"> (nouvel onglet)</span></a>.</p></div>
 </section>
-<a class="featured-video" id="qcFeatured" href="https://youtu.be/khFWTTlk2WA" target="_blank" rel="noopener noreferrer">
-<div class="featured-video__thumb"><img id="qcFeaturedImg" src="https://i.ytimg.com/vi/khFWTTlk2WA/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360"><span class="featured-video__badge">À LA UNE</span></div>
-<div class="featured-video__copy"><div class="featured-video__eyebrow" id="qcFeaturedEyebrow">VLOG · CÔTE D’AZUR</div><h2 id="qcFeaturedTitle">Je suis parti à Nice sans avoir de thune…</h2><p id="qcFeaturedText">Un budget proche du néant, 17 € de parking, Cannes et un beignet probablement encore congelé.</p><span class="featured-video__cta"><span id="qcFeaturedCta">REGARDER LE VLOG</span> <span aria-hidden="true">↗</span><span class="qc-sr"> sur YouTube (nouvel onglet)</span></span></div>
+</section>
+
+<section class="v2-wrap v2-block" id="v2Transmissions" aria-labelledby="v2TransTitle">
+<h2 class="v2-h2" id="v2TransTitle">Dernière transmission</h2>
+<a class="v2-feature" id="qcFeatured" href="https://youtu.be/khFWTTlk2WA" target="_blank" rel="noopener noreferrer">
+<span class="v2-feature__thumb"><img id="qcFeaturedImg" src="https://i.ytimg.com/vi/khFWTTlk2WA/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360"></span>
+<span class="v2-feature__copy"><span class="v2-kicker" id="qcFeaturedEyebrow">ARCHIVE VIDÉO · VLOG</span><span class="v2-feature__title" id="qcFeaturedTitle">Je suis parti à Nice sans avoir de thune…</span><span class="v2-feature__text" id="qcFeaturedText">Un budget proche du néant, 17 € de parking, Cannes et un beignet probablement encore congelé.</span><span class="v2-feature__cta"><span id="qcFeaturedCta">Regarder sur YouTube</span> <span aria-hidden="true">→</span><span class="qc-sr"> (nouvel onglet)</span></span></span>
 </a>
-<div class="sectiontitle" role="heading" aria-level="2">CHOISISSEZ VOTRE DESTINATION</div>
-<section class="portals" id="hubPortails">
-<a class="portal collector" data-dest="collector" href="./go/card-collector.html"><div class="portal-badge badge-discovery">DÉCOUVERTE</div><div class="panel-visual"><img class="collector-cover" src="assets/card_collector_panel.png" alt="Card Collector QuenQuen"><div class="collector-vignette"></div></div><div class="info"><h2 aria-level="3">CARD COLLECTOR QUENQUEN — VOLUME 1</h2><p>Un banal album de cartes à collectionner… en apparence.</p><div class="enter">ENTRER DANS LA COLLECTION →</div></div></a>
-<a class="portal wiki" data-dest="wiki" href="./go/wiki.html"><div class="portal-badge badge-lore">LORE</div><div class="panel-visual"><div class="wiki-sheet"></div></div><div class="info"><h2 aria-level="3">WIKI QUENQUEN</h2><p>Encyclopédie officielle de l'univers des QuenQuen</p><div class="enter">CONSULTER LES ARCHIVES →</div></div></a>
-<a class="portal game" data-dest="game" href="./go/the-rise.html"><div class="portal-badge badge-game">GAME</div><div class="panel-visual"><img class="space-img" src="assets/multiverse.webp" alt=""><div class="space-vignette"></div><img class="french-img" src="assets/french_flying.png" alt="French QuenQuen"></div><div class="info"><h2 aria-level="3">THE RISE OF FRENCH QUENQUEN</h2><p>Une aventure à travers le Multivers</p><div class="enter">LANCER LE JEU →</div></div></a>
-<a class="portal collector collector-v2" data-dest="collectorV2" href="./card-collector-v2/"><div class="new-badge">NEW</div><div class="panel-visual v2-tease" aria-hidden="true"><img class="v2-collage" src="card-collector-v2/assets/cards/card_collector_v2_panel.webp" alt="" loading="lazy" decoding="async"><div class="tease-vignette"></div></div><div class="info"><h2 aria-level="3">CARD COLLECTOR QUENQUEN — VOLUME 2</h2><p>Construisez votre collection au fil des lives.</p><div class="enter">OUVRIR MON ALBUM →</div></div></a>
 </section>
-<div class="sectiontitle social-title" role="heading" aria-level="2">TRANSMISSIONS QUENQUEN</div>
-<section class="portals social-portals" id="hubReseaux">
-<a class="portal social twitch" href="https://www.twitch.tv/frenchquenquen_"><div class="social-visual" aria-hidden="true"><div class="social-signal" id="qcTwitchSignal">LIVE</div><div class="social-mark">TW</div></div><div class="info"><h2 aria-level="3">TWITCH</h2><p class="social-identity">FRENCH QUENQUEN</p><p>Lives, jeux vidéo, radio libre et moments avec la communauté.<span class="qc-sr" id="qcTwitchSr"></span></p><div class="enter">REJOINDRE FRENCH EN LIVE →</div></div></a>
-<a class="portal social youtube" href="./go/youtube.html" target="_blank" rel="noopener noreferrer"><div class="social-visual" aria-hidden="true"><div class="social-signal">VIDÉOS</div><div class="social-mark">▶</div></div><div class="info"><h2 aria-level="3">YOUTUBE</h2><p class="social-identity">QUENQUEN-LE MULTIVERS</p><p>Sketchs, personnages et histoires d’un Multivers pas comme les autres.</p><div class="enter">DÉCOUVRIR LE MULTIVERS →<span class="qc-sr"> (nouvel onglet)</span></div></div></a>
-<a class="portal social instagram" href="./go/instagram.html" target="_blank" rel="noopener noreferrer"><div class="social-visual" aria-hidden="true"><div class="social-signal">SIGNAL</div><div class="social-mark">IG</div></div><div class="info"><h2 aria-level="3">INSTAGRAM</h2><p class="social-identity">QUENQUEN</p><p>Les coulisses.</p><div class="enter">EXPLORER LE MULTIVERS →<span class="qc-sr"> (nouvel onglet)</span></div></div></a>
-<a class="portal social tiktok" href="./go/tiktok.html" target="_blank" rel="noopener noreferrer"><div class="social-visual" aria-hidden="true"><div class="social-signal">SHORTS</div><div class="social-mark">♪</div></div><div class="info"><h2 aria-level="3">TIKTOK</h2><p class="social-identity">QUENQUEN</p><p>Sketchs, humour absurde et personnages du Multivers.</p><div class="enter">DÉCOUVRIR LES PERSONNAGES →<span class="qc-sr"> (nouvel onglet)</span></div></div></a>
-<a class="portal social chantal" href="./go/onlyfan.html" target="_blank" rel="noopener noreferrer"><div class="social-visual" aria-hidden="true"><div class="social-signal">DOSSIER CONFIDENTIEL</div><div class="social-mark">OF</div></div><div class="info"><h2 aria-level="3">ONLYFAN</h2><p class="social-identity">CHANTAL QUENQUEN</p><p>Une initiative personnelle que la QUENQUEN CORP préfère ne pas commenter.</p><div class="enter">ACCÉDER AU DOSSIER →<span class="qc-sr"> (nouvel onglet)</span></div></div></a>
-<a class="portal social discord" href="./go/discord.html" target="_blank" rel="noopener noreferrer"><div class="social-visual" aria-hidden="true"><div class="social-signal">COMMUNAUTÉ</div><div class="social-mark">DC</div></div><div class="info"><h2 aria-level="3">DISCORD</h2><p class="social-identity">QUENQUEN-CORP</p><p>Rejoignez la communauté sur Discord.</p><div class="enter">REJOINDRE LE SERVEUR →<span class="qc-sr"> (nouvel onglet)</span></div></div></a>
+
+<section class="v2-band" aria-labelledby="v2ArchTitle">
+<div class="v2-wrap v2-block">
+<h2 class="v2-h2" id="v2ArchTitle">Archives de la QUENQUEN CORP</h2>
+<p class="v2-sub">Dossiers, objets et rapports d’observation, ouverts aux visiteurs autorisés.</p>
+<div class="v2-cards" id="hubPortails">
+<a class="v2-card" data-dest="collector" href="./go/card-collector.html"><span class="v2-card__img"><img src="assets/card_collector_panel.png" alt="" loading="lazy" decoding="async"></span><span class="v2-card__body"><span class="v2-card__k">ALBUM · VOLUME 1</span><span class="v2-card__t">Card Collector</span><span class="v2-card__d">Un banal album de cartes à collectionner… en apparence.</span></span></a>
+<a class="v2-card v2-card--new" data-dest="collectorV2" href="./card-collector-v2/"><span class="v2-card__img"><img src="card-collector-v2/assets/cards/card_collector_v2_panel.webp" alt="" loading="lazy" decoding="async"><span class="v2-pill">NOUVEAU</span></span><span class="v2-card__body"><span class="v2-card__k">ALBUM · VOLUME 2</span><span class="v2-card__t">Card Collector 2</span><span class="v2-card__d">Construisez votre collection au fil des lives.</span></span></a>
+<a class="v2-card" data-dest="wiki" href="./go/wiki.html"><span class="v2-card__img v2-card__img--wiki"><span aria-hidden="true">WQ</span></span><span class="v2-card__body"><span class="v2-card__k">DOSSIERS DES VARIANTES</span><span class="v2-card__t">Wiki QuenQuen</span><span class="v2-card__d">Chaque QuenQuen identifié, son univers d’origine et son histoire.</span></span></a>
+<a class="v2-card" data-dest="game" href="./go/the-rise.html"><span class="v2-card__img v2-card__img--rise"><img class="v2-rise__bg" src="assets/multiverse.webp" alt="" loading="lazy" decoding="async"><img class="v2-rise__fr" src="assets/french_flying.png" alt="" loading="lazy" decoding="async"></span><span class="v2-card__body"><span class="v2-card__k">SIMULATION · JEU</span><span class="v2-card__t">The Rise of French QuenQuen</span><span class="v2-card__d">Revivez l’ascension du sujet prioritaire à travers le Multivers.</span></span></a>
+</div>
+</div>
 </section>
+
+<section class="v2-wrap v2-block v2-channels" id="hubReseaux" aria-labelledby="v2ChanTitle">
+<h2 class="v2-h2 v2-h2--sm" id="v2ChanTitle">Canaux de transmission</h2>
+<nav aria-label="Réseaux sociaux" class="v2-chips">
+<a class="v2-chip" data-qc-twitch href="https://www.twitch.tv/frenchquenquen_">Twitch <span class="v2-chip__state" id="qcTwitchSignal">LIVE</span><span class="qc-sr" id="qcTwitchSr"></span></a>
+<a class="v2-chip" href="./go/youtube.html" target="_blank" rel="noopener noreferrer">YouTube<span class="qc-sr"> (nouvel onglet)</span></a>
+<a class="v2-chip" href="./go/tiktok.html" target="_blank" rel="noopener noreferrer">TikTok<span class="qc-sr"> (nouvel onglet)</span></a>
+<a class="v2-chip" href="./go/instagram.html" target="_blank" rel="noopener noreferrer">Instagram<span class="qc-sr"> (nouvel onglet)</span></a>
+<a class="v2-chip" href="./go/discord.html" target="_blank" rel="noopener noreferrer">Discord<span class="qc-sr"> (nouvel onglet)</span></a>
+<a class="v2-chip v2-chip--secret" href="./go/onlyfan.html" target="_blank" rel="noopener noreferrer">Dossier Chantal<span class="qc-sr"> (nouvel onglet)</span></a>
+</nav>
+</section>
+
+<section class="v2-band" id="v2Agents" aria-labelledby="v2AgentTitle">
+<div class="v2-wrap v2-block">
+<div class="v2-kicker">RECRUTEMENT</div>
+<h2 class="v2-h2" id="v2AgentTitle">Devenez agent de la QUENQUEN CORP</h2>
+<p class="v2-sub">Créez votre carte d’agent, déclarez votre univers d’origine et inscrivez-vous au registre public. Les agents aident la Corp à documenter les événements du Multivers.</p>
 <div class="community-bottom">
 <div class="member" id="member"><div class="seal" id="seal" aria-hidden="true">?</div><div class="membercard" id="membercard" hidden><div class="mc-top">QUENQUEN <b>CORP</b><span>◈</span></div><div class="mc-portrait" id="mcportrait"></div><div class="mc-emblem">✦</div><div class="mc-name" id="mcname"></div><div class="mc-role" id="mcrole"></div><div class="mc-bottom" id="mcbottom"></div><div class="mc-id" id="mcid"></div></div><div class="who"><b id="who">VISITEUR NON IDENTIFIÉ</b><div class="who-title" id="whoTitle"></div><small id="meta">CRÉEZ VOTRE IDENTITÉ QUENQUEN CORP POUR ÊTRE RECONNU À TRAVERS L'ÉCOSYSTÈME.</small></div><button id="identityBtn">CRÉER MA CARTE CORP</button></div>
 <section class="registry" id="corpRegistry"><div class="registry-head"><div><div class="registry-count"><span id="agentCount">—</span> <small>AGENTS ENREGISTRÉS</small></div></div><div class="registry-actions"><button id="registerAgent">M'INSCRIRE AU REGISTRE PUBLIC</button><button class="secondary" id="toggleRegistry">CONSULTER LE REGISTRE</button></div></div><div class="registry-note">L'inscription est publique et volontaire. Le registre affiche uniquement votre pseudo, matricule CORP, univers, titre et rang.</div><div class="registry-status" id="registryStatus">Connexion au Registre Central…</div><div class="registry-list" id="registryList"></div></section>
 </div>
-<section aria-label="Communication officielle QUENQUEN CORP" style="max-width:760px;margin:32px auto 26px;padding:20px 18px;text-align:center;border:1px solid rgba(255,215,75,.22);border-radius:12px;background:rgba(0,0,0,.22);color:#eee"><div style="font-size:11px;letter-spacing:.14em;color:#e3c76e;margin-bottom:12px">QUENQUEN CORP — COMMUNICATION OFFICIELLE</div><p style="line-height:1.65;margin:0">« Nous n'influençons pas les événements.<br>Nous nous assurons simplement qu'ils soient correctement documentés. »</p><div style="font-size:10px;letter-spacing:.12em;opacity:.65;margin-top:12px">DÉPARTEMENT DES ARCHIVES</div></section>
-</main><nav class="mobile-hub-nav" aria-label="Navigation rapide du hub"><a href="#hubAccueil">ACCUEIL</a><a href="#hubPortails">PORTAILS</a><a href="#hubReseaux">RÉSEAUX</a><a href="#corpRegistry">AGENTS</a></nav>
+</div>
+</section>
+</main>
+<footer class="v2-foot">
+<div class="v2-wrap v2-foot__in">
+<div><p class="v2-quote">« Nous n’influençons pas les événements. Nous nous assurons simplement qu’ils soient correctement documentés. »</p><div class="v2-kicker v2-kicker--muted">DÉPARTEMENT DES ARCHIVES</div></div>
+</div>
+</footer>
 <div class="card-zoom" id="cardZoom" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Carte de membre agrandie">
   <button class="card-zoom-close" id="cardZoomClose" aria-label="Fermer">×</button>
   <div class="card-zoom-stage"><div class="card-zoom-copy" id="cardZoomCopy"></div><div class="card-zoom-hint">CLIQUEZ EN DEHORS POUR FERMER</div></div>
@@ -1275,8 +1462,8 @@ document.addEventListener("pointerdown",startAudio,{once:true});document.addEven
 const sndBtn=document.getElementById("qcSoundToggle");function syncSound(){if(!sndBtn)return;sndBtn.setAttribute("aria-pressed",String(soundOn));sndBtn.textContent=soundOn?"🔊 SON":"🔇 SON COUPÉ"}
 if(sndBtn){syncSound();sndBtn.addEventListener("click",()=>{soundOn=!soundOn;try{localStorage.setItem("qc_hub_sound",soundOn?"on":"off")}catch(_){}if(soundOn){if(!started)startAudio();else if(ctx)ctx.resume().catch(()=>{})}else if(ctx){ctx.suspend().catch(()=>{})}syncSound()})}
 document.querySelectorAll(".portal").forEach(p=>{p.addEventListener("mouseenter",()=>tone(680,.055,.04,"square"));p.addEventListener("click",()=>{tone(420,.07,.07,"square");tone(840,.11,.05,"sine",.055)})});
-setInterval(()=>{i=(i+1)%msgs.length;a.innerHTML="<b>SYSTÈME</b> - "+msgs[i];tone(1040,.045,.025,"sine")},5200);
-const anomaly=()=>{n.classList.add("show");tone(155,.28,.09,"sawtooth");tone(116,.36,.065,"sawtooth",.12);setTimeout(()=>n.classList.remove("show"),1350);setTimeout(anomaly,30000+Math.random()*30000)};setTimeout(anomaly,22000+Math.random()*18000)})();
+setInterval(()=>{i=(i+1)%msgs.length;a.innerHTML="<b>SYSTÈME</b> - "+msgs[i]},5200);
+const anomaly=()=>{n.classList.add("show");tone(155,.28,.09,"sawtooth");tone(116,.36,.065,"sawtooth",.12);setTimeout(()=>n.classList.remove("show"),1350);setTimeout(anomaly,150000+Math.random()*150000)};setTimeout(anomaly,60000+Math.random()*60000)})();
 </script>
 <style id="qcContactStyle">
 #qcContactTrigger{position:fixed;bottom:18px;right:18px;z-index:115;border:1px solid #e3bb00;border-radius:4px;background:#08090d;color:#ffcc00;padding:10px 16px;font:800 12px Arial,sans-serif;letter-spacing:1.4px;cursor:pointer;box-shadow:0 3px 18px #0008}
@@ -1296,7 +1483,6 @@ const anomaly=()=>{n.classList.add("show");tone(155,.28,.09,"sawtooth");tone(116
 #qcContactPanel .qcContactTrap{position:absolute;left:-10000px;opacity:0;pointer-events:none}
 @media(max-width:600px){#qcContactTrigger{bottom:12px;right:12px;padding:9px 12px}#qcContactPanel{padding:24px 18px}}
 </style>
-<button id="qcContactTrigger" type="button">✉ CONTACT</button>
 <div id="qcContactOverlay" aria-hidden="true">
  <section id="qcContactPanel" role="dialog" aria-modal="true" aria-labelledby="qcContactTitle">
   <button id="qcContactClose" type="button" aria-label="Fermer">×</button>
@@ -1380,7 +1566,7 @@ const anomaly=()=>{n.classList.add("show");tone(155,.28,.09,"sawtooth");tone(116
  const safeUrl=(u,hosts)=>{try{const x=new URL(u);return x.protocol==="https:"&&hosts.includes(x.hostname)}catch(_){return false}};
  let videoShown="";
  function applyLive(t){
-  const live=!!t&&t.live===true;isLive=live;if(typeof applySchedule==="function"&&lastSchedule!==null)applySchedule(lastSchedule);const banner=$("qcLiveBanner"),sig=$("qcTwitchSignal"),sr=$("qcTwitchSr"),portal=document.querySelector(".portal.social.twitch");
+  const live=!!t&&t.live===true;isLive=live;if(typeof applySchedule==="function"&&lastSchedule!==null)applySchedule(lastSchedule);const banner=$("qcLiveBanner"),sig=$("qcTwitchSignal"),sr=$("qcTwitchSr"),portal=document.querySelector("[data-qc-twitch]");
   if(banner){if(live){$("qcLiveTitle").textContent=typeof t.title==="string"?t.title.slice(0,140):"";}if(banner.hidden===live)banner.hidden=!live}
   if(sig)sig.textContent=live?"● EN LIVE":(t&&t.live===false?"HORS LIGNE":"LIVE");
   if(sr)sr.textContent=live?" En live en ce moment.":"";
@@ -1393,10 +1579,10 @@ const anomaly=()=>{n.classList.add("show");tone(155,.28,.09,"sawtooth");tone(116
   const a=$("qcFeatured"),img=$("qcFeaturedImg");if(!a||!img)return;
   let date="";try{const d=new Date(v.published);if(!isNaN(d))date=d.toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"})}catch(_){}
   a.href=v.url;img.src="https://i.ytimg.com/vi/"+v.id+"/hqdefault.jpg";
-  $("qcFeaturedEyebrow").textContent=v.isShort?"DERNIER SHORT":"DERNIÈRE VIDÉO";
+  $("qcFeaturedEyebrow").textContent=(v.isShort?"ARCHIVE SHORT":"ARCHIVE VIDÉO")+(date?" · "+date.toUpperCase():"");
   $("qcFeaturedTitle").textContent=v.title.replace(/\s*#shorts?\b/gi,"").trim().slice(0,160);
-  $("qcFeaturedText").textContent=date?"Publiée le "+date+" sur la chaîne YouTube QuenQuen.":"Sur la chaîne YouTube QuenQuen.";
-  $("qcFeaturedCta").textContent=v.isShort?"REGARDER LE SHORT":"REGARDER LA VIDÉO";
+  $("qcFeaturedText").textContent="Transmission archivée sur la chaîne YouTube QuenQuen.";
+  $("qcFeaturedCta").textContent=v.isShort?"Regarder le Short sur YouTube":"Regarder sur YouTube";
   videoShown=v.id;
  }
  const el=(tag,cls,txt)=>{const n=document.createElement(tag);if(cls)n.className=cls;n.textContent=txt;return n};
@@ -1421,7 +1607,7 @@ const anomaly=()=>{n.classList.add("show");tone(155,.28,.09,"sawtooth");tone(116
   const fmt=(d,long)=>cap(d.toLocaleDateString("fr-FR",long?{weekday:"long",day:"numeric",month:"long"}:{weekday:"long",day:"numeric",month:"short"}));
   const hour=x=>x.time||x.d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}).replace(":","h");
   const first=items[0];
-  $("qcPlanBadge").textContent="PROCHAIN LIVE · "+whenLabel(first.d);
+  $("qcPlanBadge").textContent="PROCHAINE OBSERVATION · "+whenLabel(first.d);
   $("qcPlanNextTitle").textContent=first.title;
   $("qcPlanNextWhen").textContent="— "+fmt(first.d,false)+" · "+hour(first);
   const ul=$("qcPlanList");ul.replaceChildren();
