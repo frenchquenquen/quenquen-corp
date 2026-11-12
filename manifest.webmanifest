@@ -1,7 +1,7 @@
 {
   "name": "QUENQUEN CORP — Le Multivers",
   "short_name": "QUENQUEN CORP",
-  "description": "Le portail officiel du multivers de French QuenQuen",
+  "description": "Portail officiel de la QUENQUEN CORP : chaque QuenQuen du Multivers est identifié ici",
   "lang": "fr",
   "start_url": "./?source=app",
   "scope": "./",
