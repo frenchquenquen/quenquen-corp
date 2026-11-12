@@ -917,6 +917,8 @@ body.v2 .qc-plan__badge{background:#f2c52d;color:#0b0d12}
 .v2-card__img--wiki{display:flex;align-items:center;justify-content:center;background:#fff;color:#111;font:700 72px Georgia,serif}
 .v2-card__img--rise .v2-rise__bg{position:absolute;inset:0}
 .v2-card__img--rise .v2-rise__fr{position:absolute;left:50%;top:8px;width:auto;height:230px;transform:translateX(-50%);object-fit:contain}
+/* Volume 2 : visuels floutés pour ne rien dévoiler des cartes */
+.v2-card--new .v2-card__img img{position:absolute;inset:-12px;width:calc(100% + 24px);height:calc(100% + 24px);filter:blur(7px) saturate(.9) brightness(.8);transform:scale(1.04)}
 .v2-pill{position:absolute;top:12px;left:12px;padding:4px 10px;border-radius:999px;background:#f2c52d;color:#0b0d12;font:700 12px Inter,Arial,sans-serif;letter-spacing:.5px}
 .v2-card__body{display:flex;flex-direction:column;gap:6px;padding:18px}
 .v2-card__k{font:500 12px "JetBrains Mono",monospace;letter-spacing:1.5px;color:#f2c52d}
