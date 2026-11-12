@@ -25,3 +25,14 @@ Un audit a été fait le 12/11/2026 : voir `AUDIT-ACCESSIBILITE.md` pour les rè
 Chaque carte `card-collector-v2/assets/cards/N.png` a une vignette légère
 `card-collector-v2/assets/cards/thumbs/N.webp` (480 px) utilisée dans l'album.
 Sans vignette, l'album charge directement le PNG.
+
+## Live Twitch et vidéo à la une
+
+L'accueil interroge la fonction Supabase `qc-hub-status` (publique, lecture seule) toutes les 90 secondes.
+Elle renvoie l'état du live Twitch de `frenchquenquen_` et la dernière vidéo de la chaîne YouTube `@quenquen-le-multivers`.
+
+- En live : bandeau rouge « EN LIVE MAINTENANT » en haut de l'accueil et portail Twitch marqué « ● EN LIVE ».
+- Vidéo à la une : dernière vidéo longue de la chaîne (à défaut, le dernier Short).
+- Si la fonction ne répond pas, l'accueil garde la vidéo écrite en dur dans `index.html` et n'affiche pas de bandeau.
+- Sans clés Twitch, le live est détecté par l'aperçu public de Twitch (quelques minutes de décalage possibles, pas de titre garanti).
+  Avec les secrets `TWITCH_CLIENT_ID` et `TWITCH_CLIENT_SECRET` dans Supabase, la fonction utilise l'API officielle (titre, jeu, spectateurs).
