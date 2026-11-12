@@ -807,23 +807,25 @@ header{position:absolute}
  .portal.collector-v2,.portal.collector-v2 .info{min-height:0}
  .portal:not(.social) .portal-badge{left:8px!important;right:auto!important;top:8px!important}
 }
-/* Planning des lives */
-.qc-plan{max-width:980px;margin:22px auto 0;padding:18px 22px;border:1px solid #f2c52d55;border-radius:16px;background:linear-gradient(125deg,#12161e,#090b0f);color:#f1f1f1}
-.qc-plan[hidden]{display:none}
-.qc-plan__head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
-.qc-plan__kicker{margin:0;color:#f2c52d;font:700 13px monospace;letter-spacing:3px}
-.qc-plan__follow{padding:9px 13px;border:1px solid #f2c52d;border-radius:8px;color:#f2c52d;text-decoration:none;font:800 12px Arial,sans-serif;letter-spacing:1px}
-.qc-plan__follow:hover{background:#f2c52d;color:#0a0a0a}
-.qc-plan__next{margin:14px 0 4px;padding:14px 16px;border-left:4px solid #f2c52d;background:#ffffff08;border-radius:0 10px 10px 0}
-.qc-plan__badge{display:inline-block;padding:4px 9px;border-radius:999px;background:#f2c52d;color:#0a0a0a;font:800 12px Arial,sans-serif;letter-spacing:.5px}
-.qc-plan__title{margin:9px 0 3px;font:800 clamp(19px,2.6vw,25px)/1.2 Arial,sans-serif}
-.qc-plan__when{margin:0;color:#c3c9d2;font:15px/1.4 Arial,sans-serif}
-.qc-plan__list{list-style:none;margin:10px 0 0;padding:0}
-.qc-plan__list li{display:grid;grid-template-columns:150px 70px minmax(0,1fr);gap:4px 12px;padding:9px 2px;border-top:1px solid #ffffff14;font:15px/1.35 Arial,sans-serif}
+/* Planning des lives — bandeau compact */
+.qc-plan{max-width:980px;margin:18px auto 0;border:1px solid #f2c52d55;border-radius:12px;background:#0d1016;color:#f1f1f1}
+.qc-plan[hidden],.qc-plan__details[hidden],.qc-plan__toggle[hidden]{display:none}
+.qc-plan__bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:10px 14px}
+.qc-plan__badge{flex:none;padding:4px 9px;border-radius:999px;background:#f2c52d;color:#0a0a0a;font:800 12px Arial,sans-serif;letter-spacing:.5px}
+.qc-plan__next{flex:1 1 260px;min-width:0;font:15px/1.35 Arial,sans-serif}
+.qc-plan__next b{font-weight:800}
+.qc-plan__when{color:#c3c9d2}
+.qc-plan__toggle{flex:none;padding:6px 10px;border:1px solid #ffffff2e;border-radius:7px;background:transparent;color:#e9e9e9;font:700 12px Arial,sans-serif;cursor:pointer}
+.qc-plan__toggle:hover{border-color:#f2c52d;color:#f2c52d}
+.qc-plan__follow{flex:none;color:#f2c52d;font:800 12px Arial,sans-serif;letter-spacing:.5px;text-decoration:none}
+.qc-plan__follow:hover{text-decoration:underline}
+.qc-plan__details{padding:0 14px 10px}
+.qc-plan__list{list-style:none;margin:0;padding:0}
+.qc-plan__list li{display:grid;grid-template-columns:170px 60px minmax(0,1fr);gap:4px 12px;padding:8px 2px;border-top:1px solid #ffffff14;font:14px/1.35 Arial,sans-serif}
 .qc-plan__list .d{color:#c3c9d2}.qc-plan__list .h{font-weight:800;color:#f2c52d}
-.qc-plan__more{margin:12px 0 0;color:#a3aab5;font:13px/1.5 Arial,sans-serif}
+.qc-plan__more{margin:8px 0 0;color:#a3aab5;font:13px/1.5 Arial,sans-serif}
 .qc-plan__more a{color:#f2c52d}
-@media(max-width:700px){.qc-plan{margin-top:16px;padding:15px 14px}.qc-plan__follow{width:100%;text-align:center}.qc-plan__list li{grid-template-columns:auto 1fr;font-size:14px}.qc-plan__list .t{grid-column:1/-1}}
+@media(max-width:700px){.qc-plan{margin-top:14px}.qc-plan__bar{padding:10px 12px}.qc-plan__next{flex-basis:100%;font-size:14px}.qc-plan__list li{grid-template-columns:auto 1fr}.qc-plan__list .t{grid-column:1/-1}}
 /* Indicateur de live Twitch */
 .qc-live{max-width:980px;margin:22px auto -6px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:14px 18px;border:1px solid #ff4d4d;border-radius:14px;background:linear-gradient(120deg,#3a0b10,#14080b);color:#fff;text-decoration:none;box-shadow:0 0 26px #ff2d2d33}
 .qc-live[hidden]{display:none}
@@ -843,11 +845,9 @@ header{position:absolute}
 <main><section class="hero" id="hubAccueil"><div class="micro">MULTIVERSE COMMUNITY ACCESS</div><h1 class="qc-sr">QUENQUEN CORP — le Multivers de French QuenQuen</h1><img class="hero-logo" src="./assets/logo-quenquen-corp-entier.png" alt="" width="2048" height="1152"><div class="hero-agent-status" id="heroAgentStatus" aria-live="polite">MODE VISITEUR</div>
 </section>
 <div id="qcLiveSlot" role="status" aria-live="polite"><a id="qcLiveBanner" class="qc-live" href="https://www.twitch.tv/frenchquenquen_" hidden><span class="qc-live__dot" aria-hidden="true"></span><span class="qc-live__label">EN LIVE MAINTENANT</span><span class="qc-live__title" id="qcLiveTitle"></span><span class="qc-live__cta">REJOINDRE LE LIVE <span aria-hidden="true">→</span></span></a></div>
-<section class="qc-plan" id="qcPlanning" aria-labelledby="qcPlanTitle" hidden>
-<div class="qc-plan__head"><h2 class="qc-plan__kicker" id="qcPlanTitle">PLANNING DES LIVES</h2><a class="qc-plan__follow" href="https://www.twitch.tv/frenchquenquen_" target="_blank" rel="noopener noreferrer">ME PRÉVENIR SUR TWITCH<span class="qc-sr"> (nouvel onglet)</span> <span aria-hidden="true">↗</span></a></div>
-<div class="qc-plan__next"><span class="qc-plan__badge" id="qcPlanBadge">PROCHAIN LIVE</span><p class="qc-plan__title" id="qcPlanNextTitle"></p><p class="qc-plan__when" id="qcPlanNextWhen"></p></div>
-<ul class="qc-plan__list" id="qcPlanList"></ul>
-<p class="qc-plan__more">Le planning est aussi publié sur <a href="./go/discord.html" target="_blank" rel="noopener noreferrer">Discord<span class="qc-sr"> (nouvel onglet)</span></a>.</p>
+<section class="qc-plan" id="qcPlanning" aria-label="Planning des lives" hidden>
+<div class="qc-plan__bar"><span class="qc-plan__badge" id="qcPlanBadge">PROCHAIN LIVE</span><span class="qc-plan__next"><b id="qcPlanNextTitle"></b> <span class="qc-plan__when" id="qcPlanNextWhen"></span></span><button type="button" class="qc-plan__toggle" id="qcPlanToggle" aria-expanded="false" aria-controls="qcPlanDetails" hidden></button><a class="qc-plan__follow" href="https://www.twitch.tv/frenchquenquen_" target="_blank" rel="noopener noreferrer">Suivre sur Twitch<span class="qc-sr"> (nouvel onglet)</span> <span aria-hidden="true">↗</span></a></div>
+<div class="qc-plan__details" id="qcPlanDetails" hidden><ul class="qc-plan__list" id="qcPlanList"></ul><p class="qc-plan__more">Le planning est aussi publié sur <a href="./go/discord.html" target="_blank" rel="noopener noreferrer">Discord<span class="qc-sr"> (nouvel onglet)</span></a>.</p></div>
 </section>
 <a class="featured-video" id="qcFeatured" href="https://youtu.be/khFWTTlk2WA" target="_blank" rel="noopener noreferrer">
 <div class="featured-video__thumb"><img id="qcFeaturedImg" src="https://i.ytimg.com/vi/khFWTTlk2WA/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360"><span class="featured-video__badge">À LA UNE</span></div>
@@ -1380,7 +1380,7 @@ const anomaly=()=>{n.classList.add("show");tone(155,.28,.09,"sawtooth");tone(116
  const safeUrl=(u,hosts)=>{try{const x=new URL(u);return x.protocol==="https:"&&hosts.includes(x.hostname)}catch(_){return false}};
  let videoShown="";
  function applyLive(t){
-  const live=!!t&&t.live===true,banner=$("qcLiveBanner"),sig=$("qcTwitchSignal"),sr=$("qcTwitchSr"),portal=document.querySelector(".portal.social.twitch");
+  const live=!!t&&t.live===true;isLive=live;if(typeof applySchedule==="function"&&lastSchedule!==null)applySchedule(lastSchedule);const banner=$("qcLiveBanner"),sig=$("qcTwitchSignal"),sr=$("qcTwitchSr"),portal=document.querySelector(".portal.social.twitch");
   if(banner){if(live){$("qcLiveTitle").textContent=typeof t.title==="string"?t.title.slice(0,140):"";}if(banner.hidden===live)banner.hidden=!live}
   if(sig)sig.textContent=live?"● EN LIVE":(t&&t.live===false?"HORS LIGNE":"LIVE");
   if(sr)sr.textContent=live?" En live en ce moment.":"";
@@ -1409,20 +1409,32 @@ const anomaly=()=>{n.classList.add("show");tone(155,.28,.09,"sawtooth");tone(116
   if(diff===1)return "DEMAIN";
   return "DANS "+diff+" JOURS";
  }
+ let isLive=false,lastSchedule=null;
+ const toggle=$("qcPlanToggle"),details=$("qcPlanDetails");
+ if(toggle&&details)toggle.addEventListener("click",()=>{const open=details.hidden;details.hidden=!open;toggle.setAttribute("aria-expanded",String(open));toggle.textContent=open?toggle.dataset.close:toggle.dataset.open});
  function applySchedule(list){
+  lastSchedule=list;
   const box=$("qcPlanning");if(!box)return;
   const now=Date.now(),items=(Array.isArray(list)?list:[]).map(x=>({d:new Date(x&&x.startsAt),time:String(x&&x.time||"").slice(0,15),title:String(x&&x.title||"").slice(0,110)}))
    .filter(x=>!isNaN(x.d)&&x.title&&x.d.getTime()>now-3*3600000).sort((a,b)=>a.d-b.d).slice(0,8);
-  if(!items.length){box.hidden=true;return}
-  const fmt=d=>cap(d.toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"}));
+  if(!items.length||isLive){box.hidden=true;return}
+  const fmt=(d,long)=>cap(d.toLocaleDateString("fr-FR",long?{weekday:"long",day:"numeric",month:"long"}:{weekday:"long",day:"numeric",month:"short"}));
   const hour=x=>x.time||x.d.toLocaleTimeString("fr-FR",{hour:"2-digit",minute:"2-digit"}).replace(":","h");
   const first=items[0];
   $("qcPlanBadge").textContent="PROCHAIN LIVE · "+whenLabel(first.d);
   $("qcPlanNextTitle").textContent=first.title;
-  $("qcPlanNextWhen").textContent=fmt(first.d)+" · "+hour(first);
+  $("qcPlanNextWhen").textContent="— "+fmt(first.d,false)+" · "+hour(first);
   const ul=$("qcPlanList");ul.replaceChildren();
-  for(const x of items.slice(1)){const li=document.createElement("li");li.append(el("span","d",fmt(x.d)),el("span","h",hour(x)),el("span","t",x.title));ul.append(li)}
-  ul.hidden=items.length<2;box.hidden=false;
+  for(const x of items.slice(1)){const li=document.createElement("li");li.append(el("span","d",fmt(x.d,true)),el("span","h",hour(x)),el("span","t",x.title));ul.append(li)}
+  const others=items.length-1;
+  if(toggle){
+   toggle.hidden=others<1;
+   toggle.dataset.open=others===1?"+1 autre live":"+"+others+" autres lives";
+   toggle.dataset.close="Masquer";
+   toggle.textContent=details&&!details.hidden?toggle.dataset.close:toggle.dataset.open;
+   if(others<1&&details){details.hidden=true;toggle.setAttribute("aria-expanded","false")}
+  }
+  box.hidden=false;
  }
  async function refresh(){
   try{const r=await fetch(ENDPOINT,{cache:"no-store"});if(!r.ok)return;const j=await r.json();applyLive(j.twitch);applyVideo(j.youtube);applySchedule(j.schedule)}catch(_){}
