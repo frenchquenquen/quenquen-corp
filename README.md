@@ -29,7 +29,7 @@ Sans vignette, l'album charge directement le PNG.
 ## Live Twitch, vidéo à la une et planning
 
 L'accueil interroge la fonction Supabase `qc-hub-status` (publique, lecture seule) toutes les 90 secondes.
-Elle renvoie l'état du live Twitch de `frenchquenquen_` et la dernière vidéo de la chaîne YouTube `@quenquen-le-multivers`.
+Elle renvoie l'état du live Twitch de `frenchquenquen_` et la dernière vidéo de la chaîne YouTube `@frenchquenquen` (identifiant de chaîne UC1yL4kGds_NRitlib_J41jw).
 
 - En live : bandeau rouge « EN LIVE MAINTENANT » en haut de l'accueil et portail Twitch marqué « ● EN LIVE ».
 - Vidéo à la une : dernière vidéo longue de la chaîne (à défaut, le dernier Short).
