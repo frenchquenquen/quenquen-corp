@@ -56,7 +56,7 @@ ont été trouvés à la lecture du code et en naviguant.
 
 ## À décider (non modifié)
 
-1. **Liens des réseaux.** Corrigé le 12/11/2026 : YouTube pointe vers `@quenquen-le-multivers` et TikTok vers `@_quenquen_` (pages `/go/` et données pour Google).
+1. **Liens des réseaux.** Corrigé le 12/11/2026 : YouTube pointe vers `@frenchquenquen` (depuis le 13/11/2026, auparavant `@quenquen-le-multivers`) et TikTok vers `@_quenquen_` (pages `/go/` et données pour Google).
 2. **Intro de 6,6 s avant YouTube.** Un visiteur qui clique sur YouTube attend l'animation (bouton « passer » présent). C'est le seul réseau avec ce délai.
 3. **Musiques.** Décision du 12/11/2026 : on ne touche pas aux musiques. Aucun fichier audio n'a été modifié ni supprimé.
 4. **Lien OnlyFan.** `go/onlyfan.html` mène à un vrai compte OnlyFans depuis un site tout public.
